@@ -1,4 +1,5 @@
-<?php /** @noinspection PhpDocMissingThrowsInspection */
+<?php /** @noinspection PhpUnused */
+/** @noinspection PhpDocMissingThrowsInspection */
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
@@ -6,6 +7,7 @@ namespace DefStudio\LaravelTelegraph;
 
 use DefStudio\LaravelTelegraph\Exceptions\TelegramException;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
@@ -35,7 +37,7 @@ class LaravelTelegraph
 
     private function sendRequestToTelegram(): Response
     {
-        return \Http::get($this->buildUrl());
+        return Http::get($this->buildUrl());
     }
 
     private function checkRequirements(): void
@@ -85,7 +87,7 @@ class LaravelTelegraph
 
 
     /**
-     * @param array<array<array<non-empty-string, non-empty-string>>> $keyboard
+     * @param array<array<array<string, string>>> $keyboard
      */
     public function keyboard(array $keyboard): LaravelTelegraph
     {
@@ -115,7 +117,7 @@ class LaravelTelegraph
     }
 
      /**
-      * @param array<array<array<non-empty-string, non-empty-string>>> $newKeyboard
+      * @param array<array<array<string, string>>> $newKeyboard
       */
     public function replaceKeyboard(string $messageId, array $newKeyboard): LaravelTelegraph
     {

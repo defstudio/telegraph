@@ -35,8 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "DefStudio\\LaravelTelegraph\\": "src",
-            "DefStudio\\LaravelTelegraph\\Database\\Factories\\": "database/factories"
+            "DefStudio\\LaravelTelegraph\\": "src"
         }
     },
     "autoload-dev": {
