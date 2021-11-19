@@ -15,5 +15,7 @@ class LaravelTelegraphServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasRoute('api')
             ->hasCommand(SetTelegramWebhookCommand::class);
+
+        $this->app->bind('laravel-telegraph', fn() => new LaravelTelegraph());
     }
 }
