@@ -1,5 +1,6 @@
 <?php
 
+use DefStudio\LaravelTelegraph\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/telegraph/{token}/webook', [TelegramController::class, 'handle_webook'])->name('telegraph.webhook');
+Route::post('/telegraph/{token}/webook', WebhookController::class)->name('telegraph.webhook');
