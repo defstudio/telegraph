@@ -13,7 +13,7 @@ class LaravelTelegraphServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-telegraph')
             ->hasConfigFile()
-            ->hasRoute()
+            ->hasRoute('api')
             ->hasCommand(SetTelegramWebhookCommand::class);
     }
 }

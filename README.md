@@ -42,7 +42,7 @@ php artisan migrate
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --tag="laravel-telegraph_without_prefix-config"
+php artisan vendor:publish --tag="telegraph-config"
 ```
 
 Optionally, you can publish the views using

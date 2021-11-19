@@ -9,10 +9,7 @@ use Illuminate\Http\Client\Response;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
-/**
- * @internal
- */
-final class LaravelTelegraph
+class LaravelTelegraph
 {
     private const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
     private const ENDPOINT_SET_WEBHOOK = 'setWebhook';

@@ -20,6 +20,7 @@ abstract class WebhookHandler
 
     public function handle(Request $request)
     {
+        $this->request = $request;
         $this->extractData();
 
         $action = $this->data->get('action');
@@ -60,5 +61,10 @@ abstract class WebhookHandler
     protected function replaceKeyboard(array $newKeyboard): void
     {
         LaravelTelegraph::chat($this->chatId)->replaceKeyboard($this->messageId, $newKeyboard)->send();
+    }
+
+    protected function deleteKeyboard(): void
+    {
+        LaravelTelegraph::chat($this->chatId)->replaceKeyboard($this->messageId, [])->send();
     }
 }
