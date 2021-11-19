@@ -6,7 +6,7 @@ use Illuminate\Http\Response;
 
 class WebhookController
 {
-    public function __invoke(string $token): Response
+    public function handle(string $token): Response
     {
         abort_unless($token == config('telegraph.bot_token'), Response::HTTP_FORBIDDEN);
 
