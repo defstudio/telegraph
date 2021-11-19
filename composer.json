@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "defstudio/laravel-telegraph",
+    "description": "A laravel facade to interact with Telegram Bots",
     "keywords": [
-        ":vendor_name",
+        "defstudio",
         "laravel",
-        ":package_slug"
+        "laravel-telegraph"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/defstudio/laravel-telegraph",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Fabio Ivona",
+            "email": "fabio.ivona@defstudio.it",
             "role": "Developer"
         }
     ],
@@ -30,23 +30,31 @@
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.4",
-        "spatie/laravel-ray": "^1.26"
+        "spatie/laravel-ray": "^1.26",
+        "friendsofphp/php-cs-fixer": "^v3.1"
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "DefStudio\\LaravelTelegraph\\": "src",
+            "DefStudio\\LaravelTelegraph\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "DefStudio\\LaravelTelegraph\\Tests\\": "tests"
         }
     },
     "scripts": {
-        "phpstan": "vendor/bin/phpstan analyse",
-        "test": "vendor/bin/pest",
-        "test-coverage": "vendor/bin/pest coverage"
+        "lint": "vendor/bin/php-cs-fixer fix -v",
+        "test:lint": "vendor/bin/php-cs-fixer fix -v --dry-run",
+        "test:types": "vendor/bin/phpstan analyse --ansi",
+        "test:unit": "vendor/bin/pest --colors=always",
+        "test": [
+            "@test:lint",
+            "@test:types",
+            "@test:unit"
+        ],
+        "coverage": "@test:unit --coverage"
     },
     "config": {
         "sort-packages": true
@@ -54,10 +62,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "DefStudio\\LaravelTelegraph\\LaravelTelegraphServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Telegraph": "DefStudio\\LaravelTelegraph\\Facades\\LaravelTelegraph"
             }
         }
     },

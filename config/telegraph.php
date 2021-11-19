@@ -1,0 +1,15 @@
+<?php
+
+use DefStudio\LaravelTelegraph\Handlers\EmptyWebhookHandler;
+
+return [
+    'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+    'chat_id' => env('TELEGRAM_CHAT_ID'),
+
+    /*
+     * html|markdown
+     */
+    'default_parse_mode' => 'html',
+
+    'webhook_handler' => EmptyWebhookHandler::class
+];
