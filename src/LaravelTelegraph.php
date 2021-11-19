@@ -5,28 +5,29 @@
 
 namespace DefStudio\LaravelTelegraph;
 
+use DefStudio\LaravelTelegraph\Contracts\TelegraphContract;
 use DefStudio\LaravelTelegraph\Exceptions\TelegramException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
-class LaravelTelegraph
+class LaravelTelegraph implements TelegraphContract
 {
-    private const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
-    private const ENDPOINT_SET_WEBHOOK = 'setWebhook';
-    private const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
-    private const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
-    private const ENDPOINT_MESSAGE = 'sendMessage';
+    protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
+    protected const ENDPOINT_SET_WEBHOOK = 'setWebhook';
+    protected const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
+    protected const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
+    protected const ENDPOINT_MESSAGE = 'sendMessage';
 
-    private string $endpoint;
-    private array $data = [];
-    private string $botToken;
-    private string $chatId;
+    protected string $endpoint;
+    protected array $data = [];
+    protected string $botToken;
+    protected string $chatId;
 
-    private string $message;
-    private array $keyboard;
-    private string $parseMode = 'html';
+    protected string $message;
+    protected array $keyboard;
+    protected string $parseMode;
 
     public function __construct()
     {
@@ -35,12 +36,12 @@ class LaravelTelegraph
         $this->parseMode = config('telegraph.default_parse_mode');
     }
 
-    private function sendRequestToTelegram(): Response
+    protected function sendRequestToTelegram(): Response
     {
         return Http::get($this->buildUrl());
     }
 
-    private function checkRequirements(): void
+    protected function checkRequirements(): void
     {
         if (empty($this->botToken)) {
             throw TelegramException::missingBotToken();
@@ -51,12 +52,28 @@ class LaravelTelegraph
         }
     }
 
-    private function buildUrl()
+    protected function buildUrl()
     {
         return Str::of(self::TELEGRAM_API_BASE_URL)
             ->append($this->botToken)
             ->append('/', $this->endpoint)
             ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
+    }
+
+    protected function buildChatMessage(): void
+    {
+        $this->endpoint = self::ENDPOINT_MESSAGE;
+        $this->data = [
+            'text' => $this->message,
+            'chat_id' => $this->chatId,
+            'parse_mode' => $this->parseMode
+        ];
+
+        if(!empty($this->keyboard)){
+            $this->data['reply_markup'] = json_encode([
+                'inline_keyboard' => $this->keyboard
+            ]);
+        }
     }
 
     public function bot(string $botToken): LaravelTelegraph
@@ -84,7 +101,6 @@ class LaravelTelegraph
         $this->parseMode = 'markdown';
         return $this;
     }
-
 
     /**
      * @param array<array<array<string, string>>> $keyboard
@@ -137,22 +153,6 @@ class LaravelTelegraph
         ];
 
         return $this;
-    }
-
-    private function buildChatMessage(): void
-    {
-        $this->endpoint = self::ENDPOINT_MESSAGE;
-        $this->data = [
-            'text' => $this->message,
-            'chat_id' => $this->chatId,
-            'parse_mode' => $this->parseMode
-        ];
-
-        if(!empty($this->keyboard)){
-            $this->data['reply_markup'] = json_encode([
-                'inline_keyboard' => $this->keyboard
-            ]);
-        }
     }
 
     public function send(): Response
