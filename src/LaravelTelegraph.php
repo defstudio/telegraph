@@ -16,12 +16,12 @@ use Illuminate\Support\Stringable;
 
 class LaravelTelegraph implements TelegraphContract
 {
-    protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
-    protected const ENDPOINT_SET_WEBHOOK = 'setWebhook';
-    protected const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';
-    protected const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
-    protected const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
-    protected const ENDPOINT_MESSAGE = 'sendMessage';
+    private const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
+    public const ENDPOINT_SET_WEBHOOK = 'setWebhook';
+    public const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';
+    public const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
+    public const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
+    public const ENDPOINT_MESSAGE = 'sendMessage';
 
     protected string $endpoint;
 

@@ -1,0 +1,1 @@
+https://api.telegram.org/bot123456AAABBB/sendMessage?text=foobar&chat_id=-987654321&parse_mode=html&reply_markup=%7B%22inline_keyboard%22%3A%5B%7B%22foo%22%3A%22bar%22%7D%5D%7D

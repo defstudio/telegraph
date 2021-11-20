@@ -11,6 +11,7 @@ use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use ReflectionMethod;
 
 abstract class WebhookHandler
 {
@@ -21,44 +22,25 @@ abstract class WebhookHandler
     protected Collection $data;
     protected Collection $originalKeyboard;
 
-    public function handle(Request $request): void
-    {
-        $this->request = $request;
-        $this->extractData();
-
-        $action = $this->data->get('action');
-
-        if (!method_exists($this, $action)) {
-            report(TelegramWebhookException::invalidAction($action));
-            $this->reply('Invalid action');
-
-            return;
-        }
-
-        $this->$action();
-    }
-
-    private function extractData(): void
+    protected function extractData(): void
     {
         $this->chatId = $this->request->input('callback_query.message.chat.id'); //@phpstan-ignore-line
         $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
         $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
         $this->originalKeyboard = collect($this->request->input('callback_query.message.reply_markup.inline_keyboard', []))->flatten(1); //@phpstan-ignore-line
         $this->data = Str::of($this->request->input('callback_query.data'))->explode(';') //@phpstan-ignore-line
-            ->mapWithKeys(function (string $entity) {
-                $entity = explode(':', $entity);
-                $key = $entity[0];
-                $value = $entity[1];
+        ->mapWithKeys(function (string $entity) {
+            $entity = explode(':', $entity);
+            $key = $entity[0];
+            $value = $entity[1];
 
-                return [$key => $value];
-            });
+            return [$key => $value];
+        });
     }
 
     protected function reply(string $message): void
     {
-        /** @noinspection PhpUndefinedClassInspection */
-        /** @phpstan-ignore-next-line  */
-        Telegraph::answerWebhook($this->callbackQueryId, $message)->send();
+        LaravelTelegraph::replyWebhook($this->callbackQueryId, $message)->send();
     }
 
     /**
@@ -72,5 +54,40 @@ abstract class WebhookHandler
     protected function deleteKeyboard(): void
     {
         LaravelTelegraph::chat($this->chatId)->replaceKeyboard($this->messageId, [])->send();
+    }
+
+    protected function canHandle(string $action): bool
+    {
+        if (!method_exists($this, $action)) {
+            return false;
+        }
+
+        $reflector = new ReflectionMethod($this::class, $action);
+        if (!$reflector->isPublic()) {
+            return false;
+        }
+
+        if (method_exists(WebhookHandler::class, $action)) {
+            throw TelegramWebhookException::invalidActionName($action);
+        }
+
+        return true;
+    }
+
+    public function handle(Request $request): void
+    {
+        $this->request = $request;
+        $this->extractData();
+
+        $action = $this->data->get('action');
+
+        if (!$this->canHandle($action)) {
+            report(TelegramWebhookException::invalidAction($action));
+            $this->reply('Invalid action');
+
+            return;
+        }
+
+        $this->$action();
     }
 }

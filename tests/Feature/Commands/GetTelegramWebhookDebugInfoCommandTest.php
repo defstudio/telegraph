@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Http;
+use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph as Facade;
+use DefStudio\LaravelTelegraph\LaravelTelegraph;
 use function Pest\Laravel\artisan;
 
 test('can retrieve telegram bot webhook info', function () {
-    Http::fake([
-        'https://api.telegram.org/bot123456AAABBB/getWebhookInfo' => Http::response([
+    Facade::fake([
+        LaravelTelegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO => [
             'ok' => true,
             'result' => [
                 'url' => 'https://local.testing/telegraph/123456AAABBB/webhook',
@@ -14,7 +15,7 @@ test('can retrieve telegram bot webhook info', function () {
                 'max_connections' => 40,
                 'ip_address' => "1.234.567.890",
             ],
-        ]),
+        ],
     ]);
 
     /** @phpstan-ignore-next-line */

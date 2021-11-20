@@ -1,0 +1,1 @@
+https://api.telegram.org/bot123456AAABBB/answerCallbackQuery?callback_query_id=2123456&text=foo
