@@ -22,7 +22,7 @@ interface TelegraphContract
 
     public function registerWebhook(): LaravelTelegraph;
 
-    public function answerWebhook(string $callbackQueryId, string $message): LaravelTelegraph;
+    public function replyWebhook(string $callbackQueryId, string $message): LaravelTelegraph;
 
     /**
      * @param array<array<array<string, string>>> $newKeyboard

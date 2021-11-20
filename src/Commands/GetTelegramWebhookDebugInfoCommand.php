@@ -4,7 +4,6 @@ namespace DefStudio\LaravelTelegraph\Commands;
 
 use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph;
 use Illuminate\Console\Command;
-use Illuminate\Http\Client\Response;
 
 class GetTelegramWebhookDebugInfoCommand extends Command
 {
@@ -14,10 +13,25 @@ class GetTelegramWebhookDebugInfoCommand extends Command
 
     public function handle(): int
     {
-        /** @var Response $reponse */
         $reponse = LaravelTelegraph::getWebhookDebugInfo()->send();
 
-        dump($reponse->json());
+        if (!$reponse->json('ok')) {
+            $this->error("Failed to get log from telegram server");
+            dump($reponse->json());
+
+            return self::FAILURE;
+        }
+
+        /** @var array<string, string|int|bool> $result */
+        $result = $reponse->json('result');
+
+        foreach ($result as $key => $value) {
+            if (is_bool($value)) {
+                $value = $value ? 'yes' : 'no';
+            }
+
+            $this->line("$key: $value");
+        }
 
         //TODO: handle failure
 

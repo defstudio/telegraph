@@ -36,4 +36,8 @@
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>
+    <php>
+        <server name="TELEGRAM_BOT_TOKEN" value="123456AAABBB"/>
+        <server name="TELEGRAM_CHAT_ID" value="-987654321"/>
+    </php>
 </phpunit>

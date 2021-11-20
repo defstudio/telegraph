@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnused */
+
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\LaravelTelegraph\Handlers;
@@ -26,7 +28,7 @@ abstract class WebhookHandler
 
         $action = $this->data->get('action');
 
-        if (! method_exists($this, $action)) {
+        if (!method_exists($this, $action)) {
             report(TelegramWebhookException::invalidAction($action));
             $this->reply('Invalid action');
 
@@ -54,7 +56,9 @@ abstract class WebhookHandler
 
     protected function reply(string $message): void
     {
-        LaravelTelegraph::answerWebhook($this->callbackQueryId, $message)->send();
+        /** @noinspection PhpUndefinedClassInspection */
+        /** @phpstan-ignore-next-line  */
+        Telegraph::answerWebhook($this->callbackQueryId, $message)->send();
     }
 
     /**

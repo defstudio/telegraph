@@ -62,17 +62,6 @@ class LaravelTelegraph implements TelegraphContract
         }
     }
 
-    public function getUrl(): string
-    {
-        $this->prepareForSending();
-
-        /** @phpstan-ignore-next-line  */
-        return (string) Str::of(self::TELEGRAM_API_BASE_URL)
-            ->append($this->botToken)
-            ->append('/', $this->endpoint)
-            ->when(! empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
-    }
-
     protected function buildChatMessage(): void
     {
         $this->endpoint = self::ENDPOINT_MESSAGE;
@@ -82,11 +71,31 @@ class LaravelTelegraph implements TelegraphContract
             'parse_mode' => $this->parseMode,
         ];
 
-        if (! empty($this->keyboard)) {
+        if (!empty($this->keyboard)) {
             $this->data['reply_markup'] = json_encode([
                 'inline_keyboard' => $this->keyboard,
             ]);
         }
+    }
+
+    protected function prepareForSending(): void
+    {
+        $this->checkRequirements();
+
+        if (empty($this->endpoint)) {
+            $this->buildChatMessage();
+        }
+    }
+
+    public function getUrl(): string
+    {
+        $this->prepareForSending();
+
+        /** @phpstan-ignore-next-line */
+        return (string) Str::of(self::TELEGRAM_API_BASE_URL)
+            ->append($this->botToken)
+            ->append('/', $this->endpoint)
+            ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
     }
 
     public function bot(string $botToken): LaravelTelegraph
@@ -146,7 +155,7 @@ class LaravelTelegraph implements TelegraphContract
         return $this;
     }
 
-    public function answerWebhook(string $callbackQueryId, string $message): LaravelTelegraph
+    public function replyWebhook(string $callbackQueryId, string $message): LaravelTelegraph
     {
         $this->endpoint = self::ENDPOINT_ANSWER_WEBHOOK;
         $this->data = [
@@ -183,14 +192,5 @@ class LaravelTelegraph implements TelegraphContract
     public function send(): Response
     {
         return $this->sendRequestToTelegram();
-    }
-
-    protected function prepareForSending(): void
-    {
-        $this->checkRequirements();
-
-        if (empty($this->endpoint)) {
-            $this->buildChatMessage();
-        }
     }
 }
