@@ -16,7 +16,7 @@ class LaravelTelegraphFake extends LaravelTelegraph
     protected function sendRequestToTelegram(): Response
     {
         $this->messages[] = [
-            'url' => $this->buildUrl(),
+            'url' => $this->getUrl(),
             'endpoint' => $this->endpoint ?? null,
             'data' => $this->data ?? null,
             'bot_token' => $this->botToken ?? null,

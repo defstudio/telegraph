@@ -16,6 +16,7 @@ class LaravelTelegraph implements TelegraphContract
 {
     protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
     protected const ENDPOINT_SET_WEBHOOK = 'setWebhook';
+    protected const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';
     protected const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
     protected const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
     protected const ENDPOINT_MESSAGE = 'sendMessage';
@@ -38,7 +39,7 @@ class LaravelTelegraph implements TelegraphContract
 
     protected function sendRequestToTelegram(): Response
     {
-        return Http::get($this->buildUrl());
+        return Http::get($this->getUrl());
     }
 
     protected function checkRequirements(): void
@@ -52,8 +53,10 @@ class LaravelTelegraph implements TelegraphContract
         }
     }
 
-    protected function buildUrl()
+    public function getUrl()
     {
+        $this->prepareForSending();
+
         return Str::of(self::TELEGRAM_API_BASE_URL)
             ->append($this->botToken)
             ->append('/', $this->endpoint)
@@ -64,14 +67,14 @@ class LaravelTelegraph implements TelegraphContract
     {
         $this->endpoint = self::ENDPOINT_MESSAGE;
         $this->data = [
-            'text' => $this->message,
-            'chat_id' => $this->chatId,
-            'parse_mode' => $this->parseMode
+            'text'       => $this->message,
+            'chat_id'    => $this->chatId,
+            'parse_mode' => $this->parseMode,
         ];
 
-        if(!empty($this->keyboard)){
+        if (!empty($this->keyboard)) {
             $this->data['reply_markup'] = json_encode([
-                'inline_keyboard' => $this->keyboard
+                'inline_keyboard' => $this->keyboard,
             ]);
         }
     }
@@ -121,6 +124,12 @@ class LaravelTelegraph implements TelegraphContract
         return $this;
     }
 
+    public function getWebhookDebugInfo(): LaravelTelegraph
+    {
+        $this->endpoint = self::ENDPOINT_GET_WEBHOOK_DEBUG_INFO;
+        return $this;
+    }
+
     public function answerWebhook(string $callbackQueryId, string $message): LaravelTelegraph
     {
         $this->endpoint = self::ENDPOINT_ANSWER_WEBHOOK;
@@ -132,23 +141,23 @@ class LaravelTelegraph implements TelegraphContract
         return $this;
     }
 
-     /**
-      * @param array<array<array<string, string>>> $newKeyboard
-      */
+    /**
+     * @param array<array<array<string, string>>> $newKeyboard
+     */
     public function replaceKeyboard(string $messageId, array $newKeyboard): LaravelTelegraph
     {
         $this->checkRequirements();
 
-        if(empty($newKeyboard)){
+        if (empty($newKeyboard)) {
             $replyMarkup = null;
-        }else{
+        } else {
             $replyMarkup = json_encode(['inline_keyboard' => $newKeyboard]);
         }
 
         $this->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
         $this->data = [
-            'chat_id' => $this->chatId,
-            'message_id' => $messageId,
+            'chat_id'      => $this->chatId,
+            'message_id'   => $messageId,
             'reply_markup' => $replyMarkup,
         ];
 
@@ -157,12 +166,15 @@ class LaravelTelegraph implements TelegraphContract
 
     public function send(): Response
     {
+        return $this->sendRequestToTelegram();
+    }
+
+    protected function prepareForSending(): void
+    {
         $this->checkRequirements();
 
-        if(empty($this->endpoint)){
+        if (empty($this->endpoint)) {
             $this->buildChatMessage();
         }
-
-        return $this->sendRequestToTelegram();
     }
 }

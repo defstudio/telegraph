@@ -14,7 +14,9 @@ class SetTelegramWebhookCommand extends Command
 
     public function handle(): int
     {
-       LaravelTelegraph::registerWebhook()->send();
+       $telegraph = LaravelTelegraph::registerWebhook();
+       dump($telegraph->getUrl());
+       $telegraph->send();
 
         //TODO: handle failure
 
