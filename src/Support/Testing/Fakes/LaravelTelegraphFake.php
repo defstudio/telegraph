@@ -1,16 +1,17 @@
 <?php
 
+/** @noinspection PhpPropertyOnlyWrittenInspection */
+
 namespace DefStudio\LaravelTelegraph\Support\Testing\Fakes;
 
 use DefStudio\LaravelTelegraph\LaravelTelegraph;
-use http\Message;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
 class LaravelTelegraphFake extends LaravelTelegraph
 {
+    /** @var array<int, mixed> */
     private array $messages = [];
 
     protected function sendRequestToTelegram(): Response
@@ -27,66 +28,65 @@ class LaravelTelegraphFake extends LaravelTelegraph
         ];
 
 
-        $messageClass = new class implements MessageInterface{
-
-            public function getProtocolVersion()
+        $messageClass = new class () implements MessageInterface {
+            public function getProtocolVersion(): string
             {
-                // TODO: Implement getProtocolVersion() method.
+                return "";
             }
 
-            public function withProtocolVersion($version)
+            public function withProtocolVersion($version): static
             {
-                // TODO: Implement withProtocolVersion() method.
+                return $this;
             }
 
-            public function getHeaders()
+            public function getHeaders(): array
             {
-                // TODO: Implement getHeaders() method.
+                return [];
             }
 
-            public function hasHeader($name)
+            public function hasHeader($name): bool
             {
-                // TODO: Implement hasHeader() method.
+                return false;
             }
 
-            public function getHeader($name)
+            public function getHeader($name): array
             {
-                // TODO: Implement getHeader() method.
+                return [];
             }
 
-            public function getHeaderLine($name)
+            public function getHeaderLine($name): string
             {
-                // TODO: Implement getHeaderLine() method.
+                return "";
             }
 
-            public function withHeader($name, $value)
+            public function withHeader($name, $value): static
             {
-                // TODO: Implement withHeader() method.
+                return $this;
             }
 
-            public function withAddedHeader($name, $value)
+            public function withAddedHeader($name, $value): static
             {
-                // TODO: Implement withAddedHeader() method.
+                return $this;
             }
 
-            public function withoutHeader($name)
+            public function withoutHeader($name): static
             {
-                // TODO: Implement withoutHeader() method.
+                return $this;
             }
 
-            public function getBody()
+            public function getBody(): StreamInterface
             {
-                // TODO: Implement getBody() method.
+
+                /** @noinspection PhpIncompatibleReturnTypeInspection */
+                return '';                /** @phpstan-ignore-line  */
             }
 
-            public function withBody(StreamInterface $body)
+            public function withBody(StreamInterface $body): static
             {
-                // TODO: Implement withBody() method.
+                return $this;
             }
         };
 
         return new Response(new $messageClass());
     }
-
-
 }

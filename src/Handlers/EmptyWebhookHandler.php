@@ -4,7 +4,7 @@ namespace DefStudio\LaravelTelegraph\Handlers;
 
 class EmptyWebhookHandler extends WebhookHandler
 {
-    protected function actionName()
+    protected function actionName(): void
     {
         //This method will process a webhook action called "actionName"
 

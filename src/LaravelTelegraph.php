@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnused */
+<?php
+
+/** @noinspection PhpUnused */
 /** @noinspection PhpDocMissingThrowsInspection */
 
 /** @noinspection PhpUnhandledExceptionInspection */
@@ -22,19 +24,26 @@ class LaravelTelegraph implements TelegraphContract
     protected const ENDPOINT_MESSAGE = 'sendMessage';
 
     protected string $endpoint;
+
+    /** @var array<string, mixed> */
     protected array $data = [];
+
     protected string $botToken;
+
     protected string $chatId;
 
     protected string $message;
+
+    /** @var array<array<array<string, string>>> */
     protected array $keyboard;
+
     protected string $parseMode;
 
     public function __construct()
     {
-        $this->botToken = config('telegraph.bot_token');
-        $this->chatId = config('telegraph.chat_id');
-        $this->parseMode = config('telegraph.default_parse_mode');
+        $this->botToken = config('telegraph.bot_token') ?? ''; //@phpstan-ignore-line
+        $this->chatId = config('telegraph.chat_id') ?? ''; //@phpstan-ignore-line
+        $this->parseMode = config('telegraph.default_parse_mode', 'html'); //@phpstan-ignore-line
     }
 
     protected function sendRequestToTelegram(): Response
@@ -53,26 +62,27 @@ class LaravelTelegraph implements TelegraphContract
         }
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         $this->prepareForSending();
 
-        return Str::of(self::TELEGRAM_API_BASE_URL)
+        /** @phpstan-ignore-next-line  */
+        return (string) Str::of(self::TELEGRAM_API_BASE_URL)
             ->append($this->botToken)
             ->append('/', $this->endpoint)
-            ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
+            ->when(! empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
     }
 
     protected function buildChatMessage(): void
     {
         $this->endpoint = self::ENDPOINT_MESSAGE;
         $this->data = [
-            'text'       => $this->message,
-            'chat_id'    => $this->chatId,
+            'text' => $this->message,
+            'chat_id' => $this->chatId,
             'parse_mode' => $this->parseMode,
         ];
 
-        if (!empty($this->keyboard)) {
+        if (! empty($this->keyboard)) {
             $this->data['reply_markup'] = json_encode([
                 'inline_keyboard' => $this->keyboard,
             ]);
@@ -82,12 +92,14 @@ class LaravelTelegraph implements TelegraphContract
     public function bot(string $botToken): LaravelTelegraph
     {
         $this->botToken = $botToken;
+
         return $this;
     }
 
     public function chat(string $chatId): LaravelTelegraph
     {
         $this->chatId = $chatId;
+
         return $this;
     }
 
@@ -95,6 +107,7 @@ class LaravelTelegraph implements TelegraphContract
     {
         $this->message = $message;
         $this->parseMode = 'html';
+
         return $this;
     }
 
@@ -102,6 +115,7 @@ class LaravelTelegraph implements TelegraphContract
     {
         $this->message = $message;
         $this->parseMode = 'markdown';
+
         return $this;
     }
 
@@ -111,6 +125,7 @@ class LaravelTelegraph implements TelegraphContract
     public function keyboard(array $keyboard): LaravelTelegraph
     {
         $this->keyboard = $keyboard;
+
         return $this;
     }
 
@@ -127,6 +142,7 @@ class LaravelTelegraph implements TelegraphContract
     public function getWebhookDebugInfo(): LaravelTelegraph
     {
         $this->endpoint = self::ENDPOINT_GET_WEBHOOK_DEBUG_INFO;
+
         return $this;
     }
 
@@ -135,7 +151,7 @@ class LaravelTelegraph implements TelegraphContract
         $this->endpoint = self::ENDPOINT_ANSWER_WEBHOOK;
         $this->data = [
             'callback_query_id' => $callbackQueryId,
-            'text'              => $message,
+            'text' => $message,
         ];
 
         return $this;
@@ -156,8 +172,8 @@ class LaravelTelegraph implements TelegraphContract
 
         $this->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
         $this->data = [
-            'chat_id'      => $this->chatId,
-            'message_id'   => $messageId,
+            'chat_id' => $this->chatId,
+            'message_id' => $messageId,
             'reply_markup' => $replyMarkup,
         ];
 

@@ -18,6 +18,6 @@ class LaravelTelegraphServiceProvider extends PackageServiceProvider
             ->hasCommand(SetTelegramWebhookCommand::class)
             ->hasCommand(GetTelegramWebhookDebugInfoCommand::class);
 
-        $this->app->bind('laravel-telegraph', fn() => new LaravelTelegraph());
+        $this->app->bind('laravel-telegraph', fn () => new LaravelTelegraph());
     }
 }

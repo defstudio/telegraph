@@ -6,7 +6,6 @@ use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph;
 use Illuminate\Console\Command;
 use Illuminate\Http\Client\Response;
 
-
 class GetTelegramWebhookDebugInfoCommand extends Command
 {
     public $signature = 'telegraph:debug-webhook';

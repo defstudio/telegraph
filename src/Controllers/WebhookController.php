@@ -10,7 +10,9 @@ class WebhookController
     {
         abort_unless($token == config('telegraph.bot_token'), Response::HTTP_FORBIDDEN);
 
+        /** @var class-string $handler */
         $handler = config('telegraph.webhook_handler');
+
         app($handler)->handle(request());
 
         return \response()->noContent();

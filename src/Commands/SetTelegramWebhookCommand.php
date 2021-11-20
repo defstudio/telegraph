@@ -5,7 +5,6 @@ namespace DefStudio\LaravelTelegraph\Commands;
 use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph;
 use Illuminate\Console\Command;
 
-
 class SetTelegramWebhookCommand extends Command
 {
     public $signature = 'telegraph:set-webhook';
@@ -14,9 +13,9 @@ class SetTelegramWebhookCommand extends Command
 
     public function handle(): int
     {
-       $telegraph = LaravelTelegraph::registerWebhook();
-       dump($telegraph->getUrl());
-       $telegraph->send();
+        $telegraph = LaravelTelegraph::registerWebhook();
+        dump($telegraph->getUrl());
+        $telegraph->send();
 
         //TODO: handle failure
 

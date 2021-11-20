@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\LaravelTelegraph\Handlers;
 
@@ -17,17 +19,17 @@ abstract class WebhookHandler
     protected Collection $data;
     protected Collection $originalKeyboard;
 
-
-    public function handle(Request $request)
+    public function handle(Request $request): void
     {
         $this->request = $request;
         $this->extractData();
 
         $action = $this->data->get('action');
 
-        if (!method_exists($this, $action)) {
+        if (! method_exists($this, $action)) {
             report(TelegramWebhookException::invalidAction($action));
             $this->reply('Invalid action');
+
             return;
         }
 
@@ -36,11 +38,11 @@ abstract class WebhookHandler
 
     private function extractData(): void
     {
-        $this->chatId = $this->request->input('callback_query.message.chat.id');
-        $this->messageId = $this->request->input('callback_query.message.message_id');
-        $this->callbackQueryId = $this->request->input('callback_query.id');
-        $this->originalKeyboard = collect($this->request->input('callback_query.message.reply_markup.inline_keyboard', []))->flatten(1);
-        $this->data = Str::of($this->request->input('callback_query.data'))->explode(';')
+        $this->chatId = $this->request->input('callback_query.message.chat.id'); //@phpstan-ignore-line
+        $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
+        $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
+        $this->originalKeyboard = collect($this->request->input('callback_query.message.reply_markup.inline_keyboard', []))->flatten(1); //@phpstan-ignore-line
+        $this->data = Str::of($this->request->input('callback_query.data'))->explode(';') //@phpstan-ignore-line
             ->mapWithKeys(function (string $entity) {
                 $entity = explode(':', $entity);
                 $key = $entity[0];
