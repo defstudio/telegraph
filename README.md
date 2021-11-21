@@ -1,9 +1,24 @@
 ![Pest Laravel Expectations](https://banners.beyondco.de/Laravel%20Telegraph.png?theme=light&packageManager=composer+require&packageName=defstudio%2Flaravel-telegraph&pattern=architect&style=style_1&description=Telegram+bots+made+easy&md=1&showWatermark=1&fontSize=100px&images=phone-outgoing)
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/defstudio/laravel-telegraph.svg?style=flat-square)](https://packagist.org/packages/defstudio/laravel-telegraph)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/run-tests?label=tests)](https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/Check%20&%20fix%20styling?label=code%20style)](https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/defstudio/laravel-telegraph.svg?style=flat-square)](https://packagist.org/packages/defstudio/laravel-telegraph)
+<a href="https://packagist.org/packages/defstudio/laravel-telegraph" target="_blank">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/v/defstudio/laravel-telegraph.svg?style=flat-square" alt="Latest Version on Packagist">
+</a>
+
+<a href="https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Arun-tests+branch%3Amain" target="_blank">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/run-tests?label=tests" alt="Tests">
+</a>
+
+<a href="https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Alint+branch%3Amain" target="_blank">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/lint?label=tests" alt="Code Style">
+</a>
+
+<a href="https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Aphpstan+branch%3Amain" target="_blank">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/phpstan?label=tests" alt="Static Analysis">
+</a>
+
+<a href="https://packagist.org/packages/defstudio/laravel-telegraph" target="_blank">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/dt/defstudio/laravel-telegraph.svg?style=flat-square" alt="Total Downloads">
+</a>
 
 ---
 
