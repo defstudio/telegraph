@@ -12,9 +12,11 @@ position: 20
 
 2. Send `/newbot`, to start creating a new Bot.
 
-3. Set the bot's username and username.
+<img src="~/assets/screenshots/new-bot.jpg" />
 
-4. Now you need to allow your Bot to send direct messages, so send `/setjoingroups` to @BotFather, select your Bot and click Enable:
+4. Set the bot's username and username.
 
-5. Get the Bot token and add it to your .env file.
+5. Now you need to allow your Bot to send direct messages, so send `/setjoingroups` to @BotFather, select your Bot and click Enable:
+
+6. Get the Bot token and add it to your .env file.
 
