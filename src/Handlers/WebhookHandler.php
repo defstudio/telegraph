@@ -115,7 +115,7 @@ abstract class WebhookHandler
         $this->extractMessageData();
 
         match ($this->data->get('text')) {
-            '/chatid' => Telegraph::html("Chat ID: $this->chatId")->send()
+            '/chatid' => Telegraph::chat($this->chatId)->html("Chat ID: $this->chatId")->send()
         };
     }
 
