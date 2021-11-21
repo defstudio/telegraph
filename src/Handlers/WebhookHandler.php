@@ -10,6 +10,7 @@ use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use ReflectionMethod;
 
@@ -81,6 +82,10 @@ abstract class WebhookHandler
 
         $action = $this->data->get('action');
 
+        //TODO move to a dedicate option, maybe when debug option is enabled
+        Log::debug('telegram request received', [
+            'data' => $request->all(),
+        ]);
         if (!$this->canHandle($action)) {
             report(TelegramWebhookException::invalidAction($action));
             $this->reply('Invalid action');
