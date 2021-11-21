@@ -23,7 +23,7 @@ abstract class WebhookHandler
     protected Collection $data;
     protected Collection $originalKeyboard;
 
-    protected function extractData(): void
+    protected function extractCallbackQueryData(): void
     {
         $this->chatId = $this->request->input('callback_query.message.chat.id'); //@phpstan-ignore-line
         $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
@@ -79,22 +79,25 @@ abstract class WebhookHandler
     {
         $this->request = $request;
 
+
         //TODO move to a dedicate option, maybe when debug option is enabled
         Log::debug('telegram request received', [
             'data' => $request->all(),
         ]);
 
-        $this->extractData();
 
-        $action = $this->data->get('action');
+        if ($this->request->has('callback_query')) {
+            $this->extractCallbackQueryData();
+            $action = $this->data->get('action');
 
-        if (!$this->canHandle($action)) {
-            report(TelegramWebhookException::invalidAction($action));
-            $this->reply('Invalid action');
+            if (!$this->canHandle($action)) {
+                report(TelegramWebhookException::invalidAction($action));
+                $this->reply('Invalid action');
 
-            return;
+                return;
+            }
+
+            $this->$action();
         }
-
-        $this->$action();
     }
 }

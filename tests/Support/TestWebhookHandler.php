@@ -46,9 +46,9 @@ class TestWebhookHandler extends WebhookHandler
     {
     }
 
-    protected function extractData(): void
+    protected function extractCallbackQueryData(): void
     {
-        parent::extractData();
+        parent::extractCallbackQueryData();
 
         self::$extracted_data = [
             'chatId' => $this->chatId,
