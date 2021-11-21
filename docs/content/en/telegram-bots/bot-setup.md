@@ -1,8 +1,6 @@
 ---
 title: Bot Setup description: ''
-
-category: 'Telegram Bots' 
-
+category: 'Telegram Bots'
 fullscreen: true position: 20
 ---
 
