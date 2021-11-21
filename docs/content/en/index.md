@@ -15,11 +15,15 @@ fullscreen: true
 </a>
 
 <a href="https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Arun-tests+branch%3Amain" target="_blank">
-    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/run-tests?label=tests" alt="GitHub Tests Action Status">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/run-tests?label=tests" alt="Tests">
 </a>
 
-<a href="https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain" target="_blank">
-    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/Check%20&%20fix%20styling?label=code%20style" alt="GitHub Code Style Action Status">
+<a href="https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Alint+branch%3Amain" target="_blank">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/lint?label=tests" alt="Code Style">
+</a>
+
+<a href="https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Aphpstan+branch%3Amain" target="_blank">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/phpstan?label=tests" alt="Static Analysis">
 </a>
 
 <a href="https://packagist.org/packages/defstudio/laravel-telegraph" target="_blank">
