@@ -1,6 +1,9 @@
 ---
 title: Bot Setup description: ''
-category: 'Telegram Bots' fullscreen: true position: 20
+
+category: 'Telegram Bots' 
+
+fullscreen: true position: 20
 ---
 
 ## Creating a new Telegram Bot
