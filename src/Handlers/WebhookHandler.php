@@ -23,22 +23,6 @@ abstract class WebhookHandler
     protected Collection $data;
     protected Collection $originalKeyboard;
 
-    protected function extractCallbackQueryData(): void
-    {
-        $this->chatId = $this->request->input('callback_query.message.chat.id'); //@phpstan-ignore-line
-        $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
-        $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
-        $this->originalKeyboard = collect($this->request->input('callback_query.message.reply_markup.inline_keyboard', []))->flatten(1); //@phpstan-ignore-line
-        $this->data = Str::of($this->request->input('callback_query.data'))->explode(';') //@phpstan-ignore-line
-        ->mapWithKeys(function (string $entity) {
-            $entity = explode(':', $entity);
-            $key = $entity[0];
-            $value = $entity[1];
-
-            return [$key => $value];
-        });
-    }
-
     protected function reply(string $message): void
     {
         Telegraph::replyWebhook($this->callbackQueryId, $message)->send();
@@ -85,19 +69,62 @@ abstract class WebhookHandler
             'data' => $request->all(),
         ]);
 
+        if ($this->request->has('message')) {
+            $this->handleMessage();
+        }
+
 
         if ($this->request->has('callback_query')) {
-            $this->extractCallbackQueryData();
-            $action = $this->data->get('action');
-
-            if (!$this->canHandle($action)) {
-                report(TelegramWebhookException::invalidAction($action));
-                $this->reply('Invalid action');
-
-                return;
-            }
-
-            $this->$action();
+            $this->handleCallbackQuery();
         }
+    }
+
+    protected function handleCallbackQuery(): void
+    {
+        $this->extractCallbackQueryData();
+        $action = $this->data->get('action');
+
+        if (!$this->canHandle($action)) {
+            report(TelegramWebhookException::invalidAction($action));
+            $this->reply('Invalid action');
+
+            return;
+        }
+
+        $this->$action();
+    }
+
+    protected function extractCallbackQueryData(): void
+    {
+        $this->chatId = $this->request->input('callback_query.message.chat.id'); //@phpstan-ignore-line
+        $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
+        $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
+        $this->originalKeyboard = collect($this->request->input('callback_query.message.reply_markup.inline_keyboard', []))->flatten(1); //@phpstan-ignore-line
+        $this->data = Str::of($this->request->input('callback_query.data'))->explode(';') //@phpstan-ignore-line
+        ->mapWithKeys(function (string $entity) {
+            $entity = explode(':', $entity);
+            $key = $entity[0];
+            $value = $entity[1];
+
+            return [$key => $value];
+        });
+    }
+
+    private function handleMessage(): void
+    {
+        $this->extractMessageData();
+
+        match ($this->data->get('text')) {
+            '/chatid' => Telegraph::html("Chat ID: $this->chatId")->send()
+        };
+    }
+
+    protected function extractMessageData(): void
+    {
+        $this->chatId = $this->request->input('message.chat.id'); //@phpstan-ignore-line
+        $this->messageId = $this->request->input('message.message_id'); //@phpstan-ignore-line
+        $this->data = collect([
+            'text' => $this->request->input('message.message_id'), //@phpstan-ignore-line
+        ]);
     }
 }
