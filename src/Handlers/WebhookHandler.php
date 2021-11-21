@@ -78,14 +78,16 @@ abstract class WebhookHandler
     public function handle(Request $request): void
     {
         $this->request = $request;
-        $this->extractData();
-
-        $action = $this->data->get('action');
 
         //TODO move to a dedicate option, maybe when debug option is enabled
         Log::debug('telegram request received', [
             'data' => $request->all(),
         ]);
+
+        $this->extractData();
+
+        $action = $this->data->get('action');
+
         if (!$this->canHandle($action)) {
             report(TelegramWebhookException::invalidAction($action));
             $this->reply('Invalid action');
