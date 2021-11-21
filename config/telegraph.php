@@ -12,4 +12,9 @@ return [
     'default_parse_mode' => 'html',
 
     'webhook_handler' => EmptyWebhookHandler::class,
+
+    /*
+     * If enabled, dump received webhook message to logs
+     */
+    'debug_mode' => false,
 ];

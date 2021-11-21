@@ -69,7 +69,7 @@ abstract class WebhookHandler
             'data' => $request->all(),
         ]);
 
-        if ($this->request->has('message')) {
+        if ($this->request->has('message') || $this->request->has('channel_post')) {
             $this->handleMessage();
         }
 
@@ -114,17 +114,22 @@ abstract class WebhookHandler
     {
         $this->extractMessageData();
 
+        if (config('telegraph.debug_mode')) {
+            Log::debug('data', $this->data->toArray());
+        }
+
         match ($this->data->get('text')) {
-            '/chatid' => Telegraph::chat($this->chatId)->html("Chat ID: $this->chatId")->send()
+            '/chatid' => Telegraph::chat($this->chatId)->html("Chat ID: $this->chatId")->send(),
+            default => Telegraph::chat($this->chatId)->html("Unknown command")->send(),
         };
     }
 
     protected function extractMessageData(): void
     {
-        $this->chatId = $this->request->input('message.chat.id'); //@phpstan-ignore-line
-        $this->messageId = $this->request->input('message.message_id'); //@phpstan-ignore-line
+        $this->chatId = $this->request->input('message.chat.id', $this->request->input('channel_post.chat.id')); //@phpstan-ignore-line
+        $this->messageId = $this->request->input('message.message_id', $this->request->input('channel_post.message_id')); //@phpstan-ignore-line
         $this->data = collect([
-            'text' => $this->request->input('message.message_id'), //@phpstan-ignore-line
+            'text' => $this->request->input('message.text', $this->request->input('channel_post.text')), //@phpstan-ignore-line
         ]);
     }
 }
