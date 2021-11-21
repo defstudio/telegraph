@@ -12,7 +12,7 @@ position: 20
 
 2. Send `/newbot`, to start creating a new Bot.
 
-<img src="~/assets/screenshots/new-bot.jpg" />
+<img src="~/screenshots/new-bot.jpg" />
 
 4. Set the bot's username and username.
 
