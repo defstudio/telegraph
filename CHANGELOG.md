@@ -2,6 +2,12 @@
 
 All notable changes to `laravel-telegraph` will be documented in this file.
 
+## v0.0.7 - 2021-11-21
+
+Fix documentation structure
+
+**Full Changelog**: https://github.com/def-studio/laravel-telegraph/compare/v0.0.6...v0.0.7
+
 ## v0.0.6 - 2021-11-21
 
 fix documentation
