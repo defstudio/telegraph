@@ -10,13 +10,25 @@ position: 20
 
 1. Go to [@BotFather](https://t.me/botfather) on Telegram.
 
-2. Send `/newbot`, to start creating a new Bot.
+2. Send `/newbot`, to start creating a new Bot and setting its name and username.
 
-<img src="~/screenshots/new-bot.jpg" />
+<img src="screenshots/new-bot.jpg" />
 
-4. Set the bot's username and username.
+3. take note of the bot **token**.
 
-5. Now you need to allow your Bot to send direct messages, so send `/setjoingroups` to @BotFather, select your Bot and click Enable:
+<img src="screenshots/new-bot-token.jpg" />
 
-6. Get the Bot token and add it to your .env file.
+4. Now you need to allow your Bot to send direct messages, so send `/setjoingroups` to @BotFather, select your Bot and click Enable:
+
+<img src="screenshots/new-bot-joingroups.jpg" />
+
+5. (optional) To let your bot to listen for commands (like `/chatid`) you need to enable privacy mode: send `/ 
+
+<img src="screenshots/new-bot-setprivacy.jpg" />
+
+6. Save the bot token into your .env file.
+
+```dotenv
+TELEGRAM_BOT_TOKEN=XXXXXX:XXXXXXXX-XXXXXXXXXX
+```
 
