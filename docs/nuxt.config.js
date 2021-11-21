@@ -9,6 +9,6 @@ export default theme({
     liveEdit: false
   },
   router: {
-    base: '/laravel-telegraph'
+    base: '/telegraph'
   }
 })

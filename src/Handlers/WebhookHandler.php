@@ -4,10 +4,10 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace DefStudio\LaravelTelegraph\Handlers;
+namespace DefStudio\Telegraph\Handlers;
 
-use DefStudio\LaravelTelegraph\Exceptions\TelegramWebhookException;
-use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph;
+use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
+use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -40,7 +40,7 @@ abstract class WebhookHandler
 
     protected function reply(string $message): void
     {
-        LaravelTelegraph::replyWebhook($this->callbackQueryId, $message)->send();
+        Telegraph::replyWebhook($this->callbackQueryId, $message)->send();
     }
 
     /**
@@ -48,12 +48,12 @@ abstract class WebhookHandler
      */
     protected function replaceKeyboard(array $newKeyboard): void
     {
-        LaravelTelegraph::chat($this->chatId)->replaceKeyboard($this->messageId, $newKeyboard)->send();
+        Telegraph::chat($this->chatId)->replaceKeyboard($this->messageId, $newKeyboard)->send();
     }
 
     protected function deleteKeyboard(): void
     {
-        LaravelTelegraph::chat($this->chatId)->replaceKeyboard($this->messageId, [])->send();
+        Telegraph::chat($this->chatId)->replaceKeyboard($this->messageId, [])->send();
     }
 
     protected function canHandle(string $action): bool

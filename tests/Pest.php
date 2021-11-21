@@ -1,7 +1,7 @@
 <?php
 
-use DefStudio\LaravelTelegraph\Tests\Support\TestWebhookHandler;
-use DefStudio\LaravelTelegraph\Tests\TestCase;
+use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
+use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Http\Request;
 
 uses(TestCase::class)->in(__DIR__);

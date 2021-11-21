@@ -5,16 +5,16 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-namespace DefStudio\LaravelTelegraph;
+namespace DefStudio\Telegraph;
 
-use DefStudio\LaravelTelegraph\Contracts\TelegraphContract;
-use DefStudio\LaravelTelegraph\Exceptions\TelegramException;
+use DefStudio\Telegraph\Contracts\TelegraphContract;
+use DefStudio\Telegraph\Exceptions\TelegramException;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 
-class LaravelTelegraph implements TelegraphContract
+class Telegraph implements TelegraphContract
 {
     private const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
     public const ENDPOINT_SET_WEBHOOK = 'setWebhook';
@@ -98,21 +98,21 @@ class LaravelTelegraph implements TelegraphContract
             ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
     }
 
-    public function bot(string $botToken): LaravelTelegraph
+    public function bot(string $botToken): Telegraph
     {
         $this->botToken = $botToken;
 
         return $this;
     }
 
-    public function chat(string $chatId): LaravelTelegraph
+    public function chat(string $chatId): Telegraph
     {
         $this->chatId = $chatId;
 
         return $this;
     }
 
-    public function html(string $message): LaravelTelegraph
+    public function html(string $message): Telegraph
     {
         $this->message = $message;
         $this->parseMode = 'html';
@@ -120,7 +120,7 @@ class LaravelTelegraph implements TelegraphContract
         return $this;
     }
 
-    public function markdown(string $message): LaravelTelegraph
+    public function markdown(string $message): Telegraph
     {
         $this->message = $message;
         $this->parseMode = 'markdown';
@@ -131,14 +131,14 @@ class LaravelTelegraph implements TelegraphContract
     /**
      * @param array<array<array<string, string>>> $keyboard
      */
-    public function keyboard(array $keyboard): LaravelTelegraph
+    public function keyboard(array $keyboard): Telegraph
     {
         $this->keyboard = $keyboard;
 
         return $this;
     }
 
-    public function registerWebhook(): LaravelTelegraph
+    public function registerWebhook(): Telegraph
     {
         $this->endpoint = self::ENDPOINT_SET_WEBHOOK;
         $this->data = [
@@ -148,14 +148,14 @@ class LaravelTelegraph implements TelegraphContract
         return $this;
     }
 
-    public function getWebhookDebugInfo(): LaravelTelegraph
+    public function getWebhookDebugInfo(): Telegraph
     {
         $this->endpoint = self::ENDPOINT_GET_WEBHOOK_DEBUG_INFO;
 
         return $this;
     }
 
-    public function replyWebhook(string $callbackQueryId, string $message): LaravelTelegraph
+    public function replyWebhook(string $callbackQueryId, string $message): Telegraph
     {
         $this->endpoint = self::ENDPOINT_ANSWER_WEBHOOK;
         $this->data = [
@@ -169,7 +169,7 @@ class LaravelTelegraph implements TelegraphContract
     /**
      * @param array<array<array<string, string>>> $newKeyboard
      */
-    public function replaceKeyboard(string $messageId, array $newKeyboard): LaravelTelegraph
+    public function replaceKeyboard(string $messageId, array $newKeyboard): Telegraph
     {
         $this->checkRequirements();
 

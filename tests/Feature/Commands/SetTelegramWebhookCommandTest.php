@@ -1,11 +1,11 @@
 <?php
 
 
-use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph;
+use DefStudio\Telegraph\Facades\Telegraph;
 use function Pest\Laravel\artisan;
 
 test('can set telegram webhook address', function () {
-    LaravelTelegraph::fake();
+    Telegraph::fake();
 
     /** @phpstan-ignore-next-line */
     artisan('telegraph:set-webhook')

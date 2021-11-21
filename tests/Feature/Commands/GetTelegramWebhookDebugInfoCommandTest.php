@@ -1,12 +1,12 @@
 <?php
 
-use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph as Facade;
-use DefStudio\LaravelTelegraph\LaravelTelegraph;
+use DefStudio\Telegraph\Facades\Telegraph as Facade;
+use DefStudio\Telegraph\Telegraph;
 use function Pest\Laravel\artisan;
 
 test('can retrieve telegram bot webhook info', function () {
     Facade::fake([
-        LaravelTelegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO => [
+        Telegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO => [
             'ok' => true,
             'result' => [
                 'url' => 'https://local.testing/telegraph/123456AAABBB/webhook',

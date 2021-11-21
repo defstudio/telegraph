@@ -1,8 +1,8 @@
 <?php
 
-namespace DefStudio\LaravelTelegraph\Tests;
+namespace DefStudio\Telegraph\Tests;
 
-use DefStudio\LaravelTelegraph\LaravelTelegraphServiceProvider;
+use DefStudio\Telegraph\TelegraphServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -10,7 +10,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app)
     {
         return [
-            LaravelTelegraphServiceProvider::class,
+            TelegraphServiceProvider::class,
         ];
     }
 

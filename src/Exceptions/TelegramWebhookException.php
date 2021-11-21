@@ -1,8 +1,8 @@
 <?php
 
-namespace DefStudio\LaravelTelegraph\Exceptions;
+namespace DefStudio\Telegraph\Exceptions;
 
-use DefStudio\LaravelTelegraph\Handlers\WebhookHandler;
+use DefStudio\Telegraph\Handlers\WebhookHandler;
 
 class TelegramWebhookException extends \Exception
 {

@@ -9,7 +9,7 @@ fullscreen: true
 You can install the package via composer:
 
 ``` bash
-composer require defstudio/laravel-telegraph
+composer require defstudio/telegraph
 ```
 
 You can publish the config file with:

@@ -1,6 +1,6 @@
 <?php
 
-namespace DefStudio\LaravelTelegraph\Handlers;
+namespace DefStudio\Telegraph\Handlers;
 
 class EmptyWebhookHandler extends WebhookHandler
 {

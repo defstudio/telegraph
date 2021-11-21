@@ -1,6 +1,6 @@
 <?php
 
-namespace DefStudio\LaravelTelegraph\Exceptions;
+namespace DefStudio\Telegraph\Exceptions;
 
 use Exception;
 

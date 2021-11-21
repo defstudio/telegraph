@@ -1,8 +1,8 @@
 <?php
 
-namespace DefStudio\LaravelTelegraph\Commands;
+namespace DefStudio\Telegraph\Commands;
 
-use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph;
+use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Console\Command;
 
 class SetTelegramWebhookCommand extends Command
@@ -13,7 +13,7 @@ class SetTelegramWebhookCommand extends Command
 
     public function handle(): int
     {
-        $telegraph = LaravelTelegraph::registerWebhook();
+        $telegraph = Telegraph::registerWebhook();
 
         $this->info("Sending webhook setup request to: {$telegraph->getUrl()}");
 

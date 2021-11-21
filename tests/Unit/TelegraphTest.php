@@ -1,11 +1,11 @@
 <?php
 
-use DefStudio\LaravelTelegraph\LaravelTelegraph;
+use DefStudio\Telegraph\Telegraph;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 
 it('can return the telegram request url', function () {
-    $url = app(LaravelTelegraph::class)
+    $url = app(Telegraph::class)
         ->html('foobar')
         ->getUrl();
 
@@ -13,7 +13,7 @@ it('can return the telegram request url', function () {
 });
 
 it('can customize the destination bot', function () {
-    $telegraph = app(LaravelTelegraph::class)
+    $telegraph = app(Telegraph::class)
         ->bot('foo')
         ->registerWebhook();
 
@@ -21,7 +21,7 @@ it('can customize the destination bot', function () {
 });
 
 it('can customize the destination chat', function () {
-    $url = app(LaravelTelegraph::class)
+    $url = app(Telegraph::class)
         ->html('foobar')
         ->chat('123456')
         ->getUrl();
@@ -32,7 +32,7 @@ it('can customize the destination chat', function () {
 it('can send an html message', function () {
     Http::fake();
 
-    app(LaravelTelegraph::class)
+    app(Telegraph::class)
         ->html('foobar')
         ->send();
 
@@ -46,7 +46,7 @@ it('can send an html message', function () {
 it('can send a markdown message', function () {
     Http::fake();
 
-    app(LaravelTelegraph::class)
+    app(Telegraph::class)
         ->markdown('foobar')
         ->send();
 
@@ -60,7 +60,7 @@ it('can send a markdown message', function () {
 it('can add a keyboard to a message', function () {
     Http::fake();
 
-    app(LaravelTelegraph::class)
+    app(Telegraph::class)
         ->html('foobar')
         ->keyboard([
             ['foo' => 'bar'],
@@ -77,7 +77,7 @@ it('can add a keyboard to a message', function () {
 it('can replace the keyboard of a message', function () {
     Http::fake();
 
-    app(LaravelTelegraph::class)
+    app(Telegraph::class)
         ->replaceKeyboard('123456', [
             ['foo' => 'bar'],
         ])
@@ -93,7 +93,7 @@ it('can replace the keyboard of a message', function () {
 it('can register a webhook', function () {
     Http::fake();
 
-    app(LaravelTelegraph::class)
+    app(Telegraph::class)
         ->registerWebhook()
         ->send();
 
@@ -107,7 +107,7 @@ it('can register a webhook', function () {
 it('can get webhook debug info', function () {
     Http::fake();
 
-    app(LaravelTelegraph::class)
+    app(Telegraph::class)
         ->getWebhookDebugInfo()
         ->send();
 
@@ -121,7 +121,7 @@ it('can get webhook debug info', function () {
 it('can reply to a webhook call', function () {
     Http::fake();
 
-    app(LaravelTelegraph::class)
+    app(Telegraph::class)
         ->replyWebhook(2123456, 'foo')
         ->send();
 

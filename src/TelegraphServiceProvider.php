@@ -1,23 +1,23 @@
 <?php
 
-namespace DefStudio\LaravelTelegraph;
+namespace DefStudio\Telegraph;
 
-use DefStudio\LaravelTelegraph\Commands\GetTelegramWebhookDebugInfoCommand;
-use DefStudio\LaravelTelegraph\Commands\SetTelegramWebhookCommand;
+use DefStudio\Telegraph\Commands\GetTelegramWebhookDebugInfoCommand;
+use DefStudio\Telegraph\Commands\SetTelegramWebhookCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class LaravelTelegraphServiceProvider extends PackageServiceProvider
+class TelegraphServiceProvider extends PackageServiceProvider
 {
     public function configurePackage(Package $package): void
     {
         $package
-            ->name('laravel-telegraph')
+            ->name('telegraph')
             ->hasConfigFile()
             ->hasRoute('api')
             ->hasCommand(SetTelegramWebhookCommand::class)
             ->hasCommand(GetTelegramWebhookDebugInfoCommand::class);
 
-        $this->app->bind('laravel-telegraph', fn () => new LaravelTelegraph());
+        $this->app->bind('telegraph', fn () => new Telegraph());
     }
 }

@@ -1,12 +1,12 @@
 {
-    "name": "defstudio/laravel-telegraph",
+    "name": "defstudio/telegraph",
     "description": "A laravel facade to interact with Telegram Bots",
     "keywords": [
         "defstudio",
         "laravel",
-        "laravel-telegraph"
+        "telegraph"
     ],
-    "homepage": "https://github.com/defstudio/laravel-telegraph",
+    "homepage": "https://github.com/defstudio/telegraph",
     "license": "MIT",
     "authors": [
         {
@@ -40,12 +40,12 @@
     },
     "autoload": {
         "psr-4": {
-            "DefStudio\\LaravelTelegraph\\": "src"
+            "DefStudio\\Telegraph\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "DefStudio\\LaravelTelegraph\\Tests\\": "tests"
+            "DefStudio\\Telegraph\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -66,10 +66,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "DefStudio\\LaravelTelegraph\\LaravelTelegraphServiceProvider"
+                "DefStudio\\Telegraph\\TelegraphServiceProvider"
             ],
             "aliases": {
-                "Telegraph": "DefStudio\\LaravelTelegraph\\Facades\\LaravelTelegraph"
+                "Telegraph": "DefStudio\\Telegraph\\Facades\\Telegraph"
             }
         }
     },

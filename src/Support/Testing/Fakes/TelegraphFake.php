@@ -4,9 +4,9 @@
 
 /** @noinspection PhpPropertyOnlyWrittenInspection */
 
-namespace DefStudio\LaravelTelegraph\Support\Testing\Fakes;
+namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
-use DefStudio\LaravelTelegraph\LaravelTelegraph;
+use DefStudio\Telegraph\Telegraph;
 use GuzzleHttp\Psr7\BufferStream;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
@@ -14,7 +14,7 @@ use PHPUnit\Framework\Assert;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
-class LaravelTelegraphFake extends LaravelTelegraph
+class TelegraphFake extends Telegraph
 {
     /** @var array<int, mixed> */
     private array $sentMessages = [];
@@ -148,24 +148,24 @@ class LaravelTelegraphFake extends LaravelTelegraph
 
     public function assertSent(string $message): void
     {
-        $this->assertSentData(LaravelTelegraph::ENDPOINT_MESSAGE, [
+        $this->assertSentData(Telegraph::ENDPOINT_MESSAGE, [
             'text' => $message,
         ]);
     }
 
     public function assertRegisteredWebhook(): void
     {
-        $this->assertSentData(LaravelTelegraph::ENDPOINT_SET_WEBHOOK);
+        $this->assertSentData(Telegraph::ENDPOINT_SET_WEBHOOK);
     }
 
     public function assertRequestedWebhookDebugInfo(): void
     {
-        $this->assertSentData(LaravelTelegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO);
+        $this->assertSentData(Telegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO);
     }
 
     public function assertRepliedWebhook(string $message): void
     {
-        $this->assertSentData(LaravelTelegraph::ENDPOINT_ANSWER_WEBHOOK, [
+        $this->assertSentData(Telegraph::ENDPOINT_ANSWER_WEBHOOK, [
             'text' => $message,
         ]);
     }

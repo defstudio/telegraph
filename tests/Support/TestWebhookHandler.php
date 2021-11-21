@@ -2,9 +2,9 @@
 
 /** @noinspection PhpUnusedPrivateMethodInspection */
 
-namespace DefStudio\LaravelTelegraph\Tests\Support;
+namespace DefStudio\Telegraph\Tests\Support;
 
-use DefStudio\LaravelTelegraph\Handlers\WebhookHandler;
+use DefStudio\Telegraph\Handlers\WebhookHandler;
 
 class TestWebhookHandler extends WebhookHandler
 {

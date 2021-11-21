@@ -1,6 +1,11 @@
 # Changelog
 
-All notable changes to `laravel-telegraph` will be documented in this file.
+All notable changes to `telegraph` will be documented in this file.
+
+## Unreleased
+
+- changed the package name to Telegraph
+
 
 ## v0.0.8 - 2021-11-21
 
@@ -10,7 +15,7 @@ All notable changes to `laravel-telegraph` will be documented in this file.
 
 Fix documentation structure
 
-**Full Changelog**: https://github.com/def-studio/laravel-telegraph/compare/v0.0.6...v0.0.7
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v0.0.6...v0.0.7
 
 ## v0.0.6 - 2021-11-21
 
@@ -18,12 +23,9 @@ fix documentation
 
 ## v0.0.5 - 2021-11-21
 
-**Full Changelog**: https://github.com/def-studio/laravel-telegraph/compare/v0.0.4...v0.0.5
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v0.0.4...v0.0.5
 
 ## v0.0.4 - 2021-11-19
 
-**Full Changelog**: https://github.com/def-studio/laravel-telegraph/compare/v0.0.3...v0.0.4
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v0.0.3...v0.0.4
 
-## Unreleased
-
-- added documentation pages

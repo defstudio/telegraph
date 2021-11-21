@@ -1,6 +1,6 @@
 <?php
 
-use DefStudio\LaravelTelegraph\Handlers\EmptyWebhookHandler;
+use DefStudio\Telegraph\Handlers\EmptyWebhookHandler;
 
 return [
     'bot_token' => env('TELEGRAM_BOT_TOKEN'),

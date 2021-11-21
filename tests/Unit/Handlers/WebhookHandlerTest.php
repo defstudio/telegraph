@@ -3,9 +3,9 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 
 
-use DefStudio\LaravelTelegraph\Facades\LaravelTelegraph as Facade;
-use DefStudio\LaravelTelegraph\LaravelTelegraph;
-use DefStudio\LaravelTelegraph\Tests\Support\TestWebhookHandler;
+use DefStudio\Telegraph\Facades\Telegraph as Facade;
+use DefStudio\Telegraph\Telegraph;
+use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 
 it('extracts call data', function () {
     app(TestWebhookHandler::class)->handle(webhook_request('test'));
@@ -48,7 +48,7 @@ it('can change the inline keyboard', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_request('change_keyboard'));
 
-    Facade::assertSentData(LaravelTelegraph::ENDPOINT_REPLACE_KEYBOARD);
+    Facade::assertSentData(Telegraph::ENDPOINT_REPLACE_KEYBOARD);
 });
 
 it('can delete the inline keyboard', function () {
@@ -56,5 +56,5 @@ it('can delete the inline keyboard', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_request('delete_keyboard'));
 
-    Facade::assertSentData(LaravelTelegraph::ENDPOINT_REPLACE_KEYBOARD);
+    Facade::assertSentData(Telegraph::ENDPOINT_REPLACE_KEYBOARD);
 });
