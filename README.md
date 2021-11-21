@@ -1,4 +1,4 @@
-# A laravel facade to interact with Telegram Bots
+![Pest Laravel Expectations](https://banners.beyondco.de/Laravel%20Telegraph.png?theme=light&packageManager=composer+require&packageName=defstudio%2Flaravel-telegraph&pattern=architect&style=style_1&description=Telegram+bots+made+easy&md=1&showWatermark=1&fontSize=100px&images=phone-outgoing)
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/defstudio/laravel-telegraph.svg?style=flat-square)](https://packagist.org/packages/defstudio/laravel-telegraph)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/def-studio/laravel-telegraph/run-tests?label=tests)](https://github.com/def-studio/laravel-telegraph/actions?query=workflow%3Arun-tests+branch%3Amain)
@@ -7,7 +7,7 @@
 
 ---
 
-**Telegraph** is a Laravel package that enables Telegram Bots interaction
+**Telegraph** is a Laravel package that enables easy Telegram Bots interaction
 
 ```php
 Telegraph::message('this is great')->send();
@@ -53,6 +53,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Fabio Ivona](https://github.com/def:studio)
+- [BeyondCode Banners](https://banners.beyondco.de/)
 - [All Contributors](../../contributors)
 
 ## License
