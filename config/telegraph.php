@@ -11,5 +11,5 @@ return [
      */
     'default_parse_mode' => 'html',
 
-    'webhook_handler' => EmptyWebhookHandler::class
+    'webhook_handler' => EmptyWebhookHandler::class,
 ];

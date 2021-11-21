@@ -1,4 +1,4 @@
-# Laravel Telegraph Docs
+# Telegraph Docs
 
 ## Setup
 

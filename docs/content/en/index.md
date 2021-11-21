@@ -1,5 +1,5 @@
 ---
-title: 'Laravel Telegraph'
+title: 'Telegraph'
 menuTitle: 'Introduction'
 description: 'Telegraph is a Laravel package that enables easy Telegram Bots interaction'
 position: 1
