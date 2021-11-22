@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph;
 
+use DefStudio\Telegraph\Commands\CreateNewBotCommand;
 use DefStudio\Telegraph\Commands\GetTelegramWebhookDebugInfoCommand;
 use DefStudio\Telegraph\Commands\SetTelegramWebhookCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -17,6 +18,7 @@ class TelegraphServiceProvider extends PackageServiceProvider
             ->hasRoute('api')
             ->hasMigration('create_telegraph_bots_table')
             ->hasMigration('create_telegraph_chats_table')
+            ->hasCommand(CreateNewBotCommand::class)
             ->hasCommand(SetTelegramWebhookCommand::class)
             ->hasCommand(GetTelegramWebhookDebugInfoCommand::class);
 

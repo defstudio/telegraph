@@ -34,6 +34,16 @@ class TelegraphBot extends Model
         'name',
     ];
 
+    public static function booted()
+    {
+        self::created(function (TelegraphBot $bot) {
+            if (empty($bot->name)) {
+                $bot->name = "Bot #$bot->id";
+                $bot->saveQuietly();
+            }
+        });
+    }
+
     public function getRouteKeyName(): string
     {
         return 'token';
