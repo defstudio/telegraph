@@ -32,6 +32,16 @@ class TelegraphChat extends Model
         'name',
     ];
 
+    public static function booted()
+    {
+        self::created(function (TelegraphChat $chat) {
+            if (empty($chat->name)) {
+                $chat->name = "Chat #$chat->id";
+                $chat->saveQuietly();
+            }
+        });
+    }
+
     public function bot(): BelongsTo
     {
         return $this->belongsTo(TelegraphBot::class, 'telegraph_bot_id');

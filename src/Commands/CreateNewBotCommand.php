@@ -30,6 +30,22 @@ class CreateNewBotCommand extends Command
             'name' => $name,
         ]);
 
+        if ($this->confirm("Do you want to add a chat to this bot?")) {
+            while (empty($chat_id = $this->ask("Enter the chat id - press [x] to abort:"))) {
+                $this->error("The chat ID cannot be null");
+            }
+
+            if ($chat_id != 'x') {
+                $chat_name = $this->ask("Enter the chat name (optional):");
+                $bot->chats()->create([
+                    'chat_id' => $chat_id,
+                    'name' => $chat_name,
+                ]);
+            }
+        }
+
+
+
         if ($this->confirm("Do you want to setup a webhook for this bot?")) {
             $bot->registerWebhook()->send();
         }
