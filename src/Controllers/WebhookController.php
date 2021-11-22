@@ -11,15 +11,17 @@ use Illuminate\Http\Response;
 
 class WebhookController
 {
-    public function handle(Request $request, TelegraphBot $telegraph_bot): Response
+    public function handle(Request $request, string $token): Response
     {
+        $bot = TelegraphBot::fromToken($token);
+
         /** @var class-string $handler */
         $handler = config('telegraph.webhook_handler');
 
         /** @var WebhookHandler $handler */
         $handler = app($handler);
 
-        $handler->handle($request, $telegraph_bot);
+        $handler->handle($request, $bot);
 
         return \response()->noContent();
     }

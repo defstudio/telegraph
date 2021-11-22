@@ -46,8 +46,8 @@ class Telegraph implements TelegraphContract
 
     public function __construct()
     {
-        $this->bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole());
-        $this->chat = rescue(fn () => $this->bot?->chats()->sole());
+        $this->bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole(), report: false); //@phpstan-ignore-line
+        $this->chat = rescue(fn () => $this->bot?->chats()->sole(), report: false); //@phpstan-ignore-line
 
         $this->parseMode = config('telegraph.default_parse_mode', 'html'); //@phpstan-ignore-line
     }
@@ -89,7 +89,7 @@ class Telegraph implements TelegraphContract
 
         /** @phpstan-ignore-next-line */
         return (string) Str::of(self::TELEGRAM_API_BASE_URL)
-            ->append($this->bot->token)
+            ->append($this->bot?->token)
             ->append('/', $this->endpoint)
             ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
     }
@@ -99,7 +99,7 @@ class Telegraph implements TelegraphContract
         $this->bot = $bot;
 
         if (empty($this->chat)) {
-            $this->chat = rescue(fn () => $this->bot->chats()->sole());
+            $this->chat = rescue(fn () => $this->bot->chats()->sole(), report: false); //@phpstan-ignore-line
         }
 
         return $this;

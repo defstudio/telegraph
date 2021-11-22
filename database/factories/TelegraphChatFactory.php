@@ -18,7 +18,7 @@ class TelegraphChatFactory extends Factory
         return [
             'chat_id' => $this->faker->randomNumber(),
             'name' => $this->faker->word,
-            'telegraph_bot_id' => TelegraphBot::factory()->create(),
+            'telegraph_bot_id' => fn() => TelegraphBot::factory()->create(),
         ];
     }
 }

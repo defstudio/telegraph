@@ -14,7 +14,11 @@ class GetTelegramWebhookDebugInfoCommand extends Command
 
     public function handle(): int
     {
-        $bot = rescue(fn () => TelegraphBot::fromId($this->argument('bot')));
+        /** @var int|null $bot_id */
+        $bot_id = $this->argument('bot');
+
+        /** @var TelegraphBot|null $bot */
+        $bot = rescue(fn () => TelegraphBot::fromId($bot_id), report: false);
 
         if (empty($bot)) {
             $this->error("Please specify a Bot ID");
@@ -42,7 +46,10 @@ class GetTelegramWebhookDebugInfoCommand extends Command
             $this->line("$key: $value");
         }
 
-        if (!$reponse->json('ok')) {
+        /** @var bool $ok */
+        $ok = $reponse->json('ok');
+
+        if (!$ok) {
             $this->error("Failed to retrieve webhook debug info");
             dump($reponse->json());
 

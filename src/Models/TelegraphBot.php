@@ -34,6 +34,11 @@ class TelegraphBot extends Model
         'name',
     ];
 
+    public function getRouteKeyName(): string
+    {
+        return 'token';
+    }
+
     public static function fromId(int $id = null): TelegraphBot
     {
         if (empty($id)) {
@@ -64,12 +69,12 @@ class TelegraphBot extends Model
         return TelegraphFacade::bot($this)->registerWebhook();
     }
 
-    public function getWebhookDebugInfo()
+    public function getWebhookDebugInfo(): Telegraph
     {
         return TelegraphFacade::bot($this)->getWebhookDebugInfo();
     }
 
-    public function replyWebhook(string $callbackQueryId, string $message)
+    public function replyWebhook(string $callbackQueryId, string $message): Telegraph
     {
         return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message);
     }

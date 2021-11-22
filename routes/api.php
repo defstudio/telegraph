@@ -3,4 +3,4 @@
 use DefStudio\Telegraph\Controllers\WebhookController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/telegraph_bots/{telegraph_bot:token}/webhook', [WebhookController::class, 'handle'])->name('telegraph.webhook');
+Route::post('/telegraph/{token}/webhook', [WebhookController::class, 'handle'])->name('telegraph.webhook');

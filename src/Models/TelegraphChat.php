@@ -55,13 +55,13 @@ class TelegraphChat extends Model
     /**
      * @param array<array<array<string, string>>> $newKeyboard
      */
-    public function replaceKeyboard(string $messageId, array $newKeyboard)
+    public function replaceKeyboard(string $messageId, array $newKeyboard): Telegraph
     {
-        return TelegraphFacade::bot($this)->replaceKeyboard($messageId, $newKeyboard);
+        return TelegraphFacade::chat($this)->replaceKeyboard($messageId, $newKeyboard);
     }
 
-    public function deleteKeyboard(string $messageId)
+    public function deleteKeyboard(string $messageId): Telegraph
     {
-        return TelegraphFacade::bot($this)->deleteKeyboard($messageId);
+        return TelegraphFacade::chat($this)->deleteKeyboard($messageId);
     }
 }
