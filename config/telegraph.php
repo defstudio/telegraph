@@ -1,15 +1,13 @@
 <?php
 
 use DefStudio\Telegraph\Handlers\EmptyWebhookHandler;
+use DefStudio\Telegraph\Telegraph;
 
 return [
-    'bot_token' => env('TELEGRAM_BOT_TOKEN'),
-    'chat_id' => env('TELEGRAM_CHAT_ID'),
-
     /*
      * html|markdown
      */
-    'default_parse_mode' => 'html',
+    'default_parse_mode' => Telegraph::PARSE_HTML,
 
     'webhook_handler' => EmptyWebhookHandler::class,
 

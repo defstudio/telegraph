@@ -4,20 +4,23 @@
 
 namespace DefStudio\Telegraph\Controllers;
 
+use DefStudio\Telegraph\Handlers\WebhookHandler;
+use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as SymphonyResponse;
 
 class WebhookController
 {
-    public function handle(Request $request, string $token): Response
+    public function handle(Request $request, TelegraphBot $telegraph_bot): Response
     {
-        abort_unless($token == config('telegraph.bot_token'), SymphonyResponse::HTTP_FORBIDDEN);
-
         /** @var class-string $handler */
         $handler = config('telegraph.webhook_handler');
 
-        app($handler)->handle($request);
+        /** @var WebhookHandler $handler */
+        $handler = app($handler);
+
+        $handler->handle($request, $telegraph_bot);
 
         return \response()->noContent();
     }

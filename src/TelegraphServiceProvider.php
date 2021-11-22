@@ -15,6 +15,8 @@ class TelegraphServiceProvider extends PackageServiceProvider
             ->name('telegraph')
             ->hasConfigFile()
             ->hasRoute('api')
+            ->hasMigration('create_telegraph_bots_table')
+            ->hasMigration('create_telegraph_chats_table')
             ->hasCommand(SetTelegramWebhookCommand::class)
             ->hasCommand(GetTelegramWebhookDebugInfoCommand::class);
 
