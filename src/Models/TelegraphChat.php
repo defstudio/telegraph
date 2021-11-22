@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 /** @noinspection PhpDocMissingThrowsInspection */
 

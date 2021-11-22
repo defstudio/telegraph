@@ -1,8 +1,9 @@
-<?php /** @noinspection PhpDocMissingThrowsInspection */
+<?php
+
+/** @noinspection PhpDocMissingThrowsInspection */
 /** @noinspection PhpUnused */
 
 /** @noinspection PhpUnhandledExceptionInspection */
-
 
 namespace DefStudio\Telegraph\Models;
 

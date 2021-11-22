@@ -33,6 +33,7 @@ function make_bot(): TelegraphBot
 {
     $bot = TelegraphBot::factory(['token' => '3f3814e1-5836-3d77-904e-60f64b15df36'])->make();
     $bot->setRelation('chats', Collection::make([TelegraphChat::factory(['chat_id' => '-123456789'])->make()]));
+
     return $bot;
 }
 
@@ -51,6 +52,7 @@ function make_chat(): TelegraphChat
 
     $chat->setRelation('bot', $bot);
     $bot->setRelation('chats', Collection::make([$chat]));
+
     return $chat;
 }
 

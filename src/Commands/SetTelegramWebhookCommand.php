@@ -18,6 +18,7 @@ class SetTelegramWebhookCommand extends Command
 
         if (empty($bot)) {
             $this->error("Please specify a Bot ID");
+
             return self::FAILURE;
         }
 

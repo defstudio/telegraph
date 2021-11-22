@@ -7,7 +7,6 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use Illuminate\Database\Eloquent\Collection;
 
-
 it('calls configured handler', function () {
     $bot = make_bot();
     $bot->setRelation('chats', Collection::make([TelegraphChat::factory(['chat_id' => '-123456789'])->make()]));

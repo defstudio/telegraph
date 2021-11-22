@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpDocMissingThrowsInspection */
+<?php
+
+/** @noinspection PhpDocMissingThrowsInspection */
 
 /** @noinspection PhpUnused */
 

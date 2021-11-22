@@ -1,7 +1,7 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
 
-use DefStudio\Telegraph\Models\TelegraphBot;
-use DefStudio\Telegraph\Models\TelegraphChat;
+/** @noinspection PhpUnhandledExceptionInspection */
+
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;

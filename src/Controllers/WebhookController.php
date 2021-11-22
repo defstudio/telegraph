@@ -8,7 +8,6 @@ use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Response as SymphonyResponse;
 
 class WebhookController
 {
