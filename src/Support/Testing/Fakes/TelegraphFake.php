@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
 /** @noinspection PhpUnused */
 
 /** @noinspection PhpPropertyOnlyWrittenInspection */
@@ -33,8 +35,8 @@ class TelegraphFake extends Telegraph
             'url' => $this->getUrl(),
             'endpoint' => $this->endpoint ?? null,
             'data' => $this->data ?? null,
-            'bot_token' => $this->botToken ?? null,
-            'chat_id' => $this->chatId ?? null,
+            'bot_token' => $this->bot->token ?? null,
+            'chat_id' => $this->chat->id ?? null,
             'message' => $this->message ?? null,
             'keyboard' => $this->keyboard ?? null,
             'parse_mode' => $this->parseMode ?? null,

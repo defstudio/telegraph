@@ -40,7 +40,8 @@
     },
     "autoload": {
         "psr-4": {
-            "DefStudio\\Telegraph\\": "src"
+            "DefStudio\\Telegraph\\": "src",
+            "DefStudio\\Telegraph\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
@@ -58,6 +59,7 @@
             "@test:types",
             "@test:unit"
         ],
+        "update:snapshots": "vendor/bin/pest --colors=always -d --update-snapshots",
         "coverage": "@test:unit --coverage"
     },
     "config": {

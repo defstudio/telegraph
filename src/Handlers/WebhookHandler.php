@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpDocMissingThrowsInspection */
+
 /** @noinspection PhpUnused */
 
 /** @noinspection PhpUnhandledExceptionInspection */
@@ -7,16 +9,20 @@
 namespace DefStudio\Telegraph\Handlers;
 
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
-use DefStudio\Telegraph\Facades\Telegraph;
+use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\ItemNotFoundException;
 use Illuminate\Support\Str;
 use ReflectionMethod;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class WebhookHandler
 {
-    protected string $chatId;
+    protected TelegraphBot $bot;
+    protected TelegraphChat $chat;
     protected string $messageId;
     protected string $callbackQueryId;
     protected Request $request;
@@ -25,7 +31,7 @@ abstract class WebhookHandler
 
     protected function reply(string $message): void
     {
-        Telegraph::replyWebhook($this->callbackQueryId, $message)->send();
+        $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
     }
 
     /**
@@ -33,12 +39,12 @@ abstract class WebhookHandler
      */
     protected function replaceKeyboard(array $newKeyboard): void
     {
-        Telegraph::chat($this->chatId)->replaceKeyboard($this->messageId, $newKeyboard)->send();
+        $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();
     }
 
     protected function deleteKeyboard(): void
     {
-        Telegraph::chat($this->chatId)->replaceKeyboard($this->messageId, [])->send();
+        $this->chat->replaceKeyboard($this->messageId, [])->send();
     }
 
     protected function canHandle(string $action): bool
@@ -59,10 +65,10 @@ abstract class WebhookHandler
         return true;
     }
 
-    public function handle(Request $request): void
+    public function handle(Request $request, TelegraphBot $bot): void
     {
+        $this->bot = $bot;
         $this->request = $request;
-
 
         //TODO move to a dedicate option, maybe when debug option is enabled
         Log::debug('telegram request received', [
@@ -96,7 +102,14 @@ abstract class WebhookHandler
 
     protected function extractCallbackQueryData(): void
     {
-        $this->chatId = $this->request->input('callback_query.message.chat.id'); //@phpstan-ignore-line
+        try {
+            /** @var TelegraphChat $chat */
+            $chat = $this->bot->chats->where('chat_id', $this->request->input('callback_query.message.chat.id'))->firstOrFail();
+            $this->chat = $chat;
+        } catch (ItemNotFoundException) {
+            throw new NotFoundHttpException();
+        }
+
         $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
         $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
         $this->originalKeyboard = collect($this->request->input('callback_query.message.reply_markup.inline_keyboard', []))->flatten(1); //@phpstan-ignore-line
@@ -119,14 +132,16 @@ abstract class WebhookHandler
         }
 
         match ($this->data->get('text')) {
-            '/chatid' => Telegraph::chat($this->chatId)->html("Chat ID: $this->chatId")->send(),
-            default => Telegraph::chat($this->chatId)->html("Unknown command")->send(),
+            '/chatid' => $this->chat->html("Chat ID: {$this->chat->chat_id}")->send(),
+            default => $this->chat->html("Unknown command")->send(),
         };
     }
 
     protected function extractMessageData(): void
     {
-        $this->chatId = $this->request->input('message.chat.id', $this->request->input('channel_post.chat.id')); //@phpstan-ignore-line
+        /** @var TelegraphChat $chat */
+        $chat = $this->bot->chats()->where('chat_id', $this->request->input('message.chat.id'))->firstOrFail();
+        $this->chat = $chat;
         $this->messageId = $this->request->input('message.message_id', $this->request->input('channel_post.message_id')); //@phpstan-ignore-line
         $this->data = collect([
             'text' => $this->request->input('message.text', $this->request->input('channel_post.text')), //@phpstan-ignore-line

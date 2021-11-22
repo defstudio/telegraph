@@ -1,1 +1,1 @@
-https://api.telegram.org/bot123456AAABBB/setWebhook?url=http%3A%2F%2Flocalhost%2Ftelegraph%2F123456AAABBB%2Fwebhook
+https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/setWebhook?url=http%3A%2F%2Flocalhost%2Ftelegraph%2F3f3814e1-5836-3d77-904e-60f64b15df36%2Fwebhook

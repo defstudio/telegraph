@@ -8,7 +8,9 @@
 namespace DefStudio\Telegraph;
 
 use DefStudio\Telegraph\Contracts\TelegraphContract;
-use DefStudio\Telegraph\Exceptions\TelegramException;
+use DefStudio\Telegraph\Exceptions\TelegraphException;
+use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -16,6 +18,9 @@ use Illuminate\Support\Stringable;
 
 class Telegraph implements TelegraphContract
 {
+    public const PARSE_HTML = 'html';
+    public const PARSE_MARKDOWN = 'markdown';
+
     private const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
     public const ENDPOINT_SET_WEBHOOK = 'setWebhook';
     public const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';
@@ -28,9 +33,9 @@ class Telegraph implements TelegraphContract
     /** @var array<string, mixed> */
     protected array $data = [];
 
-    protected string $botToken;
+    protected TelegraphBot|null $bot;
 
-    protected string $chatId;
+    protected TelegraphChat|null $chat;
 
     protected string $message;
 
@@ -41,8 +46,9 @@ class Telegraph implements TelegraphContract
 
     public function __construct()
     {
-        $this->botToken = config('telegraph.bot_token') ?? ''; //@phpstan-ignore-line
-        $this->chatId = config('telegraph.chat_id') ?? ''; //@phpstan-ignore-line
+        $this->bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole(), report: false); //@phpstan-ignore-line
+        $this->chat = rescue(fn () => $this->bot?->chats()->sole(), report: false); //@phpstan-ignore-line
+
         $this->parseMode = config('telegraph.default_parse_mode', 'html'); //@phpstan-ignore-line
     }
 
@@ -51,23 +57,16 @@ class Telegraph implements TelegraphContract
         return Http::get($this->getUrl());
     }
 
-    protected function checkRequirements(): void
-    {
-        if (empty($this->botToken)) {
-            throw TelegramException::missingBotToken();
-        }
-
-        if (empty($this->chatId)) {
-            throw TelegramException::missingChatId();
-        }
-    }
-
     protected function buildChatMessage(): void
     {
+        if (empty($this->chat)) {
+            throw TelegraphException::missingChat();
+        }
+
         $this->endpoint = self::ENDPOINT_MESSAGE;
         $this->data = [
             'text' => $this->message,
-            'chat_id' => $this->chatId,
+            'chat_id' => $this->chat->chat_id,
             'parse_mode' => $this->parseMode,
         ];
 
@@ -78,38 +77,48 @@ class Telegraph implements TelegraphContract
         }
     }
 
-    protected function prepareForSending(): void
+    public function getUrl(): string
     {
-        $this->checkRequirements();
+        if (empty($this->bot)) {
+            throw TelegraphException::missingBot();
+        }
 
         if (empty($this->endpoint)) {
             $this->buildChatMessage();
         }
-    }
-
-    public function getUrl(): string
-    {
-        $this->prepareForSending();
 
         /** @phpstan-ignore-next-line */
         return (string) Str::of(self::TELEGRAM_API_BASE_URL)
-            ->append($this->botToken)
+            ->append($this->bot?->token)
             ->append('/', $this->endpoint)
             ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
     }
 
-    public function bot(string $botToken): Telegraph
+    public function bot(TelegraphBot $bot): Telegraph
     {
-        $this->botToken = $botToken;
+        $this->bot = $bot;
+
+        if (empty($this->chat)) {
+            $this->chat = rescue(fn () => $this->bot->chats()->sole(), report: false); //@phpstan-ignore-line
+        }
 
         return $this;
     }
 
-    public function chat(string $chatId): Telegraph
+    public function chat(TelegraphChat $chat): Telegraph
     {
-        $this->chatId = $chatId;
+        $this->chat = $chat;
+        $this->bot = $this->chat->bot;
 
         return $this;
+    }
+
+    public function message(string $message): Telegraph
+    {
+        return match (config('telegraph.default_parse_mode')) {
+            self::PARSE_MARKDOWN => $this->markdown($message),
+            default => $this->html($message)
+        };
     }
 
     public function html(string $message): Telegraph
@@ -140,9 +149,13 @@ class Telegraph implements TelegraphContract
 
     public function registerWebhook(): Telegraph
     {
+        if (empty($this->bot)) {
+            throw TelegraphException::missingBot();
+        }
+
         $this->endpoint = self::ENDPOINT_SET_WEBHOOK;
         $this->data = [
-            'url' => route('telegraph.webhook', config('telegraph.bot_token')),
+            'url' => route('telegraph.webhook', $this->bot),
         ];
 
         return $this;
@@ -171,7 +184,9 @@ class Telegraph implements TelegraphContract
      */
     public function replaceKeyboard(string $messageId, array $newKeyboard): Telegraph
     {
-        $this->checkRequirements();
+        if (empty($this->chat)) {
+            throw TelegraphException::missingChat();
+        }
 
         if (empty($newKeyboard)) {
             $replyMarkup = null;
@@ -181,12 +196,17 @@ class Telegraph implements TelegraphContract
 
         $this->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
         $this->data = [
-            'chat_id' => $this->chatId,
+            'chat_id' => $this->chat->chat_id,
             'message_id' => $messageId,
             'reply_markup' => $replyMarkup,
         ];
 
         return $this;
+    }
+
+    public function deleteKeyboard(string $messageId): Telegraph
+    {
+        return $this->replaceKeyboard($messageId, []);
     }
 
     public function send(): Response

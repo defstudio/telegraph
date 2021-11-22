@@ -2,14 +2,16 @@
 
 namespace DefStudio\Telegraph\Contracts;
 
+use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Http\Client\Response;
 
 interface TelegraphContract
 {
-    public function bot(string $botToken): Telegraph;
+    public function bot(TelegraphBot $bot): Telegraph;
 
-    public function chat(string $chatId): Telegraph;
+    public function chat(TelegraphChat $chat): Telegraph;
 
     public function html(string $message): Telegraph;
 

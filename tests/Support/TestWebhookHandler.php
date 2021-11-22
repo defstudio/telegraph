@@ -51,7 +51,7 @@ class TestWebhookHandler extends WebhookHandler
         parent::extractCallbackQueryData();
 
         self::$extracted_data = [
-            'chatId' => $this->chatId,
+            'chatId' => $this->chat->id,
             'messageId' => $this->messageId,
             'callbackQueryId' => $this->callbackQueryId,
             'originalKeyboard' => $this->originalKeyboard,
