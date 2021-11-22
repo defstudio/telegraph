@@ -2,8 +2,8 @@
 
 namespace DefStudio\Telegraph\Commands;
 
-use Illuminate\Console\Command;
 use DefStudio\Telegraph\Models\TelegraphBot;
+use Illuminate\Console\Command;
 
 class CreateNewBotCommand extends Command
 {
