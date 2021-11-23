@@ -34,4 +34,6 @@ fix documentation
 
 ## Unreleased
 
-- 
+**Add**
+
+- queue sending support
