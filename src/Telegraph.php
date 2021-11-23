@@ -9,8 +9,10 @@ namespace DefStudio\Telegraph;
 
 use DefStudio\Telegraph\Contracts\TelegraphContract;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
+use DefStudio\Telegraph\Jobs\SendRequestToTelegramJob;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -55,6 +57,11 @@ class Telegraph implements TelegraphContract
     protected function sendRequestToTelegram(): Response
     {
         return Http::get($this->getUrl());
+    }
+
+    protected function queueRequestToTelegram(string $queue = null): PendingDispatch
+    {
+        return SendRequestToTelegramJob::dispatch($this->getUrl())->onQueue($queue);
     }
 
     protected function buildChatMessage(): void
@@ -212,5 +219,10 @@ class Telegraph implements TelegraphContract
     public function send(): Response
     {
         return $this->sendRequestToTelegram();
+    }
+
+    public function queue(string $queue = null): PendingDispatch
+    {
+        return $this->queueRequestToTelegram($queue);
     }
 }

@@ -15,4 +15,16 @@ return [
      * If enabled, dump received webhook message to logs
      */
     'debug_mode' => false,
+
+    'queue' => [
+        /*
+         * Enables sending requests towards Telegram apis through Laravel's queue system
+         */
+        'enable' => true,
+
+        /*
+         * Sets the default queue to be used if sending queue is enabled
+         */
+        'on_queue' => 'default',
+    ],
 ];

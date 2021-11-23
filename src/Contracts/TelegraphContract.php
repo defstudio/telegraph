@@ -5,6 +5,7 @@ namespace DefStudio\Telegraph\Contracts;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
+use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\Response;
 
 interface TelegraphContract
@@ -32,4 +33,6 @@ interface TelegraphContract
     public function replaceKeyboard(string $messageId, array $newKeyboard): Telegraph;
 
     public function send(): Response;
+
+    public function queue(string $queue = null): PendingDispatch;
 }
