@@ -10,8 +10,11 @@ namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
 use DefStudio\Telegraph\Telegraph;
 use GuzzleHttp\Psr7\BufferStream;
+use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Testing\Fakes\QueueFake;
 use PHPUnit\Framework\Assert;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
@@ -29,9 +32,23 @@ class TelegraphFake extends Telegraph
         parent::__construct();
     }
 
-    protected function sendRequestToTelegram(): Response
+    protected function queueRequestToTelegram(string $queue = null): PendingDispatch
     {
-        $this->sentMessages[] = [
+        $this->sentMessages[] = $this->messageToArray();
+
+        if (!Queue::getFacadeRoot() instanceof QueueFake) {
+            Queue::fake();
+        }
+
+        return parent::queueRequestToTelegram($queue);
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    protected function messageToArray(): array
+    {
+        return [
             'url' => $this->getUrl(),
             'endpoint' => $this->endpoint ?? null,
             'data' => $this->data ?? null,
@@ -41,7 +58,11 @@ class TelegraphFake extends Telegraph
             'keyboard' => $this->keyboard ?? null,
             'parse_mode' => $this->parseMode ?? null,
         ];
+    }
 
+    protected function sendRequestToTelegram(): Response
+    {
+        $this->sentMessages[] = $this->messageToArray();
 
         $messageClass = new class () implements MessageInterface {
             /**
@@ -100,7 +121,7 @@ class TelegraphFake extends Telegraph
             {
                 $buffer = new BufferStream();
 
-                /** @phpstan-ignore-next-line  */
+                /** @phpstan-ignore-next-line */
                 $buffer->write(json_encode($this->reply));
 
                 return $buffer;
