@@ -9,7 +9,7 @@ class CreateNewBotCommand extends Command
 {
     public $signature = 'telegraph:new-bot';
 
-    public $description = 'Set webhook url in telegram bot configuration';
+    public $description = 'Create a new TelegraphBot';
 
     public function handle(): int
     {
@@ -49,6 +49,8 @@ class CreateNewBotCommand extends Command
         if ($this->confirm("Do you want to setup a webhook for this bot?")) {
             $bot->registerWebhook()->send();
         }
+
+        $this->info("New bot $bot->name has been created");
 
         return self::SUCCESS;
     }
