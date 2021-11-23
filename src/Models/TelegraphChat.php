@@ -6,6 +6,7 @@
 
 namespace DefStudio\Telegraph\Models;
 
+use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,6 +32,11 @@ class TelegraphChat extends Model
         'chat_id',
         'name',
     ];
+
+    protected static function newFactory(): TelegraphChatFactory
+    {
+        return TelegraphChatFactory::new();
+    }
 
     public static function booted()
     {

@@ -7,6 +7,7 @@
 
 namespace DefStudio\Telegraph\Models;
 
+use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Collection;
@@ -33,6 +34,11 @@ class TelegraphBot extends Model
         'token',
         'name',
     ];
+
+    protected static function newFactory(): TelegraphBotFactory
+    {
+        return TelegraphBotFactory::new();
+    }
 
     public static function booted()
     {
