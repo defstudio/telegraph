@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v0.0.11 - 2021-11-23
+
+## What's Changed
+
+- Mutliple bot support by @fabio-ivona in https://github.com/def-studio/telegraph/pull/1
+- adds new-chat command by @fabio-ivona in https://github.com/def-studio/telegraph/pull/2
+- Queue by @fabio-ivona in https://github.com/def-studio/telegraph/pull/3
+
+## New Contributors
+
+- @fabio-ivona made their first contribution in https://github.com/def-studio/telegraph/pull/1
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v0.0.10...v0.0.11
+
 ## v0.0.10 - 2021-11-21
 
 **Full Changelog**: https://github.com/def-studio/telegraph/compare/v0.0.9...v0.0.10
