@@ -18,13 +18,13 @@ function bots(int $count): Collection
     return TelegraphBot::factory()->count($count)->create();
 }
 
-function bot(): TelegraphBot
+function bot(string $token = '3f3814e1-5836-3d77-904e-60f64b15df36', string $chatId = '-123456789'): TelegraphBot
 {
     /** @var TelegraphBot $bot */
-    $bot = TelegraphBot::factory(['token' => '3f3814e1-5836-3d77-904e-60f64b15df36'])
+    $bot = TelegraphBot::factory(['token' => $token])
         ->create();
 
-    $bot->chats()->save(TelegraphChat::factory(['chat_id' => '-123456789', 'telegraph_bot_id' => null])->make());
+    $bot->chats()->save(TelegraphChat::factory(['chat_id' => $chatId, 'telegraph_bot_id' => null])->make());
 
     return $bot->refresh();
 }
