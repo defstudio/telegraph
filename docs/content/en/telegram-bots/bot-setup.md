@@ -26,9 +26,65 @@ position: 20
 
 <img src="screenshots/new-bot-setprivacy.jpg" />
 
-6. Save the bot token into your .env file.
+## Registering the newly created bot into your application
 
-```dotenv
-TELEGRAM_BOT_TOKEN=XXXXXX:XXXXXXXX-XXXXXXXXXX
+Any number of bots can be created, both programmatically and through an artisan command
+
+### through artisan command
+
+You can add a new bot issuing the dedicated _artisan_ command:
+
+```shell
+php artisan telegraph:new-bot
+```
+you will be guided through a bot creation wizard that will (optionally) allow you to add a new chat and setup a bot webhook as well
+
+<img src="screenshots/artisan-new-bot.jpg" />
+
+### programmatically
+
+If you are implementing a custom bot creation logic, you can create a new bot using the `TelegramBot` model:
+
+```php
+$bot = TelegraphBot::create([
+    'token' => $token,
+    'name' => $name,
+]);
 ```
 
+## Setting a webhook
+
+A webhook let your bot to answer commands issued from telegram chats and buttons inside messages
+
+### through an artisan command
+
+```shell
+php artisan telegraph:set-webhook {bot_id}
+```
+
+the bot_id argument is mandatory if you have created more than one bot
+
+### programmatically
+
+```php
+/** @var TelegraphBot $bot */
+$bot->registerWebhook()->send();
+```
+
+## Associating a chat to a bot
+
+Associating a chat to a bot, lets you send messages to that chat and interacting with commands
+
+**note** to get the _chat_id_ write the `/chat_id` command inside the chat
+
+### through an artisan command
+
+```shell
+php artisan telegraph:new-chat {bot_id}
+```
+
+the bot_id argument is mandatory if you have created more than one bot
+
+## programmatically
+
+[TODO]
