@@ -21,7 +21,7 @@ php artisan telegraph:new-chat {bot_id}
 
 the bot_id argument is mandatory if you have created more than one bot
 
-## programmatically
+### programmatically
 
 If you are implementing a custom bot creation logic, you can create a new chat using the `TelegraphChat` model:
 
