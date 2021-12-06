@@ -48,6 +48,10 @@ php artisan vendor:publish --tag="telegraph-config"
 Telegraph::message('this is great')->send();
 ```
 
+An extensive documentation is available at
+
+https://def-studio.github.io/telegraph
+
 ## Testing
 
 ```bash
