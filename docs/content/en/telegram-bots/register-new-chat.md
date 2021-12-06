@@ -2,12 +2,11 @@
 title: 'Adding a chat to a Telegraph Bot'
 menuTitle: 'Adding a chat'
 description: ''
-category: 'Telegram Bots'
+category: 'Quickstart'
 fullscreen: false 
 position: 23
 ---
 
-## Associating a chat to a bot
 
 Associating a chat to a bot, lets you send messages to that chat and interacting with commands
 

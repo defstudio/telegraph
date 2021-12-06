@@ -1,13 +1,11 @@
 ---
 title: 'Registering a bot with Telegraph'
-menuTitle: 'Adding bots to Telegraph'
+menuTitle: 'Adding the bot to Telegraph'
 description: ''
-category: 'Telegram Bots'
+category: 'Quickstart'
 fullscreen: false 
 position: 21
 ---
-
-## Registering the newly created bot into your application
 
 Any number of bots can be created, both programmatically and through an artisan command
 

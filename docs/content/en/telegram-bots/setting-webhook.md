@@ -2,12 +2,11 @@
 title: 'Setting a webhook for the bot'
 menuTitle: 'Setting a webhook'
 description: ''
-category: 'Telegram Bots'
+category: 'Quickstart'
 fullscreen: false 
 position: 22
 ---
 
-## Setting a webhook
 
 A webhook let your bot to answer commands issued from telegram chats and buttons inside messages
 
