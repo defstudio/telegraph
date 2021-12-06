@@ -59,7 +59,8 @@ return [
      */
     'queue' => [
         /*
-         * Enables sending requests towards Telegram apis through Laravel's queue system
+         * Enables sending requests towards Telegram apis
+         * through Laravel's queue system
          */
         'enable' => true,
 
