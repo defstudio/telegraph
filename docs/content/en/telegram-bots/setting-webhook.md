@@ -8,7 +8,7 @@ position: 22
 ---
 
 
-A webhook let your bot to answer commands issued from telegram chats and buttons inside messages
+A webhook lets your bot to answer commands issued from telegram chats and buttons inside messages
 
 ### through an artisan command
 
@@ -16,7 +16,7 @@ A webhook let your bot to answer commands issued from telegram chats and buttons
 php artisan telegraph:set-webhook {bot_id}
 ```
 
-the bot_id argument is mandatory if you have created more than one bot
+the `bot_id` argument is mandatory if you have created more than one bot
 
 ### programmatically
 
