@@ -10,7 +10,7 @@ position: 23
 
 Associating a chat to a bot, lets you send messages to that chat and interacting with commands
 
-<alert type="info">**Note:** to get the _chat_id_ issue the `/chat_id` command inside the chat.</alert>
+<alert type="info">**Note:** to get the _chat_id_ issue the `/chat_id` command inside the chat after having [set up a webhook](quickstart/setting-webhook).</alert>
 
 
 ### through an artisan command
