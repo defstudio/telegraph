@@ -70,11 +70,6 @@ abstract class WebhookHandler
         $this->bot = $bot;
         $this->request = $request;
 
-        //TODO move to a dedicate option, maybe when debug option is enabled
-        Log::debug('telegram request received', [
-            'data' => $request->all(),
-        ]);
-
         if ($this->request->has('message') || $this->request->has('channel_post')) {
             $this->handleMessage();
         }
@@ -88,6 +83,11 @@ abstract class WebhookHandler
     protected function handleCallbackQuery(): void
     {
         $this->extractCallbackQueryData();
+
+        if (config('telegraph.debug_mode')) {
+            Log::debug('Telegraph webhook callback', $this->data->toArray());
+        }
+
         $action = $this->data->get('action');
 
         if (!$this->canHandle($action)) {
@@ -128,7 +128,7 @@ abstract class WebhookHandler
         $this->extractMessageData();
 
         if (config('telegraph.debug_mode')) {
-            Log::debug('data', $this->data->toArray());
+            Log::debug('Telegraph webhook message', $this->data->toArray());
         }
 
         match ($this->data->get('text')) {
