@@ -15,4 +15,9 @@ class TelegramWebhookException extends \Exception
     {
         return new self(sprintf("Cannot use [%s] as action name, it is a reserved method from %s class", $action, WebhookHandler::class));
     }
+
+    public static function invalidCommand(string $command)
+    {
+        return new self(sprintf("Cannot use [%s] as command, it is a reserved method from %s class", $command, WebhookHandler::class));
+    }
 }

@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ItemNotFoundException;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 use ReflectionMethod;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -131,20 +132,51 @@ abstract class WebhookHandler
             Log::debug('Telegraph webhook message', $this->data->toArray());
         }
 
-        match ($this->data->get('text')) {
-            '/chatid' => $this->chat->html("Chat ID: {$this->chat->chat_id}")->send(),
-            default => $this->chat->html("Unknown command")->send(),
-        };
+        $text = Str::of($this->data->get('text'));
+
+        if ($text->startsWith('/')) {
+            $this->handleCommand($text);
+        } else {
+            $this->handleChatMessage($text);
+        }
     }
 
     protected function extractMessageData(): void
     {
         /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->where('chat_id', $this->request->input('message.chat.id'))->firstOrFail();
+        $chat = $this->bot->chats()->where('chat_id', $this->request->input('message.chat.id'))->firstOrNew();
+
         $this->chat = $chat;
+
         $this->messageId = $this->request->input('message.message_id', $this->request->input('channel_post.message_id')); //@phpstan-ignore-line
+
         $this->data = collect([
             'text' => $this->request->input('message.text', $this->request->input('channel_post.text')), //@phpstan-ignore-line
         ]);
+    }
+
+    protected function chatid(): void
+    {
+        $this->chat->html("Chat ID: {$this->chat->chat_id}")->send();
+    }
+
+    private function handleCommand(Stringable $text)
+    {
+        $command = $text->after('/');
+
+
+        if (!$this->canHandle($command)) {
+            report(TelegramWebhookException::invalidCommand($command));
+            $this->chat->html("Unknown command")->send();
+
+            return;
+        }
+
+        $this->$command();
+    }
+
+    protected function handleChatMessage(Stringable $text): void
+    {
+        // .. do nothing
     }
 }
