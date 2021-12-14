@@ -160,7 +160,7 @@ abstract class WebhookHandler
         $this->chat->html("Chat ID: {$this->chat->chat_id}")->send();
     }
 
-    private function handleCommand(Stringable $text)
+    private function handleCommand(Stringable $text): void
     {
         $command = $text->after('/');
 
