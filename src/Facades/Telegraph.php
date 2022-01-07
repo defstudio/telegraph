@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void  dumpSentData()
  * @method static void  assertSentData(string $endpoint, array $data = null)
  * @method static void  assertSent(string $message, bool $exact = true)
+ * @method static void  assertNothingSent()
  * @method static void  assertRegisteredWebhook()
  * @method static void  assertRequestedWebhookDebugInfo()
  * @method static void  assertRepliedWebhook(string $message)
