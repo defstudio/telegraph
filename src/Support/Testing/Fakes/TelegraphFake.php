@@ -152,15 +152,16 @@ class TelegraphFake extends Telegraph
                         return false;
                     }
 
-                    if ($exact) {
+                    if($exact){
                         if ($value != $message['data'][$key]) {
                             return false;
                         }
-                    } else {
+                    }else{
                         if (!Str::of($message['data'][$key])->contains($value)) {
                             return false;
                         }
                     }
+
                 }
 
                 return true;
@@ -181,6 +182,11 @@ class TelegraphFake extends Telegraph
         $this->assertSentData(Telegraph::ENDPOINT_MESSAGE, [
             'text' => $message,
         ], $exact);
+    }
+
+    public function assertNothingSent(): void
+    {
+        Assert::assertEmpty($this->sentMessages);
     }
 
     public function assertRegisteredWebhook(): void
