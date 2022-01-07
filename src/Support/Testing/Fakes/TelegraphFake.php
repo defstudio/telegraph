@@ -14,6 +14,7 @@ use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Str;
 use Illuminate\Support\Testing\Fakes\QueueFake;
 use PHPUnit\Framework\Assert;
 use Psr\Http\Message\MessageInterface;
@@ -141,19 +142,26 @@ class TelegraphFake extends Telegraph
     /**
      * @param array<string, string> $data
      */
-    public function assertSentData(string $endpoint, array $data = []): void
+    public function assertSentData(string $endpoint, array $data = [], bool $exact = true): void
     {
         $foundMessages = collect($this->sentMessages)
             ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
-            ->filter(function (array $message) use ($data): bool {
+            ->filter(function (array $message) use ($data, $exact): bool {
                 foreach ($data as $key => $value) {
                     if (!Arr::has($message['data'], $key)) {
                         return false;
                     }
 
-                    if ($value != $message['data'][$key]) {
-                        return false;
+                    if($exact){
+                        if ($value != $message['data'][$key]) {
+                            return false;
+                        }
+                    }else{
+                        if (!Str::of($message['data'][$key])->contains($value)) {
+                            return false;
+                        }
                     }
+
                 }
 
                 return true;
@@ -169,11 +177,11 @@ class TelegraphFake extends Telegraph
         Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
     }
 
-    public function assertSent(string $message): void
+    public function assertSent(string $message, bool $exact = true): void
     {
         $this->assertSentData(Telegraph::ENDPOINT_MESSAGE, [
             'text' => $message,
-        ]);
+        ], $exact);
     }
 
     public function assertRegisteredWebhook(): void
@@ -191,5 +199,10 @@ class TelegraphFake extends Telegraph
         $this->assertSentData(Telegraph::ENDPOINT_ANSWER_WEBHOOK, [
             'text' => $message,
         ]);
+    }
+
+    public function dumpSentData(): void
+    {
+        dump($this->sentMessages);
     }
 }
