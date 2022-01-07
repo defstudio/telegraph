@@ -152,16 +152,15 @@ class TelegraphFake extends Telegraph
                         return false;
                     }
 
-                    if($exact){
+                    if ($exact) {
                         if ($value != $message['data'][$key]) {
                             return false;
                         }
-                    }else{
+                    } else {
                         if (!Str::of($message['data'][$key])->contains($value)) {
                             return false;
                         }
                     }
-
                 }
 
                 return true;
