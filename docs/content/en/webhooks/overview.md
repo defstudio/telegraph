@@ -36,16 +36,6 @@ class MyWebhookHandler extends \DefStudio\Telegraph\Handlers\WebhookHandler
 }
 ```
 
-<alert type="alert">**Note:** A custom webhook handler must extend `DefStudio\Telegraph\Handlers\WebhookHandler`.</alert>
+<alert type="alert">**Note:** A custom webhook handler must extend `DefStudio\Telegraph\Handlers\WebhookHandler` and has to be registered in `config('telegraph.webhook_handler')`</alert>
 
 A detailed description of how WebhookHandlers work can be found in the next sections
-
-## Webhook request types
-
-Telegraph can handle two incoming webhook request types: **Chat Messages** and **Callback Queries**
-
-### Chat Messages
-
-Telegraph bots can receive commands from chats where they are member of. A command starts with
-
-[TODO after having checked if telegraph can handle entire messages alongside commands]
