@@ -20,6 +20,8 @@ the `bot_id` argument is mandatory if you have created more than one bot
 
 ### programmatically
 
+A webhook can be created programmatically for a bot by calling its `registerWebhook()` method
+
 ```php
 /** @var TelegraphBot $bot */
 $bot->registerWebhook()->send();
