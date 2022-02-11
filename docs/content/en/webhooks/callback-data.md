@@ -26,9 +26,7 @@ class CustomWebhookHandler extends WebhookHandler
     public function dismiss(){
         //...
         
-        $this->reply("Notification dismissed")->send();
-        
-        $this->repl
+        $key1 = $this->data->get('key1', 'default'); //foo
     }
 }
 ```

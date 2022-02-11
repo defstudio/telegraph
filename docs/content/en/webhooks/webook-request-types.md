@@ -12,7 +12,7 @@ Telegraph can handle two incoming webhook request types: **Chat Messages** and *
 
 ### Chat Messages
 
-Telegraph bots can receive commands from chats where they are registered. A command starts with a `backslash` char and a descriptive word:
+Telegraph bots can receive commands from chats where they are registered. A command is a telegram message has a a `backslash` char followed by a descriptive word, typed in the bot's chat:
 
 ```
 \hi
@@ -20,10 +20,11 @@ Telegraph bots can receive commands from chats where they are registered. A comm
 
 what the command will trigger is up to the developer, but a webhook will react to it if it has a public method named as the command:
 
-```
+```php
 class CustomWebhookHandler extends WebhookHandler
 {
-    public function hi(){
+    public function hi()
+    {
         $this->chat->markdown("*Hi* happy to be here!")->send();
     }
 }
@@ -43,10 +44,11 @@ action:dismiss;notification-id:42
 
 and the `dismiss` action will be handled by a corresponding public method in the custom webhook handler:
 
-```
+```php
 class CustomWebhookHandler extends WebhookHandler
 {
-    public function dismiss(){
+    public function dismiss()
+    {
         $notificationId = $this->data->get('notification-id');
         
         Notification::find($notificationId)->dismiss();
