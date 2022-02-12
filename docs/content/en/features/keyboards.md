@@ -9,7 +9,7 @@ position: 32
 
 A keyboard can be added to a message in order to offer a set of options to the user:
 
-<img src="screenshots/first-message.png" />
+<img src="screenshots/keyboard-example.png" />
 
 
 ## Attaching a keyboard
