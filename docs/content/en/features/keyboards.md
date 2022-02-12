@@ -64,6 +64,45 @@ must contain an `url` field and are used to open an external url when pressed:
 ```
 
 
+## Fluent keyboard definition
+
+A keyboard can also be built in a fluent way:
+
+### by rows
+
+```php
+$keyboard = Keyboard::make()
+    ->row([
+        Button::make('Delete')
+            ->action('delete')
+            ->param('id', '42'),
+        Button::make('Dismiss')
+            ->action('dismiss')
+            ->param('id', '42'),
+    ])
+    ->row([
+        Button::make('open')
+            ->url('https://test.it'),
+    ]);
+```
+
+### by buttons
+
+```php
+$keyboard = Keyboard::make()
+    ->buttons([
+        Button::make('Delete')
+            ->action('delete')
+            ->param('id', '42'),
+        Button::make('Dismiss')
+            ->action('dismiss')
+            ->param('id', '42'),
+        Button::make('open')
+            ->url('https://test.it'),
+    ])->chunk(2);
+```
+
+
 ## Updating a keyboard
 
 A keyboard can be replaced by a new one by submitting its `messageId`:

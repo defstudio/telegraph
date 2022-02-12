@@ -9,6 +9,7 @@
 namespace DefStudio\Telegraph\Handlers;
 
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ abstract class WebhookHandler
     }
 
     /**
-     * @param array<array<array<non-empty-string, non-empty-string>>> $newKeyboard
+     * @param array<array<array<non-empty-string, non-empty-string>>>|Keyboard $newKeyboard
      */
-    protected function replaceKeyboard(array $newKeyboard): void
+    protected function replaceKeyboard(array|Keyboard $newKeyboard): void
     {
         $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();
     }
