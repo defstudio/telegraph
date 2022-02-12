@@ -34,5 +34,5 @@ interface TelegraphContract
 
     public function send(): Response;
 
-    public function queue(string $queue = null): PendingDispatch;
+    public function dispatch(string $queue = null): PendingDispatch;
 }

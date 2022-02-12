@@ -59,7 +59,7 @@ class Telegraph implements TelegraphContract
         return Http::get($this->getUrl());
     }
 
-    protected function queueRequestToTelegram(string $queue = null): PendingDispatch
+    protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
     {
         return SendRequestToTelegramJob::dispatch($this->getUrl())->onQueue($queue);
     }
@@ -221,8 +221,8 @@ class Telegraph implements TelegraphContract
         return $this->sendRequestToTelegram();
     }
 
-    public function queue(string $queue = null): PendingDispatch
+    public function dispatch(string $queue = null): PendingDispatch
     {
-        return $this->queueRequestToTelegram($queue);
+        return $this->dispatchRequestToTelegram($queue);
     }
 }

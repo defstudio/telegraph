@@ -33,7 +33,7 @@ class TelegraphFake extends Telegraph
         parent::__construct();
     }
 
-    protected function queueRequestToTelegram(string $queue = null): PendingDispatch
+    protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
     {
         $this->sentMessages[] = $this->messageToArray();
 
@@ -41,7 +41,7 @@ class TelegraphFake extends Telegraph
             Queue::fake();
         }
 
-        return parent::queueRequestToTelegram($queue);
+        return parent::dispatchRequestToTelegram($queue);
     }
 
     /**

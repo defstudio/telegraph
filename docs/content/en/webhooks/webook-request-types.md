@@ -10,7 +10,7 @@ position: 41
 
 Telegraph can handle two incoming webhook request types: **Chat Messages** and **Callback Queries**
 
-### Chat Messages
+## Chat Messages
 
 Telegraph bots can receive commands from chats where they are registered. A command is a telegram message has a a `backslash` char followed by a descriptive word, typed in the bot's chat:
 
@@ -30,7 +30,7 @@ class CustomWebhookHandler extends WebhookHandler
 }
 ```
 
-### Callback Queries
+## Callback Queries
 
 Bots messages may ship with keyboard of buttons that trigger actions when pressed:
 
