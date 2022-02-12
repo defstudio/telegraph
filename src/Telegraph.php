@@ -10,6 +10,7 @@ namespace DefStudio\Telegraph;
 use DefStudio\Telegraph\Contracts\TelegraphContract;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Jobs\SendRequestToTelegramJob;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Foundation\Bus\PendingDispatch;
@@ -145,11 +146,11 @@ class Telegraph implements TelegraphContract
     }
 
     /**
-     * @param array<array<array<string, string>>> $keyboard
+     * @param array<array<array<string, string>>>|Keyboard $keyboard
      */
-    public function keyboard(array $keyboard): Telegraph
+    public function keyboard(array|Keyboard $keyboard): Telegraph
     {
-        $this->keyboard = $keyboard;
+        $this->keyboard = is_array($keyboard) ? $keyboard : $keyboard->toArray();
 
         return $this;
     }
@@ -187,13 +188,15 @@ class Telegraph implements TelegraphContract
     }
 
     /**
-     * @param array<array<array<string, string>>> $newKeyboard
+     * @param array<array<array<string, string>>>|Keyboard $newKeyboard
      */
-    public function replaceKeyboard(string $messageId, array $newKeyboard): Telegraph
+    public function replaceKeyboard(string $messageId, array|Keyboard $newKeyboard): Telegraph
     {
         if (empty($this->chat)) {
             throw TelegraphException::missingChat();
         }
+
+        $newKeyboard = is_array($newKeyboard) ? $newKeyboard : $newKeyboard->toArray();
 
         if (empty($newKeyboard)) {
             $replyMarkup = null;

@@ -8,6 +8,7 @@ namespace DefStudio\Telegraph\Models;
 
 use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -69,9 +70,9 @@ class TelegraphChat extends Model
     }
 
     /**
-     * @param array<array<array<string, string>>> $newKeyboard
+     * @param array<array<array<string, string>>>|Keyboard $newKeyboard
      */
-    public function replaceKeyboard(string $messageId, array $newKeyboard): Telegraph
+    public function replaceKeyboard(string $messageId, array|Keyboard $newKeyboard): Telegraph
     {
         return TelegraphFacade::chat($this)->replaceKeyboard($messageId, $newKeyboard);
     }
