@@ -29,24 +29,21 @@ abstract class WebhookHandler
     protected string $callbackQueryId;
     protected Request $request;
     protected Collection $data;
-    protected Collection $originalKeyboard;
+    protected Keyboard $originalKeyboard;
 
     protected function reply(string $message): void
     {
         $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
     }
 
-    /**
-     * @param array<array<array<non-empty-string, non-empty-string>>>|Keyboard $newKeyboard
-     */
-    protected function replaceKeyboard(array|Keyboard $newKeyboard): void
+    protected function replaceKeyboard(Keyboard $newKeyboard): void
     {
         $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();
     }
 
     protected function deleteKeyboard(): void
     {
-        $this->chat->replaceKeyboard($this->messageId, [])->send();
+        $this->chat->deleteKeyboard($this->messageId)->send();
     }
 
     protected function canHandle(string $action): bool
@@ -114,7 +111,7 @@ abstract class WebhookHandler
 
         $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
         $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
-        $this->originalKeyboard = collect($this->request->input('callback_query.message.reply_markup.inline_keyboard', []))->flatten(1); //@phpstan-ignore-line
+        $this->originalKeyboard = Keyboard::fromArray($this->request->input('callback_query.message.reply_markup.inline_keyboard', [])); //@phpstan-ignore-line
         $this->data = Str::of($this->request->input('callback_query.data'))->explode(';') //@phpstan-ignore-line
         ->mapWithKeys(function (string $entity) {
             $entity = explode(':', $entity);

@@ -2,6 +2,8 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -69,9 +71,9 @@ it('can add a keyboard to a message', function () {
     app(Telegraph::class)
         ->chat(make_chat())
         ->html('foobar')
-        ->keyboard([
-            ['foo' => 'bar'],
-        ])
+        ->keyboard(Keyboard::make()->buttons([
+            Button::make('foo')->url('bar'),
+        ]))
         ->send();
 
     Http::assertSent(function (Request $request) {
@@ -86,9 +88,9 @@ it('can replace the keyboard of a message', function () {
 
     app(Telegraph::class)
         ->chat(make_chat())
-        ->replaceKeyboard('123456', [
-            ['foo' => 'bar'],
-        ])
+        ->replaceKeyboard('123456', Keyboard::make()->buttons([
+            Button::make('foo')->url('bar'),
+        ]))
         ->send();
 
     Http::assertSent(function (Request $request) {

@@ -1,128 +1,89 @@
 ---
-title: 'Message Keyboards'
-menuTitle: 'Message Keyboards'
-description: ''
-category: 'Features'
-fullscreen: false 
-position: 32
+title: 'Message Keyboards' menuTitle: 'Message Keyboards' description: ''
+category: 'Features' fullscreen: false position: 32
 ---
 
 A keyboard can be added to a message in order to offer a set of options to the user:
 
 <img src="screenshots/keyboard-example.png" />
 
-
 ## Attaching a keyboard
 
-keyboard buttons must be organized in rows:
-
 ```php
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+
 Telegraph::message('hello world')
-->keyboard([
-    [ // ROW 1
-        [ // BUTTON 1
-            "text" => "🗑️ Delete",
-            "callback_data" => "action:delete;id:$notification->id"
-        ], 
-        [ // BUTTON 2
-            "text" => "📖 Mark as Read", 
-            "callback_data" => "action:read;id:$notification->id"
-        ],
-    ],
-    [ // ROW 2
-        [ // BUTTON 3
-            "text" => "👀 Open", 
-            "url" => 'http://test.it'
-        ],
-    ],
-])
-->send();
+->keyboard(Keyboard::make()->buttons([
+        Button::make('Delete')->action('delete')->param('id', '42'),
+        Button::make('open')->url('https://test.it'),
+]))->send();
 ```
 
 and can be of two types
 
 ### Callback Buttons
 
-must contain a `callback_data` field and triggers a **callback query** to be handled by a custom webhook
+Must define an `action` and some `params`. They triggers a **callback query** to be handled by a custom webhook
 
 ```php
-[ 
-    "text" => "🗑️ Delete",
-    "callback_data" => "action:delete;id:$notification->id"
-], 
+Button::make('Delete')->action('delete')->param('id', '42'),
 ```
 
 ### URL Buttons
 
-must contain an `url` field and are used to open an external url when pressed:
+Must define an `url` and are used to open an external url when pressed:
 
 ```php
-[
-    "text" => "👀 Open",
-    "url" => 'http://test.it'
-],
+Button::make('open')->url('https://test.it'),
 ```
 
+## Keyboard Rows
 
-## Fluent keyboard definition
-
-A keyboard can also be built in a fluent way:
+A keyboard will normally place one button per row, this behaviour can be customized by defining rows or by chunking buttons
 
 ### by rows
 
 ```php
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+
 $keyboard = Keyboard::make()
     ->row([
-        Button::make('Delete')
-            ->action('delete')
-            ->param('id', '42'),
-        Button::make('Dismiss')
-            ->action('dismiss')
-            ->param('id', '42'),
+        Button::make('Delete')->action('delete')->param('id', '42'),
+        Button::make('Dismiss')->action('dismiss')->param('id', '42'),
     ])
     ->row([
-        Button::make('open')
-            ->url('https://test.it'),
+        Button::make('open')->url('https://test.it'),
     ]);
 ```
 
-### by buttons
+### by chunking
 
 ```php
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+
 $keyboard = Keyboard::make()
     ->buttons([
-        Button::make('Delete')
-            ->action('delete')
-            ->param('id', '42'),
-        Button::make('Dismiss')
-            ->action('dismiss')
-            ->param('id', '42'),
-        Button::make('open')
-            ->url('https://test.it'),
+        Button::make('Delete')->action('delete')->param('id', '42'),
+        Button::make('Dismiss')->action('dismiss')->param('id', '42'),
+        Button::make('open')->url('https://test.it'),
     ])->chunk(2);
 ```
-
 
 ## Updating a keyboard
 
 A keyboard can be replaced by a new one by submitting its `messageId`:
 
 ```php
-Telegraph::replaceKeyboard(messageId: 1568794, newKeyboard: [
-    [
-        [
-            "text" => "🗑️ Delete",
-            "callback_data" => "action:delete;id:$notification->id"
-        ], 
-    ],
-    [
-        [
-            "text" => "👀 Open", 
-            "url" => 'http://test.it'
-        ],
-    ],
-])
-->send();
+Telegraph::replaceKeyboard(
+    messageId: 1568794, 
+    newKeyboard: Keyboard::make()->buttons([
+        Button::make('Delete')->action('delete')->param('id', '42'),
+        Button::make('open')->url('https://test.it'),
+    ])
+)->send();
 ```
 
 ## Deleting a keyboard
