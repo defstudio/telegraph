@@ -24,10 +24,10 @@ class Button
         return $this->param('action', $name);
     }
 
-    public function param(string $key, string $value): static
+    public function param(string $key, int|string $value): static
     {
         $key = trim($key);
-        $value = trim($value);
+        $value = trim((string)$value);
 
         $this->callbackData[] = "$key:$value";
 
