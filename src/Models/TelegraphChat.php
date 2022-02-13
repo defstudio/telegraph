@@ -69,10 +69,7 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->markdown($message);
     }
 
-    /**
-     * @param array<array<array<string, string>>>|Keyboard $newKeyboard
-     */
-    public function replaceKeyboard(string $messageId, array|Keyboard $newKeyboard): Telegraph
+    public function replaceKeyboard(string $messageId, Keyboard $newKeyboard): Telegraph
     {
         return TelegraphFacade::chat($this)->replaceKeyboard($messageId, $newKeyboard);
     }

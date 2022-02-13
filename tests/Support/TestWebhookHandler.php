@@ -5,6 +5,8 @@
 namespace DefStudio\Telegraph\Tests\Support;
 
 use DefStudio\Telegraph\Handlers\WebhookHandler;
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 
 class TestWebhookHandler extends WebhookHandler
 {
@@ -29,12 +31,15 @@ class TestWebhookHandler extends WebhookHandler
 
     public function change_keyboard(): void
     {
-        $this->replaceKeyboard([
-            [
-                ["text" => "test", "callback_data" => "action:test;id:1"],
-                ["text" => "delete", "callback_data" => "action:delete;id:2"],
-            ],
-        ]);
+        $this->replaceKeyboard(
+            Keyboard::make()
+                ->row([
+                    Button::make('test')->action('test')->param('id', 1),
+                ])
+                ->row([
+                    Button::make('delete')->action('delete')->param('id', 2),
+                ])
+        );
     }
 
     public function delete_keyboard(): void

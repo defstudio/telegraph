@@ -13,6 +13,7 @@ it('extracts call data', function () {
     app(TestWebhookHandler::class)->handle(webhook_request('test'), $bot);
 
     expect(TestWebhookHandler::$extracted_data)->toMatchSnapshot();
+    expect(TestWebhookHandler::$extracted_data['originalKeyboard']->toArray())->toMatchSnapshot();
 });
 
 it('can handle a registered action', function () {

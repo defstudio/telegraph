@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph\Contracts;
 
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
@@ -27,10 +28,7 @@ interface TelegraphContract
 
     public function replyWebhook(string $callbackQueryId, string $message): Telegraph;
 
-    /**
-     * @param array<array<array<string, string>>> $newKeyboard
-     */
-    public function replaceKeyboard(string $messageId, array $newKeyboard): Telegraph;
+    public function replaceKeyboard(string $messageId, Keyboard $newKeyboard): Telegraph;
 
     public function send(): Response;
 

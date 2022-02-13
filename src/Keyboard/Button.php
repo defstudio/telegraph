@@ -26,6 +26,9 @@ class Button
 
     public function param(string $key, string $value): static
     {
+        $key = trim($key);
+        $value = trim($value);
+
         $this->callbackData[] = "$key:$value";
 
         return $this;
@@ -60,5 +63,10 @@ class Button
         return [
             'text' => $this->label,
         ];
+    }
+
+    public function label(): string
+    {
+        return $this->label;
     }
 }

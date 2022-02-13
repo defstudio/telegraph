@@ -2,8 +2,6 @@ chatId: null
 messageId: '123456'
 callbackQueryId: '159753'
 originalKeyboard:
-    - { text: test, callback_data: 'action:test;id:1' }
-    - { text: delete, callback_data: 'action:delete;id:2' }
-    - { text: '👀 Apri', url: 'https://test.it' }
+    empty: false
 data:
     action: test

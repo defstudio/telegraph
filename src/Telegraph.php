@@ -187,21 +187,16 @@ class Telegraph implements TelegraphContract
         return $this;
     }
 
-    /**
-     * @param array<array<array<string, string>>>|Keyboard $newKeyboard
-     */
-    public function replaceKeyboard(string $messageId, array|Keyboard $newKeyboard): Telegraph
+    public function replaceKeyboard(string $messageId, Keyboard $newKeyboard): Telegraph
     {
         if (empty($this->chat)) {
             throw TelegraphException::missingChat();
         }
 
-        $newKeyboard = is_array($newKeyboard) ? $newKeyboard : $newKeyboard->toArray();
-
-        if (empty($newKeyboard)) {
+        if ($newKeyboard->isEmpty()) {
             $replyMarkup = null;
         } else {
-            $replyMarkup = json_encode(['inline_keyboard' => $newKeyboard]);
+            $replyMarkup = json_encode(['inline_keyboard' => $newKeyboard->toArray()]);
         }
 
         $this->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
@@ -216,7 +211,7 @@ class Telegraph implements TelegraphContract
 
     public function deleteKeyboard(string $messageId): Telegraph
     {
-        return $this->replaceKeyboard($messageId, []);
+        return $this->replaceKeyboard($messageId, Keyboard::make());
     }
 
     public function send(): Response
