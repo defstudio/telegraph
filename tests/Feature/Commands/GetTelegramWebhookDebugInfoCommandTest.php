@@ -66,3 +66,23 @@ test('can retrieve telegram bot webhook info if given its ID', function () {
         ->expectsOutput("ip_address: 1.234.567.890")
         ->assertSuccessful();
 });
+
+test('it dumps error when telegram request is unsuccessful', function () {
+    /** @var TelegraphBot $bot */
+    $bot = bots(2)->first();
+
+    Facade::fake([
+        Telegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO => [
+            'ok' => false,
+            'result' => [
+                'error' => 'foo',
+            ],
+        ],
+    ]);
+
+    /** @phpstan-ignore-next-line */
+    artisan("telegraph:debug-webhook $bot->id")
+        ->expectsOutput("Failed to get log from telegram server")
+        ->expectsOutput('{"ok":false,"result":{"error":"foo"}}')
+        ->assertFailed();
+});

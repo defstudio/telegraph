@@ -8,6 +8,7 @@
 
 namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
+use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Telegraph;
 use GuzzleHttp\Psr7\BufferStream;
 use Illuminate\Foundation\Bus\PendingDispatch;
@@ -46,6 +47,7 @@ class TelegraphFake extends Telegraph
 
     /**
      * @return array<string, mixed>
+     * @throws TelegraphException
      */
     protected function messageToArray(): array
     {

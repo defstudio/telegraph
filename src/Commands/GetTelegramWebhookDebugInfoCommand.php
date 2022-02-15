@@ -26,17 +26,17 @@ class GetTelegramWebhookDebugInfoCommand extends Command
             return self::FAILURE;
         }
 
-        $reponse = $bot->getWebhookDebugInfo()->send();
+        $response = $bot->getWebhookDebugInfo()->send();
 
-        if (!$reponse->json('ok')) {
+        if (!$response->json('ok')) {
             $this->error("Failed to get log from telegram server");
-            dump($reponse->json());
+            $this->error($response->body());
 
             return self::FAILURE;
         }
 
         /** @var array<string, string|int|bool> $result */
-        $result = $reponse->json('result');
+        $result = $response->json('result');
 
         foreach ($result as $key => $value) {
             if (is_bool($value)) {
@@ -44,16 +44,6 @@ class GetTelegramWebhookDebugInfoCommand extends Command
             }
 
             $this->line("$key: $value");
-        }
-
-        /** @var bool $ok */
-        $ok = $reponse->json('ok');
-
-        if (!$ok) {
-            $this->error("Failed to retrieve webhook debug info");
-            dump($reponse->json());
-
-            return self::FAILURE;
         }
 
         return self::SUCCESS;

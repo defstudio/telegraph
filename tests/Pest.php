@@ -64,6 +64,7 @@ function register_webhook_handler(string $handler = TestWebhookHandler::class): 
     config()->set('telegraph.webhook_handler', $handler);
 }
 
+
 function webhook_request($action = 'invalid', $handler = TestWebhookHandler::class): Request
 {
     register_webhook_handler($handler);
@@ -89,6 +90,21 @@ function webhook_request($action = 'invalid', $handler = TestWebhookHandler::cla
                 ],
             ],
             'data' => "action:$action",
+        ],
+    ]);
+}
+
+function webhook_command($command, $handler = TestWebhookHandler::class): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'message' => [
+            'message_id' => 123456,
+            'chat' => [
+                'id' => -123456789,
+            ],
+            'text' => $command,
         ],
     ]);
 }

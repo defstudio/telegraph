@@ -57,16 +57,13 @@ abstract class WebhookHandler
             return false;
         }
 
-        if (method_exists(WebhookHandler::class, $action)) {
-            throw TelegramWebhookException::invalidActionName($action);
-        }
-
         return true;
     }
 
     public function handle(Request $request, TelegraphBot $bot): void
     {
         $this->bot = $bot;
+
         $this->request = $request;
 
         if ($this->request->has('message') || $this->request->has('channel_post')) {
@@ -160,7 +157,7 @@ abstract class WebhookHandler
 
     private function handleCommand(Stringable $text): void
     {
-        $command = $text->after('/');
+        $command = (string) $text->after('/');
 
 
         if (!$this->canHandle($command)) {

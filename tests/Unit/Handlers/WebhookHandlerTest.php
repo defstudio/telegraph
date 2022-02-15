@@ -6,6 +6,7 @@
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Telegraph;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
+use Illuminate\Support\Facades\Log;
 
 it('extracts call data', function () {
     $bot = make_bot();
@@ -49,6 +50,25 @@ it('can reply', function () {
     app(TestWebhookHandler::class)->handle(webhook_request('send_reply'), $bot);
 
     Facade::assertRepliedWebhook('foo');
+});
+
+it('logs webhook calls', function () {
+    $bot = make_bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_request('send_reply'), $bot);
+
+    Facade::assertRepliedWebhook('foo');
+});
+
+it('can handle a command', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $bot);
+
+    Facade::assertSent("Hello!!");
+
 });
 
 it('can change the inline keyboard', function () {

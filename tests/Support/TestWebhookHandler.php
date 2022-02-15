@@ -47,6 +47,11 @@ class TestWebhookHandler extends WebhookHandler
         $this->deleteKeyboard();
     }
 
+    public function hello(): void
+    {
+        $this->chat->html("Hello!!")->send();
+    }
+
     private function private_action(): void
     {
     }

@@ -33,11 +33,11 @@ class SetTelegramWebhookCommand extends Command
         $reponse = $telegraph->send();
 
         /** @var bool $ok */
-        $ok = $reponse->json('ok');
+        $ok = (bool)$reponse->json('ok');
 
         if (!$ok) {
             $this->error("Failed to register webhook");
-            dump($reponse->json());
+            $this->error($reponse->body());
 
             return self::FAILURE;
         }

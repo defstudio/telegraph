@@ -27,6 +27,9 @@
         <include>
             <directory suffix=".php">./src</directory>
         </include>
+        <exclude>
+            <directory>./src/Exceptions</directory>
+        </exclude>
         <report>
             <html outputDirectory="build/coverage"/>
             <text outputFile="build/coverage.txt"/>
@@ -36,4 +39,8 @@
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>
+    <php>
+        <server name="TELEGRAM_BOT_TOKEN" value="123456AAABBB"/>
+        <server name="TELEGRAM_CHAT_ID" value="-123456789"/>
+    </php>
 </phpunit>
