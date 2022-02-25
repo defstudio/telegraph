@@ -3,6 +3,7 @@
 
 use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Symfony\Component\Console\Command\Command;
 use function Pest\Laravel\artisan;
 
 uses(LazilyRefreshDatabase::class);
@@ -15,7 +16,7 @@ test('can set telegram webhook address if there is only one', function () {
     /** @phpstan-ignore-next-line */
     artisan('telegraph:set-webhook')
         ->expectsOutput("Webhook updated")
-        ->assertSuccessful();
+        ->assertExitCode(Command::SUCCESS);
 });
 
 test('it requires bot id if there are more than one', function () {
@@ -24,7 +25,7 @@ test('it requires bot id if there are more than one', function () {
     /** @phpstan-ignore-next-line */
     artisan('telegraph:set-webhook')
         ->expectsOutput("Please specify a Bot ID")
-        ->assertFailed();
+        ->assertExitCode(Command::FAILURE);
 });
 
 test('can set tel0egram webhook address for a bot if given its ID', function () {
@@ -35,7 +36,7 @@ test('can set tel0egram webhook address for a bot if given its ID', function () 
     /** @phpstan-ignore-next-line */
     artisan("telegraph:set-webhook $bot->id")
         ->expectsOutput("Webhook updated")
-        ->assertSuccessful();
+        ->assertExitCode(Command::SUCCESS);
 });
 
 test('it dumps error when telegram request is unsuccessful', function () {
@@ -52,5 +53,5 @@ test('it dumps error when telegram request is unsuccessful', function () {
     artisan("telegraph:set-webhook $bot->id")
         ->expectsOutput("Failed to register webhook")
         ->expectsOutput('{"ok":false,"foo":"bar"}')
-        ->assertFailed();
+        ->assertExitCode(Command::SUCCESS);
 });

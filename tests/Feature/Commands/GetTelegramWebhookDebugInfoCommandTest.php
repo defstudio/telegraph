@@ -3,6 +3,7 @@
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Telegraph;
+use Symfony\Component\Console\Command\Command;
 use function Pest\Laravel\artisan;
 
 test('can retrieve telegram bot webhook info', function () {
@@ -28,7 +29,7 @@ test('can retrieve telegram bot webhook info', function () {
         ->expectsOutput("pending_update_count: 0")
         ->expectsOutput("max_connections: 40")
         ->expectsOutput("ip_address: 1.234.567.890")
-        ->assertSuccessful();
+        ->assertExitCode(Command::SUCCESS);
 });
 
 test('it requires bot id if there are more than one', function () {
@@ -37,7 +38,7 @@ test('it requires bot id if there are more than one', function () {
     /** @phpstan-ignore-next-line */
     artisan('telegraph:debug-webhook')
         ->expectsOutput("Please specify a Bot ID")
-        ->assertFailed();
+        ->assertExitCode(Command::FAILURE);
 });
 
 test('can retrieve telegram bot webhook info if given its ID', function () {
@@ -64,7 +65,7 @@ test('can retrieve telegram bot webhook info if given its ID', function () {
         ->expectsOutput("pending_update_count: 0")
         ->expectsOutput("max_connections: 40")
         ->expectsOutput("ip_address: 1.234.567.890")
-        ->assertSuccessful();
+        ->assertExitCode(Command::SUCCESS);
 });
 
 test('it dumps error when telegram request is unsuccessful', function () {
@@ -84,5 +85,5 @@ test('it dumps error when telegram request is unsuccessful', function () {
     artisan("telegraph:debug-webhook $bot->id")
         ->expectsOutput("Failed to get log from telegram server")
         ->expectsOutput('{"ok":false,"result":{"error":"foo"}}')
-        ->assertFailed();
+        ->assertExitCode(Command::FAILURE);
 });
