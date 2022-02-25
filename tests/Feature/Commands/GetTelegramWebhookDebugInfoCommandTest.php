@@ -3,8 +3,8 @@
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Telegraph;
-use Symfony\Component\Console\Command\Command;
 use function Pest\Laravel\artisan;
+use Symfony\Component\Console\Command\Command;
 
 test('can retrieve telegram bot webhook info', function () {
     bot();

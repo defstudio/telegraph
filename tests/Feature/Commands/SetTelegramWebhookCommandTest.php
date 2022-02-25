@@ -3,8 +3,8 @@
 
 use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use Symfony\Component\Console\Command\Command;
 use function Pest\Laravel\artisan;
+use Symfony\Component\Console\Command\Command;
 
 uses(LazilyRefreshDatabase::class);
 
