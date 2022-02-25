@@ -53,5 +53,5 @@ test('it dumps error when telegram request is unsuccessful', function () {
     artisan("telegraph:set-webhook $bot->id")
         ->expectsOutput("Failed to register webhook")
         ->expectsOutput('{"ok":false,"foo":"bar"}')
-        ->assertExitCode(Command::SUCCESS);
+        ->assertExitCode(Command::FAILURE);
 });
