@@ -23,19 +23,4 @@ return [
      * webhook messages to logs
      */
     'debug_mode' => false,
-
-    /*
-     * Message queue configuration
-     */
-    'queue' => [
-        /*
-         * Enables sending requests towards Telegram apis through Laravel's queue system
-         */
-        'enable' => true,
-
-        /*
-         * Sets the default queue to be used
-         */
-        'on_queue' => 'default',
-    ],
 ];
