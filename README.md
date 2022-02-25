@@ -26,7 +26,11 @@
 **Telegraph** is a Laravel package that enables easy Telegram Bots interaction
 
 ```php
-Telegraph::message('this is great')->send();
+Telegraph::message('hello world')
+    ->keyboard(Keyboard::make()->buttons([
+            Button::make('Delete')->action('delete')->param('id', '42'),
+            Button::make('open')->url('https://test.it'),
+    ]))->send();
 ```
 
 ## Installation

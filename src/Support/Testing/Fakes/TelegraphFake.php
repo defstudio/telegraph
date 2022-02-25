@@ -23,7 +23,7 @@ use Psr\Http\Message\StreamInterface;
 
 class TelegraphFake extends Telegraph
 {
-    /** @var array<int, mixed> */
+    /** @var array<int, mixed[]> */
     private array $sentMessages = [];
 
     /**
@@ -146,20 +146,24 @@ class TelegraphFake extends Telegraph
      */
     public function assertSentData(string $endpoint, array $data = [], bool $exact = true): void
     {
-        $foundMessages = collect($this->sentMessages)
+        $foundMessages = collect($this->sentMessages);
+
+        $foundMessages = $foundMessages
             ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
             ->filter(function (array $message) use ($data, $exact): bool {
                 foreach ($data as $key => $value) {
-                    if (!Arr::has($message['data'], $key)) {
+                    /** @var array<string, string> $data */
+                    $data = $message['data'];
+                    if (!Arr::has($data, $key)) {
                         return false;
                     }
 
                     if ($exact) {
-                        if ($value != $message['data'][$key]) {
+                        if ($value != $data[$key]) {
                             return false;
                         }
                     } else {
-                        if (!Str::of($message['data'][$key])->contains($value)) {
+                        if (!Str::of($data[$key])->contains($value)) {
                             return false;
                         }
                     }
