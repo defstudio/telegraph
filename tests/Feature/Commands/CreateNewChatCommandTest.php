@@ -3,13 +3,13 @@
 use function Pest\Laravel\artisan;
 use Symfony\Component\Console\Command\Command;
 
-it('bot id is required if there are more than one bot', function () {
+test('bot id is required if there are more than one bot', function () {
     bot('AAAAA');
     bot('BBBBB');
 
     artisan("telegraph:new-chat")
         ->expectsOutput("Please specify a Bot ID")
-        ->assertFailed();
+        ->assertExitCode(Command::FAILURE);
 });
 
 it('can create a chat for the default bot', function () {
