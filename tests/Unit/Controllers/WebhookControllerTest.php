@@ -15,5 +15,5 @@ it('calls configured handler', function () {
 
     expect(TestWebhookHandler::$calls_count)->toBe(1);
 
-    expect($response->status())->toBe(200);
+    expect($response->status())->toBe(204);
 });
