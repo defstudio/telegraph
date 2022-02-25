@@ -17,9 +17,10 @@ composer require defstudio/telegraph
 In order to work, Telegraph needs you to run its migrations:
 
 ```bash
-$> php artisan vendor:publish --tag="telegraph-migrations"
-
-$> php artisan migrate
+php artisan vendor:publish --tag="telegraph-migrations"
+```
+```bash
+php artisan migrate
 ```
 
 ### Configuration
@@ -27,7 +28,7 @@ $> php artisan migrate
 You can publish the config file with:
 
 ```bash
-$> php artisan vendor:publish --tag="telegraph-config"
+php artisan vendor:publish --tag="telegraph-config"
 ```
 
 here's an example of what you'll find:
