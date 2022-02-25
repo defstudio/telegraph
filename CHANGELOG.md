@@ -61,9 +61,3 @@ fix documentation
 ## v0.0.4 - 2021-11-19
 
 **Full Changelog**: https://github.com/def-studio/telegraph/compare/v0.0.3...v0.0.4
-
-## Unreleased
-
-**Add**
-
-- queue sending support
