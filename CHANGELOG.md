@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.0.2 - 2022-02-25
+
+## What's Changed
+
+- fix bash commands in documentation by @fabio-ivona in https://github.com/def-studio/telegraph/pull/12
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.0.1...v1.0.2
+
 ## v1.0.1 - 2022-02-25
 
 ## What's Changed
