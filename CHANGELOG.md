@@ -2,6 +2,22 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.0.0 - 2022-02-25
+
+## What's Changed
+
+- stable release
+- implement keyboard helper by @fabio-ivona in https://github.com/def-studio/telegraph/pull/6
+- keyboard refactor by @fabio-ivona in https://github.com/def-studio/telegraph/pull/8
+- code cleanup by @fabio-ivona in https://github.com/def-studio/telegraph/pull/9
+- tests enhancement by @fabio-ivona in https://github.com/def-studio/telegraph/pull/10
+
+## New Contributors
+
+- @dependabot made their first contribution in https://github.com/def-studio/telegraph/pull/4
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v0.0.12...v1.0.0
+
 ## v0.0.11 - 2021-11-23
 
 ## What's Changed
