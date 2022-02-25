@@ -1,6 +1,10 @@
 ---
-title: 'Message Keyboards' menuTitle: 'Message Keyboards' description: ''
-category: 'Features' fullscreen: false position: 32
+title: 'Message Keyboards' 
+menuTitle: 'Message Keyboards' 
+description: ''
+category: 'Features' 
+fullscreen: false 
+position: 32
 ---
 
 A keyboard can be added to a message in order to offer a set of options to the user:

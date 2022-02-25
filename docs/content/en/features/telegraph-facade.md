@@ -18,10 +18,10 @@ this will allow a fluent tool for interacting with Telegram:
 
 ```php
 Telegraph::message('hello world')
-->keyboard(Keyboard::make()->buttons([
-    Button::make("🗑️ Delete")->action("delete")->param('id', $notification->id),  
-    Button::make("📖 Mark as Read")->action("read")->param('id', $notification->id),  
-    Button::make("👀 Open")->url('https://test.it'),  
-])->chunk(2)
-->send();
+    ->keyboard(Keyboard::make()->buttons([
+        Button::make("🗑️ Delete")->action("delete")->param('id', $notification->id),  
+        Button::make("📖 Mark as Read")->action("read")->param('id', $notification->id),  
+        Button::make("👀 Open")->url('https://test.it'),  
+    ])->chunk(2)
+    ->send();
 ```

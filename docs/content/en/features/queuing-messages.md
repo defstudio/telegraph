@@ -4,7 +4,7 @@ menuTitle: 'Queued Messages'
 description: ''
 category: 'Features'
 fullscreen: false 
-position: 33
+position: 34
 ---
 
 A `->dispatch()` method can be used to have an asynchronous interaction with Telegram:

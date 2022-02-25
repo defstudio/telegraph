@@ -31,52 +31,7 @@ abstract class WebhookHandler
     protected Collection $data;
     protected Keyboard $originalKeyboard;
 
-    protected function reply(string $message): void
-    {
-        $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
-    }
-
-    protected function replaceKeyboard(Keyboard $newKeyboard): void
-    {
-        $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();
-    }
-
-    protected function deleteKeyboard(): void
-    {
-        $this->chat->deleteKeyboard($this->messageId)->send();
-    }
-
-    protected function canHandle(string $action): bool
-    {
-        if (!method_exists($this, $action)) {
-            return false;
-        }
-
-        $reflector = new ReflectionMethod($this::class, $action);
-        if (!$reflector->isPublic()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function handle(Request $request, TelegraphBot $bot): void
-    {
-        $this->bot = $bot;
-
-        $this->request = $request;
-
-        if ($this->request->has('message') || $this->request->has('channel_post')) {
-            $this->handleMessage();
-        }
-
-
-        if ($this->request->has('callback_query')) {
-            $this->handleCallbackQuery();
-        }
-    }
-
-    protected function handleCallbackQuery(): void
+    private function handleCallbackQuery(): void
     {
         $this->extractCallbackQueryData();
 
@@ -94,6 +49,52 @@ abstract class WebhookHandler
         }
 
         $this->$action();
+    }
+
+    private function handleCommand(Stringable $text): void
+    {
+        $command = (string) $text->after('/');
+
+
+        if (!$this->canHandle($command)) {
+            report(TelegramWebhookException::invalidCommand($command));
+            $this->chat->html("Unknown command")->send();
+
+            return;
+        }
+
+        $this->$command();
+    }
+
+    private function handleMessage(): void
+    {
+        $this->extractMessageData();
+
+        if (config('telegraph.debug_mode')) {
+            Log::debug('Telegraph webhook message', $this->data->toArray());
+        }
+
+        $text = Str::of($this->data->get('text'));
+
+        if ($text->startsWith('/')) {
+            $this->handleCommand($text);
+        } else {
+            $this->handleChatMessage($text);
+        }
+    }
+
+    protected function canHandle(string $action): bool
+    {
+        if (!method_exists($this, $action)) {
+            return false;
+        }
+
+        $reflector = new ReflectionMethod($this::class, $action);
+        if (!$reflector->isPublic()) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function extractCallbackQueryData(): void
@@ -119,23 +120,6 @@ abstract class WebhookHandler
         });
     }
 
-    private function handleMessage(): void
-    {
-        $this->extractMessageData();
-
-        if (config('telegraph.debug_mode')) {
-            Log::debug('Telegraph webhook message', $this->data->toArray());
-        }
-
-        $text = Str::of($this->data->get('text'));
-
-        if ($text->startsWith('/')) {
-            $this->handleCommand($text);
-        } else {
-            $this->handleChatMessage($text);
-        }
-    }
-
     protected function extractMessageData(): void
     {
         /** @var TelegraphChat $chat */
@@ -150,28 +134,44 @@ abstract class WebhookHandler
         ]);
     }
 
+    protected function handleChatMessage(Stringable $text): void
+    {
+        // .. do nothing
+    }
+
+    protected function replaceKeyboard(Keyboard $newKeyboard): void
+    {
+        $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();
+    }
+
+    protected function deleteKeyboard(): void
+    {
+        $this->chat->deleteKeyboard($this->messageId)->send();
+    }
+
     protected function chatid(): void
     {
         $this->chat->html("Chat ID: {$this->chat->chat_id}")->send();
     }
 
-    private function handleCommand(Stringable $text): void
+    protected function reply(string $message): void
     {
-        $command = (string) $text->after('/');
-
-
-        if (!$this->canHandle($command)) {
-            report(TelegramWebhookException::invalidCommand($command));
-            $this->chat->html("Unknown command")->send();
-
-            return;
-        }
-
-        $this->$command();
+        $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
     }
 
-    protected function handleChatMessage(Stringable $text): void
+    public function handle(Request $request, TelegraphBot $bot): void
     {
-        // .. do nothing
+        $this->bot = $bot;
+
+        $this->request = $request;
+
+        if ($this->request->has('message') || $this->request->has('channel_post')) {
+            $this->handleMessage();
+        }
+
+
+        if ($this->request->has('callback_query')) {
+            $this->handleCallbackQuery();
+        }
     }
 }
