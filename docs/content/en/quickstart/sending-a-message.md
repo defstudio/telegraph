@@ -8,10 +8,12 @@ position: 24
 ---
 
 
-After a bot and at least one chat has been set up, this package can be used to post new messages:
+After a bot and at least one chat have been set up, this package can be used to post new messages:
 
 ```php
-$chat = TelegraphChat::first();
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $chat */
 
 $chat->html("<strong>Hello!<strong>\n\nI'm here!")->send();
 ```

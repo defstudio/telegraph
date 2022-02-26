@@ -12,7 +12,7 @@ You can install the package via composer:
 composer require defstudio/telegraph
 ```
 
-### Set up
+## Set up
 
 In order to work, Telegraph needs you to run its migrations:
 
@@ -23,7 +23,7 @@ php artisan vendor:publish --tag="telegraph-migrations"
 php artisan migrate
 ```
 
-### Configuration
+## Configuration
 
 You can publish the config file with:
 
@@ -56,3 +56,7 @@ return [
     'debug_mode' => false,
 ];
 ```
+
+## New bot creation
+
+In order to interact with Telegram, a new bot should be created and associated with a Telegram bot. Follow the  [quickstart guide](quickstart/new-bot) for an overview of this.

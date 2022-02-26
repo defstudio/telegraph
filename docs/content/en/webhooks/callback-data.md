@@ -26,7 +26,9 @@ class CustomWebhookHandler extends WebhookHandler
     public function dismiss(){
         //...
         
-        $key1 = $this->data->get('key1', 'default'); //foo
+        $key1 = $this->data->get('key1'); //foo
+        
+        $key3 = $this->data->get('key1', 'default value'); //default value
     }
 }
 ```
