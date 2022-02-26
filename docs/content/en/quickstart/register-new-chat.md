@@ -8,7 +8,7 @@ position: 23
 ---
 
 
-Associating a chat to a bot, lets you send messages to that chat and interacting with commands
+Associating one or more chats to a bot, it is enabled to send messages to that chat and interacting with commands
 
 <alert type="info">**Note:** to get the _chat_id_ issue the `/chat_id` command inside the chat after having [set up a webhook](quickstart/setting-webhook) for your bot.</alert>
 

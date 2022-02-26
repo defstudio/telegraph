@@ -49,7 +49,7 @@ class CustomWebhookHandler extends WebhookHandler
 {
     public function dismiss()
     {
-        $notificationId = $this->data->get('notification-id');
+        $notificationId = $this->data->get('notification-id'); //42
         
         Notification::find($notificationId)->dismiss();
         

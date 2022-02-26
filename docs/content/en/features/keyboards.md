@@ -13,6 +13,12 @@ A keyboard can be added to a message in order to offer a set of options to the u
 
 ## Attaching a keyboard
 
+A keyboard can be added to a message using the `->keyboard()` command, passing a new `Keyboard` object as argument.
+
+`Keyboard` has a fluent way to define its buttons and other properties (rows, button chunking, etc.):
+
+buttons can be set up using the `Keyboard::make()->buttons()` method and are defined as a `Button` array
+
 ```php
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -24,7 +30,9 @@ Telegraph::message('hello world')
 ]))->send();
 ```
 
-and can be of two types
+## Buttons
+
+Each `Button` can be defined using its fluent methods and can be of two types:
 
 ### Callback Buttons
 

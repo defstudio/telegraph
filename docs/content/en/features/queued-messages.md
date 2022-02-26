@@ -7,7 +7,7 @@ fullscreen: false
 position: 34
 ---
 
-A `->dispatch()` method can be used to have an asynchronous interaction with Telegram:
+A `->dispatch()` method can be used to have Telegraph to interact with telegraph through the Laravel queue system:
 
 
 ```php

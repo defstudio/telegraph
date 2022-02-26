@@ -1,3 +1,3 @@
 # Security Policy
 
-If you discover any security related issues, please email fabio.ivona@defstudio.it instead of using the issue tracker.
+If you have found any issue regarding security, please send an email [report@defstudio.it](mailto:report@defstudio.it) instead of using the issue tracker and we will quickly work on it.
