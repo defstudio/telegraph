@@ -69,9 +69,9 @@ class TelegraphFake extends Telegraph
 
         $messageClass = new class () implements MessageInterface {
             /**
-             * @param array<mixed> $reply
+             * @param array<string, mixed> $reply
              */
-            public function __construct(private array $reply = [])
+            public function __construct(private array|string $reply = [])
             {
             }
 

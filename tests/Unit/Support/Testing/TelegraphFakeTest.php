@@ -3,6 +3,18 @@
 use DefStudio\Telegraph\Facades\Telegraph;
 use PHPUnit\Framework\ExpectationFailedException;
 
+it('can return a custom response', function () {
+    Telegraph::fake([
+       \DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => ['result' => 'oooook'],
+   ]);
+
+    $bot = make_bot();
+
+    $response = Telegraph::bot($bot)->message('foo')->send();
+
+    expect($response->json('result'))->toBe('oooook');
+});
+
 it('asserts a message is sent', function () {
     Telegraph::fake();
     $bot = make_bot();
