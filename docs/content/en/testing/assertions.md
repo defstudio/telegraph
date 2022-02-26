@@ -34,7 +34,7 @@ Telegraph::assertNothingSent();
 asserts that the given data was sent to a Telegram API endpoint
 
 ```php
- Telegraph::assertSentData(
+Telegraph::assertSentData(
     DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, 
     ['text' => 'foo bar baz']
 );
