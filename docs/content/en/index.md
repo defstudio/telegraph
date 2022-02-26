@@ -48,4 +48,4 @@ Telegraph::message('hello world')
 Get the full source code at [https://github.com/def-studio/telegraph](https://github.com/def-studio/telegraph)
 
 
-This plugin is powered by [def:studio](https://github.com/def-studio)
+This package is powered by [def:studio](https://github.com/def-studio)
