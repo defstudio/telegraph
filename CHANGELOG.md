@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.0.3 - 2022-02-26
+
+## What's Changed
+
+- Bump prismjs from 1.25.0 to 1.27.0 in /docs by @dependabot in https://github.com/def-studio/telegraph/pull/13
+- docs enhancement by @fabio-ivona in https://github.com/def-studio/telegraph/pull/16
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.0.2...v1.0.3
+
 ## v1.0.2 - 2022-02-25
 
 ## What's Changed
