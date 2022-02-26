@@ -55,8 +55,8 @@ class TelegraphFake extends Telegraph
             'url' => $this->getUrl(),
             'endpoint' => $this->endpoint ?? null,
             'data' => $this->data ?? null,
-            'bot_token' => $this->bot->token ?? null,
-            'chat_id' => $this->chat->id ?? null,
+            'bot_token' => $this->getBotIfAvailable()->token ?? null,
+            'chat_id' => $this->getChatIfAvailable()->id ?? null,
             'message' => $this->message ?? null,
             'keyboard' => $this->keyboard ?? null,
             'parse_mode' => $this->parseMode ?? null,
@@ -191,7 +191,7 @@ class TelegraphFake extends Telegraph
 
     public function assertNothingSent(): void
     {
-        Assert::assertEmpty($this->sentMessages);
+        Assert::assertEmpty($this->sentMessages, sprintf("Failed to assert that no request were sent (sent %d requests so far)", count($this->sentMessages)));
     }
 
     public function assertRegisteredWebhook(): void

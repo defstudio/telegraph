@@ -40,8 +40,6 @@ class Telegraph implements TelegraphContract
 
     public function __construct()
     {
-        $this->initBotAndChat();
-
         $this->parseMode = config('telegraph.default_parse_mode', 'html'); //@phpstan-ignore-line
     }
 
