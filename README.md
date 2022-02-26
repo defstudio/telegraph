@@ -23,7 +23,7 @@
 ---
 
 
-**Telegraph** is a Laravel package that enables easy Telegram Bots interaction
+**Telegraph** is a Laravel package for fluently interaction with Telegram Bots
 
 ```php
 Telegraph::message('hello world')
