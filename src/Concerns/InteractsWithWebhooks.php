@@ -1,8 +1,9 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
 namespace DefStudio\Telegraph\Concerns;
 
-use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Telegraph;
 
 /**
@@ -10,18 +11,11 @@ use DefStudio\Telegraph\Telegraph;
  */
 trait InteractsWithWebhooks
 {
-    /**
-     * @throws TelegraphException
-     */
     public function registerWebhook(): Telegraph
     {
-        if (empty($this->bot)) {
-            throw TelegraphException::missingBot();
-        }
-
         $this->endpoint = self::ENDPOINT_SET_WEBHOOK;
         $this->data = [
-            'url' => route('telegraph.webhook', $this->bot),
+            'url' => route('telegraph.webhook', $this->getBot()),
         ];
 
         return $this;

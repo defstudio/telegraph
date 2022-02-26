@@ -39,14 +39,10 @@ trait InteractsWithTelegram
      */
     protected function buildChatMessage(): void
     {
-        if (empty($this->chat)) {
-            throw TelegraphException::missingChat();
-        }
-
         $this->endpoint = self::ENDPOINT_MESSAGE;
         $this->data = [
             'text' => $this->message,
-            'chat_id' => $this->chat->chat_id,
+            'chat_id' => $this->getChat()->chat_id,
             'parse_mode' => $this->parseMode,
         ];
 
@@ -62,17 +58,13 @@ trait InteractsWithTelegram
      */
     public function getUrl(): string
     {
-        if (empty($this->bot)) {
-            throw TelegraphException::missingBot();
-        }
-
         if (empty($this->endpoint)) {
             $this->buildChatMessage();
         }
 
         /** @phpstan-ignore-next-line */
         return (string) Str::of(Telegraph::TELEGRAM_API_BASE_URL)
-            ->append($this->bot?->token)
+            ->append($this->getBot()->token)
             ->append('/', $this->endpoint)
             ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
     }

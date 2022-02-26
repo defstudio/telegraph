@@ -1,8 +1,9 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
 namespace DefStudio\Telegraph\Concerns;
 
-use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
 
@@ -24,15 +25,8 @@ trait ManagesKeyboards
         return $this;
     }
 
-    /**
-     * @throws TelegraphException
-     */
     public function replaceKeyboard(string $messageId, Keyboard $newKeyboard): Telegraph
     {
-        if (empty($this->chat)) {
-            throw TelegraphException::missingChat();
-        }
-
         if ($newKeyboard->isEmpty()) {
             $replyMarkup = null;
         } else {
@@ -41,7 +35,7 @@ trait ManagesKeyboards
 
         $this->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
         $this->data = [
-            'chat_id' => $this->chat->chat_id,
+            'chat_id' => $this->getChat()->chat_id,
             'message_id' => $messageId,
             'reply_markup' => $replyMarkup,
         ];
@@ -49,9 +43,6 @@ trait ManagesKeyboards
         return $this;
     }
 
-    /**
-     * @throws TelegraphException
-     */
     public function deleteKeyboard(string $messageId): Telegraph
     {
         return $this->replaceKeyboard($messageId, Keyboard::make());
