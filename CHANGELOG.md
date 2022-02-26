@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.0.5 - 2022-02-26
+
+## What's Changed
+
+- docs: fix name of package in site config by @owenvoke in https://github.com/def-studio/telegraph/pull/17
+
+## New Contributors
+
+- @owenvoke made their first contribution in https://github.com/def-studio/telegraph/pull/17
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.0.4...v1.0.5
+
 ## v1.0.4 - 2022-02-26
 
 ## What's Changed
