@@ -24,8 +24,10 @@ it('can customize the destination chat', function () {
     expect($url)->toMatchSnapshot();
 });
 
-it('can return bot info', function () {
-    $bot = bot(env('SANDOBOX_TELEGRAM_BOT_TOKEN'));
+it('can retrieve bot info', function () {
+    Telegraph::fake();
+    $bot = make_bot();
 
-    assertMatchesSnapshot($bot->info());
-})->skip(fn () => env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
+    $response = Telegraph::bot($bot)->botInfo()->send();
+    assertMatchesSnapshot($response->json('result'));
+});
