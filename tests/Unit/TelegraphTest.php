@@ -2,6 +2,7 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use DefStudio\Telegraph\Client\TelegraphResponse;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
@@ -143,4 +144,15 @@ it('can reply to a webhook call', function () {
 
         return true;
     });
+});
+
+it('returns a TelegraphResponse', function () {
+    Http::fake();
+
+    $response = app(Telegraph::class)
+        ->chat(make_chat())
+        ->html('foobar')
+        ->send();
+
+    expect($response)->toBeInstanceOf(TelegraphResponse::class);
 });

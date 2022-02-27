@@ -64,7 +64,6 @@ function register_webhook_handler(string $handler = TestWebhookHandler::class): 
     config()->set('telegraph.webhook_handler', $handler);
 }
 
-
 function webhook_request($action = 'invalid', $handler = TestWebhookHandler::class): Request
 {
     register_webhook_handler($handler);

@@ -7,6 +7,7 @@
 
 namespace DefStudio\Telegraph;
 
+use DefStudio\Telegraph\Client\TelegraphResponse;
 use DefStudio\Telegraph\Concerns\ComposesMessages;
 use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
@@ -14,7 +15,6 @@ use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Contracts\TelegraphContract;
 use Illuminate\Foundation\Bus\PendingDispatch;
-use Illuminate\Http\Client\Response;
 
 class Telegraph implements TelegraphContract
 {
@@ -43,9 +43,11 @@ class Telegraph implements TelegraphContract
         $this->parseMode = config('telegraph.default_parse_mode', 'html'); //@phpstan-ignore-line
     }
 
-    public function send(): Response
+    public function send(): TelegraphResponse
     {
-        return $this->sendRequestToTelegram();
+        $response = $this->sendRequestToTelegram();
+
+        return TelegraphResponse::fromResponse($response);
     }
 
     public function dispatch(string $queue = null): PendingDispatch
