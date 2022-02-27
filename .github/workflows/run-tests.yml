@@ -40,5 +40,10 @@ jobs:
           composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
           composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
+      - name: Set sandbox token
+        run: |
+          sed -e 's/:fake_bot_token:/${{secrets.SANDOBOX_TELEGRAM_BOT_TOKEN}}/' ./phpunit.xml.dist > ./phpunit.xml
+
       - name: Execute tests
         run: vendor/bin/pest --ci
+

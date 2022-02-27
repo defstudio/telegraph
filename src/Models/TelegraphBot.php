@@ -8,6 +8,7 @@
 namespace DefStudio\Telegraph\Models;
 
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
+use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Collection;
@@ -93,5 +94,20 @@ class TelegraphBot extends Model
     public function replyWebhook(string $callbackQueryId, string $message): Telegraph
     {
         return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message);
+    }
+
+    /**
+     * @return array{id: integer, is_bot: bool, first_name: string, username: string, can_join_groups: bool, can_read_all_group_messages: bool, support_inline_queries: bool}
+     */
+    public function info(): array
+    {
+        $reply = TelegraphFacade::bot($this)->botInfo()->send();
+
+        if ($reply->telegraphError()) {
+            throw TelegraphException::failedToRetrieveBotInfo();
+        }
+
+        /* @phpstan-ignore-next-line */
+        return $reply->json('result');
     }
 }

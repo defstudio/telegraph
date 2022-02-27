@@ -40,7 +40,7 @@
         <junit outputFile="build/report.junit.xml"/>
     </logging>
     <php>
-        <server name="TELEGRAM_BOT_TOKEN" value="123456AAABBB"/>
-        <server name="TELEGRAM_CHAT_ID" value="-123456789"/>
+        <server name="SANDOBOX_TELEGRAM_BOT_TOKEN" value=":fake_bot_token:"/>
+        <server name="SANDBOX_TELEGRAM_CHAT_ID" value=""/>
     </php>
 </phpunit>

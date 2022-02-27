@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection LaravelFunctionsInspection */
+
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
@@ -16,6 +18,11 @@ uses(TestCase::class)->in(__DIR__);
 function bots(int $count): Collection
 {
     return TelegraphBot::factory()->count($count)->create();
+}
+
+function sandbox_bot(): TelegraphBot
+{
+    return bot(env('SANDOBOX_TELEGRAM_BOT_TOKEN'));
 }
 
 function bot(string $token = '3f3814e1-5836-3d77-904e-60f64b15df36', string $chatId = '-123456789'): TelegraphBot

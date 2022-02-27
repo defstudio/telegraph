@@ -143,21 +143,33 @@ class TelegraphFake extends Telegraph
 
         $response = $this->replies[$this->endpoint] ?? match ($this->endpoint) {
             Telegraph::ENDPOINT_MESSAGE => [
-                    'ok' => true,
-                    'result' => [
-                        'message_id' => rand(1, 99999),
-                        'sender_chat' => [
-                            'id' => $this->getChatIfAvailable()?->chat_id ?? -rand(1, 99999),
-                            'title' => 'Test Chat',
-                            'type' => 'channel',
-                        ],
-                        'date' => now()->timestamp,
-                        'text' => $this->message,
+                'ok' => true,
+                'result' => [
+                    'message_id' => rand(1, 99999),
+                    'sender_chat' => [
+                        'id' => $this->getChatIfAvailable()?->chat_id ?? -rand(1, 99999),
+                        'title' => 'Test Chat',
+                        'type' => 'channel',
                     ],
+                    'date' => now()->timestamp,
+                    'text' => $this->message,
                 ],
-                default => [
-                    'ok' => true,
+            ],
+            Telegraph::ENDPOINT_GET_BOT_INFO => [
+                'ok' => true,
+                'result' => [
+                    'id' => 42,
+                    'is_bot' => true,
+                    'first_name' => 'telegraph-test',
+                    'username' => 'test_bot',
+                    'can_join_groups' => true,
+                    'can_read_all_group_messages' => false,
+                    'supports_inline_queries' => false,
                 ],
+            ],
+            default => [
+                'ok' => true,
+            ],
         };
 
         return new Response(new $messageClass($response));

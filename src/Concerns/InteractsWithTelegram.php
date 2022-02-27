@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
 namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\Exceptions\TelegraphException;
@@ -26,17 +28,11 @@ trait InteractsWithTelegram
         return Http::get($this->getUrl());
     }
 
-    /**
-     * @throws TelegraphException
-     */
     protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
     {
         return SendRequestToTelegramJob::dispatch($this->getUrl())->onQueue($queue);
     }
 
-    /**
-     * @throws TelegraphException
-     */
     protected function buildChatMessage(): void
     {
         $this->endpoint = self::ENDPOINT_MESSAGE;
@@ -53,9 +49,6 @@ trait InteractsWithTelegram
         }
     }
 
-    /**
-     * @throws TelegraphException
-     */
     public function getUrl(): string
     {
         if (empty($this->endpoint)) {
