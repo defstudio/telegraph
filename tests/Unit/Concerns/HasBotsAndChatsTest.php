@@ -28,4 +28,4 @@ it('can return bot info', function () {
     $bot = bot(env('SANDOBOX_TELEGRAM_BOT_TOKEN'));
 
     assertMatchesSnapshot($bot->info());
-})->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')), 'Sandbox telegram bot token missing');
+})->skip(fn () => env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
