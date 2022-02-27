@@ -37,6 +37,7 @@ it('returns telegram request success', function () {
     $response = Telegraph::bot($bot)->message('foo')->send();
 
     expect($response->telegraphOk())->toBeTrue();
+    expect($response->telegraphError())->toBeFalse();
 });
 
 it('returns telegram request failure', function () {
@@ -48,6 +49,7 @@ it('returns telegram request failure', function () {
     $response = Telegraph::bot($bot)->message('foo')->send();
 
     expect($response->telegraphOk())->toBeFalse();
+    expect($response->telegraphError())->toBeTrue();
 });
 
 it('returns telegram posted message id', function () use ($fake_response_data) {
