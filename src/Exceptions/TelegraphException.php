@@ -23,4 +23,9 @@ final class TelegraphException extends Exception
     {
         return new self("Trying to send a request without setting an endpoint");
     }
+
+    public static function failedToRetrieveBotInfo(): TelegraphException
+    {
+        return new self("Failed to retrieve bot info from telegram");
+    }
 }

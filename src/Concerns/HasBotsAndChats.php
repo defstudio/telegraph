@@ -80,4 +80,11 @@ trait HasBotsAndChats
     {
         return $this->getChatIfAvailable() ?? throw TelegraphException::missingChat();
     }
+
+    public function botInfo(): Telegraph
+    {
+        $this->endpoint = self::ENDPOINT_GET_BOT_INFO;
+
+        return $this;
+    }
 }

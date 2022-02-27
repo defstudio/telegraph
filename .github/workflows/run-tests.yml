@@ -42,3 +42,5 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/pest --ci
+        env:
+          SANDOBOX_TELEGRAM_BOT_TOKEN: ${{secrets.SANDOBOX_TELEGRAM_BOT_TOKEN}}
