@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.1.0 - 2022-02-27
+
+## What's Changed
+
+- improved Telegraph::fake() testing helpers
+- wraps response to TelegraphResponse to return status and messageId by @fabio-ivona in https://github.com/def-studio/telegraph/pull/20
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.0.6...v1.1.0
+
 ## v1.0.6 - 2022-02-26
 
 ## What's Changed
