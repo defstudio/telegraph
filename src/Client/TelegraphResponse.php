@@ -16,6 +16,11 @@ class TelegraphResponse extends Response
         return parent::successful() && $this->json('ok');
     }
 
+    public function telegraphError(): bool
+    {
+        return !$this->telegraphOk();
+    }
+
     public function telegraphMessageId(): int|null
     {
         if (!$this->telegraphOk()) {
