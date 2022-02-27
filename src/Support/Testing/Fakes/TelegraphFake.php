@@ -75,6 +75,11 @@ class TelegraphFake extends Telegraph
             {
             }
 
+            public function getStatusCode(): int
+            {
+                return 200;
+            }
+
             public function getProtocolVersion(): string
             {
                 return "";
@@ -136,7 +141,24 @@ class TelegraphFake extends Telegraph
             }
         };
 
-        $response = $this->replies[$this->endpoint] ?? ['ok' => true];
+        $response = $this->replies[$this->endpoint] ?? match ($this->endpoint) {
+            Telegraph::ENDPOINT_MESSAGE => [
+                    'ok' => true,
+                    'result' => [
+                        'message_id' => rand(1, 99999),
+                        'sender_chat' => [
+                            'id' => $this->getChatIfAvailable()?->chat_id ?? -rand(1, 99999),
+                            'title' => 'Test Chat',
+                            'type' => 'channel',
+                        ],
+                        'date' => now()->timestamp,
+                        'text' => $this->message,
+                    ],
+                ],
+                default => [
+                    'ok' => true,
+                ],
+        };
 
         return new Response(new $messageClass($response));
     }
