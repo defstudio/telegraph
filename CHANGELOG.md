@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.2.0 - 2022-02-27
+
+## What's Changed
+
+- fix chat_id command not recognized by @fabio-ivona in https://github.com/def-studio/telegraph/pull/21
+- implements bot info method by @fabio-ivona in https://github.com/def-studio/telegraph/pull/22
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.1.0...v1.2.0
+
 ## v1.1.0 - 2022-02-27
 
 ## What's Changed
