@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, macos-latest]
         php: [8.0, 8.1]
         laravel: [8.*, 9.*]
         stability: [prefer-lowest, prefer-stable]
@@ -42,7 +42,7 @@ jobs:
 
       - name: Set sandbox token
         run: |
-          sed -e 's/:fake_bot_token:/${{secrets.SANDOBOX_TELEGRAM_BOT_TOKEN}}/' -i "./phpunit.xml.dist"
+          sed -e 's/:fake_bot_token:/${{secrets.SANDOBOX_TELEGRAM_BOT_TOKEN}}/' ./phpunit.xml.dist > ./phpunit.xml
 
       - name: Execute tests
         run: vendor/bin/pest --ci
