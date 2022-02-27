@@ -149,14 +149,14 @@ abstract class WebhookHandler
         $this->chat->deleteKeyboard($this->messageId)->send();
     }
 
-    protected function chatid(): void
-    {
-        $this->chat->html("Chat ID: {$this->chat->chat_id}")->send();
-    }
-
     protected function reply(string $message): void
     {
         $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
+    }
+
+    public function chatid(): void
+    {
+        $this->chat->html("Chat ID: {$this->chat->chat_id}")->send();
     }
 
     public function handle(Request $request, TelegraphBot $bot): void
