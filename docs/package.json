@@ -14,6 +14,7 @@
     "nuxt": "^2.15.2"
   },
   "devDependencies": {
+    "@nuxtjs/google-analytics": "^2.4.0",
     "push-dir": "^0.4.1"
   }
 }
