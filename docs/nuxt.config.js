@@ -12,6 +12,6 @@ export default theme({
         base: '/telegraph'
     },
     buildModules: [
-        ['@nuxtjs/google-analytics', {id: 'G-V0R3GDCRFP'}]
+        ['@nuxtjs/google-analytics', {id: 'UA-211287441-1'}]
     ]
 });
