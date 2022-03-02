@@ -58,7 +58,7 @@ class Keyboard
             }
 
             $keyboard = $keyboard->row($rowButtons);
-        };
+        }
 
         return $keyboard;
     }
