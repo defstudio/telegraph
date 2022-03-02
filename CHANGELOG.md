@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.2.2 - 2022-03-02
+
+## What's Changed
+
+- removed mistyped semicolon by @fabio-ivona in https://github.com/def-studio/telegraph/pull/34
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.2.1...v1.2.2
+
 ## v1.2.1 - 2022-03-01
 
 **Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.2.0...v1.2.1
