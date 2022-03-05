@@ -39,11 +39,6 @@ class Telegraph implements TelegraphContract
     /** @var array<string, mixed> */
     protected array $data = [];
 
-    public function __construct()
-    {
-        $this->parseMode = config('telegraph.default_parse_mode', 'html'); //@phpstan-ignore-line
-    }
-
     public function send(): TelegraphResponse
     {
         $response = $this->sendRequestToTelegram();
