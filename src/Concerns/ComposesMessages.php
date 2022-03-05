@@ -39,9 +39,16 @@ trait ComposesMessages
         return $this;
     }
 
-    public function protect(bool $protect = true): Telegraph
+    public function protected(): Telegraph
     {
-        $this->data['protect_content'] = $protect;
+        $this->data['protect_content'] = true;
+
+        return  $this;
+    }
+
+    public function silent(): Telegraph
+    {
+        $this->data['disable_notification'] = true;
 
         return  $this;
     }

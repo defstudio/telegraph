@@ -26,10 +26,18 @@ $chat->markdown('*hello*')->send();
 
 Telegraph allows sending complex messages using its methods:
 
-### protect
+### protected
 
 Protects message contents from forwarding and saving
 
 ```php
-$chat->message("please don't share this")->protect()->send();
+$chat->message("please don't share this")->protected()->send();
+```
+
+### silent
+
+Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
+
+```php
+$chat->message("late night message")->silent()->send();
 ```
