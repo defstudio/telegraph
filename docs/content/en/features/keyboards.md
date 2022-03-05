@@ -30,6 +30,21 @@ Telegraph::message('hello world')
 ]))->send();
 ```
 
+Additinally, a keyboard can be added to a message using a closure:
+
+```php
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+
+Telegraph::message('hello world')
+->keyboard(function(Keyboard $keyboard){
+    return $keyboard->buttons([
+        Button::make('Delete')->action('delete')->param('id', '42'),
+        Button::make('open')->url('https://test.it'),
+    ]);
+})->send();
+```
+
 ## Buttons
 
 Each `Button` can be defined using its fluent methods and can be of two types:

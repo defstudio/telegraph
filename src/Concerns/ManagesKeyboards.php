@@ -15,10 +15,14 @@ trait ManagesKeyboards
     protected Keyboard|null $keyboard = null;
 
     /**
-     * @param array<array<array<string, string>>>|Keyboard $keyboard
+     * @param array<array<array<string, string>>>|Keyboard|callable(Keyboard):Keyboard $keyboard
      */
-    public function keyboard(array|Keyboard $keyboard): Telegraph
+    public function keyboard(callable|array|Keyboard $keyboard): Telegraph
     {
+        if (is_callable($keyboard)) {
+            $keyboard = $keyboard(Keyboard::make());
+        }
+
         if (is_array($keyboard)) {
             $keyboard = Keyboard::fromArray($keyboard);
         }

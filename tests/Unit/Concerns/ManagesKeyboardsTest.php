@@ -24,6 +24,47 @@ it('can add a keyboard to a message', function () {
     });
 });
 
+it('can add a keyboard as an array', function () {
+    Http::fake();
+
+    app(Telegraph::class)
+        ->chat(make_chat())
+        ->html('foobar')
+        ->keyboard([
+            [
+                ['text' => 'foo', 'url' => 'bar'],
+            ],
+        ])
+        ->send();
+
+    Http::assertSent(function (Request $request) {
+        expect($request->url())->toMatchSnapshot();
+
+        return true;
+    });
+});
+
+it('can add a keyboard as a closure', function () {
+    Http::fake();
+
+    app(Telegraph::class)
+        ->chat(make_chat())
+        ->html('foobar')
+        ->keyboard(function ($keyboard) {
+            return $keyboard->buttons([
+                Button::make('foo')->url('bar'),
+            ]);
+        })
+        ->send();
+
+
+    Http::assertSent(function (Request $request) {
+        expect($request->url())->toMatchSnapshot();
+
+        return true;
+    });
+});
+
 it('can replace the keyboard of a message', function () {
     Http::fake();
 
