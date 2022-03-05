@@ -79,8 +79,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Fabio Ivona](https://github.com/def:studio)
-- [BeyondCode Banners](https://banners.beyondco.de/)
+- [Fabio Ivona](https://github.com/def-studio)
+- [Andrea Marco Sartori](https://github.com/cerbero90) for his cool ideas
 - [All Contributors](../../contributors)
 
 ## License
