@@ -2,15 +2,16 @@
 
 namespace DefStudio\Telegraph\Keyboard;
 
+use DefStudio\Telegraph\Proxies\KeyboardButtonProxy;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Keyboard
 {
     /** @var Collection<array-key, Button> */
-    private Collection $buttons;
+    protected Collection $buttons;
 
-    private function __construct()
+    public function __construct()
     {
         /* @phpstan-ignore-next-line  */
         $this->buttons = collect();
@@ -19,6 +20,14 @@ class Keyboard
     public static function make(): Keyboard
     {
         return new self();
+    }
+
+    protected function clone(): Keyboard
+    {
+        $clone = Keyboard::make();
+        $clone->buttons = $this->buttons;
+
+        return $clone;
     }
 
     /**
@@ -67,7 +76,7 @@ class Keyboard
      */
     public function row(array|Collection $buttons): Keyboard
     {
-        $clone = clone $this;
+        $clone = $this->clone();
 
         if (is_array($buttons)) {
             $buttons = collect($buttons);
@@ -84,7 +93,7 @@ class Keyboard
 
     public function chunk(int $chunk): Keyboard
     {
-        $clone = clone $this;
+        $clone = $this->clone();
 
         $buttonWidth = 1 / $chunk;
 
@@ -100,7 +109,7 @@ class Keyboard
      */
     public function buttons(array|Collection $buttons): Keyboard
     {
-        $clone = clone $this;
+        $clone = $this->clone();
 
         if (is_array($buttons)) {
             $buttons = collect($buttons);
@@ -113,7 +122,7 @@ class Keyboard
 
     public function replaceButton(string $label, Button $newButton): Keyboard
     {
-        $clone = clone $this;
+        $clone = $this->clone();
 
         $clone->buttons = $clone->buttons->map(function (Button $button) use ($newButton, $label) {
             if ($button->label() == $label) {
@@ -132,7 +141,7 @@ class Keyboard
 
     public function deleteButton(string $label): Keyboard
     {
-        $clone = clone $this;
+        $clone = $this->clone();
 
         /* @phpstan-ignore-next-line  */
         $clone->buttons = $clone->buttons->reject(fn (Button $button) => $button->label() == $label);
@@ -140,9 +149,19 @@ class Keyboard
         return $clone;
     }
 
+    public function button(string $label): KeyboardButtonProxy
+    {
+        $button = Button::make($label);
+
+        $clone = $this->clone();
+        $clone->buttons[] = $button;
+
+        return new KeyboardButtonProxy($clone, $button);
+    }
+
     public function flatten(): Keyboard
     {
-        $clone = clone $this;
+        $clone = $this->clone();
 
         $clone->buttons = $clone->buttons->map(fn (Button $button) => $button->width(1));
 
@@ -152,6 +171,11 @@ class Keyboard
     public function isEmpty(): bool
     {
         return $this->buttons->isEmpty();
+    }
+
+    public function isFilled(): bool
+    {
+        return !$this->isEmpty();
     }
 
     /**

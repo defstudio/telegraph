@@ -42,9 +42,9 @@ trait InteractsWithTelegram
             'parse_mode' => $this->parseMode,
         ];
 
-        if (!empty($this->keyboard)) {
+        if ($this->keyboard?->isFilled()) {
             $this->data['reply_markup'] = json_encode([
-                'inline_keyboard' => $this->keyboard,
+                'inline_keyboard' => $this->keyboard->toArray(),
             ]);
         }
     }

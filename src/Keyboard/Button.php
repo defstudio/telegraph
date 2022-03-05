@@ -21,19 +21,17 @@ class Button
         return new self($label);
     }
 
-    public function width(float $width): Button
+    public function width(float $percentage): Button
     {
-        $clone = clone $this;
-
-        $width = (int)floor($width * 100);
+        $width = (int)($percentage * 100);
 
         if ($width > 100) {
             $width = 100;
         }
 
-        $clone->width = $width;
+        $this->width = $width;
 
-        return $clone;
+        return $this;
     }
 
     public function action(string $name): static
@@ -43,23 +41,19 @@ class Button
 
     public function param(string $key, int|string $value): static
     {
-        $clone = clone $this;
-
         $key = trim($key);
         $value = trim((string) $value);
 
-        $clone->callbackData[] = "$key:$value";
+        $this->callbackData[] = "$key:$value";
 
-        return $clone;
+        return $this;
     }
 
     public function url(string $url): static
     {
-        $clone = clone $this;
+        $this->url = $url;
 
-        $clone->url = $url;
-
-        return $clone;
+        return $this;
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpDocMissingThrowsInspection */
+
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Concerns;
@@ -12,21 +14,35 @@ use DefStudio\Telegraph\Telegraph;
  */
 trait ManagesKeyboards
 {
-    /** @var array<array<array<string, string>>> */
-    protected array $keyboard;
+    protected Keyboard|null $keyboard = null;
 
     /**
-     * @param array<array<array<string, string>>>|Keyboard $keyboard
+     * @param array<array<array<string, string>>>|Keyboard|callable(Keyboard):Keyboard $keyboard
      */
-    public function keyboard(array|Keyboard $keyboard): Telegraph
+    public function keyboard(callable|array|Keyboard $keyboard): Telegraph
     {
-        $this->keyboard = is_array($keyboard) ? $keyboard : $keyboard->toArray();
+        if (is_callable($keyboard)) {
+            $keyboard = $keyboard(Keyboard::make());
+        }
+
+        if (is_array($keyboard)) {
+            $keyboard = Keyboard::fromArray($keyboard);
+        }
+
+        $this->keyboard = $keyboard;
 
         return $this;
     }
 
-    public function replaceKeyboard(string $messageId, Keyboard $newKeyboard): Telegraph
+    /**
+     * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
+     */
+    public function replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard): Telegraph
     {
+        if (is_callable($newKeyboard)) {
+            $newKeyboard = $newKeyboard(Keyboard::make());
+        }
+
         if ($newKeyboard->isEmpty()) {
             $replyMarkup = null;
         } else {

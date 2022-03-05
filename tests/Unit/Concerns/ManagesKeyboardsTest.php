@@ -12,10 +12,45 @@ it('can add a keyboard to a message', function () {
     app(Telegraph::class)
         ->chat(make_chat())
         ->html('foobar')
-        ->keyboard(Keyboard::make()->buttons([
-            Button::make('foo')->url('bar'),
-        ]))
+        ->keyboard(Keyboard::make()->button('foo')->url('bar'))
         ->send();
+
+    Http::assertSent(function (Request $request) {
+        expect($request->url())->toMatchSnapshot();
+
+        return true;
+    });
+});
+
+it('can add a keyboard as an array', function () {
+    Http::fake();
+
+    app(Telegraph::class)
+        ->chat(make_chat())
+        ->html('foobar')
+        ->keyboard([
+            [
+                ['text' => 'foo', 'url' => 'bar'],
+            ],
+        ])
+        ->send();
+
+    Http::assertSent(function (Request $request) {
+        expect($request->url())->toMatchSnapshot();
+
+        return true;
+    });
+});
+
+it('can add a keyboard as a closure', function () {
+    Http::fake();
+
+    app(Telegraph::class)
+        ->chat(make_chat())
+        ->html('foobar')
+        ->keyboard(fn ($keyboard) => $keyboard->button('foo')->url('bar'))
+        ->send();
+
 
     Http::assertSent(function (Request $request) {
         expect($request->url())->toMatchSnapshot();
