@@ -52,4 +52,11 @@ trait ComposesMessages
 
         return  $this;
     }
+
+    public function withoutPreview(): Telegraph
+    {
+        $this->data['disable_web_page_preview'] = true;
+
+        return  $this;
+    }
 }
