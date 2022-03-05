@@ -3,7 +3,7 @@
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 
-test('keyboard fluent creation', function () {
+test('keyboard creation by rows', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('foo')
@@ -29,7 +29,7 @@ test('keyboard fluent creation', function () {
     ]);
 });
 
-test('keyboard fast fluent creation', function () {
+test('keyboard creation by buttons', function () {
     $keyboard = Keyboard::make()
         ->buttons([
             Button::make('foo')
@@ -142,5 +142,22 @@ it('can flatten its buttons', function () {
         [['text' => 'foo', 'url' => 'bar']],
         [['text' => 'foo', 'url' => 'bar']],
         [['text' => 'baz', 'callback_data' => 'action:quuz']],
+    ]);
+});
+
+it('can quickly add buttons', function () {
+    $keyboard = Keyboard::make()
+        ->button('Delete')->action('delete')->param('id', '42')
+        ->button('open')->width(0.5)->url('https://test.it')
+        ->button('foo')->width(0.5)->url('https://foo.com');
+
+    expect($keyboard)->toMatchArray([
+        [
+            ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
+        ],
+        [
+            ['text' => 'open', 'url' => 'https://test.it'],
+            ['text' => 'foo', 'url' => 'https://foo.com'],
+        ],
     ]);
 });

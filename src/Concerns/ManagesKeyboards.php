@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpDocMissingThrowsInspection */
+
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Concerns;
@@ -32,8 +34,15 @@ trait ManagesKeyboards
         return $this;
     }
 
-    public function replaceKeyboard(string $messageId, Keyboard $newKeyboard): Telegraph
+    /**
+     * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
+     */
+    public function replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard): Telegraph
     {
+        if (is_callable($newKeyboard)) {
+            $newKeyboard = $newKeyboard(Keyboard::make());
+        }
+
         if ($newKeyboard->isEmpty()) {
             $replyMarkup = null;
         } else {

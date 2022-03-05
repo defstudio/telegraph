@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph\Facades;
 
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake;
 use Illuminate\Support\Facades\Facade;
 
@@ -12,10 +13,11 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  message(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  html(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  markdown(string $message)
+ * @method static \DefStudio\Telegraph\Telegraph  keyboard(callable|array|Keyboard $keyboard)
  * @method static \DefStudio\Telegraph\Telegraph  registerWebhook()
  * @method static \DefStudio\Telegraph\Telegraph  getWebhookDebugInfo()
  * @method static \DefStudio\Telegraph\Telegraph  replyWebhook(string $callbackQueryId, string $message)
- * @method static \DefStudio\Telegraph\Telegraph  replaceKeyboard(string $messageId, array $newKeyboard)
+ * @method static \DefStudio\Telegraph\Telegraph  replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard)
  * @method static \DefStudio\Telegraph\Telegraph  deleteKeyboard(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  send()
  * @method static void  dumpSentData()

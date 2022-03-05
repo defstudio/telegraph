@@ -38,10 +38,9 @@ use DefStudio\Telegraph\Keyboard\Keyboard;
 
 Telegraph::message('hello world')
 ->keyboard(function(Keyboard $keyboard){
-    return $keyboard->buttons([
-        Button::make('Delete')->action('delete')->param('id', '42'),
-        Button::make('open')->url('https://test.it'),
-    ]);
+    return $keyboard
+        ->button('Delete')->action('delete')->param('id', '42')
+        ->button('open')->url('https://test.it');
 })->send();
 ```
 
@@ -67,7 +66,7 @@ Button::make('open')->url('https://test.it'),
 
 ## Keyboard Rows
 
-A keyboard will normally place one button per row, this behaviour can be customized by defining rows or by chunking buttons
+A keyboard will normally place one button per row, this behaviour can be customized by defining rows, by setting individual buttons width or by chunking buttons
 
 ### by rows
 
@@ -85,23 +84,50 @@ $keyboard = Keyboard::make()
     ]);
 ```
 
-### by chunking
+### by setting buttons width
+
+A button relative width can be set using a float number the total width percentage to be taken. Buttons will flow through the rows according to their width
+
+this example would define two buttons on the first row and a large button on the second one:
 
 ```php
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 
 $keyboard = Keyboard::make()
-    ->buttons([
-        Button::make('Delete')->action('delete')->param('id', '42'),
-        Button::make('Dismiss')->action('dismiss')->param('id', '42'),
-        Button::make('open')->url('https://test.it'),
-    ])->chunk(2);
+    ->button('Delete')->action('delete')->param('id', '42')->width(0.5)
+    ->button('Dismiss')->action('dismiss')->param('id', '42')->width(0.5)
+    ->button('open')->url('https://test.it');
+```
+
+**notes**
+
+ - A button default width is 1 (that's to say, the entire row width)
+ - Each width is defined as a float between 0 and 1 that represents the floating point percentage of the row taken by the button.
+ - each button will fill the current row or flow in the subsequent one if there isn't enough space left
+
+### by chunking
+
+Buttons can be authomatically chunked in rows using the `->chunk()` method.
+
+This example would return a first row of two buttons, a second row of two buttons and the last row with the remaining button.
+
+```php
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+
+$keyboard = Keyboard::make()
+    ->button('Delete')->action('delete')->param('id', '42')
+    ->button('Dismiss')->action('dismiss')->param('id', '42')
+    ->button('Share')->action('share')->param('id', '42')
+    ->button('Solve')->action('solve')->param('id', '42')
+    ->button('Open')->url('https://test.it')
+    ->chunk(2);
 ```
 
 ## Updating a keyboard
 
-A keyboard can be replaced by a new one by submitting its `messageId`:
+A message keyboard can be replaced by a new one by submitting its `messageId`:
 
 ```php
 Telegraph::replaceKeyboard(
@@ -115,7 +141,7 @@ Telegraph::replaceKeyboard(
 
 ## Deleting a keyboard
 
-A keyboard can be removed by submitting its `messageId`:
+A keyboard can be removed from a message by submitting its `messageId`:
 
 ```php
 Telegraph::deleteKeyboard(messageId: 1568794)->send();
