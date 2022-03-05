@@ -15,3 +15,4 @@
 /phpstan.neon           export-ignore
 /phpunit.xml            export-ignore
 /testbench.yaml         export-ignore
+/x-ray.yml              export-ignore

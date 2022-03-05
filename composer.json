@@ -51,6 +51,7 @@
         }
     },
     "scripts": {
+        "x-ray": "vendor/bin/x-ray .",
         "lint": "vendor/bin/php-cs-fixer fix -v",
         "test:lint": "vendor/bin/php-cs-fixer fix -v --dry-run",
         "test:types": "vendor/bin/phpstan analyse --ansi",

@@ -1,0 +1,16 @@
+functions:
+  include:
+    - 'ray'
+    - 'rd'
+    - 'dump'
+    - 'dd'
+    - 'var_dump'
+    - 'print_r'
+
+paths:
+  ignore:
+    - '.github/*'
+    - 'build/*'
+    - 'docs/*'
+    - 'vendor/*'
+    - 'src/Support/Testing/Fakes/TelegraphFake.php'
