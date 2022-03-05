@@ -12,6 +12,7 @@ class Keyboard
 
     private function __construct()
     {
+        /* @phpstan-ignore-next-line  */
         $this->buttons = collect();
     }
 
@@ -133,6 +134,7 @@ class Keyboard
     {
         $clone = clone $this;
 
+        /* @phpstan-ignore-next-line  */
         $clone->buttons = $clone->buttons->reject(fn (Button $button) => $button->label() == $label);
 
         return $clone;
