@@ -7,16 +7,13 @@ use Illuminate\Support\Str;
 
 class Keyboard
 {
-    private int $chunk = 1;
-
-    /** @var Button[][] */
-    private array $rows = [];
-
-    /** @var Button[] */
-    private array $buttons = [];
+    /** @var Collection<array-key, Button> */
+    private Collection $buttons;
 
     private function __construct()
     {
+        /* @phpstan-ignore-next-line  */
+        $this->buttons = collect();
     }
 
     public static function make(): Keyboard
@@ -46,7 +43,7 @@ class Keyboard
                         $key = Str::of($param)->before(':');
                         $value = Str::of($param)->after(':');
 
-                        $rowButton->param($key, $value);
+                        $rowButton = $rowButton->param($key, $value);
                     }
                 }
 
@@ -64,14 +61,23 @@ class Keyboard
     }
 
     /**
-     * @param array<Button> $buttons
+     * @param array<array-key, Button>|Collection<array-key, Button> $buttons
      *
      * @return Keyboard
      */
-    public function row(array $buttons): Keyboard
+    public function row(array|Collection $buttons): Keyboard
     {
         $clone = clone $this;
-        $clone->rows[] = $buttons;
+
+        if (is_array($buttons)) {
+            $buttons = collect($buttons);
+        }
+
+        $buttonWidth = 1 / $buttons->count();
+
+        $buttons = $buttons->map(fn (Button $button) => $button->width($buttonWidth));
+
+        $this->buttons->push(...$buttons);
 
         return $clone;
     }
@@ -79,20 +85,28 @@ class Keyboard
     public function chunk(int $chunk): Keyboard
     {
         $clone = clone $this;
-        $clone->chunk = $chunk;
+
+        $buttonWidth = 1 / $chunk;
+
+        $clone->buttons = $this->buttons->map(fn (Button $button) => $button->width($buttonWidth));
 
         return $clone;
     }
 
     /**
-     * @param Button[] $buttons
+     * @param array<array-key, Button>|Collection<array-key, Button> $buttons $buttons
      *
      * @return Keyboard
      */
-    public function buttons(array $buttons): Keyboard
+    public function buttons(array|Collection $buttons): Keyboard
     {
         $clone = clone $this;
-        $clone->buttons = $buttons;
+
+        if (is_array($buttons)) {
+            $buttons = collect($buttons);
+        }
+
+        $clone->buttons->push(...$buttons);
 
         return $clone;
     }
@@ -101,19 +115,17 @@ class Keyboard
     {
         $clone = clone $this;
 
-        foreach ($clone->buttons as $index => $button) {
+        $clone->buttons = $clone->buttons->map(function (Button $button) use ($newButton, $label) {
             if ($button->label() == $label) {
-                $clone->buttons[$index] = $newButton;
-            }
-        }
-
-        foreach ($clone->rows as $rowIndex => $buttons) {
-            foreach ($buttons as $buttonIndex => $button) {
-                if ($button->label() == $label) {
-                    $clone->rows[$rowIndex][$buttonIndex] = $newButton;
+                if (!$newButton->has_width()) {
+                    $newButton = $newButton->width($button->get_width());
                 }
+
+                return $newButton;
             }
-        }
+
+            return $button;
+        });
 
         return $clone;
     }
@@ -122,34 +134,8 @@ class Keyboard
     {
         $clone = clone $this;
 
-        $toDelete = [];
-        foreach ($clone->buttons as $index => $button) {
-            if ($button->label() == $label) {
-                $toDelete[] = $index;
-            }
-        }
-
-        foreach ($toDelete as $indexToDelete) {
-            unset($clone->buttons[$indexToDelete]);
-        }
-
-        $clone->buttons = array_values($clone->buttons);
-
-
-        foreach ($clone->rows as $rowIndex => $buttons) {
-            $toDelete = [];
-            foreach ($buttons as $buttonIndex => $button) {
-                if ($button->label() == $label) {
-                    $toDelete[] = $buttonIndex;
-                }
-            }
-
-            foreach ($toDelete as $indexToDelete) {
-                unset($clone->rows[$rowIndex][$indexToDelete]);
-            }
-
-            $clone->rows[$rowIndex] = array_values($clone->rows[$rowIndex]);
-        }
+        /* @phpstan-ignore-next-line  */
+        $clone->buttons = $clone->buttons->reject(fn (Button $button) => $button->label() == $label);
 
         return $clone;
     }
@@ -158,28 +144,14 @@ class Keyboard
     {
         $clone = clone $this;
 
-        $newButtonSet = [];
-
-        foreach ($clone->rows as $buttons) {
-            foreach ($buttons as $button) {
-                $newButtonSet[] = $button;
-            }
-        }
-
-        foreach ($clone->buttons as $button) {
-            $newButtonSet[] = $button;
-        }
-
-        $clone->buttons = $newButtonSet;
-
-        $clone->rows = [];
+        $clone->buttons = $clone->buttons->map(fn (Button $button) => $button->width(1));
 
         return $clone;
     }
 
     public function isEmpty(): bool
     {
-        return count($this->flatten()->buttons) === 0;
+        return $this->buttons->isEmpty();
     }
 
     /**
@@ -187,27 +159,23 @@ class Keyboard
      */
     public function toArray(): array
     {
-        collect($this->buttons)
-            ->chunk($this->chunk)
-            ->each(function (Collection $buttons) {
-                $buttons = $buttons->toArray();
-
-                /** @var Button[] $buttons */
-
-                $this->rows[] = $buttons;
-            });
-
         $keyboard = [];
 
-        foreach ($this->rows as $buttons) {
-            $row = [];
+        $row = [];
+        $rowWidth = 0;
 
-            foreach ($buttons as $button) {
-                $row[] = $button->toArray();
+        $this->buttons->each(function (Button $button) use (&$keyboard, &$row, &$rowWidth): void {
+            if ($rowWidth + $button->get_width() > 1) {
+                $keyboard[] = $row;
+                $row = [];
+                $rowWidth = 0;
             }
 
-            $keyboard[] = $row;
-        }
+            $row[] = $button->toArray();
+            $rowWidth += $button->get_width();
+        });
+
+        $keyboard[] = $row;
 
         return $keyboard;
     }

@@ -39,6 +39,7 @@ abstract class WebhookHandler
             Log::debug('Telegraph webhook callback', $this->data->toArray());
         }
 
+        /** @var string $action */
         $action = $this->data->get('action');
 
         if (!$this->canHandle($action)) {
@@ -74,7 +75,9 @@ abstract class WebhookHandler
             Log::debug('Telegraph webhook message', $this->data->toArray());
         }
 
+        /* @phpstan-ignore-next-line  */
         $text = Str::of($this->data->get('text'));
+
 
         if ($text->startsWith('/')) {
             $this->handleCommand($text);
@@ -108,16 +111,23 @@ abstract class WebhookHandler
         }
 
         $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
-        $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
-        $this->originalKeyboard = Keyboard::fromArray($this->request->input('callback_query.message.reply_markup.inline_keyboard', [])); //@phpstan-ignore-line
-        $this->data = Str::of($this->request->input('callback_query.data'))->explode(';') //@phpstan-ignore-line
-        ->mapWithKeys(function (string $entity) {
-            $entity = explode(':', $entity);
-            $key = $entity[0];
-            $value = $entity[1];
 
-            return [$key => $value];
-        });
+        $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
+
+        $this->originalKeyboard = Keyboard::fromArray($this->request->input('callback_query.message.reply_markup.inline_keyboard', [])); //@phpstan-ignore-line
+
+
+        /* @phpstan-ignore-next-line */
+        $this->data = Str::of($this->request->input('callback_query.data'))
+            ->explode(';')
+            /* @phpstan-ignore-next-line */
+            ->mapWithKeys(function (string $entity) {
+                $entity = explode(':', $entity);
+                $key = $entity[0];
+                $value = $entity[1];
+
+                return [$key => $value];
+            });
     }
 
     protected function extractMessageData(): void

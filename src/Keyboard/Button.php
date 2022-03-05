@@ -9,6 +9,8 @@ class Button
     /** @var string[] */
     private array $callbackData = [];
 
+    private int $width = 0;
+
     private function __construct(
         private string $label,
     ) {
@@ -19,6 +21,21 @@ class Button
         return new self($label);
     }
 
+    public function width(float $width): Button
+    {
+        $clone = clone $this;
+
+        $width = (int)floor($width * 100);
+
+        if ($width > 100) {
+            $width = 100;
+        }
+
+        $clone->width = $width;
+
+        return $clone;
+    }
+
     public function action(string $name): static
     {
         return $this->param('action', $name);
@@ -26,19 +43,23 @@ class Button
 
     public function param(string $key, int|string $value): static
     {
+        $clone = clone $this;
+
         $key = trim($key);
-        $value = trim((string)$value);
+        $value = trim((string) $value);
 
-        $this->callbackData[] = "$key:$value";
+        $clone->callbackData[] = "$key:$value";
 
-        return $this;
+        return $clone;
     }
 
     public function url(string $url): static
     {
-        $this->url = $url;
+        $clone = clone $this;
 
-        return $this;
+        $clone->url = $url;
+
+        return $clone;
     }
 
     /**
@@ -68,5 +89,19 @@ class Button
     public function label(): string
     {
         return $this->label;
+    }
+
+    public function get_width(): float
+    {
+        if ($this->width === 0) {
+            return 1;
+        }
+
+        return round($this->width / 100, 1);
+    }
+
+    public function has_width(): bool
+    {
+        return $this->width > 0;
     }
 }
