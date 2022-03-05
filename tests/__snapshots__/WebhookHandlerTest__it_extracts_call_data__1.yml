@@ -3,5 +3,6 @@ messageId: '123456'
 callbackQueryId: '159753'
 originalKeyboard:
     empty: false
+    filled: true
 data:
     action: test

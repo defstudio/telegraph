@@ -12,15 +12,18 @@ use DefStudio\Telegraph\Telegraph;
  */
 trait ManagesKeyboards
 {
-    /** @var array<array<array<string, string>>> */
-    protected array $keyboard;
+    protected Keyboard|null $keyboard = null;
 
     /**
      * @param array<array<array<string, string>>>|Keyboard $keyboard
      */
     public function keyboard(array|Keyboard $keyboard): Telegraph
     {
-        $this->keyboard = is_array($keyboard) ? $keyboard : $keyboard->toArray();
+        if (is_array($keyboard)) {
+            $keyboard = Keyboard::fromArray($keyboard);
+        }
+
+        $this->keyboard = $keyboard;
 
         return $this;
     }

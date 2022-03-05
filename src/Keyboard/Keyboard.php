@@ -154,6 +154,11 @@ class Keyboard
         return $this->buttons->isEmpty();
     }
 
+    public function isFilled(): bool
+    {
+        return !$this->isEmpty();
+    }
+
     /**
      * @return string[][][]
      */
