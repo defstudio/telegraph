@@ -10,5 +10,6 @@ test('Telegraph facade is registered', function () {
 
 test('can switch to fake', function () {
     Facade::fake();
-    expect(Facade::markdown(make_bot()))->toBeInstanceOf(TelegraphFake::class);
+    $bot = make_bot();
+    expect(Facade::bot($bot))->toBeInstanceOf(TelegraphFake::class);
 });

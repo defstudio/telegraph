@@ -22,3 +22,14 @@ $chat->html("<b>hello<b>\n\nI'm a bot!")->send();
 $chat->markdown('*hello*')->send();
 ```
 
+## Additional methods
+
+Telegraph allows to send complex messages using its methods:
+
+### protectContent
+
+Protects the contents of the sent message from forwarding and saving
+
+```php
+$chat->message("please don't share this")->protectContent()->send();
+```

@@ -29,7 +29,9 @@ trait ManagesKeyboards
             $keyboard = Keyboard::fromArray($keyboard);
         }
 
-        $this->keyboard = $keyboard;
+        $this->data['reply_markup'] = json_encode([
+            'inline_keyboard' => $keyboard->toArray(),
+        ]);
 
         return $this;
     }

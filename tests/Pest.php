@@ -4,10 +4,12 @@
 
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use DefStudio\Telegraph\Telegraph;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 uses(TestCase::class)->in(__DIR__);
 
@@ -22,7 +24,7 @@ function bots(int $count): Collection
 
 function sandbox_bot(): TelegraphBot
 {
-    return bot(env('SANDOBOX_TELEGRAM_BOT_TOKEN'));
+    return bot(env('SANDOBOX_TELEGRAM_BOT_TOKEN'), env('SANDBOX_TELEGRAM_CHAT_ID'));
 }
 
 function bot(string $token = '3f3814e1-5836-3d77-904e-60f64b15df36', string $chatId = '-123456789'): TelegraphBot
@@ -114,3 +116,24 @@ function webhook_command($command, $handler = TestWebhookHandler::class): Reques
         ],
     ]);
 }
+
+
+
+expect()->extend('toMatchUrlSnapshot', function () {
+    /** @var callable $configurationClosure */
+    $configurationClosure = $this->value;
+
+    Http::fake();
+
+    $telegraph = app(Telegraph::class)->chat(make_chat());
+
+    $configurationClosure($telegraph);
+
+    $telegraph->send();
+
+    Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        expect($request->url())->toMatchSnapshot();
+
+        return true;
+    });
+});

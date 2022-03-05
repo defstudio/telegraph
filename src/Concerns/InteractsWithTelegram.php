@@ -33,28 +33,8 @@ trait InteractsWithTelegram
         return SendRequestToTelegramJob::dispatch($this->getUrl())->onQueue($queue);
     }
 
-    protected function buildChatMessage(): void
-    {
-        $this->endpoint = self::ENDPOINT_MESSAGE;
-        $this->data = [
-            'text' => $this->message,
-            'chat_id' => $this->getChat()->chat_id,
-            'parse_mode' => $this->parseMode,
-        ];
-
-        if ($this->keyboard?->isFilled()) {
-            $this->data['reply_markup'] = json_encode([
-                'inline_keyboard' => $this->keyboard->toArray(),
-            ]);
-        }
-    }
-
     public function getUrl(): string
     {
-        if (empty($this->endpoint)) {
-            $this->buildChatMessage();
-        }
-
         /** @phpstan-ignore-next-line */
         return (string) Str::of(Telegraph::TELEGRAM_API_BASE_URL)
             ->append($this->getBot()->token)

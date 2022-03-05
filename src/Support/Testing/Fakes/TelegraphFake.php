@@ -8,7 +8,6 @@
 
 namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
-use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Telegraph;
 use GuzzleHttp\Psr7\BufferStream;
 use Illuminate\Foundation\Bus\PendingDispatch;
@@ -31,7 +30,6 @@ class TelegraphFake extends Telegraph
      */
     public function __construct(private array $replies = [])
     {
-        parent::__construct();
     }
 
     protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
@@ -47,7 +45,6 @@ class TelegraphFake extends Telegraph
 
     /**
      * @return array<string, mixed>
-     * @throws TelegraphException
      */
     protected function messageToArray(): array
     {
@@ -57,9 +54,9 @@ class TelegraphFake extends Telegraph
             'data' => $this->data ?? null,
             'bot_token' => $this->getBotIfAvailable()->token ?? null,
             'chat_id' => $this->getChatIfAvailable()->id ?? null,
-            'message' => $this->message ?? null,
+            'message' => $this->data['text'] ?? null,
             'keyboard' => $this->keyboard?->toArray() ?? null,
-            'parse_mode' => $this->parseMode ?? null,
+            'parse_mode' => $this->data['parse_mode'] ?? null,
         ];
     }
 
@@ -152,7 +149,7 @@ class TelegraphFake extends Telegraph
                         'type' => 'channel',
                     ],
                     'date' => now()->timestamp,
-                    'text' => $this->message,
+                    'text' => $this->data['text'],
                 ],
             ],
             Telegraph::ENDPOINT_GET_BOT_INFO => [
