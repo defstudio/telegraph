@@ -1,0 +1,26 @@
+name: x-ray
+
+on:
+  push:
+    paths:
+      - '**.php'
+      - 'x-ray.yml'
+
+jobs:
+  x-ray:
+    name: x-ray
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          coverage: none
+
+      - name: Install composer dependencies
+        uses: ramsey/composer-install@v1
+
+      - name: Run PHPStan
+        run: ./vendor/bin/x-ray .

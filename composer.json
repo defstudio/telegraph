@@ -36,7 +36,8 @@
         "phpstan/phpstan-phpunit": "^1.0",
         "phpunit/phpunit": "^9.4",
         "spatie/laravel-ray": "^1.26",
-        "spatie/pest-plugin-snapshots": "^1.1"
+        "spatie/pest-plugin-snapshots": "^1.1",
+        "spatie/x-ray": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -50,6 +51,7 @@
         }
     },
     "scripts": {
+        "x-ray": "vendor/bin/x-ray .",
         "lint": "vendor/bin/php-cs-fixer fix -v",
         "test:lint": "vendor/bin/php-cs-fixer fix -v --dry-run",
         "test:types": "vendor/bin/phpstan analyse --ansi",
