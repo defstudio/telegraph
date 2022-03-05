@@ -24,12 +24,12 @@ $chat->markdown('*hello*')->send();
 
 ## Additional methods
 
-Telegraph allows to send complex messages using its methods:
+Telegraph allows sending complex messages using its methods:
 
-### protectContent
+### protect
 
-Protects the contents of the sent message from forwarding and saving
+Protects message contents from forwarding and saving
 
 ```php
-$chat->message("please don't share this")->protectContent()->send();
+$chat->message("please don't share this")->protect()->send();
 ```

@@ -16,6 +16,6 @@ it('can send a markdown message', function () {
 
 it('can send protected content', function () {
     expect(function (Telegraph $telegraph) {
-        $telegraph->markdown('test')->protectContent();
+        $telegraph->markdown('test')->protect();
     })->toMatchUrlSnapshot();
 });

@@ -39,7 +39,7 @@ trait ComposesMessages
         return $this;
     }
 
-    public function protectContent(bool $protect = true): Telegraph
+    public function protect(bool $protect = true): Telegraph
     {
         $this->data['protect_content'] = $protect;
 
