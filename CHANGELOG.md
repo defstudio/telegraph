@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.3.0 - 2022-03-05
+
+## What's Changed
+
+- chore: X ray setup by @fabio-ivona in https://github.com/def-studio/telegraph/pull/36
+- chore: keyboard refactor by @fabio-ivona in https://github.com/def-studio/telegraph/pull/35
+- Keyboard improvement by @fabio-ivona and @cerbero90 in https://github.com/def-studio/telegraph/pull/37
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.2.2...v1.3.0
+
 ## v1.2.2 - 2022-03-02
 
 ## What's Changed
