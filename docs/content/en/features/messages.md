@@ -39,5 +39,5 @@ $chat->message("please don't share this")->protected()->send();
 Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messages). Users will receive a notification with no sound.
 
 ```php
-$chat->message("please don't share this")->silent()->send();
+$chat->message("late night message")->silent()->send();
 ```
