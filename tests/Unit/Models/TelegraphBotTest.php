@@ -12,6 +12,13 @@ it('can retrieve its telegram info', function () {
     assertMatchesSnapshot($bot->info());
 });
 
+it('can retrieve its url', function () {
+    Telegraph::fake();
+    $bot = make_bot();
+
+    assertMatchesSnapshot($bot->url());
+});
+
 it('can register its webhook', function () {
     Telegraph::fake();
     $bot = make_bot();

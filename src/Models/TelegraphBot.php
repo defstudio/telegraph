@@ -110,4 +110,9 @@ class TelegraphBot extends Model
         /* @phpstan-ignore-next-line */
         return $reply->json('result');
     }
+
+    public function url(): string
+    {
+        return "https://t.me/" . $this->info()['username'];
+    }
 }

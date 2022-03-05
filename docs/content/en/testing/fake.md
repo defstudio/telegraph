@@ -4,7 +4,7 @@ menuTitle: 'Fake'
 description: ''
 category: 'Testing'
 fullscreen: false 
-position: 50
+position: 60
 ---
 
 In order to avoid sending real messages to Telegram when testing, the `Telegraph` facade offers a `::fake()` method to start registering sent messages internally instead of sending them to Telegram APIs.
