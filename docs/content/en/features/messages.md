@@ -41,3 +41,12 @@ Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messa
 ```php
 $chat->message("late night message")->silent()->send();
 ```
+
+
+### withoutPreview
+
+Disables link previews for links in this message
+
+```php
+$chat->message("http://my-blog.dev")->withoutPreview()->send();
+```

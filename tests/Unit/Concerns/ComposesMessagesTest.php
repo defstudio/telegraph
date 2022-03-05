@@ -25,3 +25,9 @@ it('can send silent messages', function () {
         $telegraph->markdown('test')->silent();
     })->toMatchUrlSnapshot();
 });
+
+it('can disable url preview', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->markdown('test')->withoutPreview();
+    })->toMatchUrlSnapshot();
+});
