@@ -23,7 +23,7 @@ class Message
     }
 
     /**
-     * @param array{message_id:int, date:int, text:string, from:array<string, mixed>, chat:array<string, mixed>, reply_markup:array<string, mixed>} $data
+     * @param array{message_id:int, date:int, text?:string, from?:array<string, mixed>, chat?:array<string, mixed>, reply_markup?:array<array<array<string>>>} $data
      */
     public static function fromArray(array $data): Message
     {
@@ -36,14 +36,17 @@ class Message
         $message->text = $data['text'] ?? '';
 
         if (isset($data['from'])) {
+            /* @phpstan-ignore-next-line */
             $message->from = User::fromArray($data['from']);
         }
 
         if (isset($data['chat'])) {
+            /* @phpstan-ignore-next-line */
             $message->chat = Chat::fromArray($data['chat']);
         }
 
         if (isset($data['reply_markup']) && isset($data['reply_markup']['inline_keyboard'])) {
+            /* @phpstan-ignore-next-line */
             $message->keyboard = Keyboard::fromArray($data['reply_markup']['inline_keyboard']);
         } else {
             $message->keyboard = Keyboard::make();

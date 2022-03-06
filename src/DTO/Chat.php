@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpDocSignatureIsNotCompleteInspection */
+
 namespace DefStudio\Telegraph\DTO;
 
 use phpDocumentor\Reflection\Type;
@@ -20,7 +22,7 @@ class Chat
     }
 
     /**
-     * @param array{id:int, type:string, title:string} $data
+     * @param array{id:int, type:string, title?:string} $data
      */
     public static function fromArray(array $data): Chat
     {

@@ -28,8 +28,8 @@ abstract class WebhookHandler
     protected TelegraphBot $bot;
     protected TelegraphChat $chat;
 
-    protected string $messageId;
-    protected string $callbackQueryId;
+    protected int $messageId;
+    protected int $callbackQueryId;
 
     protected Request $request;
     protected Message|null $message = null;
@@ -48,7 +48,7 @@ abstract class WebhookHandler
         }
 
         /** @var string $action */
-        $action = $this->callbackQuery->data()->get('action');
+        $action = $this->callbackQuery?->data()->get('action') ?? '';
 
         if (!$this->canHandle($action)) {
             report(TelegramWebhookException::invalidAction($action));
@@ -83,7 +83,7 @@ abstract class WebhookHandler
             Log::debug('Telegraph webhook message', $this->data->toArray());
         }
 
-        $text = Str::of($this->message->text());
+        $text = Str::of($this->message?->text() ?? '');
 
         if ($text->startsWith('/')) {
             $this->handleCommand($text);
@@ -116,13 +116,15 @@ abstract class WebhookHandler
             throw new NotFoundHttpException();
         }
 
-        $this->messageId = $this->callbackQuery->message()?->id();
+        assert($this->callbackQuery !== $this->callbackQuery);
 
-        $this->callbackQueryId = $this->callbackQuery->id();
+        $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData('message id missing');
 
-        $this->originalKeyboard = $this->callbackQuery->message()?->keyboard();
+        $this->callbackQueryId = $this->callbackQuery->id() ?? throw TelegramWebhookException::invalidData('callback_query id missing');
 
-        $this->data = $this->callbackQuery->data();
+        $this->originalKeyboard = $this->callbackQuery->message()?->keyboard() ?? Keyboard::make();
+
+        $this->data = $this->callbackQuery->data() ?? new Collection();
     }
 
     protected function extractMessageData(): void
@@ -131,6 +133,8 @@ abstract class WebhookHandler
         $chat = $this->bot->chats()->where('chat_id', $this->request->input('message.chat.id'))->firstOrNew();
 
         $this->chat = $chat;
+
+        assert($this->message !== null);
 
         $this->messageId = $this->message->id();
 
@@ -171,6 +175,7 @@ abstract class WebhookHandler
         $this->request = $request;
 
         if ($this->request->has('message')) {
+            /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('message'));
             $this->handleMessage();
 
@@ -178,6 +183,7 @@ abstract class WebhookHandler
         }
 
         if ($this->request->has('channel_post')) {
+            /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('channel_post'));
             $this->handleMessage();
 
@@ -186,6 +192,7 @@ abstract class WebhookHandler
 
 
         if ($this->request->has('callback_query')) {
+            /* @phpstan-ignore-next-line */
             $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
             $this->handleCallbackQuery();
         }

@@ -26,9 +26,11 @@ interface TelegraphContract
 
     public function registerWebhook(): Telegraph;
 
-    public function replyWebhook(string $callbackQueryId, string $message): Telegraph;
+    public function replyWebhook(int $callbackQueryId, string $message): Telegraph;
 
-    public function replaceKeyboard(string $messageId, Keyboard $newKeyboard): Telegraph;
+    public function replaceKeyboard(int $messageId, Keyboard $newKeyboard): Telegraph;
+
+    public function deleteKeyboard(int $messageId): Telegraph;
 
     public function send(): Response;
 

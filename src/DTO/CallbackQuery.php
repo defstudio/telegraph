@@ -18,16 +18,19 @@ class CallbackQuery
     private Collection $data;
 
     /**
-     * @param array{id:int, from:array<string, mixed>, message:array<string, mixed>, data:string} $data
+     * @param array{id:int, from:array<string, mixed>, message?:array<string, mixed>, data?:string} $data
      */
     public static function fromArray(array $data): CallbackQuery
     {
         $callbackQuery = new self();
 
         $callbackQuery->id = $data['id'];
+
+        /* @phpstan-ignore-next-line */
         $callbackQuery->from = User::fromArray($data['from']);
 
         if (isset($data['message'])) {
+            /* @phpstan-ignore-next-line */
             $callbackQuery->message = Message::fromArray($data['message']);
         }
 

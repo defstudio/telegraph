@@ -93,7 +93,7 @@ class TelegraphBot extends Model
         return TelegraphFacade::bot($this)->getWebhookDebugInfo();
     }
 
-    public function replyWebhook(string $callbackQueryId, string $message): Telegraph
+    public function replyWebhook(int $callbackQueryId, string $message): Telegraph
     {
         return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message);
     }
@@ -134,11 +134,12 @@ class TelegraphBot extends Model
                 throw TelegramUpdatesException::webhookExist($this);
             }
 
+            /* @phpstan-ignore-next-line */
             throw TelegramUpdatesException::pollingError($this, $reply->json('description'));
         }
 
 
-        return collect($reply->json('result'))
-            ->map(fn (array $update) => TelegramUpdate::fromArray($update));
+        /* @phpstan-ignore-next-line */
+        return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
     }
 }

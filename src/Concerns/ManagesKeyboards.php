@@ -39,7 +39,7 @@ trait ManagesKeyboards
     /**
      * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
      */
-    public function replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard): Telegraph
+    public function replaceKeyboard(int $messageId, Keyboard|callable $newKeyboard): Telegraph
     {
         if (is_callable($newKeyboard)) {
             $newKeyboard = $newKeyboard(Keyboard::make());
@@ -61,7 +61,7 @@ trait ManagesKeyboards
         return $this;
     }
 
-    public function deleteKeyboard(string $messageId): Telegraph
+    public function deleteKeyboard(int $messageId): Telegraph
     {
         return $this->replaceKeyboard($messageId, Keyboard::make());
     }

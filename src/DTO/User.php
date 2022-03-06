@@ -17,7 +17,7 @@ class User
     }
 
     /**
-     * @param array{id:int, is_bot:bool, first_name:string, last_name:string, username:string} $data
+     * @param array{id:int, is_bot:bool, first_name:string, last_name?:string, username?:string} $data
      */
     public static function fromArray(array $data): User
     {

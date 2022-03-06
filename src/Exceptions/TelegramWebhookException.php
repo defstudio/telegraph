@@ -13,4 +13,9 @@ class TelegramWebhookException extends \Exception
     {
         return new self("No Telegram Webhook handler defined for received $command: $command");
     }
+
+    public static function invalidData(string $description): TelegramWebhookException
+    {
+        return new self("Invalid data: $description");
+    }
 }

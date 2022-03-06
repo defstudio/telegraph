@@ -72,12 +72,12 @@ class TelegraphChat extends Model
     /**
      * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
      */
-    public function replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard): Telegraph
+    public function replaceKeyboard(int $messageId, Keyboard|callable $newKeyboard): Telegraph
     {
         return TelegraphFacade::chat($this)->replaceKeyboard($messageId, $newKeyboard);
     }
 
-    public function deleteKeyboard(string $messageId): Telegraph
+    public function deleteKeyboard(int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->deleteKeyboard($messageId);
     }
