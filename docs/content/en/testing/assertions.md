@@ -4,7 +4,7 @@ menuTitle: 'Assertions'
 description: ''
 category: 'Testing'
 fullscreen: false 
-position: 61
+position: 71
 ---
 
 The `::fake()` facade helper enables a number of assertions for checking its activity

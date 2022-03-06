@@ -1,4 +1,4 @@
-<---
+---
 title: 'TelegraphBot'
 description: ''
 category: 'Models'
@@ -42,6 +42,27 @@ $telegraphBot->url();
 // https://t.me/my-bot-name
 ```
 
+## info()
+
+retrieves the bot information from Telegraph APIs
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
+
+$telegraphBot->info();
+
+
+/*
+id: xxxxx
+is_bot: true
+first_name: telegraph-test
+username: my_test_bot
+can_join_groups: true
+can_read_all_group_messages: false
+supports_inline_queries: false
+*/
+```
+
 ## registerWebhook
 
 register a webhook url
@@ -71,6 +92,20 @@ replies to a webhook callback
 
 $telegraphBot->replyWebhook($callbackQueryId, 'message received')->send();
 ```
+
+
+## updates
+
+Retrieves the Bot message and callback query updates using [manual polling](webhooks/manual-polling)
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
+
+use DefStudio\Telegraph\DTO\TelegramUpdate;$telegraphBot->updates()->each(function(TelegramUpdate $update){
+    // ...
+});
+```
+
 
 
 

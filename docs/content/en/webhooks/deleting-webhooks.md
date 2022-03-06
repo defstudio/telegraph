@@ -1,10 +1,9 @@
 ---
-title: 'Manual updates polling'
-menuTitle: 'Manual Polling'
+title: 'Deleting Webhooks'
 description: ''
 category: 'Webhooks'
 fullscreen: false 
-position: 56
+position: 66
 ---
 
 

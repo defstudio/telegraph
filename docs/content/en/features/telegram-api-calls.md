@@ -25,6 +25,24 @@ supports_inline_queries: false
 */
 ```
 
+## botInfo
+
+retrieves the bot data from Telegram APIs
+
+```php
+Telegram::bot($telegramBot)->botInfo()->send();
+```
+
+## botUpdates
+
+retrieves the bot updates from Telegram APIs
+
+```php
+Telegram::bot($telegramBot)->botUpdates()->send();
+```
+
+<alert type="alert">**Note:** Manual updates polling is not available if a webhook is set up for the bot. Webhook should be remove first using its [deleteWebhook](webhooks/deleting-webhooks) methods</alert>
+
 ## deleteKeyboard
 
 removes a message keyboard (see [keyboards](features/keyboards) for details)
