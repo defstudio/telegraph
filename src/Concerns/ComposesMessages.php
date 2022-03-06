@@ -39,24 +39,31 @@ trait ComposesMessages
         return $this;
     }
 
+    public function reply(int $messageId): Telegraph
+    {
+        $this->data['reply_to_message_id'] = $messageId;
+
+        return $this;
+    }
+
     public function protected(): Telegraph
     {
         $this->data['protect_content'] = true;
 
-        return  $this;
+        return $this;
     }
 
     public function silent(): Telegraph
     {
         $this->data['disable_notification'] = true;
 
-        return  $this;
+        return $this;
     }
 
     public function withoutPreview(): Telegraph
     {
         $this->data['disable_web_page_preview'] = true;
 
-        return  $this;
+        return $this;
     }
 }

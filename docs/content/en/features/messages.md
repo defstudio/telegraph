@@ -22,9 +22,9 @@ $chat->html("<b>hello<b>\n\nI'm a bot!")->send();
 $chat->markdown('*hello*')->send();
 ```
 
-## Additional methods
+## Options
 
-Telegraph allows sending complex messages using its methods:
+Telegraph allows sending complex messages by setting some options:
 
 ### protected
 
@@ -42,11 +42,18 @@ Sends the message [silently](https://telegram.org/blog/channels-2-0#silent-messa
 $chat->message("late night message")->silent()->send();
 ```
 
-
 ### withoutPreview
 
 Disables link previews for links in this message
 
 ```php
 $chat->message("http://my-blog.dev")->withoutPreview()->send();
+```
+
+### reply
+
+The message can be sent as a reply by setting the origina message ID
+
+```php
+$chat->message("ok!")->reply(123456)->send();
 ```
