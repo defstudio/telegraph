@@ -31,3 +31,9 @@ it('can disable url preview', function () {
         $telegraph->markdown('test')->withoutPreview();
     })->toMatchUrlSnapshot();
 });
+
+it('can reply to a message', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->markdown('test')->reply(123456);
+    })->toMatchUrlSnapshot();
+});
