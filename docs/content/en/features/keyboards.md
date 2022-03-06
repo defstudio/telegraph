@@ -30,7 +30,7 @@ Telegraph::message('hello world')
 ]))->send();
 ```
 
-Additinally, a keyboard can be added to a message using a closure:
+Additionally, a keyboard can be added to a message using a closure:
 
 ```php
 use DefStudio\Telegraph\Keyboard\Button;
