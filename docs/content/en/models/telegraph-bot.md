@@ -75,5 +75,5 @@ $telegraphBot->replyWebhook($callbackQueryId, 'message received')->send();
 
 
 
-<alert type="alert">**Note:** follow [installation](installation#set-up) instructions for creating the database tables</alert>
+<alert type="alert">**Note:** Follow [installation](installation#set-up) instructions for creating the database tables</alert>
 

@@ -8,6 +8,8 @@
 
 namespace DefStudio\Telegraph\Handlers;
 
+use DefStudio\Telegraph\DTO\CallbackQuery;
+use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
@@ -25,11 +27,17 @@ abstract class WebhookHandler
 {
     protected TelegraphBot $bot;
     protected TelegraphChat $chat;
+
     protected string $messageId;
     protected string $callbackQueryId;
+
     protected Request $request;
+    protected Message|null $message = null;
+    protected CallbackQuery|null $callbackQuery = null;
+
     protected Collection $data;
-    protected Keyboard $originalKeyboard;
+
+    protected Keyboard|null $originalKeyboard = null;
 
     private function handleCallbackQuery(): void
     {
@@ -40,7 +48,7 @@ abstract class WebhookHandler
         }
 
         /** @var string $action */
-        $action = $this->data->get('action');
+        $action = $this->callbackQuery->data()->get('action');
 
         if (!$this->canHandle($action)) {
             report(TelegramWebhookException::invalidAction($action));
@@ -75,9 +83,7 @@ abstract class WebhookHandler
             Log::debug('Telegraph webhook message', $this->data->toArray());
         }
 
-        /* @phpstan-ignore-next-line  */
-        $text = Str::of($this->data->get('text'));
-
+        $text = Str::of($this->message->text());
 
         if ($text->startsWith('/')) {
             $this->handleCommand($text);
@@ -110,24 +116,13 @@ abstract class WebhookHandler
             throw new NotFoundHttpException();
         }
 
-        $this->messageId = $this->request->input('callback_query.message.message_id'); //@phpstan-ignore-line
+        $this->messageId = $this->callbackQuery->message()?->id();
 
-        $this->callbackQueryId = $this->request->input('callback_query.id'); //@phpstan-ignore-line
+        $this->callbackQueryId = $this->callbackQuery->id();
 
-        $this->originalKeyboard = Keyboard::fromArray($this->request->input('callback_query.message.reply_markup.inline_keyboard', [])); //@phpstan-ignore-line
+        $this->originalKeyboard = $this->callbackQuery->message()?->keyboard();
 
-
-        /* @phpstan-ignore-next-line */
-        $this->data = Str::of($this->request->input('callback_query.data'))
-            ->explode(';')
-            /* @phpstan-ignore-next-line */
-            ->mapWithKeys(function (string $entity) {
-                $entity = explode(':', $entity);
-                $key = $entity[0];
-                $value = $entity[1];
-
-                return [$key => $value];
-            });
+        $this->data = $this->callbackQuery->data();
     }
 
     protected function extractMessageData(): void
@@ -137,10 +132,10 @@ abstract class WebhookHandler
 
         $this->chat = $chat;
 
-        $this->messageId = $this->request->input('message.message_id', $this->request->input('channel_post.message_id')); //@phpstan-ignore-line
+        $this->messageId = $this->message->id();
 
         $this->data = collect([
-            'text' => $this->request->input('message.text', $this->request->input('channel_post.text')), //@phpstan-ignore-line
+            'text' => $this->message->text(),
         ]);
     }
 
@@ -175,12 +170,23 @@ abstract class WebhookHandler
 
         $this->request = $request;
 
-        if ($this->request->has('message') || $this->request->has('channel_post')) {
+        if ($this->request->has('message')) {
+            $this->message = Message::fromArray($this->request->input('message'));
             $this->handleMessage();
+
+            return;
+        }
+
+        if ($this->request->has('channel_post')) {
+            $this->message = Message::fromArray($this->request->input('channel_post'));
+            $this->handleMessage();
+
+            return;
         }
 
 
         if ($this->request->has('callback_query')) {
+            $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
             $this->handleCallbackQuery();
         }
     }
