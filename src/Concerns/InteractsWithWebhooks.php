@@ -28,7 +28,7 @@ trait InteractsWithWebhooks
         return $this;
     }
 
-    public function replyWebhook(string $callbackQueryId, string $message): Telegraph
+    public function replyWebhook(int $callbackQueryId, string $message): Telegraph
     {
         $this->endpoint = self::ENDPOINT_ANSWER_WEBHOOK;
         $this->data = [

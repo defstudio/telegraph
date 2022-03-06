@@ -80,10 +80,20 @@ function webhook_request($action = 'invalid', $handler = TestWebhookHandler::cla
     return Request::create('', 'POST', [
         'callback_query' => [
             'id' => 159753,
+            'from' => [
+                'id' => 8974,
+                'is_bot' => true,
+                'first_name' => 'Test Bot',
+                'username' => 'test_bot',
+                'can_join_groups' => true,
+                'can_read_all_group_messages' => false,
+                'supports_inline_queries' => false,
+            ],
             'message' => [
                 'message_id' => 123456,
                 'chat' => [
                     'id' => -123456789,
+                    'type' => 'group',
                 ],
                 'reply_markup' => [
                     'inline_keyboard' => [
@@ -96,6 +106,7 @@ function webhook_request($action = 'invalid', $handler = TestWebhookHandler::cla
                         ],
                     ],
                 ],
+                'date' => 1646516736,
             ],
             'data' => "action:$action",
         ],
@@ -111,8 +122,10 @@ function webhook_command($command, $handler = TestWebhookHandler::class): Reques
             'message_id' => 123456,
             'chat' => [
                 'id' => -123456789,
+                'type' => 'private',
             ],
             'text' => $command,
+            'date' => 1646516736,
         ],
     ]);
 }

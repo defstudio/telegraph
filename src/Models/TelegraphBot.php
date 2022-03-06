@@ -8,6 +8,8 @@
 namespace DefStudio\Telegraph\Models;
 
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
+use DefStudio\Telegraph\DTO\TelegramUpdate;
+use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
@@ -91,7 +93,7 @@ class TelegraphBot extends Model
         return TelegraphFacade::bot($this)->getWebhookDebugInfo();
     }
 
-    public function replyWebhook(string $callbackQueryId, string $message): Telegraph
+    public function replyWebhook(int $callbackQueryId, string $message): Telegraph
     {
         return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message);
     }
@@ -114,5 +116,30 @@ class TelegraphBot extends Model
     public function url(): string
     {
         return "https://t.me/" . $this->info()['username'];
+    }
+
+    /**
+     * @return \Illuminate\Support\Collection<int, TelegramUpdate>
+     */
+    public function updates(): \Illuminate\Support\Collection
+    {
+        $reply = TelegraphFacade::bot($this)->botUpdates()->send();
+
+        if ($reply->telegraphError()) {
+            if (!$reply->successful()) {
+                throw TelegramUpdatesException::pollingError($this, $reply->reason());
+            }
+
+            if ($reply->json('error_code') == 409) {
+                throw TelegramUpdatesException::webhookExist($this);
+            }
+
+            /* @phpstan-ignore-next-line */
+            throw TelegramUpdatesException::pollingError($this, $reply->json('description'));
+        }
+
+
+        /* @phpstan-ignore-next-line */
+        return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
     }
 }

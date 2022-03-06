@@ -29,6 +29,7 @@ class Telegraph implements TelegraphContract
 
     protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
 
+    public const ENDPOINT_GET_BOT_UPDATES = 'getUpdates';
     public const ENDPOINT_GET_BOT_INFO = 'getMe';
     public const ENDPOINT_SET_WEBHOOK = 'setWebhook';
     public const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';

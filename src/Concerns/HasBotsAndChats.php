@@ -87,4 +87,11 @@ trait HasBotsAndChats
 
         return $this;
     }
+
+    public function botUpdates(): Telegraph
+    {
+        $this->endpoint = self::ENDPOINT_GET_BOT_UPDATES;
+
+        return $this;
+    }
 }

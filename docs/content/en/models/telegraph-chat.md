@@ -1,4 +1,4 @@
-<---
+---
 title: 'TelegraphChat'
 description: ''
 category: 'Models'
@@ -85,5 +85,5 @@ removes a message keyboard (see [keyboards](features/keyboards) for details)
 $telegraphChat->deleteKeyboard($messageId)->send();
 ```
 
-<alert type="alert">**Note:** follow [installation](installation#set-up) instructions for creating the database tables</alert>
+<alert type="alert">**Note:** Follow [installation](installation#set-up) instructions for creating the database tables</alert>
 

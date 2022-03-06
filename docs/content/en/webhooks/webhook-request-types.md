@@ -4,7 +4,7 @@ menuTitle: 'Request Types'
 description: ''
 category: 'Webhooks'
 fullscreen: false 
-position: 51
+position: 61
 ---
 
 
@@ -30,6 +30,18 @@ class CustomWebhookHandler extends WebhookHandler
 }
 ```
 
+The full chat message data can be retrieved through the [`DefStudio\Telegraph\DTO\Message`](webhooks/dto#defstudio-telegraph-dto-message) DTO:
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    public function hi()
+    {
+        $text = $this->message()->text(); //hi
+    }
+}
+```
+
 ## Callback Queries
 
 Bots messages may ship with keyboard of buttons that trigger actions when pressed:
@@ -50,6 +62,22 @@ class CustomWebhookHandler extends WebhookHandler
     public function dismiss()
     {
         $notificationId = $this->data->get('notification-id'); //42
+        
+        Notification::find($notificationId)->dismiss();
+        
+        $this->reply("notification dismissed");
+    }
+}
+```
+
+The full callback query data can be retrieved through the [`DefStudio\Telegraph\DTO\CallbackQuery`](webhooks/dto#defstudio-telegraph-dto-callback-query) DTO
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    public function dismiss()
+    {
+        $notificationId = $this->callbackQuery->data()->get('notification-id'); //42
         
         Notification::find($notificationId)->dismiss();
         
