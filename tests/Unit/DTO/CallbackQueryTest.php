@@ -3,10 +3,6 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\DTO\CallbackQuery;
-use DefStudio\Telegraph\DTO\Message;
-use DefStudio\Telegraph\DTO\TelegramUpdate;
-use DefStudio\Telegraph\DTO\User;
-use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Str;
 
 it('export all properties to array', function () {

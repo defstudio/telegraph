@@ -3,7 +3,6 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\DTO\Chat;
-use DefStudio\Telegraph\DTO\User;
 use Illuminate\Support\Str;
 
 it('export all properties to array', function () {
