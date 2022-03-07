@@ -4,14 +4,16 @@
 
 namespace DefStudio\Telegraph\DTO;
 
-class TelegramUpdate
+use Illuminate\Contracts\Support\Arrayable;
+
+class TelegramUpdate implements Arrayable
 {
     private int $id;
     private ?Message $message = null;
     private ?CallbackQuery $callbackQuery = null;
 
-    private function __construct(
-    ) {
+    private function __construct()
+    {
     }
 
     /**
@@ -54,5 +56,14 @@ class TelegramUpdate
     public function callbackQuery(): ?CallbackQuery
     {
         return $this->callbackQuery;
+    }
+
+    public function toArray(): array
+    {
+        return array_filter([
+            'id' => $this->id,
+            'message' => $this->message?->toArray(),
+            'callback_query' => $this->callbackQuery?->toArray(),
+        ]);
     }
 }

@@ -6,9 +6,10 @@ namespace DefStudio\Telegraph\DTO;
 
 use Carbon\CarbonInterface;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Carbon;
 
-class Message
+class Message implements Arrayable
 {
     private int $id;
     private CarbonInterface $date;
@@ -83,5 +84,17 @@ class Message
     public function keyboard(): Keyboard
     {
         return $this->keyboard;
+    }
+
+    public function toArray(): array
+    {
+        return array_filter([
+           'id' => $this->id,
+           'date' => $this->date->toISOString(),
+           'text' => $this->text,
+           'from' => $this->from?->toArray(),
+           'chat' => $this->chat?->toArray(),
+           'keyboard' => $this->keyboard->isFilled() ? $this->keyboard->toArray() : null,
+        ]);
     }
 }

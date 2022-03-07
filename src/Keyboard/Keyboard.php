@@ -3,10 +3,11 @@
 namespace DefStudio\Telegraph\Keyboard;
 
 use DefStudio\Telegraph\Proxies\KeyboardButtonProxy;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class Keyboard
+class Keyboard implements Arrayable
 {
     /** @var Collection<array-key, Button> */
     protected Collection $buttons;

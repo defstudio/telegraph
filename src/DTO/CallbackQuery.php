@@ -4,10 +4,11 @@
 
 namespace DefStudio\Telegraph\DTO;
 
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-class CallbackQuery
+class CallbackQuery implements Arrayable
 {
     private int $id;
 
@@ -66,5 +67,15 @@ class CallbackQuery
     public function data(): Collection
     {
         return $this->data;
+    }
+
+    public function toArray()
+    {
+        return array_filter([
+            'id' => $this->id,
+            'from' => $this->from->toArray(),
+            'message' => $this->message?->toArray(),
+            'data' => $this->data->toArray(),
+        ]);
     }
 }

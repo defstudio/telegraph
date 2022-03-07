@@ -4,7 +4,9 @@
 
 namespace DefStudio\Telegraph\DTO;
 
-class User
+use Illuminate\Contracts\Support\Arrayable;
+
+class User implements Arrayable
 {
     private int $id;
     private bool $isBot;
@@ -56,5 +58,16 @@ class User
     public function username(): string
     {
         return $this->username;
+    }
+
+    public function toArray(): array
+    {
+        return array_filter([
+           'id' => $this->id,
+           'is_bot' => $this->isBot,
+           'first_name' => $this->firstName,
+           'last_name' => $this->lastName,
+           'username' => $this->username,
+        ]);
     }
 }

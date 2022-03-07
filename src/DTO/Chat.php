@@ -4,9 +4,9 @@
 
 namespace DefStudio\Telegraph\DTO;
 
-use phpDocumentor\Reflection\Type;
+use Illuminate\Contracts\Support\Arrayable;
 
-class Chat
+class Chat implements Arrayable
 {
     public const TYPE_PRIVATE = 'private';
     public const TYPE_GROUP = 'group';
@@ -48,5 +48,14 @@ class Chat
     public function title(): string
     {
         return $this->title;
+    }
+
+    public function toArray(): array
+    {
+        return array_filter([
+            'id' => $this->id,
+            'type' => $this->type,
+            'title' => $this->title,
+        ]);
     }
 }
