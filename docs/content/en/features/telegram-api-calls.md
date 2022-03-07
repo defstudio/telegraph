@@ -41,7 +41,15 @@ retrieves the bot updates from Telegram APIs
 Telegram::bot($telegramBot)->botUpdates()->send();
 ```
 
-<alert type="alert">**Note:** Manual updates polling is not available if a webhook is set up for the bot. Webhook should be remove first using its [deleteWebhook](webhooks/deleting-webhooks) methods</alert>
+<alert type="alert">Manual updates polling is not available if a webhook is set up for the bot. Webhook should be remove first using its [deleteWebhook](webhooks/deleting-webhooks) methods</alert>
+
+## deleteMessage
+
+deletes a message
+
+```php
+Telegram::deleteMessage($messageId)->send();
+```
 
 ## deleteKeyboard
 

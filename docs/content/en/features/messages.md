@@ -22,6 +22,12 @@ $chat->html("<b>hello<b>\n\nI'm a bot!")->send();
 $chat->markdown('*hello*')->send();
 ```
 
+## Delete a message
+
+The [`->deleteMessage()`](features/telegram-api-calls/delete-message) Telegraph method allows to remove a message from a chat/group/channel
+
+<alert type="alert">A message can be deleted if it was sent less than 48h ago and if it **was sent** by the bot or if the bot **has permission** to delete other users' messages</alert>
+
 ## Options
 
 Telegraph allows sending complex messages by setting some options:

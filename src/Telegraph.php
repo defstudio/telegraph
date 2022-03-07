@@ -36,6 +36,7 @@ class Telegraph implements TelegraphContract
     public const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
     public const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
     public const ENDPOINT_MESSAGE = 'sendMessage';
+    public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
 
     /** @var array<string, mixed> */
     protected array $data = [];

@@ -110,5 +110,5 @@ use DefStudio\Telegraph\DTO\TelegramUpdate;$telegraphBot->updates()->each(functi
 
 
 
-<alert type="alert">**Note:** Follow [installation](installation#set-up) instructions for creating the database tables</alert>
+<alert type="alert">Follow [installation](installation#set-up) instructions for creating the database tables</alert>
 

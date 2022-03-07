@@ -6,12 +6,13 @@ fullscreen: false
 position: 41
 ---
 
-Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphChat` model. It has some useful methods:
+Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphChat` model.
 
+## Available methods
 
-## info
+### `info()`
 
-retrieves the bot data from telegram
+Retrieves the bot data from telegram
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
@@ -30,9 +31,9 @@ $telegraphBot->info();
 
 ```
 
-## message
+## message()
 
-sends a message
+Starts a `Telegraph` call to send a message
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
@@ -40,9 +41,9 @@ sends a message
 $telegraphChat->message('hello!')->send();
 ```
 
-## html
+## html()
 
-sends a message using html formatting
+Starts a `Telegraph` call to send a message using html formatting
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
@@ -52,7 +53,7 @@ $telegraphChat->html('<b>hello</b>')->send();
 
 ## markdown
 
-sends a message using markdown formatting
+Starts a `Telegraph` call to send a message using markdown formatting
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
@@ -62,7 +63,7 @@ $telegraphChat->markdown('*hello*')->send();
 
 ## replaceKeyboard
 
-replace a message keyboard (see [keyboards](features/keyboards) for details)
+Starts a `Telegraph` call to replace a message keyboard (see [keyboards](features/keyboards) for details)
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
@@ -77,7 +78,7 @@ $telegraphChat->replaceKeyboard(
 
 ## deleteKeyboard
 
-removes a message keyboard (see [keyboards](features/keyboards) for details)
+Starts a `Telegraph` call to remove a message keyboard (see [keyboards](features/keyboards) for details)
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
@@ -85,5 +86,14 @@ removes a message keyboard (see [keyboards](features/keyboards) for details)
 $telegraphChat->deleteKeyboard($messageId)->send();
 ```
 
-<alert type="alert">**Note:** Follow [installation](installation#set-up) instructions for creating the database tables</alert>
+<alert type="alert">Follow [installation](installation#set-up) instructions for creating the database tables</alert>
 
+## deleteKeyboard
+
+Starts a `Telegraph` call to delete a message
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->deleteMessage($messageId)->send();
+```

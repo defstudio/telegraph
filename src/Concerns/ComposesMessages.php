@@ -66,4 +66,15 @@ trait ComposesMessages
 
         return $this;
     }
+
+    public function deleteMessage(int $messageId): Telegraph
+    {
+        $this->endpoint = self::ENDPOINT_DELETE_MESSAGE;
+        $this->data = [
+            'chat_id' => $this->getChat()->chat_id,
+            'message_id' => $messageId,
+        ];
+
+        return $this;
+    }
 }
