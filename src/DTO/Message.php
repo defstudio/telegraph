@@ -15,8 +15,8 @@ class Message implements Arrayable
     private CarbonInterface $date;
     private string $text;
 
-    private ?User $from;
-    private ?Chat $chat;
+    private ?User $from = null;
+    private ?Chat $chat = null;
     private Keyboard $keyboard;
 
     private function __construct()

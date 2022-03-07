@@ -53,7 +53,7 @@ it('can poll for updates', function () {
     $bot = make_bot();
 
     assertMatchesSnapshot($bot->updates()->toArray());
-})->only();
+});
 
 it('throws an exception if poll failed', function () {
     Telegraph::fake([
