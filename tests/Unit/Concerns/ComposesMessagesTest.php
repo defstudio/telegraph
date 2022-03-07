@@ -37,3 +37,9 @@ it('can reply to a message', function () {
         $telegraph->markdown('test')->reply(123456);
     })->toMatchUrlSnapshot();
 });
+
+it('can delete a message', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->deleteMessage(123456);
+    })->toMatchUrlSnapshot();
+});

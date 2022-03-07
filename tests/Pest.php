@@ -9,7 +9,6 @@ use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 uses(TestCase::class)->in(__DIR__);
 
@@ -131,22 +130,14 @@ function webhook_command($command, $handler = TestWebhookHandler::class): Reques
 }
 
 
-
 expect()->extend('toMatchUrlSnapshot', function () {
     /** @var callable $configurationClosure */
     $configurationClosure = $this->value;
 
-    Http::fake();
-
+    /** @var Telegraph $telegraph */
     $telegraph = app(Telegraph::class)->chat(make_chat());
 
     $configurationClosure($telegraph);
 
-    $telegraph->send();
-
-    Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
-        expect($request->url())->toMatchSnapshot();
-
-        return true;
-    });
+    expect($telegraph->getUrl())->toMatchSnapshot();
 });

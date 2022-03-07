@@ -36,6 +36,6 @@ class MyWebhookHandler extends \DefStudio\Telegraph\Handlers\WebhookHandler
 }
 ```
 
-<alert type="alert">**Note:** A custom webhook handler must extend `DefStudio\Telegraph\Handlers\WebhookHandler` and has to be registered in `config('telegraph.webhook_handler')`</alert>
+<alert type="alert">A custom webhook handler must extend `DefStudio\Telegraph\Handlers\WebhookHandler` and has to be registered in `config('telegraph.webhook_handler')`</alert>
 
 A detailed description of how WebhookHandlers work can be found in the next sections

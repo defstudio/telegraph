@@ -26,5 +26,5 @@ Telegraph::message('hello world')
     ->send();
 ```
 
-<alert type="info">**Bonus tip:** Telegraph supports also sending emojis in messages and [keyboard](features/keyboards) button labels 🚀🚀🚀</alert>
+<alert type="info">Telegraph supports also sending emojis in messages and [keyboard](features/keyboards) button labels 🚀🚀🚀</alert>
 
