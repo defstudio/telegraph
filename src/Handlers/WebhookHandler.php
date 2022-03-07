@@ -37,7 +37,12 @@ abstract class WebhookHandler
 
     protected Collection $data;
 
-    protected Keyboard|null $originalKeyboard = null;
+    protected Keyboard $originalKeyboard;
+
+    public function __construct()
+    {
+        $this->originalKeyboard = Keyboard::make();
+    }
 
     private function handleCallbackQuery(): void
     {
@@ -116,15 +121,15 @@ abstract class WebhookHandler
             throw new NotFoundHttpException();
         }
 
-        assert($this->callbackQuery !== $this->callbackQuery);
+        assert($this->callbackQuery !== null);
 
         $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData('message id missing');
 
-        $this->callbackQueryId = $this->callbackQuery->id() ?? throw TelegramWebhookException::invalidData('callback_query id missing');
+        $this->callbackQueryId = $this->callbackQuery->id();
 
         $this->originalKeyboard = $this->callbackQuery->message()?->keyboard() ?? Keyboard::make();
 
-        $this->data = $this->callbackQuery->data() ?? new Collection();
+        $this->data = $this->callbackQuery->data();
     }
 
     protected function extractMessageData(): void
