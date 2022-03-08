@@ -4,9 +4,6 @@ namespace DefStudio\Telegraph\Exceptions;
 
 use Exception;
 
-/**
- * @internal
- */
 final class TelegraphException extends Exception
 {
     public static function missingBot(): TelegraphException

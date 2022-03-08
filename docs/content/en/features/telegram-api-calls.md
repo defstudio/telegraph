@@ -91,6 +91,17 @@ compose a new telegram message (parsed as html)
 Telegraph::html('<b>hello</b> world')->send();
 ```
 
+## registerBotCommands
+
+register commands in Telegram Bot in order to display them to the user when the "/" key is pressed
+
+```php
+Telegram::regigerBotCommands([
+    'command1' => 'command 1 description',
+    'command2' => 'command 2 description'
+])->send();
+```
+
 ## registerWebhook
 
 register a webhook for the active bot
@@ -120,3 +131,10 @@ replies to a webhook callback
 Telegram::replyWebhook($callbackQueryId, 'message received')->send();
 ```
 
+## unregisterBotCommands
+
+resets Telegram Bot registered commands
+
+```php
+Telegram::unregisterBotCommands()->send();
+```

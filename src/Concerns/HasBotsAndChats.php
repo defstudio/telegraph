@@ -1,9 +1,12 @@
 <?php
 
+/** @noinspection PhpDocMissingThrowsInspection */
+
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\Exceptions\BotCommandException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
@@ -91,6 +94,42 @@ trait HasBotsAndChats
     public function botUpdates(): Telegraph
     {
         $this->endpoint = self::ENDPOINT_GET_BOT_UPDATES;
+
+        return $this;
+    }
+
+    /**
+     * @param array<string, string> $commands
+     */
+    public function registerBotCommands(array $commands): Telegraph
+    {
+        $this->endpoint = self::ENDPOINT_REGISTER_BOT_COMMANDS;
+
+        if (count($commands) > 100) {
+            throw BotCommandException::tooManyCommands();
+        }
+
+        $this->data['commands'] = collect($commands)->map(function (string $description, string $command) {
+            if (strlen($command) > 32) {
+                throw BotCommandException::longCommand($command);
+            }
+
+            if (!preg_match('/[a-z0-9_]+/', $command)) {
+                throw BotCommandException::invalidCommand($command);
+            }
+
+            return [
+                'command' => $command,
+                'description' => $description,
+            ];
+        })->values()->toArray();
+
+        return $this;
+    }
+
+    public function unregisterBotCommands(): Telegraph
+    {
+        $this->endpoint = self::ENDPOINT_UNREGISTER_BOT_COMMANDS;
 
         return $this;
     }

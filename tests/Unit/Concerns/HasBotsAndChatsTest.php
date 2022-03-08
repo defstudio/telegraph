@@ -13,15 +13,14 @@ it('can customize the destination bot', function () {
     $telegraph = Telegraph::bot($bot)
         ->registerWebhook();
 
-    expect($telegraph->getUrl())->toStartWith("https://api.telegram.org/bot$bot->token/");
+    expect($telegraph->getApiUrl())->toStartWith("https://api.telegram.org/bot$bot->token/");
 });
 
 it('can customize the destination chat', function () {
-    $url = Telegraph::chat(make_chat())
-        ->html('foobar')
-        ->getUrl();
-
-    expect($url)->toMatchSnapshot();
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        $telegraph ->chat(make_chat())
+            ->html('foobar');
+    })->toMatchTelegramSnapshot();
 });
 
 it('can retrieve bot info', function () {
@@ -30,4 +29,19 @@ it('can retrieve bot info', function () {
 
     $response = Telegraph::bot($bot)->botInfo()->send();
     assertMatchesSnapshot($response->json('result'));
+});
+
+it('can register commands', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        $telegraph->bot(make_bot())->registerBotCommands([
+            'foo' => 'first command',
+            'bar' => 'second command',
+        ]);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can unregister commands', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        $telegraph->bot(make_bot())->unregisterBotCommands();
+    })->toMatchTelegramSnapshot();
 });

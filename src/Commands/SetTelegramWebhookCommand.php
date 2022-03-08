@@ -28,11 +28,10 @@ class SetTelegramWebhookCommand extends Command
 
         $telegraph = $bot->registerWebhook();
 
-        $this->info("Sending webhook setup request to: {$telegraph->getUrl()}");
+        $this->info("Sending webhook setup request to: {$telegraph->getApiUrl()}");
 
         $reponse = $telegraph->send();
 
-        /** @var bool $ok */
         $ok = (bool)$reponse->json('ok');
 
         if (!$ok) {

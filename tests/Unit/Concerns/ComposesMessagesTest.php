@@ -5,47 +5,47 @@ use DefStudio\Telegraph\Telegraph;
 it('can send an html message', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph->html('foobar');
-    })->toMatchUrlSnapshot();
+    })->toMatchTelegramSnapshot();
 });
 
 it('can send a markdown message', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph->markdown('foobar');
-    })->toMatchUrlSnapshot();
+    })->toMatchTelegramSnapshot();
 });
 
 it('can send protected content', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph->markdown('test')->protected();
-    })->toMatchUrlSnapshot();
+    })->toMatchTelegramSnapshot();
 });
 
 it('can send silent messages', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph->markdown('test')->silent();
-    })->toMatchUrlSnapshot();
+    })->toMatchTelegramSnapshot();
 });
 
 it('can disable url preview', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph->markdown('test')->withoutPreview();
-    })->toMatchUrlSnapshot();
+    })->toMatchTelegramSnapshot();
 });
 
 it('can reply to a message', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph->markdown('test')->reply(123456);
-    })->toMatchUrlSnapshot();
+    })->toMatchTelegramSnapshot();
 });
 
 it('can delete a message', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph->deleteMessage(123456);
-    })->toMatchUrlSnapshot();
+    })->toMatchTelegramSnapshot();
 });
 
 it('can edit a message', function (callable $setupClosure) {
-    expect($setupClosure)->toMatchUrlSnapshot();
+    expect($setupClosure)->toMatchTelegramSnapshot();
 })->with([
     'edit before text' => fn () => function (Telegraph $telegraph) {
         $telegraph->edit(123456)->markdown('new text');

@@ -49,7 +49,7 @@ class TelegraphFake extends Telegraph
     protected function messageToArray(): array
     {
         return [
-            'url' => $this->getUrl(),
+            'url' => $this->getApiUrl(),
             'endpoint' => $this->endpoint ?? null,
             'data' => $this->data ?? null,
             'bot_token' => $this->getBotIfAvailable()->token ?? null,

@@ -130,7 +130,7 @@ function webhook_command($command, $handler = TestWebhookHandler::class): Reques
 }
 
 
-expect()->extend('toMatchUrlSnapshot', function () {
+expect()->extend('toMatchTelegramSnapshot', function () {
     /** @var callable $configurationClosure */
     $configurationClosure = $this->value;
 
@@ -139,5 +139,5 @@ expect()->extend('toMatchUrlSnapshot', function () {
 
     $configurationClosure($telegraph);
 
-    expect($telegraph->getUrl())->toMatchSnapshot();
+    expect($telegraph->toArray())->toMatchSnapshot();
 });
