@@ -37,6 +37,7 @@ class Telegraph implements TelegraphContract
     public const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
     public const ENDPOINT_MESSAGE = 'sendMessage';
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
+    public const ENDPOINT_EDIT_MESSAGE = 'editMessageText';
 
     /** @var array<string, mixed> */
     protected array $data = [];
