@@ -2,6 +2,23 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.4.0 - 2022-03-08
+
+## What's Changed
+
+- add protect content message option by @fabio-ivona in https://github.com/def-studio/telegraph/pull/38
+- add silent message option by @fabio-ivona in https://github.com/def-studio/telegraph/pull/39
+- add withoutPreview message option by @fabio-ivona in https://github.com/def-studio/telegraph/pull/40
+- add url method to TelegraphBot by @fabio-ivona in https://github.com/def-studio/telegraph/pull/41
+- add reply message option by @fabio-ivona in https://github.com/def-studio/telegraph/pull/42
+- feat: manual update polling by @fabio-ivona in https://github.com/def-studio/telegraph/pull/43
+- fix: removed breaking change in webhook handler by @fabio-ivona in https://github.com/def-studio/telegraph/pull/44
+- feat: delete message by @fabio-ivona in https://github.com/def-studio/telegraph/pull/45
+- feat: edit message by @fabio-ivona in https://github.com/def-studio/telegraph/pull/46
+- fix: allows parameters and @bot reference after command by @fabio-ivona in https://github.com/def-studio/telegraph/pull/49
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.3.0...v1.4.0
+
 ## v1.3.0 - 2022-03-05
 
 ## What's Changed
