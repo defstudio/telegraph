@@ -18,6 +18,10 @@ class CallbackQuery implements Arrayable
 
     private Collection $data;
 
+    private function __construct()
+    {
+    }
+
     /**
      * @param array{id:int, from:array<string, mixed>, message?:array<string, mixed>, data?:string} $data
      */
@@ -70,7 +74,7 @@ class CallbackQuery implements Arrayable
         return $this->data;
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return array_filter([
             'id' => $this->id,
