@@ -3,6 +3,7 @@
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can send a text message', function () {
     Telegraph::fake();
@@ -18,7 +19,7 @@ it('can send an html message', function () {
 
     $telegraph = $chat->html('foo');
 
-    expect($telegraph->getUrl())->toContain('parse_mode=html');
+    assertMatchesSnapshot($telegraph->toArray());
 });
 
 it('can send a markdown message', function () {
@@ -26,7 +27,7 @@ it('can send a markdown message', function () {
 
     $telegraph = $chat->markdown('foo');
 
-    expect($telegraph->getUrl())->toContain('parse_mode=markdown');
+    assertMatchesSnapshot($telegraph->toArray());
 });
 
 it('can replace a keyboard', function () {
@@ -38,7 +39,13 @@ it('can replace a keyboard', function () {
     ]))->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REPLACE_KEYBOARD, [
-        'reply_markup' => '{"inline_keyboard":[[{"text":"test","url":"aaa"}]]}',
+        'reply_markup' => [
+            'inline_keyboard' => [
+                [
+                    ['text' => 'test', 'url' => 'aaa'],
+                ],
+            ],
+        ],
     ]);
 });
 

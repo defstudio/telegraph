@@ -99,6 +99,19 @@ class TelegraphBot extends Model
     }
 
     /**
+     * @param array<string, string> $commands
+     */
+    public function registerCommands(array $commands): Telegraph
+    {
+        return TelegraphFacade::bot($this)->registerBotCommands($commands);
+    }
+
+    public function unregisterCommands(): Telegraph
+    {
+        return TelegraphFacade::bot($this)->unregisterBotCommands();
+    }
+
+    /**
      * @return array{id: integer, is_bot: bool, first_name: string, username: string, can_join_groups: bool, can_read_all_group_messages: bool, support_inline_queries: bool}
      */
     public function info(): array

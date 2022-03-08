@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  reply(int $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  markdown(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  registerWebhook()
+ * @method static \DefStudio\Telegraph\Telegraph  registerBotCommands(array $commands)
+ * @method static \DefStudio\Telegraph\Telegraph  unregisterBotCommands()
  * @method static \DefStudio\Telegraph\Telegraph  getWebhookDebugInfo()
  * @method static \DefStudio\Telegraph\Telegraph  replyWebhook(string $callbackQueryId, string $message)
  * @method static \DefStudio\Telegraph\Telegraph  replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard)

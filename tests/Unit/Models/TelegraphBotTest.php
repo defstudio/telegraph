@@ -29,6 +29,36 @@ it('can register its webhook', function () {
     Telegraph::assertRegisteredWebhook();
 });
 
+it('can register commands', function () {
+    Telegraph::fake();
+
+    $bot = make_bot();
+
+    $bot->registerCommands(['foo' => 'bar'])->send();
+
+    Telegraph::assertSentData(
+        \DefStudio\Telegraph\Telegraph::ENDPOINT_REGISTER_BOT_COMMANDS,
+        [
+           'commands' => [
+               ['command' => 'foo', 'description' => 'bar'],
+           ],
+       ]
+    );
+});
+
+it('can unregister commands', function () {
+    Telegraph::fake();
+
+    $bot = make_bot();
+
+    $bot->unregisterCommands()->send();
+
+    Telegraph::assertSentData(
+        \DefStudio\Telegraph\Telegraph::ENDPOINT_UNREGISTER_BOT_COMMANDS,
+        []
+    );
+});
+
 it('can get its webhook debug info', function () {
     Telegraph::fake();
     $bot = make_bot();

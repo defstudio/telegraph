@@ -29,9 +29,9 @@ trait ManagesKeyboards
             $keyboard = Keyboard::fromArray($keyboard);
         }
 
-        $this->data['reply_markup'] = json_encode([
+        $this->data['reply_markup'] = [
             'inline_keyboard' => $keyboard->toArray(),
-        ]);
+        ];
 
         return $this;
     }
@@ -48,7 +48,7 @@ trait ManagesKeyboards
         if ($newKeyboard->isEmpty()) {
             $replyMarkup = null;
         } else {
-            $replyMarkup = json_encode(['inline_keyboard' => $newKeyboard->toArray()]);
+            $replyMarkup = ['inline_keyboard' => $newKeyboard->toArray()];
         }
 
         $this->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;

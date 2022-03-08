@@ -14,12 +14,15 @@ class SendRequestToTelegramJob implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
 
-    public function __construct(public string $url)
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function __construct(public string $url, public array $data)
     {
     }
 
     public function handle(): void
     {
-        Http::get($this->url);
+        Http::post($this->url, $this->data);
     }
 }

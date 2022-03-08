@@ -63,6 +63,29 @@ supports_inline_queries: false
 */
 ```
 
+## registerCommands
+
+register commands in Telegram Bot in order to display them to the user when the "/" key is pressed
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
+
+$telegraphBot->registerCommands([
+    'command1' => 'command 1 description',
+    'command2' => 'command 2 description'
+])->send();
+```
+
+## unregisterCommands
+
+resets Telegram Bot registered commands
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
+
+$telegraphBot->unregisterCommands()->send();
+```
+
 ## registerWebhook
 
 register a webhook url
