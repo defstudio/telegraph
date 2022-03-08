@@ -22,15 +22,27 @@ $chat->html("<b>hello<b>\n\nI'm a bot!")->send();
 $chat->markdown('*hello*')->send();
 ```
 
-## Delete a message
-
-The [`->deleteMessage()`](features/telegram-api-calls/delete-message) Telegraph method allows to remove a message from a chat/group/channel
-
-<alert type="alert">A message can be deleted if it was sent less than 48h ago and if it **was sent** by the bot or if the bot **has permission** to delete other users' messages</alert>
-
 ## Options
 
 Telegraph allows sending complex messages by setting some options:
+
+### edit
+
+Updates an existing message instead of sending a new one
+
+
+```php
+$chat->edit(123456)->message("new text")->send();
+```
+
+
+### reply
+
+The message can be sent as a reply by setting the original message ID
+
+```php
+$chat->message("ok!")->reply(123456)->send();
+```
 
 ### protected
 
@@ -56,10 +68,8 @@ Disables link previews for links in this message
 $chat->message("http://my-blog.dev")->withoutPreview()->send();
 ```
 
-### reply
+## Delete a message
 
-The message can be sent as a reply by setting the origina message ID
+The [`->deleteMessage()`](features/telegram-api-calls/delete-message) Telegraph method allows to remove a message from a chat/group/channel
 
-```php
-$chat->message("ok!")->reply(123456)->send();
-```
+<alert type="alert">A message can be deleted if it was sent less than 48h ago and if it **was sent** by the bot or if the bot **has permission** to delete other users' messages</alert>

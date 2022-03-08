@@ -21,7 +21,7 @@ trait ComposesMessages
 
     public function html(string $message): Telegraph
     {
-        $this->endpoint = self::ENDPOINT_MESSAGE;
+        $this->endpoint ??= self::ENDPOINT_MESSAGE;
         $this->data['text'] = $message;
         $this->data['chat_id'] = $this->getChat()->chat_id;
         $this->data['parse_mode'] = 'html';
@@ -31,7 +31,7 @@ trait ComposesMessages
 
     public function markdown(string $message): Telegraph
     {
-        $this->endpoint = self::ENDPOINT_MESSAGE;
+        $this->endpoint ??= self::ENDPOINT_MESSAGE;
         $this->data['text'] = $message;
         $this->data['chat_id'] = $this->getChat()->chat_id;
         $this->data['parse_mode'] = 'markdown';
@@ -74,6 +74,14 @@ trait ComposesMessages
             'chat_id' => $this->getChat()->chat_id,
             'message_id' => $messageId,
         ];
+
+        return $this;
+    }
+
+    public function edit(int $messageId): Telegraph
+    {
+        $this->endpoint = self::ENDPOINT_EDIT_MESSAGE;
+        $this->data['message_id'] = $messageId;
 
         return $this;
     }

@@ -43,3 +43,14 @@ it('can delete a message', function () {
         $telegraph->deleteMessage(123456);
     })->toMatchUrlSnapshot();
 });
+
+it('can edit a message', function (callable $setupClosure) {
+    expect($setupClosure)->toMatchUrlSnapshot();
+})->with([
+    'edit before text' => fn () => function (Telegraph $telegraph) {
+        $telegraph->edit(123456)->markdown('new text');
+    },
+    'edit after text' => fn () => function (Telegraph $telegraph) {
+        $telegraph->markdown('new text')->edit(123456);
+    },
+]);
