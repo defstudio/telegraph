@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  chat(TelegraphChat $chat)
  * @method static \DefStudio\Telegraph\Telegraph  message(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  html(string $message)
+ * @method static \DefStudio\Telegraph\Telegraph  reply(int $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  markdown(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  registerWebhook()
  * @method static \DefStudio\Telegraph\Telegraph  getWebhookDebugInfo()

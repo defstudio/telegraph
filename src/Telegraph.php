@@ -16,7 +16,7 @@ use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Contracts\TelegraphContract;
 use Illuminate\Foundation\Bus\PendingDispatch;
 
-class Telegraph implements TelegraphContract
+class Telegraph
 {
     use InteractsWithTelegram;
     use HasBotsAndChats;

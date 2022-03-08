@@ -69,6 +69,11 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->markdown($message);
     }
 
+    public function reply(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->reply($messageId);
+    }
+
     /**
      * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
      */
