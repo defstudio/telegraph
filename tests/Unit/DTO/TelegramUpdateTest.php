@@ -28,6 +28,43 @@ it('export all properties to array', function () {
                 'username' => 'c',
             ],
         ],
+        'my_chat_member' => [
+            'from' => [
+                'id' => 1,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+            ],
+            'chat' => [
+                'id' => 3,
+                'type' => 'a',
+                'title' => 'b',
+            ],
+            'date' => now()->timestamp,
+            'old_chat_member' => [
+                'status' => 'a',
+                'user' => [
+                      'id' => 1,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+                ],
+                'is_anonymous' => false,
+            ],
+            'new_chat_member' => [
+                'status' => 'a',
+                'user' => [
+                      'id' => 1,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+                ],
+                'is_anonymous' => false,
+            ],
+        ],
     ]);
 
     $array = $dto->toArray();

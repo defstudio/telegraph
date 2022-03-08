@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard)
  * @method static \DefStudio\Telegraph\Telegraph  deleteKeyboard(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  deleteMessage(string $messageId)
+ * @method static \DefStudio\Telegraph\Telegraph  botUpdates()
+ * @method static \DefStudio\Telegraph\Telegraph  botInfo()
  * @method static void  dumpSentData()
  * @method static void  assertSentData(string $endpoint, array $data = null)
  * @method static void  assertSent(string $message, bool $exact = true)

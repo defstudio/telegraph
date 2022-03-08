@@ -67,7 +67,8 @@ abstract class WebhookHandler
 
     private function handleCommand(Stringable $text): void
     {
-        $command = (string) $text->after('/');
+        $command = (string) $text->after('/')->before(' ')->before('@');
+
 
 
         if (!$this->canHandle($command)) {
