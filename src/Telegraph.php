@@ -13,7 +13,6 @@ use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
-use DefStudio\Telegraph\Contracts\TelegraphContract;
 use Illuminate\Foundation\Bus\PendingDispatch;
 
 class Telegraph
