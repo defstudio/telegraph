@@ -72,9 +72,6 @@ abstract class WebhookHandler
 
 
         if (!$this->canHandle($command)) {
-            report(TelegramWebhookException::invalidCommand($command));
-            $this->chat->html("Unknown command")->send();
-
             return;
         }
 
