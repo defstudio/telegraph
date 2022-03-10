@@ -9,6 +9,7 @@
 namespace DefStudio\Telegraph\Handlers;
 
 use DefStudio\Telegraph\DTO\CallbackQuery;
+use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -69,9 +70,12 @@ abstract class WebhookHandler
     {
         $command = (string) $text->after('/')->before(' ')->before('@');
 
-
-
         if (!$this->canHandle($command)) {
+            if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
+                report(TelegramWebhookException::invalidCommand($command));
+                $this->chat->html("Unknown command")->send();
+            }
+
             return;
         }
 
