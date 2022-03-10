@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.5.0 - 2022-03-10
+
+## What's Changed
+
+- feat: register bot commands by @fabio-ivona in https://github.com/def-studio/telegraph/pull/50
+- fix: scoped exception on unknown commands by @fabio-ivona in https://github.com/def-studio/telegraph/pull/52
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.4.1...v1.5.0
+
 ## v1.4.1 - 2022-03-08
 
 - removed unused interface
