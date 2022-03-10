@@ -41,7 +41,17 @@ You can install the package via composer:
 composer require defstudio/telegraph
 ```
 
-You can publish the config file with:
+Publish and launch required migrations:
+
+```bash
+php artisan vendor:publish --tag="telegraph-migrations"
+```
+
+```bash
+php artisan migrate
+```
+
+Optionally, you can publish the config file with:
 ```bash
 php artisan vendor:publish --tag="telegraph-config"
 ```
