@@ -1,5 +1,6 @@
 <?php
 
+use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -57,5 +58,17 @@ it('can delete a keyboard', function () {
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REPLACE_KEYBOARD, [
         'reply_markup' => '',
+    ]);
+});
+
+it('can set a chat action', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->action(ChatActions::UPLOAD_DOCUMENT)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CHAT_ACTION, [
+        'chat_id' => $chat->chat_id,
+        'action' => 'upload_document',
     ]);
 });

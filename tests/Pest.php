@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUndefinedMethodInspection */
+
 /** @noinspection LaravelFunctionsInspection */
 
 use DefStudio\Telegraph\Models\TelegraphBot;
@@ -130,14 +132,13 @@ function webhook_command($command, $handler = TestWebhookHandler::class): Reques
 }
 
 
-expect()->extend('toMatchTelegramSnapshot', function () {
-    /** @var callable $configurationClosure */
-    $configurationClosure = $this->value;
+    expect()->extend('toMatchTelegramSnapshot', function () {
+        $configurationClosure = $this->value;
 
-    /** @var Telegraph $telegraph */
-    $telegraph = app(Telegraph::class)->chat(make_chat());
+        /** @var Telegraph $telegraph */
+        $telegraph = app(Telegraph::class)->chat(make_chat());
 
-    $configurationClosure($telegraph);
+        $configurationClosure($telegraph);
 
-    expect($telegraph->toArray())->toMatchSnapshot();
-});
+        expect($telegraph->toArray())->toMatchSnapshot();
+    });

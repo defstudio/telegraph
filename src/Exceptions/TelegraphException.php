@@ -16,7 +16,7 @@ final class TelegraphException extends Exception
         return new self("No TelegraphChat defined for this request");
     }
 
-    public static function noActionDefined(): TelegraphException
+    public static function noEndpoint(): TelegraphException
     {
         return new self("Trying to send a request without setting an endpoint");
     }
@@ -24,5 +24,10 @@ final class TelegraphException extends Exception
     public static function failedToRetrieveBotInfo(): TelegraphException
     {
         return new self("Failed to retrieve bot info from telegram");
+    }
+
+    public static function invalidChatAction(string $action): TelegraphException
+    {
+        return new self("Invalid chat action: $action");
     }
 }

@@ -6,6 +6,7 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Exceptions\BotCommandException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
@@ -130,6 +131,17 @@ trait HasBotsAndChats
     public function unregisterBotCommands(): Telegraph
     {
         $this->endpoint = self::ENDPOINT_UNREGISTER_BOT_COMMANDS;
+
+        return $this;
+    }
+
+    public function chatAction(string $action): Telegraph
+    {
+        in_array($action, ChatActions::available_actions()) || throw TelegraphException::invalidChatAction($action);
+
+        $this->endpoint = self::ENDPOINT_SEND_CHAT_ACTION;
+        $this->data['chat_id'] = $this->getChat()->chat_id;
+        $this->data['action'] = $action;
 
         return $this;
     }

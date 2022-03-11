@@ -91,4 +91,9 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->deleteMessage($messageId);
     }
+
+    public function action(string $action): Telegraph
+    {
+        return TelegraphFacade::chat($this)->chatAction($action);
+    }
 }

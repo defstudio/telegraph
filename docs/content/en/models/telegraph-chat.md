@@ -88,7 +88,7 @@ $telegraphChat->deleteKeyboard($messageId)->send();
 
 <alert type="alert">Follow [installation](installation#set-up) instructions for creating the database tables</alert>
 
-## deleteKeyboard
+## deleteMessage
 
 Starts a `Telegraph` call to delete a message
 
@@ -97,3 +97,20 @@ Starts a `Telegraph` call to delete a message
 
 $telegraphChat->deleteMessage($messageId)->send();
 ```
+
+## action
+
+Tells the chat users that something is happening on the bot's side. The status is set for up to 5 seconds or when a new message is received from the bot.
+
+<img src="screenshots/chat-action.png" />
+
+```php
+use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->action(ChatActions::TYPING)->send();
+```
+
+
