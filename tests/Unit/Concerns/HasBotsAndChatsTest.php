@@ -5,6 +5,7 @@
 /** @noinspection LaravelFunctionsInspection */
 
 
+use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Facades\Telegraph;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
@@ -45,3 +46,9 @@ it('can unregister commands', function () {
         $telegraph->bot(make_bot())->unregisterBotCommands();
     })->toMatchTelegramSnapshot();
 });
+
+    it('can send a chat action', function () {
+        expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+            $telegraph->chat(make_chat())->chatAction(ChatActions::TYPING)->send();
+        })->toMatchTelegramSnapshot();
+    });

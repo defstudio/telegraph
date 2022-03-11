@@ -30,7 +30,7 @@ supports_inline_queries: false
 retrieves the bot data from Telegram APIs
 
 ```php
-Telegram::bot($telegramBot)->botInfo()->send();
+Telegram::bot($telegraphBot)->botInfo()->send();
 ```
 
 ## botUpdates
@@ -38,10 +38,20 @@ Telegram::bot($telegramBot)->botInfo()->send();
 retrieves the bot updates from Telegram APIs
 
 ```php
-Telegram::bot($telegramBot)->botUpdates()->send();
+Telegram::bot($telegraphBot)->botUpdates()->send();
 ```
 
 <alert type="alert">Manual updates polling is not available if a webhook is set up for the bot. Webhook should be remove first using its [deleteWebhook](webhooks/deleting-webhooks) methods</alert>
+
+## chatAction
+
+Tells the chat users that something is happening on the bot's side. The status is set for up to 5 seconds or when a new message is received from the bot.
+
+<img src="screenshots/chat-action.png" />
+
+```php
+Telegram::chatAction(ChatActions::TYPING)->send();
+```
 
 ## deleteMessage
 
@@ -96,7 +106,7 @@ Telegraph::html('<b>hello</b> world')->send();
 register commands in Telegram Bot in order to display them to the user when the "/" key is pressed
 
 ```php
-Telegram::regigerBotCommands([
+Telegram::registerBotCommands([
     'command1' => 'command 1 description',
     'command2' => 'command 2 description'
 ])->send();
