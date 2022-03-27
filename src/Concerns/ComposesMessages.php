@@ -6,9 +6,6 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\Telegraph;
 
-/**
- * @mixin Telegraph
- */
 trait ComposesMessages
 {
     public function message(string $message): Telegraph

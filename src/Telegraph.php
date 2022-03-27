@@ -13,6 +13,7 @@ use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
+use DefStudio\Telegraph\Concerns\SendsFiles;
 use Illuminate\Foundation\Bus\PendingDispatch;
 
 class Telegraph
@@ -22,6 +23,7 @@ class Telegraph
     use ComposesMessages;
     use ManagesKeyboards;
     use InteractsWithWebhooks;
+    use SendsFiles;
 
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';
@@ -40,6 +42,7 @@ class Telegraph
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
     public const ENDPOINT_EDIT_MESSAGE = 'editMessageText';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
+    public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
 
     /** @var array<string, mixed> */
     protected array $data = [];
