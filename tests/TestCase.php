@@ -5,7 +5,6 @@ namespace DefStudio\Telegraph\Tests;
 use DefStudio\Telegraph\TelegraphServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Storage;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra

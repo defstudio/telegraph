@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\Storage;
@@ -9,7 +11,7 @@ it('can send a document', function () {
     })->toMatchTelegramSnapshot();
 });
 
-it('can attach a document while writing a message', function(){
+it('can attach a document while writing a message', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph
             ->markdown('look at **this** file!')
@@ -18,7 +20,7 @@ it('can attach a document while writing a message', function(){
     })->toMatchTelegramSnapshot();
 });
 
-it('can attach a document with a caption', function(){
+it('can attach a document with a caption', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph
             ->document(Storage::path('test.txt'))

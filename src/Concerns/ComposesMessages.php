@@ -16,16 +16,17 @@ trait ComposesMessages
         };
     }
 
-    private function setMessageText(string $message){
+    private function setMessageText(string $message)
+    {
         $this->endpoint ??= self::ENDPOINT_MESSAGE;
-        
+
         $this->data['text'] = $message;
         $this->data['chat_id'] = $this->getChat()->chat_id;
     }
 
     public function html(string $message = null): Telegraph
     {
-        if($message !== null){
+        if ($message !== null) {
             $this->setMessageText($message);
         }
 
@@ -36,8 +37,8 @@ trait ComposesMessages
 
     public function markdown(string $message = null): Telegraph
     {
-        if($message !== null){
-        $this->setMessageText($message);
+        if ($message !== null) {
+            $this->setMessageText($message);
         }
 
         $this->data['parse_mode'] = 'markdown';

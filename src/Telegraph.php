@@ -60,7 +60,6 @@ class Telegraph
         $this->files = Collection::empty();
     }
 
-
     public function send(): TelegraphResponse
     {
         $response = $this->sendRequestToTelegram();
@@ -72,5 +71,4 @@ class Telegraph
     {
         return $this->dispatchRequestToTelegram($queue);
     }
-
 }

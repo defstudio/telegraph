@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnnecessaryLocalVariableInspection */
+<?php
+
+/** @noinspection PhpUnnecessaryLocalVariableInspection */
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
@@ -47,10 +49,10 @@ trait SendsFiles
         return $this;
     }
 
-
     protected function fileSizeInMb(string $path): float
     {
         $sizeInMBytes = $this->fileSizeInKb($path) / 1024;
+
         return ceil($sizeInMBytes * 100) / 100;
     }
 
@@ -58,8 +60,7 @@ trait SendsFiles
     {
         $sizeInBytes = File::size($path);
         $sizeInKBytes = $sizeInBytes / 1024;
+
         return ceil($sizeInKBytes * 100) / 100;
     }
-
-
 }
