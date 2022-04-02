@@ -45,9 +45,9 @@ trait SendsFiles
             throw FileException::thumbnailSizeExceeded($this->fileSizeInKb($path));
         }
 
-        if(Str::of(File::extension($path))->lower()->is('jpg'))
-
-        $this->files->put('thumb', new Attachment($path));
+        if (Str::of(File::extension($path))->lower()->is('jpg')) {
+            $this->files->put('thumb', new Attachment($path));
+        }
 
         return $this;
     }

@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Telegraph;
