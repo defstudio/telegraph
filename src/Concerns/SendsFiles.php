@@ -10,6 +10,7 @@ use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 /**
  * @mixin Telegraph
@@ -43,6 +44,8 @@ trait SendsFiles
         if ($this->fileSizeInKb($path) > Telegraph::MAX_TUHMBNAIL_SIZE_IN_KB) {
             throw FileException::thumbnailSizeExceeded($this->fileSizeInKb($path));
         }
+
+        if(Str::of(File::extension($path))->lower()->is('jpg'))
 
         $this->files->put('thumb', new Attachment($path));
 

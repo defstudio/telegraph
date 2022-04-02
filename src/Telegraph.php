@@ -28,7 +28,7 @@ class Telegraph
     use SendsFiles;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
-    public const MAX_TUHMBNAIL_SIZE_IN_KB = 50;
+    public const MAX_TUHMBNAIL_SIZE_IN_KB = 200;
 
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';

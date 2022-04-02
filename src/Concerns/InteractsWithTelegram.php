@@ -27,7 +27,7 @@ trait InteractsWithTelegram
             : Http::asMultipart();
 
         $request = $this->files->reduce(
-            fn (Attachment $attachment, string $key) => $request->attach($key, $attachment->contents(), $attachment->filename()),
+            fn ($request, Attachment $attachment, string $key) => $request->attach($key, $attachment->contents(), $attachment->filename()),
             $request
         );
 
@@ -73,7 +73,7 @@ trait InteractsWithTelegram
     {
         return [
             'url' => $this->getApiUrl(),
-            'payload' => $this->data,
+            'payload' => $this->prepareData(),
             'files' => $this->files->toArray(),
         ];
     }
