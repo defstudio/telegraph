@@ -4,6 +4,8 @@ namespace DefStudio\Telegraph\Tests;
 
 use DefStudio\Telegraph\TelegraphServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
@@ -13,7 +15,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'DefStudio\\Telegraph\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'DefStudio\\Telegraph\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
         );
     }
 
@@ -26,12 +28,30 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app): void
     {
-        config()->set('database.default', 'testing');
+        $this->databaseSetup($app['config']);
+        $this->filesystemSetup($app['config']);
+    }
 
-        $migration = include __DIR__.'/../database/migrations/create_telegraph_bots_table.php.stub';
+    protected function databaseSetup($config): void
+    {
+        $config->set('database.default', 'testing');
+
+        $migration = include __DIR__ . '/../database/migrations/create_telegraph_bots_table.php.stub';
         $migration->up();
 
-        $migration = include __DIR__.'/../database/migrations/create_telegraph_chats_table.php.stub';
+        $migration = include __DIR__ . '/../database/migrations/create_telegraph_chats_table.php.stub';
         $migration->up();
+    }
+
+    protected function filesystemSetup($config): void
+    {
+        $storagePath = __DIR__ . '/storage';
+
+        $filesystem = new Filesystem();
+        $filesystem->ensureDirectoryExists($storagePath);
+
+        $config->set('filesystems.default', 'local');
+        $config->set('filesystems.disks.local.driver', 'local');
+        $config->set('filesystems.disks.local.root', realpath($storagePath));
     }
 }

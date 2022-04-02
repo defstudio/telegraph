@@ -4,3 +4,4 @@ payload:
     text: 'new text'
     chat_id: '-123456789'
     parse_mode: markdown
+files: {  }

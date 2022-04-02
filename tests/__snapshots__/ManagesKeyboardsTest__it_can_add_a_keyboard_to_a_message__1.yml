@@ -4,3 +4,4 @@ payload:
     chat_id: '-123456789'
     parse_mode: html
     reply_markup: { inline_keyboard: [[{ text: foo, url: bar }]] }
+files: {  }

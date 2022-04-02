@@ -3,3 +3,4 @@ payload:
     chat_id: '-123456789'
     message_id: 123456
     reply_markup: { inline_keyboard: [[{ text: foo, url: bar }]] }
+files: {  }

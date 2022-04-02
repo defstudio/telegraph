@@ -14,7 +14,9 @@ use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Concerns\SendsFiles;
+use DefStudio\Telegraph\DTO\Attachment;
 use Illuminate\Foundation\Bus\PendingDispatch;
+use Illuminate\Support\Collection;
 
 class Telegraph
 {
@@ -24,6 +26,9 @@ class Telegraph
     use ManagesKeyboards;
     use InteractsWithWebhooks;
     use SendsFiles;
+
+    public const MAX_DOCUMENT_SIZE_IN_MB = 50;
+    public const MAX_TUHMBNAIL_SIZE_IN_KB = 50;
 
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';
@@ -47,6 +52,15 @@ class Telegraph
     /** @var array<string, mixed> */
     protected array $data = [];
 
+    /** @var Collection<string, Attachment> */
+    protected Collection $files;
+
+    public function __construct()
+    {
+        $this->files = Collection::empty();
+    }
+
+
     public function send(): TelegraphResponse
     {
         $response = $this->sendRequestToTelegram();
@@ -58,4 +72,5 @@ class Telegraph
     {
         return $this->dispatchRequestToTelegram($queue);
     }
+
 }

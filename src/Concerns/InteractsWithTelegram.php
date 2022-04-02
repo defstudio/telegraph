@@ -4,10 +4,13 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Jobs\SendRequestToTelegramJob;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Foundation\Bus\PendingDispatch;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -21,7 +24,26 @@ trait InteractsWithTelegram
 
     protected function sendRequestToTelegram(): Response
     {
-        return Http::post($this->getApiUrl(), $this->data);
+        $request = $this->files->isEmpty()
+            ? Http::asJson()
+            : Http::asMultipart();
+
+        $request = $this->files->reduce(
+            fn (Attachment $attachment, string $key) => $request->attach($key, $attachment->contents(), $attachment->filename()),
+            $request
+        );
+
+        return $request->post($this->getApiUrl(), $this->prepareData());
+    }
+
+    protected function prepareData(): array
+    {
+        if ($this->files->isNotEmpty() && !empty($this->data['text'])) {
+            $this->data['caption'] = $this->data['text'];
+            unset($this->data['text']);
+        }
+
+        return $this->data;
     }
 
     protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
@@ -54,6 +76,7 @@ trait InteractsWithTelegram
         return [
             'url' => $this->getApiUrl(),
             'payload' => $this->data,
+            'files' => $this->files->toArray(),
         ];
     }
 }
