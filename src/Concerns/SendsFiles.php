@@ -19,12 +19,8 @@ trait SendsFiles
 {
     public function document(string $path, string $filename = null): Telegraph
     {
-        if (!File::exists($path)) {
-            throw FileException::fileNotFound("Document", $path);
-        }
-
-        if (($size = $this->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
-            throw FileException::documentSizeExceeded($size);
+        if ($this->fileSizeInMb($path) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
+            throw FileException::documentSizeExceeded($this->fileSizeInMb($path));
         }
 
         $this->endpoint = self::ENDPOINT_SEND_DOCUMENT;
@@ -45,63 +41,25 @@ trait SendsFiles
 
     public function thumbnail(string $path): Telegraph
     {
-        if (!File::exists($path)) {
-            throw FileException::fileNotFound("Thumbnail", $path);
+        if ($this->fileSizeInKb($path) > Telegraph::MAX_TUHMBNAIL_SIZE_IN_KB) {
+            throw FileException::thumbnailSizeExceeded($this->fileSizeInKb($path));
         }
 
-        if (($size = $this->fileSizeInKb($path)) > Telegraph::MAX_THUMBNAIL_SIZE_IN_KB) {
-            throw FileException::thumbnailSizeExceeded($size);
+        if (Str::of(File::extension($path))->lower()->is('jpg')) {
+            $this->files->put('thumb', new Attachment($path));
         }
-
-        if (($height = $this->imageHeight($path)) > Telegraph::MAX_THUMBNAIL_HEIGHT) {
-            throw FileException::thumbnailHeightExceeded($height);
-        }
-
-        if (($width = $this->imageWidth($path)) > Telegraph::MAX_THUMBNAIL_WIDTH) {
-            throw FileException::thumbnailWidthExceeded($width);
-        }
-
-        if (!Str::of($ext = File::extension($path))->lower()->is('jpg')) {
-            throw FileException::invalidThumbnailExtension($ext);
-        }
-
-        $this->files->put('thumb', new Attachment($path));
 
         return $this;
     }
 
-    private function imageHeight(string $path): int
-    {
-        return $this->imageDimensions($path)[1];
-    }
-
-    private function imageWidth(string $path): int
-    {
-        return $this->imageDimensions($path)[0];
-    }
-
-    /**
-     * @return int[]
-     */
-    private function imageDimensions(string $path): array
-    {
-        $sizes = getimagesize($path);
-
-        if (!$sizes) {
-            return [0, 0];
-        }
-
-        return $sizes;
-    }
-
-    private function fileSizeInMb(string $path): float
+    protected function fileSizeInMb(string $path): float
     {
         $sizeInMBytes = $this->fileSizeInKb($path) / 1024;
 
         return ceil($sizeInMBytes * 100) / 100;
     }
 
-    private function fileSizeInKb(string $path): float
+    protected function fileSizeInKb(string $path): float
     {
         $sizeInBytes = File::size($path);
         $sizeInKBytes = $sizeInBytes / 1024;
