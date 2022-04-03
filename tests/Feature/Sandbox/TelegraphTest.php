@@ -17,7 +17,10 @@ it('can return bot info', function () {
 test('a', function () {
     sandbox_bot();
 
-    Telegraph::document(Storage::path('test.txt'))
-       ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('test')->url('www.google.it'))
+
+    $result = Telegraph::document(Storage::path('test.txt'))
+        ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('test')->url('www.google.it'))
         ->send();
+
+    // dd($result->body());
 })->only();

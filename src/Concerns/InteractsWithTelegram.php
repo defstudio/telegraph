@@ -10,6 +10,7 @@ use DefStudio\Telegraph\Telegraph;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -23,27 +24,54 @@ trait InteractsWithTelegram
 
     protected function sendRequestToTelegram(): Response
     {
-        $request = $this->files->isEmpty()
+        $asMultipart = $this->files->isNotEmpty();
+
+        $request = $asMultipart
             ? Http::asJson()
             : Http::asMultipart();
 
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
-            fn ($request, Attachment $attachment, string $key) => $request->attach($key, $attachment->contents(), $attachment->filename()),
+            function ($request, Attachment $attachment, string $key) {
+                return $request->attach($key, $attachment->contents(), $attachment->filename());
+            },
             $request
         );
 
-        return $request->post($this->getApiUrl(), $this->prepareData());
+        return $request->post($this->getApiUrl(), $this->prepareData($asMultipart));
     }
 
-    protected function prepareData(): array
+    protected function prepareData(bool $asMultipart = false): array
     {
-        if ($this->files->isNotEmpty() && !empty($this->data['text'])) {
-            $this->data['caption'] = $this->data['text'];
-            unset($this->data['text']);
+        $data = $this->data;
+
+        if ($this->files->isNotEmpty() && !empty($data['text'])) {
+            $data['caption'] = $data['text'];
+            unset($data['text']);
         }
 
-        return $this->data;
+        if ($asMultipart) {
+            $data = collect(Arr::dot($data))
+                ->mapWithKeys(function ($value, $key) {
+
+                    if(!Str::of($key)->contains('.')){
+                        return [$key => $value];
+                    }
+
+                    $key = Str::of($key)
+                        ->explode('.')
+                        ->join('][');
+
+                    $key = Str::of($key)
+                        ->replaceFirst(']', '')
+                        ->append(']')
+                        ->toString();
+
+                    return [$key => $value];
+                })->toArray();
+        }
+
+        return $data;
     }
 
     protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
