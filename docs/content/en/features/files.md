@@ -1,6 +1,10 @@
 ---
-title: 'Sending Files' menuTitle: 'Sending Files' description: ''
-category: 'Features' fullscreen: false position: 35
+title: 'Sending Files' 
+menuTitle: 'Sending Files' 
+description: ''
+category: 'Features' 
+fullscreen: false 
+position: 35
 ---
 
 Telegraph supports file sending to Telegram through various types of attachments
