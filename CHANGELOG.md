@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.6.0 - 2022-04-03
+
+## What's Changed
+
+- feat: send chat action by @fabio-ivona in https://github.com/def-studio/telegraph/pull/53
+- Bump minimist from 1.2.5 to 1.2.6 in /docs by @dependabot in https://github.com/def-studio/telegraph/pull/55
+- Send files by @fabio-ivona in https://github.com/def-studio/telegraph/pull/56
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.5.0...v1.6.0
+
 ## v1.5.0 - 2022-03-10
 
 ## What's Changed
