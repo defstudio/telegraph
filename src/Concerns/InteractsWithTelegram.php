@@ -27,8 +27,8 @@ trait InteractsWithTelegram
         $asMultipart = $this->files->isNotEmpty();
 
         $request = $asMultipart
-            ? Http::asJson()
-            : Http::asMultipart();
+            ? Http::asMultipart()
+            : Http::asJson();
 
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
@@ -51,23 +51,14 @@ trait InteractsWithTelegram
         }
 
         if ($asMultipart) {
-            $data = collect(Arr::dot($data))
+            $data = collect($data)
                 ->mapWithKeys(function ($value, $key) {
 
-                    if(!Str::of($key)->contains('.')){
+                    if(!is_array($value)){
                         return [$key => $value];
                     }
 
-                    $key = Str::of($key)
-                        ->explode('.')
-                        ->join('][');
-
-                    $key = Str::of($key)
-                        ->replaceFirst(']', '')
-                        ->append(']')
-                        ->toString();
-
-                    return [$key => $value];
+                    return [$key => json_encode($value)];
                 })->toArray();
         }
 

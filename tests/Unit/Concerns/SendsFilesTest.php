@@ -5,14 +5,15 @@
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\Storage;
 
-    it('can send a document', function () {
-        expect(function (Telegraph $telegraph) {
-            $telegraph->document(Storage::path('test.txt'));
-        })->toMatchTelegramSnapshot();
-    });
+it('can send a document', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->document(Storage::path('test.txt'));
+    })->toMatchTelegramSnapshot();
+});
 
 it('requires a chat to send a document', function () {
     TelegraphFacade::document(Storage::path('test.txt'));
@@ -68,6 +69,12 @@ it('can send a document replying to a message', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can attach a keyboard to a document', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->document(Storage::path('test.txt'))
+            ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'));
+    })->toMatchTelegramSnapshot();
+});
 
 test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
     if ($valid) {
