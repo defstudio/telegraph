@@ -1,4 +1,9 @@
-/*! @docsearch/js 1.0.0-alpha.28 (UNRELEASED 0a58769) | MIT License | © Algolia, Inc. and contributors | https://github.com/francoischalifour/autocomplete.js */
+/*!
+ * clipboard.js v2.0.10
+ * https://clipboardjs.com/
+ *
+ * Licensed MIT © Zeno Rocha
+ */
 
 
 /*!
@@ -40,9 +45,4 @@
  */
 
 
-/*!
- * clipboard.js v2.0.10
- * https://clipboardjs.com/
- *
- * Licensed MIT © Zeno Rocha
- */
+/*! @docsearch/js 1.0.0-alpha.28 (UNRELEASED 0a58769) | MIT License | © Algolia, Inc. and contributors | https://github.com/francoischalifour/autocomplete.js */
