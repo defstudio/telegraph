@@ -16,7 +16,7 @@ trait ComposesMessages
         };
     }
 
-    private function setMessageText(string $message)
+    private function setMessageText(string $message): void
     {
         $this->endpoint ??= self::ENDPOINT_MESSAGE;
 

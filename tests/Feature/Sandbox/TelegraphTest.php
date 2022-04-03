@@ -3,8 +3,6 @@
 /** @noinspection LaravelFunctionsInspection */
 
 use DefStudio\Telegraph\Facades\Telegraph;
-use DefStudio\Telegraph\Keyboard\Keyboard;
-use Illuminate\Support\Facades\Storage;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can return bot info', function () {

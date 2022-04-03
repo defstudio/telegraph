@@ -70,14 +70,28 @@ trait SendsFiles
         return $this;
     }
 
-    private function imageHeight(string $path)
+    private function imageHeight(string $path): int
     {
-        return getimagesize($path)[1] ?? 0;
+        return $this->imageDimensions($path)[1];
     }
 
-    private function imageWidth(string $path)
+    private function imageWidth(string $path): int
     {
-        return getimagesize($path)[0] ?? 0;
+        return $this->imageDimensions($path)[0];
+    }
+
+    /**
+     * @return int[]
+     */
+    private function imageDimensions(string $path): array
+    {
+        $sizes = getimagesize($path);
+
+        if (!$sizes) {
+            return [0, 0];
+        }
+
+        return $sizes;
     }
 
     private function fileSizeInMb(string $path): float
