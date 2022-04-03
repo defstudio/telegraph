@@ -10,7 +10,6 @@ use DefStudio\Telegraph\Telegraph;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -32,6 +31,7 @@ trait InteractsWithTelegram
 
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
+            /** @phpstan-ignore-next-line  */
             function ($request, Attachment $attachment, string $key) {
                 return $request->attach($key, $attachment->contents(), $attachment->filename());
             },
@@ -41,6 +41,9 @@ trait InteractsWithTelegram
         return $request->post($this->getApiUrl(), $this->prepareData($asMultipart));
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     protected function prepareData(bool $asMultipart = false): array
     {
         $data = $this->data;
@@ -53,8 +56,7 @@ trait InteractsWithTelegram
         if ($asMultipart) {
             $data = collect($data)
                 ->mapWithKeys(function ($value, $key) {
-
-                    if(!is_array($value)){
+                    if (!is_array($value)) {
                         return [$key => $value];
                     }
 
