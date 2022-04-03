@@ -1,9 +1,11 @@
 <?php
 
+use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Support\Facades\Storage;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can send a text message', function () {
@@ -71,4 +73,15 @@ it('can set a chat action', function () {
         'chat_id' => $chat->chat_id,
         'action' => 'upload_document',
     ]);
+});
+
+it('can send a document', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->document(Storage::path('test.txt'))->markdown('test')->send();
+
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+       'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
+   ]);
 });

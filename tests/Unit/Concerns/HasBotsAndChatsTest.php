@@ -19,7 +19,7 @@ it('can customize the destination bot', function () {
 
 it('can customize the destination chat', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        $telegraph ->chat(make_chat())
+        $telegraph->chat(make_chat())
             ->html('foobar');
     })->toMatchTelegramSnapshot();
 });
@@ -47,8 +47,8 @@ it('can unregister commands', function () {
     })->toMatchTelegramSnapshot();
 });
 
-    it('can send a chat action', function () {
-        expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-            $telegraph->chat(make_chat())->chatAction(ChatActions::TYPING)->send();
-        })->toMatchTelegramSnapshot();
-    });
+it('can send a chat action', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        $telegraph->chat(make_chat())->chatAction(ChatActions::TYPING)->send();
+    })->toMatchTelegramSnapshot();
+});

@@ -96,4 +96,9 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->chatAction($action);
     }
+
+    public function document(string $path, string $filename = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->document($path, $filename);
+    }
 }

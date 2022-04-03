@@ -13,7 +13,10 @@ use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
+use DefStudio\Telegraph\Concerns\SendsFiles;
+use DefStudio\Telegraph\DTO\Attachment;
 use Illuminate\Foundation\Bus\PendingDispatch;
+use Illuminate\Support\Collection;
 
 class Telegraph
 {
@@ -22,6 +25,14 @@ class Telegraph
     use ComposesMessages;
     use ManagesKeyboards;
     use InteractsWithWebhooks;
+    use SendsFiles;
+
+    public const MAX_DOCUMENT_SIZE_IN_MB = 50;
+    public const MAX_THUMBNAIL_SIZE_IN_KB = 200;
+    public const MAX_THUMBNAIL_HEIGHT = 320;
+    public const MAX_THUMBNAIL_WIDTH = 320;
+    public const ALLOWED_THUMBNAIL_TYPES = ['jpg'];
+
 
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';
@@ -40,9 +51,19 @@ class Telegraph
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
     public const ENDPOINT_EDIT_MESSAGE = 'editMessageText';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
+    public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
+
 
     /** @var array<string, mixed> */
     protected array $data = [];
+
+    /** @var Collection<string, Attachment> */
+    protected Collection $files;
+
+    public function __construct()
+    {
+        $this->files = Collection::empty();
+    }
 
     public function send(): TelegraphResponse
     {

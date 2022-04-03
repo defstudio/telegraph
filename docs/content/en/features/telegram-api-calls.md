@@ -4,7 +4,7 @@ menuTitle: 'Telegram API calls'
 description: ''
 category: 'Features'
 fullscreen: false 
-position: 35
+position: 36
 ---
 
 ## botInfo
@@ -67,6 +67,14 @@ removes a message keyboard (see [keyboards](features/keyboards) for details)
 
 ```php
 Telegram::deleteKeyboard($messageId)->send();
+```
+
+## document
+
+sends a document
+
+```php
+Telegram::document($documentPath)->send();
 ```
 
 ## getWebhookDebugInfo

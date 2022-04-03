@@ -4,3 +4,4 @@ payload:
     chat_id: '-123456789'
     parse_mode: markdown
     disable_web_page_preview: true
+files: {  }

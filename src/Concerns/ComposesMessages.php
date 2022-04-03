@@ -6,9 +6,6 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\Telegraph;
 
-/**
- * @mixin Telegraph
- */
 trait ComposesMessages
 {
     public function message(string $message): Telegraph
@@ -19,21 +16,31 @@ trait ComposesMessages
         };
     }
 
-    public function html(string $message): Telegraph
+    private function setMessageText(string $message): void
     {
         $this->endpoint ??= self::ENDPOINT_MESSAGE;
+
         $this->data['text'] = $message;
         $this->data['chat_id'] = $this->getChat()->chat_id;
+    }
+
+    public function html(string $message = null): Telegraph
+    {
+        if ($message !== null) {
+            $this->setMessageText($message);
+        }
+
         $this->data['parse_mode'] = 'html';
 
         return $this;
     }
 
-    public function markdown(string $message): Telegraph
+    public function markdown(string $message = null): Telegraph
     {
-        $this->endpoint ??= self::ENDPOINT_MESSAGE;
-        $this->data['text'] = $message;
-        $this->data['chat_id'] = $this->getChat()->chat_id;
+        if ($message !== null) {
+            $this->setMessageText($message);
+        }
+
         $this->data['parse_mode'] = 'markdown';
 
         return $this;

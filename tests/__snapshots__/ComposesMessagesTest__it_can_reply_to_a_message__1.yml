@@ -4,3 +4,4 @@ payload:
     chat_id: '-123456789'
     parse_mode: markdown
     reply_to_message_id: 123456
+files: {  }
