@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  botInfo()
  * @method static void  dumpSentData()
  * @method static void  assertSentData(string $endpoint, array $data = null)
+ * @method static void  assertSentFiles(string $endpoint, array $files = null)
  * @method static void  assertSent(string $message, bool $exact = true)
  * @method static void  assertNothingSent()
  * @method static void  assertRegisteredWebhook()

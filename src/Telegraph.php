@@ -28,7 +28,11 @@ class Telegraph
     use SendsFiles;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
-    public const MAX_TUHMBNAIL_SIZE_IN_KB = 200;
+    public const MAX_THUMBNAIL_SIZE_IN_KB = 200;
+    public const MAX_THUMBNAIL_HEIGHT = 320;
+    public const MAX_THUMBNAIL_WIDTH = 320;
+    public const ALLOWED_THUMBNAIL_TYPES = ['jpg'];
+
 
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';
@@ -48,6 +52,7 @@ class Telegraph
     public const ENDPOINT_EDIT_MESSAGE = 'editMessageText';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
+
 
     /** @var array<string, mixed> */
     protected array $data = [];

@@ -1,6 +1,8 @@
 <?php /** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\Exceptions\FileException;
+use DefStudio\Telegraph\Exceptions\TelegraphException;
+use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\Storage;
 
@@ -9,6 +11,10 @@ it('can send a document', function () {
         $telegraph->document(Storage::path('test.txt'));
     })->toMatchTelegramSnapshot();
 });
+
+it('requires a chat to send a document', function(){
+    TelegraphFacade::document(Storage::path('test.txt'));
+})->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a document while writing a message', function () {
     expect(function (Telegraph $telegraph) {
@@ -25,6 +31,14 @@ it('can attach a document with a caption', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can disable content type detection', function(){
+    expect(function (Telegraph $telegraph) {
+        $telegraph
+            ->document(Storage::path('test.txt'))
+            ->withoutContentTypeDetection();
+    })->toMatchTelegramSnapshot();
+});
+
 test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
     if ($valid) {
         expect(chat()->document(Storage::path($path)))
@@ -37,6 +51,12 @@ test('documents are validated', function (string $path, bool $valid, string $exc
     'valid' => [
         'file' => 'valid_document.txt',
         'valid' => true,
+    ],
+    'not found' => [
+        'file' => 'fake.txt',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'not found',
     ],
     'invalid size' => [
         'file' => 'invalid_document_size.txt',
@@ -67,6 +87,12 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'file' => 'thumbnail.jpg',
         'valid' => true,
     ],
+    'not found' => [
+        'file' => 'fake.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'not found',
+    ],
     'invalid size' => [
         'file' => 'invalid_thumbnail_size.jpg',
         'valid' => false,
@@ -77,18 +103,18 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'file' => 'invalid_thumbnail_height.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => 'Thumbnail height (321px) exceeds max allowed of 320px',
+        'message' => 'Thumbnail height (321px) exceeds max allowed height of 320px',
     ],
     'invalid width' => [
         'file' => 'invalid_thumbnail_width.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => 'Thumbnail width (321px) exceeds max allowed of 320px',
+        'message' => 'Thumbnail width (321px) exceeds max allowed width of 320px',
     ],
     'invalid ext' => [
         'file' => 'invalid_thumbnail_ext.png',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => 'Thumbnails must be .jpg files',
+        'message' => 'Invalid thumbnail extension (png). Only jpg are allowed',
     ],
-])->only();
+]);
