@@ -3,6 +3,8 @@
 /** @noinspection LaravelFunctionsInspection */
 
 use DefStudio\Telegraph\Facades\Telegraph;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Support\Facades\Storage;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can return bot info', function () {
@@ -11,3 +13,11 @@ it('can return bot info', function () {
     $response = Telegraph::bot($bot)->botInfo()->send();
     assertMatchesSnapshot($response->json('result'));
 })->skip(fn () => env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
+
+test('a', function () {
+    sandbox_bot();
+
+    Telegraph::document(Storage::path('test.txt'))
+       ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('test')->url('www.google.it'))
+        ->send();
+})->only();

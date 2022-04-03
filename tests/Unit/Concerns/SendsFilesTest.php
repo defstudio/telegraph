@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
@@ -6,13 +8,13 @@ use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\Storage;
 
-it('can send a document', function () {
-    expect(function (Telegraph $telegraph) {
-        $telegraph->document(Storage::path('test.txt'));
-    })->toMatchTelegramSnapshot();
-});
+    it('can send a document', function () {
+        expect(function (Telegraph $telegraph) {
+            $telegraph->document(Storage::path('test.txt'));
+        })->toMatchTelegramSnapshot();
+    });
 
-it('requires a chat to send a document', function(){
+it('requires a chat to send a document', function () {
     TelegraphFacade::document(Storage::path('test.txt'));
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
@@ -23,21 +25,49 @@ it('can attach a document while writing a message', function () {
     })->toMatchTelegramSnapshot();
 });
 
-it('can attach a document with a caption', function () {
+it('can attach a document with markdown caption', function () {
     expect(function (Telegraph $telegraph) {
-        $telegraph
-            ->document(Storage::path('test.txt'))
+        $telegraph->document(Storage::path('test.txt'))
             ->markdown('look at **this** file!');
     })->toMatchTelegramSnapshot();
 });
 
-it('can disable content type detection', function(){
+it('can attach a document with html caption', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->document(Storage::path('test.txt'))
+            ->markdown('look at <b>this</b> file!');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can disable content type detection', function () {
     expect(function (Telegraph $telegraph) {
         $telegraph
             ->document(Storage::path('test.txt'))
             ->withoutContentTypeDetection();
     })->toMatchTelegramSnapshot();
 });
+
+it('can disable notification', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->document(Storage::path('test.txt'))
+            ->silent();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can protect content from sharing', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->document(Storage::path('test.txt'))
+            ->protected();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can send a document replying to a message', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->document(Storage::path('test.txt'))
+            ->reply(1234);
+    })->toMatchTelegramSnapshot();
+});
+
 
 test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
     if ($valid) {

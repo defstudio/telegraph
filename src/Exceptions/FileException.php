@@ -4,7 +4,6 @@ namespace DefStudio\Telegraph\Exceptions;
 
 use DefStudio\Telegraph\Telegraph;
 use Exception;
-use Illuminate\Support\Str;
 
 final class FileException extends Exception
 {
@@ -37,6 +36,4 @@ final class FileException extends Exception
     {
         return new self("$fileType [$path] not found");
     }
-
-
 }

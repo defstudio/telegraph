@@ -8,6 +8,7 @@ use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Jobs\SendRequestToTelegramJob;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Foundation\Bus\PendingDispatch;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -26,6 +27,7 @@ trait InteractsWithTelegram
             ? Http::asJson()
             : Http::asMultipart();
 
+        /** @var PendingRequest $request */
         $request = $this->files->reduce(
             fn ($request, Attachment $attachment, string $key) => $request->attach($key, $attachment->contents(), $attachment->filename()),
             $request

@@ -19,7 +19,7 @@ trait SendsFiles
 {
     public function document(string $path, string $filename = null): Telegraph
     {
-        if(!File::exists($path)){
+        if (!File::exists($path)) {
             throw FileException::fileNotFound("Document", $path);
         }
 
@@ -45,7 +45,7 @@ trait SendsFiles
 
     public function thumbnail(string $path): Telegraph
     {
-        if(!File::exists($path)){
+        if (!File::exists($path)) {
             throw FileException::fileNotFound("Thumbnail", $path);
         }
 
@@ -58,7 +58,6 @@ trait SendsFiles
         }
 
         if (($width = $this->imageWidth($path)) > Telegraph::MAX_THUMBNAIL_WIDTH) {
-
             throw FileException::thumbnailWidthExceeded($width);
         }
 
@@ -70,7 +69,6 @@ trait SendsFiles
 
         return $this;
     }
-
 
     private function imageHeight(string $path)
     {

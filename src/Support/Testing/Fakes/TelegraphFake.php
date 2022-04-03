@@ -292,11 +292,11 @@ class TelegraphFake extends Telegraph
                         return false;
                     }
 
-                    if($expectedFile->filename() !== $sentFiles[$key]->filename()){
+                    if ($expectedFile->filename() !== $sentFiles[$key]->filename()) {
                         return false;
                     }
 
-                    if($expectedFile->contents() !== $sentFiles[$key]->contents()){
+                    if ($expectedFile->contents() !== $sentFiles[$key]->contents()) {
                         return false;
                     }
                 }

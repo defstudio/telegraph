@@ -75,13 +75,13 @@ it('can set a chat action', function () {
     ]);
 });
 
-it('can send a document', function(){
-   Telegraph::fake();
-   $chat = make_chat();
+it('can send a document', function () {
+    Telegraph::fake();
+    $chat = make_chat();
 
-   $chat->document(Storage::path('test.txt'))->markdown('test')->send();
+    $chat->document(Storage::path('test.txt'))->markdown('test')->send();
 
-   Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
        'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
    ]);
 });
