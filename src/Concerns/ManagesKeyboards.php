@@ -46,7 +46,7 @@ trait ManagesKeyboards
         }
 
         if ($newKeyboard->isEmpty()) {
-            $replyMarkup = null;
+            $replyMarkup = '';
         } else {
             $replyMarkup = ['inline_keyboard' => $newKeyboard->toArray()];
         }
