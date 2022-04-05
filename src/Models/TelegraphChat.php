@@ -86,6 +86,11 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->deleteKeyboard($messageId);
     }
+    
+    public function edit(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->edit($messageId);
+    }
 
     public function deleteMessage(int $messageId): Telegraph
     {
