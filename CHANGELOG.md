@@ -2,6 +2,21 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.6.2 - 2022-04-06
+
+## What's Changed
+
+- Add edit method to TelegraphChat Model by @marcovega in https://github.com/def-studio/telegraph/pull/60
+- Fix keyboard not being removed by @marcovega in https://github.com/def-studio/telegraph/pull/59
+- Fix tests by @fabio-ivona in https://github.com/def-studio/telegraph/pull/62
+- Bump minimist from 1.2.5 to 1.2.6 in /docs by @dependabot in https://github.com/def-studio/telegraph/pull/61
+
+## New Contributors
+
+- @marcovega made their first contribution in https://github.com/def-studio/telegraph/pull/60
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.6.1...v1.6.2
+
 ## v1.6.1 - 2022-04-03
 
 - fix documentation
