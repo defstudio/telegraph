@@ -61,6 +61,16 @@ Starts a `Telegraph` call to send a message using markdown formatting
 $telegraphChat->markdown('*hello*')->send();
 ```
 
+## edit
+
+Starts a `Telegraph` call to edit a message
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->edit($messageId)->keyboard('new text')->send();
+```
+
 ## replaceKeyboard
 
 Starts a `Telegraph` call to replace a message keyboard (see [keyboards](features/keyboards) for details)
