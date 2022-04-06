@@ -55,7 +55,8 @@
         "lint": "vendor/bin/php-cs-fixer fix -v",
         "test:lint": "vendor/bin/php-cs-fixer fix -v --dry-run",
         "test:types": "vendor/bin/phpstan analyse --ansi",
-        "test:unit": "vendor/bin/pest --colors=always",
+        "test:unit": "vendor/bin/pest --colors=always --exclude-group=sandbox",
+        "test:sandbox": "vendor/bin/pest --colors=always --group=sandbox",
         "test": [
             "@test:lint",
             "@test:types",
@@ -65,7 +66,11 @@
         "coverage": "@test:unit --coverage"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
     },
     "extra": {
         "laravel": {

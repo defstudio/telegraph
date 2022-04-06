@@ -12,7 +12,9 @@ use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-uses(TestCase::class)->in(__DIR__);
+uses(TestCase::class)->in(__DIR__."/Feature");
+uses(TestCase::class)->in(__DIR__."/Unit");
+uses(TestCase::class)->group('sandbox')->in(__DIR__."/Sandbox");
 
 
 /**
