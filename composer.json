@@ -22,7 +22,7 @@
         "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {
-        "ext-sqlite": "*",
+        "ext-sqlite3": "*",
         "defstudio/pest-plugin-laravel-expectations": "^1.6",
         "friendsofphp/php-cs-fixer": "^v3.1",
         "guzzlehttp/guzzle": "^7.4",
