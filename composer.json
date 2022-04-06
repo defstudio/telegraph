@@ -22,7 +22,7 @@
         "spatie/laravel-package-tools": "^1.9.2"
     },
     "require-dev": {
-        "ext-sqlite": "*",
+        "ext-sqlite3": "*",
         "defstudio/pest-plugin-laravel-expectations": "^1.6",
         "friendsofphp/php-cs-fixer": "^v3.1",
         "guzzlehttp/guzzle": "^7.4",
@@ -56,7 +56,8 @@
         "lint": "vendor/bin/php-cs-fixer fix -v",
         "test:lint": "vendor/bin/php-cs-fixer fix -v --dry-run",
         "test:types": "vendor/bin/phpstan analyse --ansi",
-        "test:unit": "vendor/bin/pest --colors=always",
+        "test:unit": "vendor/bin/pest --colors=always --exclude-group=sandbox",
+        "test:sandbox": "vendor/bin/pest --colors=always --group=sandbox",
         "test": [
             "@test:lint",
             "@test:types",
