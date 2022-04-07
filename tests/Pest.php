@@ -12,9 +12,9 @@ use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-uses(TestCase::class)->in(__DIR__."/Feature");
-uses(TestCase::class)->in(__DIR__."/Unit");
-uses(TestCase::class)->group('sandbox')->in(__DIR__."/Sandbox");
+uses(TestCase::class)->in(__DIR__ . "/Feature");
+uses(TestCase::class)->in(__DIR__ . "/Unit");
+uses(TestCase::class)->group('sandbox')->in(__DIR__ . "/Sandbox");
 
 
 /**
@@ -134,13 +134,13 @@ function webhook_command($command, $handler = TestWebhookHandler::class): Reques
 }
 
 
-    expect()->extend('toMatchTelegramSnapshot', function () {
-        $configurationClosure = $this->value;
+expect()->extend('toMatchTelegramSnapshot', function () {
+    $configurationClosure = $this->value;
 
-        /** @var Telegraph $telegraph */
-        $telegraph = app(Telegraph::class)->chat(make_chat());
+    /** @var Telegraph $telegraph */
+    $telegraph = app(Telegraph::class)->chat(make_chat());
 
-        $configurationClosure($telegraph);
+    $configurationClosure($telegraph);
 
-        expect($telegraph->toArray())->toMatchSnapshot();
-    });
+    expect($telegraph->toArray())->toMatchSnapshot();
+});
