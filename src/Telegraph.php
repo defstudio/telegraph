@@ -50,6 +50,7 @@ class Telegraph
     public const ENDPOINT_MESSAGE = 'sendMessage';
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
     public const ENDPOINT_EDIT_MESSAGE = 'editMessageText';
+    public const ENDPOINT_SEND_LOCATION = 'sendLocation';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
 

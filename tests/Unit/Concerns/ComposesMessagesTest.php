@@ -54,3 +54,9 @@ it('can edit a message', function (callable $setupClosure) {
         $telegraph->markdown('new text')->edit(123456);
     },
 ]);
+
+it('can send a location a message', function () {
+    expect(function (Telegraph $telegraph) {
+        $telegraph->location(12.345,-54.321);
+    })->toMatchTelegramSnapshot();
+});
