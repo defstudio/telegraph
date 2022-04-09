@@ -21,6 +21,8 @@ trait ManagesKeyboards
      */
     public function keyboard(callable|array|Keyboard $keyboard): Telegraph
     {
+        $telegraph = clone $this;
+
         if (is_callable($keyboard)) {
             $keyboard = $keyboard(Keyboard::make());
         }
@@ -29,11 +31,11 @@ trait ManagesKeyboards
             $keyboard = Keyboard::fromArray($keyboard);
         }
 
-        $this->data['reply_markup'] = [
+        $telegraph->data['reply_markup'] = [
             'inline_keyboard' => $keyboard->toArray(),
         ];
 
-        return $this;
+        return $telegraph;
     }
 
     /**
@@ -41,6 +43,8 @@ trait ManagesKeyboards
      */
     public function replaceKeyboard(int $messageId, Keyboard|callable $newKeyboard): Telegraph
     {
+        $telegraph = clone $this;
+
         if (is_callable($newKeyboard)) {
             $newKeyboard = $newKeyboard(Keyboard::make());
         }
@@ -51,18 +55,20 @@ trait ManagesKeyboards
             $replyMarkup = ['inline_keyboard' => $newKeyboard->toArray()];
         }
 
-        $this->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
-        $this->data = [
-            'chat_id' => $this->getChat()->chat_id,
+        $telegraph->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChat()->chat_id,
             'message_id' => $messageId,
             'reply_markup' => $replyMarkup,
         ];
 
-        return $this;
+        return $telegraph;
     }
 
     public function deleteKeyboard(int $messageId): Telegraph
     {
-        return $this->replaceKeyboard($messageId, Keyboard::make());
+        $telegraph = clone $this;
+
+        return $telegraph->replaceKeyboard($messageId, Keyboard::make());
     }
 }

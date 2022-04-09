@@ -10,9 +10,11 @@ trait ComposesMessages
 {
     public function message(string $message): Telegraph
     {
+        $telegraph = clone $this;
+
         return match (config('telegraph.default_parse_mode')) {
-            self::PARSE_MARKDOWN => $this->markdown($message),
-            default => $this->html($message)
+            self::PARSE_MARKDOWN => $telegraph->markdown($message),
+            default => $telegraph->html($message)
         };
     }
 
@@ -26,70 +28,86 @@ trait ComposesMessages
 
     public function html(string $message = null): Telegraph
     {
+        $telegraph = clone $this;
+
         if ($message !== null) {
-            $this->setMessageText($message);
+            $telegraph->setMessageText($message);
         }
 
-        $this->data['parse_mode'] = 'html';
+        $telegraph->data['parse_mode'] = 'html';
 
-        return $this;
+        return $telegraph;
     }
 
     public function markdown(string $message = null): Telegraph
     {
+        $telegraph = clone $this;
+
         if ($message !== null) {
-            $this->setMessageText($message);
+            $telegraph->setMessageText($message);
         }
 
-        $this->data['parse_mode'] = 'markdown';
+        $telegraph->data['parse_mode'] = 'markdown';
 
-        return $this;
+        return $telegraph;
     }
 
     public function reply(int $messageId): Telegraph
     {
-        $this->data['reply_to_message_id'] = $messageId;
+        $telegraph = clone $this;
 
-        return $this;
+        $telegraph->data['reply_to_message_id'] = $messageId;
+
+        return $telegraph;
     }
 
     public function protected(): Telegraph
     {
-        $this->data['protect_content'] = true;
+        $telegraph = clone $this;
 
-        return $this;
+        $telegraph->data['protect_content'] = true;
+
+        return $telegraph;
     }
 
     public function silent(): Telegraph
     {
-        $this->data['disable_notification'] = true;
+        $telegraph = clone $this;
 
-        return $this;
+        $telegraph->data['disable_notification'] = true;
+
+        return $telegraph;
     }
 
     public function withoutPreview(): Telegraph
     {
-        $this->data['disable_web_page_preview'] = true;
+        $telegraph = clone $this;
 
-        return $this;
+        $telegraph->data['disable_web_page_preview'] = true;
+
+        return $telegraph;
     }
 
     public function deleteMessage(int $messageId): Telegraph
     {
-        $this->endpoint = self::ENDPOINT_DELETE_MESSAGE;
-        $this->data = [
-            'chat_id' => $this->getChat()->chat_id,
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_DELETE_MESSAGE;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChat()->chat_id,
             'message_id' => $messageId,
         ];
 
-        return $this;
+        return $telegraph;
     }
 
     public function edit(int $messageId): Telegraph
     {
-        $this->endpoint = self::ENDPOINT_EDIT_MESSAGE;
-        $this->data['message_id'] = $messageId;
+        $telegraph = clone $this;
 
-        return $this;
+        $telegraph->endpoint = self::ENDPOINT_EDIT_MESSAGE;
+        $telegraph->data['message_id'] = $messageId;
+
+        return $telegraph;
     }
 }

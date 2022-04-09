@@ -24,7 +24,7 @@ use Psr\Http\Message\StreamInterface;
 class TelegraphFake extends Telegraph
 {
     /** @var array<int, mixed[]> */
-    private array $sentMessages = [];
+    private static array $sentMessages = [];
 
     /**
      * @param array<string, array<mixed>> $replies
@@ -34,9 +34,14 @@ class TelegraphFake extends Telegraph
         parent::__construct();
     }
 
+    public static function reset(): void
+    {
+        self::$sentMessages = [];
+    }
+
     protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
     {
-        $this->sentMessages[] = $this->messageToArray();
+        self::$sentMessages[] = $this->messageToArray();
 
         if (!Queue::getFacadeRoot() instanceof QueueFake) {
             Queue::fake();
@@ -65,7 +70,7 @@ class TelegraphFake extends Telegraph
 
     protected function sendRequestToTelegram(): Response
     {
-        $this->sentMessages[] = $this->messageToArray();
+        self::$sentMessages[] = $this->messageToArray();
 
         $messageClass = new class () implements MessageInterface {
             /**
@@ -238,7 +243,7 @@ class TelegraphFake extends Telegraph
      */
     public function assertSentData(string $endpoint, array $data = [], bool $exact = true): void
     {
-        $foundMessages = collect($this->sentMessages);
+        $foundMessages = collect(self::$sentMessages);
 
         $foundMessages = $foundMessages
             ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
@@ -266,9 +271,9 @@ class TelegraphFake extends Telegraph
 
 
         if ($data == null) {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count($this->sentMessages));
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
         } else {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count($this->sentMessages));
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count(self::$sentMessages));
         }
 
         Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
@@ -279,7 +284,7 @@ class TelegraphFake extends Telegraph
      */
     public function assertSentFiles(string $endpoint, array $expectedFiles = []): void
     {
-        $foundMessages = collect($this->sentMessages);
+        $foundMessages = collect(self::$sentMessages);
 
         $foundMessages = $foundMessages
             ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
@@ -306,9 +311,9 @@ class TelegraphFake extends Telegraph
 
 
         if ($foundMessages == null) {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count($this->sentMessages));
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
         } else {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given files (sent %d requests so far)", $endpoint, count($this->sentMessages));
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given files (sent %d requests so far)", $endpoint, count(self::$sentMessages));
         }
 
         Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
@@ -323,7 +328,7 @@ class TelegraphFake extends Telegraph
 
     public function assertNothingSent(): void
     {
-        Assert::assertEmpty($this->sentMessages, sprintf("Failed to assert that no request were sent (sent %d requests so far)", count($this->sentMessages)));
+        Assert::assertEmpty(self::$sentMessages, sprintf("Failed to assert that no request were sent (sent %d requests so far)", count(self::$sentMessages)));
     }
 
     public function assertRegisteredWebhook(): void
@@ -345,6 +350,6 @@ class TelegraphFake extends Telegraph
 
     public function dumpSentData(): void
     {
-        dump($this->sentMessages);
+        dump(self::$sentMessages);
     }
 }
