@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.6.3 - 2022-04-09
+
+## What's Changed
+
+- fix leaking state by @fabio-ivona in https://github.com/def-studio/telegraph/pull/65
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.6.2...v1.6.3
+
 ## v1.6.2 - 2022-04-06
 
 ## What's Changed
