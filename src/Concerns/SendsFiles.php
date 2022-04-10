@@ -19,45 +19,51 @@ trait SendsFiles
 {
     public function document(string $path, string $filename = null): Telegraph
     {
+        $telegraph = clone $this;
+
         if (!File::exists($path)) {
             throw FileException::fileNotFound("Document", $path);
         }
 
-        if (($size = $this->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
+        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
             throw FileException::documentSizeExceeded($size);
         }
 
-        $this->endpoint = self::ENDPOINT_SEND_DOCUMENT;
+        $telegraph->endpoint = self::ENDPOINT_SEND_DOCUMENT;
 
-        $this->data['chat_id'] = $this->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
 
-        $this->files->put('document', new Attachment($path, $filename));
+        $telegraph->files->put('document', new Attachment($path, $filename));
 
-        return $this;
+        return $telegraph;
     }
 
     public function withoutContentTypeDetection(): Telegraph
     {
-        $this->data['disable_content_type_detection'] = 1;
+        $telegraph = clone $this;
 
-        return $this;
+        $telegraph->data['disable_content_type_detection'] = 1;
+
+        return $telegraph;
     }
 
     public function thumbnail(string $path): Telegraph
     {
+        $telegraph = clone $this;
+
         if (!File::exists($path)) {
             throw FileException::fileNotFound("Thumbnail", $path);
         }
 
-        if (($size = $this->fileSizeInKb($path)) > Telegraph::MAX_THUMBNAIL_SIZE_IN_KB) {
+        if (($size = $telegraph->fileSizeInKb($path)) > Telegraph::MAX_THUMBNAIL_SIZE_IN_KB) {
             throw FileException::thumbnailSizeExceeded($size);
         }
 
-        if (($height = $this->imageHeight($path)) > Telegraph::MAX_THUMBNAIL_HEIGHT) {
+        if (($height = $telegraph->imageHeight($path)) > Telegraph::MAX_THUMBNAIL_HEIGHT) {
             throw FileException::thumbnailHeightExceeded($height);
         }
 
-        if (($width = $this->imageWidth($path)) > Telegraph::MAX_THUMBNAIL_WIDTH) {
+        if (($width = $telegraph->imageWidth($path)) > Telegraph::MAX_THUMBNAIL_WIDTH) {
             throw FileException::thumbnailWidthExceeded($width);
         }
 
@@ -65,9 +71,9 @@ trait SendsFiles
             throw FileException::invalidThumbnailExtension($ext);
         }
 
-        $this->files->put('thumb', new Attachment($path));
+        $telegraph->files->put('thumb', new Attachment($path));
 
-        return $this;
+        return $telegraph;
     }
 
     private function imageHeight(string $path): int

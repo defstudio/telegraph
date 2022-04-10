@@ -13,29 +13,35 @@ trait InteractsWithWebhooks
 {
     public function registerWebhook(): Telegraph
     {
-        $this->endpoint = self::ENDPOINT_SET_WEBHOOK;
-        $this->data = [
-            'url' => route('telegraph.webhook', $this->getBot()),
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SET_WEBHOOK;
+        $telegraph->data = [
+            'url' => route('telegraph.webhook', $telegraph->getBot()),
         ];
 
-        return $this;
+        return $telegraph;
     }
 
     public function getWebhookDebugInfo(): Telegraph
     {
-        $this->endpoint = self::ENDPOINT_GET_WEBHOOK_DEBUG_INFO;
+        $telegraph = clone $this;
 
-        return $this;
+        $telegraph->endpoint = self::ENDPOINT_GET_WEBHOOK_DEBUG_INFO;
+
+        return $telegraph;
     }
 
     public function replyWebhook(int $callbackQueryId, string $message): Telegraph
     {
-        $this->endpoint = self::ENDPOINT_ANSWER_WEBHOOK;
-        $this->data = [
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_ANSWER_WEBHOOK;
+        $telegraph->data = [
             'callback_query_id' => $callbackQueryId,
             'text' => $message,
         ];
 
-        return $this;
+        return $telegraph;
     }
 }

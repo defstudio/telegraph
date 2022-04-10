@@ -45,6 +45,7 @@ class Telegraph extends Facade
      */
     public static function fake(array $replies = []): TelegraphFake
     {
+        TelegraphFake::reset();
         static::swap($fake = new TelegraphFake($replies));
 
         return $fake;

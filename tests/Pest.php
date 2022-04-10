@@ -12,9 +12,10 @@ use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
-uses(TestCase::class)->in(__DIR__ . "/Feature");
-uses(TestCase::class)->in(__DIR__ . "/Unit");
-uses(TestCase::class)->group('sandbox')->in(__DIR__ . "/Sandbox");
+uses(TestCase::class)->in("Feature");
+uses(TestCase::class)->in("Unit");
+uses(TestCase::class)->in("Regression");
+uses(TestCase::class)->group('sandbox')->in("Sandbox");
 
 
 /**
@@ -140,7 +141,7 @@ expect()->extend('toMatchTelegramSnapshot', function () {
     /** @var Telegraph $telegraph */
     $telegraph = app(Telegraph::class)->chat(make_chat());
 
-    $configurationClosure($telegraph);
+    $telegraph = $configurationClosure($telegraph);
 
     expect($telegraph->toArray())->toMatchSnapshot();
 });
