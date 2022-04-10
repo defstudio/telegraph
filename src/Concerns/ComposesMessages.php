@@ -110,14 +110,4 @@ trait ComposesMessages
 
         return $telegraph;
     }
-
-    public function location(float $latitude, float $longitude): Telegraph
-    {
-        $this->endpoint = self::ENDPOINT_SEND_LOCATION;
-        $this->data['latitude'] = $latitude;
-        $this->data['longitude'] = $longitude;
-        $this->data['chat_id'] = $this->getChat()->chat_id;
-
-        return $this;
-    }
 }

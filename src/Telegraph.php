@@ -13,7 +13,7 @@ use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
-use DefStudio\Telegraph\Concerns\SendsFiles;
+use DefStudio\Telegraph\Concerns\SendsAttachments;
 use DefStudio\Telegraph\DTO\Attachment;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
@@ -25,7 +25,7 @@ class Telegraph
     use ComposesMessages;
     use ManagesKeyboards;
     use InteractsWithWebhooks;
-    use SendsFiles;
+    use SendsAttachments;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_THUMBNAIL_SIZE_IN_KB = 200;

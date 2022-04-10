@@ -15,8 +15,20 @@ use Illuminate\Support\Str;
 /**
  * @mixin Telegraph
  */
-trait SendsFiles
+trait SendsAttachments
 {
+    public function location(float $latitude, float $longitude): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_LOCATION;
+        $telegraph->data['latitude'] = $latitude;
+        $telegraph->data['longitude'] = $longitude;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
     public function document(string $path, string $filename = null): Telegraph
     {
         $telegraph = clone $this;

@@ -155,3 +155,10 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'message' => 'Invalid thumbnail extension (png). Only jpg are allowed',
     ],
 ]);
+
+
+it('can send a location message', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->location(12.345, -54.321);
+    })->toMatchTelegramSnapshot();
+});
