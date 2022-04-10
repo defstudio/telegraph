@@ -35,14 +35,13 @@ trait HasBotsAndChats
 
     public function chat(TelegraphChat $chat): Telegraph
     {
-        $self = clone $this;
-        $self->chat = $chat;
+        $this->chat = $chat;
 
-        if (empty($self->bot)) {
-            $self->bot = $self->chat->bot;
+        if (empty($this->bot)) {
+            $this->bot = $this->chat->bot;
         }
 
-        return $self;
+        return $this;
     }
 
     protected function getBotIfAvailable(): TelegraphBot|null
