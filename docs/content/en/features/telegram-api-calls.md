@@ -85,6 +85,14 @@ retrieves webhook debug data for the active bot
 $response = Telegram::getWebhookDebugInfo()->send();
 ```
 
+## location
+
+sends a location attachment
+
+```php
+Telegraph::location(12.345, -54.321)->send();
+``
+
 ## markdown
 
 compose a new telegram message (parsed as markdown)
