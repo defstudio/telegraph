@@ -83,6 +83,6 @@ Telegraph::document(Storage::path('brochure.pdf'))
 
 ```php
 Telegraph::document(Storage::path('brochure.pdf'))
-    ->thumbnail(Storage::path('brochure_thumbnail.jpg'));
+    ->thumbnail(Storage::path('brochure_thumbnail.jpg'))
     ->send();
 ```
