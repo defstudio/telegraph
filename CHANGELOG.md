@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.7.0 - 2022-04-13
+
+## What's Changed
+
+- Add location message by @SiebeVE in https://github.com/def-studio/telegraph/pull/66
+- Fix missing closing Tag in docs by @gausoft in https://github.com/def-studio/telegraph/pull/68
+
+## New Contributors
+
+- @SiebeVE made their first contribution in https://github.com/def-studio/telegraph/pull/66
+- @gausoft made their first contribution in https://github.com/def-studio/telegraph/pull/68
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.6.3...v1.7.0
+
 ## v1.6.3 - 2022-04-09
 
 ## What's Changed
