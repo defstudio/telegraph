@@ -108,6 +108,22 @@ Starts a `Telegraph` call to delete a message
 $telegraphChat->deleteMessage($messageId)->send();
 ```
 
+## document
+
+sends a document
+
+```php
+$telegraphChat->document($documentPath)->send();
+```
+
+## location
+
+sends a location attachment
+
+```php
+$telegraphChat->location(12.345, -54.321)->send();
+````
+
 ## action
 
 Tells the chat users that something is happening on the bot's side. The status is set for up to 5 seconds or when a new message is received from the bot.

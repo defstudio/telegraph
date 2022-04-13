@@ -1,13 +1,13 @@
 ---
-title: 'Sending Files' 
-menuTitle: 'Sending Files' 
+title: 'Attachments' 
+menuTitle: 'Attachments' 
 description: ''
 category: 'Features' 
 fullscreen: false 
 position: 35
 ---
 
-Telegraph supports file sending to Telegram through various types of attachments
+Telegraph supports different types of attachments
 
 ## Attachment types
 
@@ -17,6 +17,14 @@ Documents can be sent through Telegraph `->document()` method:
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))->send();
+```
+
+### Location
+
+A location attachment can be sent through Telegraph `->location()` method:
+
+```php
+Telegraph::location(12.345, -54.321)->send();
 ```
 
 ## Options

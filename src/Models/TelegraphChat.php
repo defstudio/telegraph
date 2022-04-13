@@ -106,4 +106,9 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->document($path, $filename);
     }
+
+    public function location(float $latitude, float $longitude): Telegraph
+    {
+        return TelegraphFacade::chat($this)->location(latitude: $latitude, longitude: $longitude);
+    }
 }
