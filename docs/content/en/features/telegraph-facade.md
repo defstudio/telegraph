@@ -22,8 +22,7 @@ Telegraph::message('hello world')
         Button::make("🗑️ Delete")->action("delete")->param('id', $notification->id),  
         Button::make("📖 Mark as Read")->action("read")->param('id', $notification->id),  
         Button::make("👀 Open")->url('https://test.it'),  
-    ])->chunk(2)
-    ->send();
+    ])->chunk(2))->send();
 ```
 
 <alert type="info">Telegraph supports also sending emojis in messages and [keyboard](features/keyboards) button labels 🚀🚀🚀</alert>
