@@ -15,7 +15,7 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 
 /** @var TelegraphChat $chat */
 
-$chat->html("<strong>Hello!<strong>\n\nI'm here!")->send();
+$chat->html("<strong>Hello!</strong>\n\nI'm here!")->send();
 ```
 
 <img src="screenshots/first-message.png" />
