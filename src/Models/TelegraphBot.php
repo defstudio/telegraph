@@ -80,7 +80,7 @@ class TelegraphBot extends Model
 
     public function chats(): HasMany
     {
-        return $this->hasMany(TelegraphChat::class, 'telegraph_bot_id');
+        return $this->hasMany(config('telegraph.models.chat'), 'telegraph_bot_id');
     }
 
     public function registerWebhook(): Telegraph

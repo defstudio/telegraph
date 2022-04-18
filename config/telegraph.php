@@ -23,4 +23,16 @@ return [
      * webhook messages to logs
      */
     'debug_mode' => false,
+
+    /*
+     * Set model class for both TelegraphBot and TelegraphChat, 
+     * to allow more customization.
+     *
+     * Bot model must be or extend `DefStudio\Telegraph\Models\TelegraphBot::class`
+     * Chat model must be or extend `DefStudio\Telegraph\Models\TelegraphChat::class`
+     */
+    'models' => [
+        'bot' => DefStudio\Telegraph\Models\TelegraphBot::class,
+        'chat' => DefStudio\Telegraph\Models\TelegraphChat::class,
+    ],
 ];
