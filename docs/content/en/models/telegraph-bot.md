@@ -6,31 +6,36 @@ fullscreen: false
 position: 40
 ---
 
-Bot informations are stored in database inside a `telegraph_bots` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphBot` model. It has some useful methods:
+Bot informations are stored in database inside a `telegraph_bots` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphBot` model or using a custom Bot model.
 
+## Custom Bot Model
 
-## info
-
-retrieves the bot data from telegram
+To customize on your own Bot model, make sure that your custom model extends the `DefStudio\Telegraph\Models\TelegraphBot`, e.g. `App\Models\Bot`, it will looks like this:
 
 ```php
-/** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
+<?php
 
-$telegraphBot->info();
+namespace App\Models;
 
-/*
- * id: 42
- * is_bot: true
- * first_name: telegraph-test
- * username: test_bot
- * can_join_groups: true
- * can_read_all_group_messages: false
- * supports_inline_queries: false
- */
+use DefStudio\Telegraph\Models\TelegraphBot as BaseModel;
 
+class Bot extends BaseModel
+{
+    
+}
 ```
 
-## url()
+You should specify the class name of your model in the `models.bot` key of the telegraph config file.
+
+```php
+'models' => [
+    'bot' => App\Models\Bot::class,
+],
+```
+
+## Available methods
+
+### `url()`
 
 retrieves the bot url
 
@@ -42,7 +47,7 @@ $telegraphBot->url();
 // https://t.me/my-bot-name
 ```
 
-## info()
+### `info()`
 
 retrieves the bot information from Telegraph APIs
 
@@ -63,7 +68,7 @@ supports_inline_queries: false
 */
 ```
 
-## registerCommands
+### `registerCommands()`
 
 register commands in Telegram Bot in order to display them to the user when the "/" key is pressed
 
@@ -76,7 +81,7 @@ $telegraphBot->registerCommands([
 ])->send();
 ```
 
-## unregisterCommands
+### `unregisterCommands()`
 
 resets Telegram Bot registered commands
 
@@ -86,7 +91,7 @@ resets Telegram Bot registered commands
 $telegraphBot->unregisterCommands()->send();
 ```
 
-## registerWebhook
+### `registerWebhook()`
 
 register a webhook url
 
@@ -96,7 +101,7 @@ register a webhook url
 $telegraphBot->registerWebhook()->send();
 ```
 
-## getWebhookDebugInfo
+### `getWebhookDebugInfo()`
 
 retrieves webhook debug data
 
@@ -106,7 +111,7 @@ retrieves webhook debug data
 $telegraphBot->getWebhookDebugInfo()->send();
 ```
 
-## replyWebhook
+### `replyWebhook()`
 
 replies to a webhook callback
 
@@ -117,7 +122,7 @@ $telegraphBot->replyWebhook($callbackQueryId, 'message received')->send();
 ```
 
 
-## updates
+### `updates()`
 
 Retrieves the Bot message and callback query updates using [manual polling](webhooks/manual-polling)
 
