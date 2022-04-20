@@ -6,7 +6,32 @@ fullscreen: false
 position: 41
 ---
 
-Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphChat` model.
+Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphChat` model or using a custom Chat model.
+
+## Custom Chat Model
+
+To customize on your own Chat model, make sure that your custom model extends the `DefStudio\Telegraph\Models\TelegraphChat`, e.g. `App\Models\Chat`, it will looks like this:
+
+```php
+<?php
+
+namespace App\Models;
+
+use DefStudio\Telegraph\Models\TelegraphChat as BaseModel;
+
+class Chat extends BaseModel
+{
+    
+}
+```
+
+You should specify the class name of your model in the `models.chat` key of the telegraph config file.
+
+```php
+'models' => [
+    'chat' => App\Models\Chat::class,
+],
+```
 
 ## Available methods
 
@@ -31,7 +56,7 @@ $telegraphBot->info();
 
 ```
 
-## message()
+### `message()`
 
 Starts a `Telegraph` call to send a message
 
@@ -41,7 +66,7 @@ Starts a `Telegraph` call to send a message
 $telegraphChat->message('hello!')->send();
 ```
 
-## html()
+### `html()`
 
 Starts a `Telegraph` call to send a message using html formatting
 
@@ -51,7 +76,7 @@ Starts a `Telegraph` call to send a message using html formatting
 $telegraphChat->html('<b>hello</b>')->send();
 ```
 
-## markdown
+### `markdown()`
 
 Starts a `Telegraph` call to send a message using markdown formatting
 
@@ -61,7 +86,7 @@ Starts a `Telegraph` call to send a message using markdown formatting
 $telegraphChat->markdown('*hello*')->send();
 ```
 
-## edit
+### `edit()`
 
 Starts a `Telegraph` call to edit a message
 
@@ -71,7 +96,7 @@ Starts a `Telegraph` call to edit a message
 $telegraphChat->edit($messageId)->keyboard('new text')->send();
 ```
 
-## replaceKeyboard
+### `replaceKeyboard()`
 
 Starts a `Telegraph` call to replace a message keyboard (see [keyboards](features/keyboards) for details)
 
@@ -86,7 +111,7 @@ $telegraphChat->replaceKeyboard(
 )->send();
 ```
 
-## deleteKeyboard
+### `deleteKeyboard()`
 
 Starts a `Telegraph` call to remove a message keyboard (see [keyboards](features/keyboards) for details)
 
@@ -98,7 +123,7 @@ $telegraphChat->deleteKeyboard($messageId)->send();
 
 <alert type="alert">Follow [installation](installation#set-up) instructions for creating the database tables</alert>
 
-## deleteMessage
+### `deleteMessage()`
 
 Starts a `Telegraph` call to delete a message
 
@@ -108,7 +133,7 @@ Starts a `Telegraph` call to delete a message
 $telegraphChat->deleteMessage($messageId)->send();
 ```
 
-## document
+### `document()`
 
 sends a document
 
@@ -116,7 +141,7 @@ sends a document
 $telegraphChat->document($documentPath)->send();
 ```
 
-## location
+### `location()`
 
 sends a location attachment
 
@@ -124,7 +149,7 @@ sends a location attachment
 $telegraphChat->location(12.345, -54.321)->send();
 ````
 
-## action
+### `action()`
 
 Tells the chat users that something is happening on the bot's side. The status is set for up to 5 seconds or when a new message is received from the bot.
 

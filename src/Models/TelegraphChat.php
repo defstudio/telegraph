@@ -51,7 +51,7 @@ class TelegraphChat extends Model
 
     public function bot(): BelongsTo
     {
-        return $this->belongsTo(TelegraphBot::class, 'telegraph_bot_id');
+        return $this->belongsTo(config('telegraph.models.bot'), 'telegraph_bot_id');
     }
 
     public function message(string $message): Telegraph
