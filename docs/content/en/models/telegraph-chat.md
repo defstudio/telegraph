@@ -8,7 +8,7 @@ position: 41
 
 Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphChat` model or using a custom Chat model.
 
-## Custom Bot Model
+## Custom Chat Model
 
 To customize on your own Chat model, make sure that your custom model extends the `DefStudio\Telegraph\Models\TelegraphChat`, e.g. `App\Models\Chat`, it will looks like this:
 
