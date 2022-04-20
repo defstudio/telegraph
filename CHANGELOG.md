@@ -2,6 +2,19 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.8.0 - 2022-04-20
+
+## What's Changed
+
+- Fix docs by @gausoft in https://github.com/def-studio/telegraph/pull/69 and https://github.com/def-studio/telegraph/pull/70
+- feat: bot and chat models customization by @naimsolong in https://github.com/def-studio/telegraph/pull/72
+
+## New Contributors
+
+- @naimsolong made their first contribution in https://github.com/def-studio/telegraph/pull/72
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.7.0...v1.8.0
+
 ## v1.7.0 - 2022-04-13
 
 ## What's Changed
