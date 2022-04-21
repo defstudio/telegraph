@@ -80,6 +80,7 @@ class TelegraphBot extends Model
 
     public function chats(): HasMany
     {
+        /** @phpstan-ignore-next-line */
         return $this->hasMany(config('telegraph.models.chat'), 'telegraph_bot_id');
     }
 

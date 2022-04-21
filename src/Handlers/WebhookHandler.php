@@ -129,6 +129,7 @@ abstract class WebhookHandler
 
         $this->callbackQueryId = $this->callbackQuery->id();
 
+        /** @phpstan-ignore-next-line */
         $this->originalKeyboard = $this->callbackQuery->message()?->keyboard() ?? Keyboard::make();
 
         $this->data = $this->callbackQuery->data();

@@ -64,7 +64,7 @@ class CallbackQuery implements Arrayable
         return $this->from;
     }
 
-    public function message(): ?Message
+    public function message(): Message|null
     {
         return $this->message;
     }
