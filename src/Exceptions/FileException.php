@@ -7,6 +7,11 @@ use Exception;
 
 final class FileException extends Exception
 {
+    public static function photoSizeExceeded(float $sizeInMb): FileException
+    {
+        return new self(sprintf("Photo size (%f Mb) exceeds max allowed size of %f MB",  $sizeInMb, Telegraph::MAX_PHOTO_SIZE_IN_MB));
+    }
+
     public static function documentSizeExceeded(float $sizeInMb): FileException
     {
         return new self(sprintf("Document size (%f Mb) exceeds max allowed size of %f MB",  $sizeInMb, Telegraph::MAX_DOCUMENT_SIZE_IN_MB));

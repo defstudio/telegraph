@@ -28,6 +28,7 @@ class Telegraph
     use SendsAttachments;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
+    public const MAX_PHOTO_SIZE_IN_MB = 10;
     public const MAX_THUMBNAIL_SIZE_IN_KB = 200;
     public const MAX_THUMBNAIL_HEIGHT = 320;
     public const MAX_THUMBNAIL_WIDTH = 320;
@@ -53,6 +54,7 @@ class Telegraph
     public const ENDPOINT_SEND_LOCATION = 'sendLocation';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
+    public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
 
 
     /** @var array<string, mixed> */

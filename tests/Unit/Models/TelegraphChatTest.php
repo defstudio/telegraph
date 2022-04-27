@@ -85,3 +85,14 @@ it('can send a document', function () {
        'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
    ]);
 });
+
+it('can send a photo', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->photo(Storage::path('photo.jpg'))->markdown('test')->send();
+
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+        'photo' => new Attachment(Storage::path('photo.jpg'), 'photo.jpg'),
+    ]);
+});
