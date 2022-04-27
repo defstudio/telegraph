@@ -29,6 +29,8 @@ class Telegraph
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
+    public const MAX_PHOTO_HEIGHT_WIDTH_TOTAL = 10000;
+    public const MAX_PHOTO_HEIGHT_WIDTH_RATIO = 20;
     public const MAX_THUMBNAIL_SIZE_IN_KB = 200;
     public const MAX_THUMBNAIL_HEIGHT = 320;
     public const MAX_THUMBNAIL_WIDTH = 320;
