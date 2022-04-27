@@ -100,6 +100,17 @@ trait SendsAttachments
             throw FileException::photoSizeExceeded($size);
         }
 
+        $height = $telegraph->imageHeight($path);
+        $width = $telegraph->imageWidth($path);
+
+        if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
+            throw FileException::invalidPhotoSize($totalLength);
+        }
+
+        if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
+            throw FileException::invalidPhotoRatio($ratio);
+        }
+
         $telegraph->endpoint = self::ENDPOINT_SEND_PHOTO;
 
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;

@@ -162,3 +162,42 @@ it('can send a location message', function () {
         return $telegraph->location(12.345, -54.321);
     })->toMatchTelegramSnapshot();
 });
+
+test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
+    if ($valid) {
+        expect(chat()->photo(Storage::path($path)))
+            ->toBeInstanceOf(Telegraph::class);
+    } else {
+        expect(fn () => chat()->photo(Storage::path($path)))
+            ->toThrow($exceptionClass, $exceptionMessage);
+    }
+})->with([
+    'valid' => [
+        'file' => 'photo.jpg',
+        'valid' => true,
+    ],
+    'not found' => [
+        'file' => 'fake.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'not found',
+    ],
+    'invalid weight' => [
+        'file' => 'invalid_photo_size.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Photo size (10.340000 Mb) exceeds max allowed size of 10.000000 MB',
+    ],
+    'invalid ratio' => [
+        'file' => 'invalid_photo_ratio_thin.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => "Ratio of height and width (22) exceeds max allowed height of 20",
+    ],
+    'invalid size' => [
+        'file' => 'invalid_photo_ratio_huge.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Photo\'s width and height (11000px) exceed allowed 10000px in total',
+    ],
+]);
