@@ -36,4 +36,21 @@ final class FileException extends Exception
     {
         return new self("$fileType [$path] not found");
     }
+
+    public static function photoSizeExceeded(float $sizeInMb): FileException
+    {
+        return new self(sprintf("Photo size (%f Mb) exceeds max allowed size of %f MB",  $sizeInMb, Telegraph::MAX_PHOTO_SIZE_IN_MB));
+    }
+
+    public static function invalidPhotoSize(int $totalLength): FileException
+    {
+        return new self(sprintf("Photo's sum of width and height (%dpx) exceed allowed %dpx",  $totalLength, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL));
+    }
+
+    public static function invalidPhotoRatio(float $ratio): FileException
+    {
+        $relativeRatio = $ratio < Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO ? 1 / $ratio : $ratio;
+
+        return new self(sprintf("Ratio of height and width (%d) exceeds max allowed height of %d",  $relativeRatio, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO));
+    }
 }

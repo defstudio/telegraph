@@ -88,6 +88,38 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function photo(string $path, string $filename = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!File::exists($path)) {
+            throw FileException::fileNotFound('Photo', $path);
+        }
+
+        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
+            throw FileException::photoSizeExceeded($size);
+        }
+
+        $height = $telegraph->imageHeight($path);
+        $width = $telegraph->imageWidth($path);
+
+        if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
+            throw FileException::invalidPhotoSize($totalLength);
+        }
+
+        if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
+            throw FileException::invalidPhotoRatio($ratio);
+        }
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_PHOTO;
+
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        $telegraph->files->put('photo', new Attachment($path, $filename));
+
+        return $telegraph;
+    }
+
     private function imageHeight(string $path): int
     {
         return $this->imageDimensions($path)[1];

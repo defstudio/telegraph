@@ -117,6 +117,14 @@ compose a new telegram message (parsed as html)
 Telegraph::html('<b>hello</b> world')->send();
 ```
 
+## photo
+
+sends a photo
+
+```php
+Telegram::photo($pathToPhotoFile)->send();
+```
+
 ## registerBotCommands
 
 register commands in Telegram Bot in order to display them to the user when the "/" key is pressed
