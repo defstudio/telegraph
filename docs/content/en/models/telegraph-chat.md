@@ -164,4 +164,15 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 $telegraphChat->action(ChatActions::TYPING)->send();
 ```
 
+## photo
 
+sends a photo
+
+```php
+use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->photo(Storage::path('photo.jpg'))->send();
+```
