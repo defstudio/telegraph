@@ -11,6 +11,15 @@ Telegraph supports different types of attachments
 
 ## Attachment types
 
+### Photos
+
+Photos can be sent through Telegraph `->photo()` method:
+
+```php
+Telegraph::photo(Storage::path('photo.jpg'))->send();
+```
+
+
 ### Documents
 
 Documents can be sent through Telegraph `->document()` method:
