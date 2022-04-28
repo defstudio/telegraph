@@ -44,12 +44,13 @@ final class FileException extends Exception
 
     public static function invalidPhotoSize(int $totalLength): FileException
     {
-        return new self(sprintf("Photo's width and height (%dpx) exceed allowed %dpx in total",  $totalLength, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL));
+        return new self(sprintf("Photo's sum of width and height (%dpx) exceed allowed %dpx",  $totalLength, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL));
     }
 
     public static function invalidPhotoRatio(float $ratio): FileException
     {
         $relativeRatio = $ratio < Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO ? 1 / $ratio : $ratio;
+
         return new self(sprintf("Ratio of height and width (%d) exceeds max allowed height of %d",  $relativeRatio, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO));
     }
 }

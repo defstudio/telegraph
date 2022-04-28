@@ -156,10 +156,69 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
     ],
 ]);
 
-
 it('can send a location message', function () {
     expect(function (Telegraph $telegraph) {
         return $telegraph->location(12.345, -54.321);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can send a photo', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->photo(Storage::path('photo.jpg'));
+    })->toMatchTelegramSnapshot();
+});
+
+it('requires a chat to send a photo', function () {
+    TelegraphFacade::photo(Storage::path('photo.jpg'));
+})->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
+
+it('can attach a photo while writing a message', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->markdown('look at **this** file!')
+            ->photo(Storage::path('photo.jpg'));
+    })->toMatchTelegramSnapshot();
+});
+
+it('can attach a photo with markdown caption', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->photo(Storage::path('photo.jpg'))
+            ->markdown('look at **this** photo!');
+    })->toMatchTelegramSnapshot();
+});
+
+
+it('can attach a photo with html caption', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->photo(Storage::path('photo.jpg'))
+            ->markdown('look at <b>this</b> photo!');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can send a photo without notification', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->photo(Storage::path('photo.jpg'))
+            ->silent();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can send a photo protectint it from sharing', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->photo(Storage::path('photo.jpg'))
+            ->protected();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can send a photo replying to a message', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->photo(Storage::path('photo.jpg'))
+            ->reply(1234);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can attach a keyboard to a photo', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->photo(Storage::path('photo.jpg'))
+            ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'));
     })->toMatchTelegramSnapshot();
 });
 
@@ -198,6 +257,6 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'file' => 'invalid_photo_ratio_huge.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => 'Photo\'s width and height (11000px) exceed allowed 10000px in total',
+        'message' => 'Photo\'s sum of width and height (11000px) exceed allowed 10000px',
     ],
 ]);
