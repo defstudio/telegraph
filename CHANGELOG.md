@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.9.0 - 2022-04-28
+
+## What's Changed
+
+- [#28] implement send photo endpoint by @Ternowy in https://github.com/def-studio/telegraph/pull/74
+
+## New Contributors
+
+- @Ternowy made their first contribution in https://github.com/def-studio/telegraph/pull/74
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.8.0...v1.9.0
+
 ## v1.8.0 - 2022-04-20
 
 ## What's Changed
