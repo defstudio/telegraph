@@ -1,12 +1,16 @@
 ---
-title: 'TelegraphUpdate'
+title: 'Incoming Data'
 description: ''
 category: 'Webhooks'
 fullscreen: false 
 position: 67
 ---
 
+Data obtained from manual polling or webhooks is available through a set of DTO:
+
 ## `DefStudio\Telegraph\DTO\TelegramUpdate`
+
+contains incoming data (a message or a callback query)
 
 - `->id()` incoming _update_id_
 - `->message()` (optional) an instance of [`DefStudio\Telegraph\DTO\Message`](webhooks/dto#defstudio-telegraph-dto-message) 
@@ -17,10 +21,18 @@ position: 67
 
 - `->id()` incoming _message_id_
 - `->date()` a `CarbonInterface` holding the message sent date
+- `->editDate()` a `CarbonInterface` holding the message last edit date
 - `->text()` the message text
+- `->protected()` a boolean flag that states the message is protected from forwarding and download
 - `->from()` (optional) an instance of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding data about the message's sender
+- `->forwardedFrom()` (optional) an instance of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding data about a forwarded message's original sender
 - `->chat()` (optional) an instance of [`DefStudio\Telegraph\DTO\Chat`](webhooks/dto#defstudio-telegraph-dto-chat) holding data about the chat to which the message belongs to 
 - `->keyboard()` (optional) an instance of [`DefStudio\Telegraph\Keyboard\Keyboard`](feature/keyboards) holding the message inline keyboard 
+- `->photos()` (optional) a collection of [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained image resolutions
+- `->audio()` (optional) an instance of [`DefStudio\Telegraph\DTO\Audio`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained audio
+- `->document()` (optional) an instance of [`DefStudio\Telegraph\DTO\Document`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained document
+- `->video()` (optional) an instance of [`DefStudio\Telegraph\DTO\Video`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained video
+- `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained location
 
 
 ## `DefStudio\Telegraph\DTO\CallbackQuery`
@@ -38,3 +50,45 @@ position: 67
 - `->firstName()` user's first name 
 - `->lastName()` user's last name 
 - `->userName()` user's username 
+
+## `DefStudio\Telegraph\DTO\Audio`
+
+- `->id()` file ID
+- `->duration()` audio duration
+- `->title()` (optional) audio title
+- `->filename()` (optional) audio file name
+- `->mimeType()` (optional) audio MIME type
+- `->filesize()` (optional) audio file size in Bytes
+- `->thumbnail()` (optional) an instance of the [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) that holds data about the thumbnail
+
+## `DefStudio\Telegraph\DTO\Document`
+
+- `->id()` file ID
+- `->filename()` (optional) document file name
+- `->mimeType()` (optional) document MIME type
+- `->filesize()` (optional) document file size in Bytes
+- `->thumbnail()` (optional) an instance of the [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) that holds data about the thumbnail
+
+## `DefStudio\Telegraph\DTO\Photo`
+
+- `->id()` file ID
+- `->width()` photo width
+- `->height()` photo height
+- `->filesize()` (optional) photo file size in Bytes
+
+## `DefStudio\Telegraph\DTO\Video`
+
+- `->id()` file ID
+- `->width()` video width
+- `->height()` video height
+- `->duration()` video duration
+- `->filename()` (optional) video file name
+- `->mimeType()` (optional) video MIME type
+- `->filesize()` (optional) video file size in Bytes
+- `->thumbnail()` (optional) an instance of the [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) that holds data about the thumbnail
+
+## `DefStudio\Telegraph\DTO\Location`
+
+- `->latitude()` location latitude
+- `->longitude()` location longitude
+- `->accuracy()` (optional) location horizontal accuracy
