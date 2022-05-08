@@ -165,6 +165,16 @@ replies to a webhook callback
 Telegram::replyWebhook($callbackQueryId, 'message received')->send();
 ```
 
+## store
+
+Downloads a media file and stores it in the given path
+
+```php
+/** @var DefStudio\Telegraph\DTO\Photo $photo */
+
+Telegram::store($photo, Storage::path('bot/images'), 'The Photo.jpg');
+```
+
 ## unregisterBotCommands
 
 resets Telegram Bot registered commands
