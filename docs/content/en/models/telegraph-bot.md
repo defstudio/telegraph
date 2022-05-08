@@ -129,10 +129,21 @@ Retrieves the Bot message and callback query updates using [manual polling](webh
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
 
-use DefStudio\Telegraph\DTO\TelegramUpdate;$telegraphBot->updates()->each(function(TelegramUpdate $update){
+$telegraphBot->updates()->each(function(TelegramUpdate $update){
     // ...
 });
 ```
+
+### `store()`
+
+Downloads a media file and stores it in the given path
+
+```php
+/** @var DefStudio\Telegraph\DTO\Photo $photo */
+
+$telegraphBot->store($photo, Storage::path('bot/images'), 'The Photo.jpg');
+```
+
 
 
 

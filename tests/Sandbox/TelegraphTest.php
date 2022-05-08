@@ -28,7 +28,8 @@ it('can store chat files', function () {
         "height" => 84,
     ]);
 
-    Telegraph::bot($bot)->store($photo, Storage::path('images/bot'), 'my_file.jpg');
+    Telegraph::bot($bot)
+        ->store($photo, Storage::path('images/bot'), 'my_file.jpg');
 
     expect(Storage::exists('images/bot/my_file.jpg'))->toBeTrue();
 })->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
