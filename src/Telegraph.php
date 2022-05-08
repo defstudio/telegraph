@@ -14,6 +14,7 @@ use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Concerns\SendsAttachments;
+use DefStudio\Telegraph\Concerns\StoresFiles;
 use DefStudio\Telegraph\DTO\Attachment;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
@@ -26,6 +27,7 @@ class Telegraph
     use ManagesKeyboards;
     use InteractsWithWebhooks;
     use SendsAttachments;
+    use StoresFiles;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
@@ -41,6 +43,7 @@ class Telegraph
     public const PARSE_MARKDOWN = 'markdown';
 
     protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
+    protected const TELEGRAM_API_FILE_BASE_URL = 'https://api.telegram.org/file/bot';
 
     public const ENDPOINT_GET_BOT_UPDATES = 'getUpdates';
     public const ENDPOINT_GET_BOT_INFO = 'getMe';
@@ -57,6 +60,7 @@ class Telegraph
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
     public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
+    public const ENDPOINT_GET_FILE = 'getFile';
 
 
     /** @var array<string, mixed> */

@@ -7,6 +7,7 @@
 
 namespace DefStudio\Telegraph\Models;
 
+use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
 use DefStudio\Telegraph\DTO\TelegramUpdate;
 use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
@@ -125,6 +126,11 @@ class TelegraphBot extends Model
 
         /* @phpstan-ignore-next-line */
         return $reply->json('result');
+    }
+
+    public function store(Downloadable $attachment, string $path, string $filename = null): string
+    {
+        return TelegraphFacade::bot($this)->store($attachment, $path, $filename);
     }
 
     public function url(): string
