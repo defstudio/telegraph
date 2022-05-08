@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.10.0 - 2022-05-08
+
+## What's Changed
+
+- Bump async from 2.6.3 to 2.6.4 in /docs by @dependabot in https://github.com/def-studio/telegraph/pull/75
+- Feat: handle more webhook message types by @fabio-ivona in https://github.com/def-studio/telegraph/pull/76
+- Improve docs by @fabio-ivona in https://github.com/def-studio/telegraph/pull/77
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.9.0...v1.10.0
+
 ## v1.9.0 - 2022-04-28
 
 ## What's Changed
