@@ -114,3 +114,13 @@ it('throws an exception if a webhook is set up', function () {
 
     $bot->updates();
 })->throws(TelegramUpdatesException::class, 'Cannot retrieve updates for Test Bot bot while a webhook is set. First, delete the webhook with [artisan telegraph:delete-webhook 42] or programmatically calling [$bot->deleteWebhook()]');
+
+it('can store a downloadable file', function () {
+    Telegraph::fake();
+
+    $bot = make_bot();
+
+    $bot->store('123456', 'test/bots');
+
+    Telegraph::assertStoredFile('123456');
+});

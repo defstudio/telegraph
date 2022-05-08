@@ -53,4 +53,14 @@ final class FileException extends Exception
 
         return new self(sprintf("Ratio of height and width (%d) exceeds max allowed height of %d",  $relativeRatio, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO));
     }
+
+    public static function failedToRetreiveFileInfo(string $fileId): FileException
+    {
+        return new self("Failed to retreive info for file [$fileId]");
+    }
+
+    public static function unableToDownloadFile(string $fileId): FileException
+    {
+        return new self("An error occourred while trying to download file [$fileId]");
+    }
 }

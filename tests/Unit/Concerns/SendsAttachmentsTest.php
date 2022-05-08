@@ -10,9 +10,8 @@ use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\Storage;
 
 it('can send a document', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->document(Storage::path('test.txt'));
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt')))
+        ->toMatchTelegramSnapshot();
 });
 
 it('requires a chat to send a document', function () {
@@ -20,53 +19,38 @@ it('requires a chat to send a document', function () {
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a document while writing a message', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->markdown('look at **this** file!')
-            ->document(Storage::path('test.txt'));
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('look at **this** file!')->document(Storage::path('test.txt')))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can attach a document with markdown caption', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->document(Storage::path('test.txt'))
-            ->markdown('look at **this** file!');
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->markdown('look at **this** file!'))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can attach a document with html caption', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->document(Storage::path('test.txt'))
-            ->markdown('look at <b>this</b> file!');
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->markdown('look at <b>this</b> file!'))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can disable content type detection', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph
-            ->document(Storage::path('test.txt'))
-            ->withoutContentTypeDetection();
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->withoutContentTypeDetection())
+        ->toMatchTelegramSnapshot();
 });
 
 it('can disable notification', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->document(Storage::path('test.txt'))
-            ->silent();
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->silent())
+        ->toMatchTelegramSnapshot();
 });
 
 it('can protect content from sharing', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->document(Storage::path('test.txt'))
-            ->protected();
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->protected())
+        ->toMatchTelegramSnapshot();
 });
 
 it('can send a document replying to a message', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->document(Storage::path('test.txt'))
-            ->reply(1234);
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->reply(1234))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can attach a keyboard to a document', function () {
@@ -157,15 +141,13 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
 ]);
 
 it('can send a location message', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->location(12.345, -54.321);
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->location(12.345, -54.321))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can send a photo', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->photo(Storage::path('photo.jpg'));
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg')))
+        ->toMatchTelegramSnapshot();
 });
 
 it('requires a chat to send a photo', function () {
@@ -173,53 +155,41 @@ it('requires a chat to send a photo', function () {
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a photo while writing a message', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->markdown('look at **this** file!')
-            ->photo(Storage::path('photo.jpg'));
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('look at **this** file!')->photo(Storage::path('photo.jpg')))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can attach a photo with markdown caption', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->photo(Storage::path('photo.jpg'))
-            ->markdown('look at **this** photo!');
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->markdown('look at **this** photo!'))
+        ->toMatchTelegramSnapshot();
 });
 
 
 it('can attach a photo with html caption', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->photo(Storage::path('photo.jpg'))
-            ->markdown('look at <b>this</b> photo!');
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->markdown('look at <b>this</b> photo!'))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can send a photo without notification', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->photo(Storage::path('photo.jpg'))
-            ->silent();
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->silent())
+        ->toMatchTelegramSnapshot();
 });
 
-it('can send a photo protectint it from sharing', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->photo(Storage::path('photo.jpg'))
-            ->protected();
-    })->toMatchTelegramSnapshot();
+it('can send a photo protecting it from sharing', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->protected())
+        ->toMatchTelegramSnapshot();
 });
 
 it('can send a photo replying to a message', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->photo(Storage::path('photo.jpg'))
-            ->reply(1234);
-    })->toMatchTelegramSnapshot();
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->reply(1234))
+        ->toMatchTelegramSnapshot();
 });
 
 it('can attach a keyboard to a photo', function () {
-    expect(function (Telegraph $telegraph) {
-        return $telegraph->photo(Storage::path('photo.jpg'))
-            ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'));
-    })->toMatchTelegramSnapshot();
+    expect(
+        fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))
+        ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'))
+    )->toMatchTelegramSnapshot();
 });
 
 test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {

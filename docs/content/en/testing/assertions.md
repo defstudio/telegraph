@@ -3,7 +3,7 @@ title: 'Fake messages assertions'
 menuTitle: 'Assertions'
 description: ''
 category: 'Testing'
-fullscreen: false 
+fullscreen: false
 position: 71
 ---
 
@@ -47,6 +47,24 @@ Telegraph::assertSentData(
         'reply_markup' => null,
     ]
 );
+```
+
+## assertSentFiles
+
+asserts that the given files were sent to a Telegram API endpoint
+
+```php
+Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+   'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
+]);
+```
+
+## assertStoredFile
+
+asserts that the given incoming file was stored 
+
+```php
+Telegraph::assertStoredFile($fileId);
 ```
 
 ## assertRegisteredWebhook

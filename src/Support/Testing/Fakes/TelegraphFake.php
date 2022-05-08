@@ -8,6 +8,7 @@
 
 namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
+use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Telegraph;
 use GuzzleHttp\Psr7\BufferStream;
@@ -25,6 +26,9 @@ class TelegraphFake extends Telegraph
 {
     /** @var array<int, mixed[]> */
     private static array $sentMessages = [];
+
+    /** @var array<int, string> */
+    private static array $downloadedFiles = [];
 
     /**
      * @param array<string, array<mixed>> $replies
@@ -238,6 +242,15 @@ class TelegraphFake extends Telegraph
         return new Response(new $messageClass($response));
     }
 
+    public function store(Downloadable|string $downloadable, string $path, string $filename = null): string
+    {
+        $fileId = is_string($downloadable) ? $downloadable : $downloadable->id();
+
+        self::$downloadedFiles[] = $fileId;
+
+        return $path . "/" . ($filename ?? 'missing_name.jpg');
+    }
+
     /**
      * @param array<string, string> $data
      */
@@ -317,6 +330,14 @@ class TelegraphFake extends Telegraph
         }
 
         Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
+    }
+
+    public function assertStoredFile(string $fileId): void
+    {
+        $downloadedFiles = collect(self::$downloadedFiles)
+            ->filter(fn ($downloadedFileId) => $fileId === $downloadedFileId);
+
+        Assert::assertNotEmpty($downloadedFiles->toArray(), sprintf("Failed to assert that a file with id [%s] was stored (%d files stored so fare)", $fileId, count(self::$downloadedFiles)));
     }
 
     public function assertSent(string $message, bool $exact = true): void
