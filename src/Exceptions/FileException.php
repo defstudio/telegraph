@@ -61,6 +61,6 @@ final class FileException extends Exception
 
     public static function unableToDownloadFile(string $fileId): FileException
     {
-        return new self("An error occourred while trying to donwload file [$fileId]");
+        return new self("An error occourred while trying to download file [$fileId]");
     }
 }

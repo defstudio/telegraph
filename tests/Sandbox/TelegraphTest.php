@@ -20,7 +20,6 @@ it('can store chat files', function () {
     $bot = sandbox_bot();
 
     Storage::fake();
-    Storage::makeDirectory('images/bot');
 
     $photo = Photo::fromArray([
         "file_id" => "AgACAgQAAxkBAAMtYnZXPgRqZddLGQG6LSvtxQ0cQg4AApi5MRtoC7hTdvog5WT4h4QBAAMCAANzAAMkBA",
@@ -29,7 +28,7 @@ it('can store chat files', function () {
         "height" => 84,
     ]);
 
-    Telegraph::bot($bot)->store($photo, Storage::path('images/bot'), 'file_2.jpg');
+    Telegraph::bot($bot)->store($photo, Storage::path('images/bot'), 'my_file.jpg');
 
-    expect(Storage::exists('images/bot/file_2.jpg'))->toBeTrue();
+    expect(Storage::exists('images/bot/my_file.jpg'))->toBeTrue();
 })->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');

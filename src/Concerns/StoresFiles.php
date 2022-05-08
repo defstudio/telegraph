@@ -8,6 +8,7 @@ use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 trait StoresFiles
@@ -22,14 +23,14 @@ trait StoresFiles
         return $telegraph;
     }
 
-    public function store(Downloadable|string $attachment, string $path, string $filename = null): string
+    public function store(Downloadable|string $downloadable, string $path, string $filename = null): string
     {
-        $attachment_id = is_string($attachment) ? $attachment : $attachment->id();
+        $fileId = is_string($downloadable) ? $downloadable : $downloadable->id();
 
-        $response = $this->getFileInfo($attachment_id)->send();
+        $response = $this->getFileInfo($fileId)->send();
 
         if ($response->telegraphError()) {
-            throw FileException::failedToRetreiveFileInfo($attachment_id);
+            throw FileException::failedToRetreiveFileInfo($fileId);
         }
 
         $filePath = $response->json('result.file_path');
@@ -38,15 +39,16 @@ trait StoresFiles
             ->append($this->getBot()->token)
             ->append('/', $filePath);
 
-        $content = file_get_contents($url);
+        $response = Http::get($url);
 
-        if (!$content) {
-            throw FileException::unableToDownloadFile($attachment_id);
+        if ($response->failed()) {
+            throw FileException::unableToDownloadFile($fileId);
         }
 
         $filename ??= $url->afterLast('/')->before('?');
 
-        File::put($path . "/" . $filename, $content);
+        File::ensureDirectoryExists($path);
+        File::put($path . "/" . $filename, $response->body());
 
         return $path . "/" . $filename;
     }
