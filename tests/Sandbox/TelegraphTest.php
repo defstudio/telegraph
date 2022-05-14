@@ -33,3 +33,27 @@ it('can store chat files', function () {
 
     expect(Storage::exists('images/bot/my_file.jpg'))->toBeTrue();
 })->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
+
+test('can register a webhook', function () {
+    withfakeUrl();
+
+    $bot = sandbox_bot();
+
+    $response = $bot->registerWebhook()->send();
+    expect($response->telegraphOk())->toBeTrue();
+
+    $response = $bot->getWebhookDebugInfo()->send();
+
+    expect($response->json('result.url'))->toBe(route('telegraph.webhook', $bot));
+});
+
+test('can unregister a webhook', function () {
+    $bot = sandbox_bot();
+
+    $response = $bot->unregisterWebhook()->send();
+    expect($response->telegraphOk())->toBeTrue();
+
+    $response = $bot->getWebhookDebugInfo()->send();
+
+    expect($response->json('result.url'))->toBeEmpty();
+});

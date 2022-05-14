@@ -10,7 +10,9 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can customize the destination bot', function () {
+    withfakeUrl();
     $bot = make_bot();
+
     $telegraph = Telegraph::bot($bot)
         ->registerWebhook();
 

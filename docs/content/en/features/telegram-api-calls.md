@@ -182,3 +182,11 @@ resets Telegram Bot registered commands
 ```php
 Telegram::unregisterBotCommands()->send();
 ```
+
+## unregisterWebhook
+
+unregister a webhook for the active bot
+
+```php
+Telegram::registerWebhook()->send();
+```

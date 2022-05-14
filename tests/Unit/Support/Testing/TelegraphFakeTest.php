@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
 use DefStudio\Telegraph\Facades\Telegraph;
 use PHPUnit\Framework\ExpectationFailedException;
 
@@ -99,12 +101,23 @@ it('fails if the expected data differs from the sent one', function () {
 })->throws(ExpectationFailedException::class, 'Failed to assert that a request was sent to [sendMessage] endpoint with the given data (sent 1 requests so far)');
 
 it('asserts a webhook has been registered', function () {
+    withfakeUrl();
+
     Telegraph::fake();
     $bot = make_bot();
 
     Telegraph::bot($bot)->registerWebhook()->send();
 
     Telegraph::assertRegisteredWebhook();
+});
+
+it('asserts a webhook has been unregistered', function () {
+    Telegraph::fake();
+    $bot = make_bot();
+
+    Telegraph::bot($bot)->unregisterWebhook()->send();
+
+    Telegraph::assertUnregisteredWebhook();
 });
 
 it('fails if the expected webhook has not been registered', function () {

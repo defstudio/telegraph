@@ -4,7 +4,7 @@ menuTitle: 'Manual Polling'
 description: ''
 category: 'Webhooks'
 fullscreen: false 
-position: 66
+position: 67
 ---
 
 As an aternative to set up a webhook, a bot updates can be fetched by periodically polling Telegram APIs

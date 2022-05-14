@@ -11,12 +11,21 @@ use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 uses(TestCase::class)->in("Feature");
 uses(TestCase::class)->in("Unit");
 uses(TestCase::class)->in("Regression");
 uses(TestCase::class)->group('sandbox')->in("Sandbox");
 
+function withfakeUrl(): string
+{
+    $url = 'https://testbot.defstudio.dev';
+    URL::forceScheme('https');
+    URL::forceRootUrl($url);
+
+    return $url;
+}
 
 /**
  * @return Collection<TelegraphBot>

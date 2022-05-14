@@ -101,6 +101,16 @@ register a webhook url
 $telegraphBot->registerWebhook()->send();
 ```
 
+### `unregisterWebhook()`
+
+unregister a webhook url
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
+
+$telegraphBot->unregisterWebhook()->send();
+```
+
 ### `getWebhookDebugInfo()`
 
 retrieves webhook debug data
