@@ -9,7 +9,7 @@ position: 67
 
 As an aternative to set up a webhook, a bot updates can be fetched by periodically polling Telegram APIs
 
-<alert type="alert">Manual updates polling is not available if a webhook is set up for the bot. Webhook should be remove first using its [deleteWebhook](webhooks/deleting-webhooks) methods</alert>
+<alert type="alert">Manual updates polling is not available if a webhook is set up for the bot. Webhook should be remove first using its [unregisterWebhook](webhooks/deleting-webhooks) method</alert>
 
 in order to get the updates, an `->updates()` method is available in the [TelegraphBot](models/telegraph-bot) model:
 
