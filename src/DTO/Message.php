@@ -71,7 +71,7 @@ class Message implements Arrayable
             $message->editDate = Carbon::createFromTimestamp($data['edit_date']);
         }
 
-        $message->text = $data['text'] ?? '';
+        $message->text = $data['text'] ?? $data['caption'] ?? '';
 
         $message->protected = $data['has_protected_content'] ?? false;
 
