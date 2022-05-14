@@ -14,3 +14,5 @@ paths:
     - 'docs/*'
     - 'vendor/*'
     - 'src/Support/Testing/Fakes/TelegraphFake.php'
+    - 'src/Telegraph.php'
+    - 'src/Client/TelegraphResponse.php'
