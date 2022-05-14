@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.11.0 - 2022-05-14
+
+## What's Changed
+
+- implements unregisterWebhook call by @fabio-ivona in https://github.com/def-studio/telegraph/pull/80
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.10.0...v1.11.0
+
 ## v1.10.0 - 2022-05-08
 
 ## What's Changed
