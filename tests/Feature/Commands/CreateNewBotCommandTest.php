@@ -95,6 +95,8 @@ it('keeps asking for the chat name until pressed x', function () {
 });
 
 it('can register the new bot webhook', function () {
+    withfakeUrl();
+
     Facade::fake([
         Telegraph::ENDPOINT_SET_WEBHOOK => [
             'ok' => true,

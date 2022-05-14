@@ -90,6 +90,11 @@ class TelegraphBot extends Model
         return TelegraphFacade::bot($this)->registerWebhook();
     }
 
+    public function unregisterWebhook(bool $dropPendingUpdates = false): Telegraph
+    {
+        return TelegraphFacade::bot($this)->unregisterWebhook($dropPendingUpdates);
+    }
+
     public function getWebhookDebugInfo(): Telegraph
     {
         return TelegraphFacade::bot($this)->getWebhookDebugInfo();

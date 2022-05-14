@@ -18,4 +18,9 @@ class TelegramWebhookException extends \Exception
     {
         return new self("Invalid data: $description");
     }
+
+    public static function invalidScheme(): TelegramWebhookException
+    {
+        return new self("You application must have a secure (https) url in order to accept webhook calls");
+    }
 }

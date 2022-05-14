@@ -50,6 +50,7 @@ class Telegraph
     public const ENDPOINT_REGISTER_BOT_COMMANDS = 'setMyCommands';
     public const ENDPOINT_UNREGISTER_BOT_COMMANDS = 'deleteMyCommands';
     public const ENDPOINT_SET_WEBHOOK = 'setWebhook';
+    public const ENDPOINT_UNSET_WEBHOOK = 'deleteWebhook';
     public const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';
     public const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
     public const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
@@ -84,5 +85,20 @@ class Telegraph
     public function dispatch(string $queue = null): PendingDispatch
     {
         return $this->dispatchRequestToTelegram($queue);
+    }
+
+    /**
+     * @return never-returns
+     */
+    public function dd(): void
+    {
+        dd($this->toArray());
+    }
+
+    public function dump(): Telegraph
+    {
+        dump($this->toArray());
+
+        return $this;
     }
 }

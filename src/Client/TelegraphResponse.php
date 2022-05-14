@@ -27,7 +27,22 @@ class TelegraphResponse extends Response
             return null;
         }
 
-        /* @phpstan-ignore-next-line   */
+        /* @phpstan-ignore-next-line */
         return (int) $this->json('result.message_id');
+    }
+
+    public function dump(): static
+    {
+        dump($this->json());
+
+        return $this;
+    }
+
+    /**
+     * @return never-returns
+     */
+    public function dd(): void
+    {
+        dd($this->json());
     }
 }

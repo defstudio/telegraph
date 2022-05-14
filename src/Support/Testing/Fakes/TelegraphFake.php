@@ -357,6 +357,11 @@ class TelegraphFake extends Telegraph
         $this->assertSentData(Telegraph::ENDPOINT_SET_WEBHOOK);
     }
 
+    public function assertUnregisteredWebhook(): void
+    {
+        $this->assertSentData(Telegraph::ENDPOINT_UNSET_WEBHOOK);
+    }
+
     public function assertRequestedWebhookDebugInfo(): void
     {
         $this->assertSentData(Telegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO);

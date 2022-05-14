@@ -1,9 +1,27 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
+use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Telegraph;
 
 it('can register a webhook', function () {
+    withfakeUrl();
     expect(fn (Telegraph $telegraph) => $telegraph->bot(make_bot())->registerWebhook())
+        ->toMatchTelegramSnapshot();
+});
+
+it('requires an https url to register a webhook', function () {
+    \DefStudio\Telegraph\Facades\Telegraph::bot(make_bot())->registerWebhook();
+})->throws(TelegramWebhookException::class, 'You application must have a secure (https) url in order to accept webhook calls');
+
+it('can unregister a webhook', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->bot(make_bot())->unregisterWebhook())
+        ->toMatchTelegramSnapshot();
+});
+
+it('can unregister a webhook dropping all pending updates', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->bot(make_bot())->unregisterWebhook(true))
         ->toMatchTelegramSnapshot();
 });
 
