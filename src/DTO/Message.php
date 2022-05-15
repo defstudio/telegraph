@@ -47,6 +47,7 @@ class Message implements Arrayable
      *     date: int,
      *     edit_date?: int,
      *     text?: string,
+     *     caption?: string,
      *     has_protected_content?: bool,
      *     from?: array<string, mixed>,
      *     forward_from?: array<string, mixed>,
