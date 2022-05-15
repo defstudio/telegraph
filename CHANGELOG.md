@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.11.1 - 2022-05-15
+
+## What's Changed
+
+- Fix handler if message with document by @ArthurPatriot in https://github.com/def-studio/telegraph/pull/81
+
+## New Contributors
+
+- @ArthurPatriot made their first contribution in https://github.com/def-studio/telegraph/pull/81
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.11.0...v1.11.1
+
 ## v1.11.0 - 2022-05-14
 
 ## What's Changed
