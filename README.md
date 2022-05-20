@@ -56,7 +56,7 @@ Optionally, you can publish the config file with:
 php artisan vendor:publish --tag="telegraph-config"
 ```
 
-## Usage
+## Usage & Documentation
 
 After a new bot is created and added to a chat/group/channel (as described [in our documentation](https://def-studio.github.io/telegraph/quickstart/new-bot)),
 the `Telegraph` facade can be used to easily send messages and interact with it:
