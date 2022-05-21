@@ -60,6 +60,7 @@ class Button
     public function webApp(string $url): static
     {
         $this->webAppUrl = $url;
+
         return $this;
     }
 
@@ -82,12 +83,12 @@ class Button
             ];
         }
 
-        if(isset($this->webAppUrl)){
+        if (isset($this->webAppUrl)) {
             return [
                 'text' => $this->label,
                 'web_app' => [
                     'url' => $this->webAppUrl,
-                ]
+                ],
             ];
         }
 
