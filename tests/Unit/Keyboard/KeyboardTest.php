@@ -149,7 +149,7 @@ it('can quickly add buttons', function () {
     $keyboard = Keyboard::make()
         ->button('Delete')->action('delete')->param('id', '42')
         ->button('open')->width(0.5)->url('https://test.it')
-        ->button('foo')->width(0.5)->url('https://foo.com');
+        ->button('foo')->width(0.5)->webApp('https://my-webapp.dev');
 
     expect($keyboard)->toMatchArray([
         [
@@ -157,7 +157,7 @@ it('can quickly add buttons', function () {
         ],
         [
             ['text' => 'open', 'url' => 'https://test.it'],
-            ['text' => 'foo', 'url' => 'https://foo.com'],
+            ['text' => 'foo', 'web_app' => ['url' => 'https://my-webapp.dev']],
         ],
     ]);
 });

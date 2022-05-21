@@ -6,7 +6,10 @@
 
 use DefStudio\Telegraph\DTO\Photo;
 use DefStudio\Telegraph\Facades\Telegraph;
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Facades\Storage;
+use function PHPUnit\Framework\stringEndsWith;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can return bot info', function () {

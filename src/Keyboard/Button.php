@@ -5,6 +5,7 @@ namespace DefStudio\Telegraph\Keyboard;
 class Button
 {
     private string $url;
+    private string $webAppUrl;
 
     /** @var string[] */
     private array $callbackData = [];
@@ -56,6 +57,12 @@ class Button
         return $this;
     }
 
+    public function webApp(string $url): static
+    {
+        $this->webAppUrl = $url;
+        return $this;
+    }
+
     /**
      * @return string[]
      */
@@ -72,6 +79,15 @@ class Button
             return [
                 'text' => $this->label,
                 'url' => $this->url,
+            ];
+        }
+
+        if(isset($this->webAppUrl)){
+            return [
+                'text' => $this->label,
+                'web_app' => [
+                    'url' => $this->webAppUrl,
+                ]
             ];
         }
 
