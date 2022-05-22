@@ -65,7 +65,7 @@ class Button
     }
 
     /**
-     * @return string[]
+     * @return array<string, string|string[]>
      */
     public function toArray(): array
     {

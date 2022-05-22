@@ -180,7 +180,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @return string[][][]
+     * @return array<array-key, array<array-key, array<string|string[]>>>
      */
     public function toArray(): array
     {
