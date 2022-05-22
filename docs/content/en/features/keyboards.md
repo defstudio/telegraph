@@ -27,6 +27,7 @@ Telegraph::message('hello world')
 ->keyboard(Keyboard::make()->buttons([
         Button::make('Delete')->action('delete')->param('id', '42'),
         Button::make('open')->url('https://test.it'),
+        Button::make('Web App')->webApp('https://web-app.test.it'),
 ]))->send();
 ```
 
@@ -41,6 +42,7 @@ Telegraph::message('hello world')
     return $keyboard
         ->button('Delete')->action('delete')->param('id', '42')
         ->button('open')->url('https://test.it');
+        ->button('Web App')->webApp('https://web-app.test.it');
 })->send();
 ```
 
@@ -63,6 +65,17 @@ Must define an `url` and are used to open an external url when pressed:
 ```php
 Button::make('open')->url('https://test.it'),
 ```
+
+### Web App Buttons
+
+Must declare the web app `url` and are used to start a telegram bot [Web App](https://core.telegram.org/bots/webapps) :
+
+```php
+Button::make('open')->webApp('https://webapp.url.dev'),
+```
+
+
+
 
 ## Keyboard Rows
 
@@ -98,6 +111,7 @@ $keyboard = Keyboard::make()
     ->button('Delete')->action('delete')->param('id', '42')->width(0.5)
     ->button('Dismiss')->action('dismiss')->param('id', '42')->width(0.5)
     ->button('open')->url('https://test.it');
+    ->button('open')->webApp('https://web-app.url.dev');
 ```
 
 **notes**
