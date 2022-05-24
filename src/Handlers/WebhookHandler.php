@@ -138,7 +138,9 @@ abstract class WebhookHandler
     protected function extractMessageData(): void
     {
         /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->where('chat_id', $this->request->input('message.chat.id'))->firstOrNew();
+        $chat = $this->bot->chats()->firstOrNew([
+            'chat_id' => $this->request->input('message.chat.id'),
+        ]);
 
         $this->chat = $chat;
 
