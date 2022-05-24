@@ -101,6 +101,10 @@ abstract class WebhookHandler
 
     protected function canHandle(string $action): bool
     {
+        if ($action === 'handle') {
+            return false;
+        }
+
         if (!method_exists($this, $action)) {
             return false;
         }
