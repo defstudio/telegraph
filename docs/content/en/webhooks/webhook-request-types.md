@@ -42,6 +42,8 @@ class CustomWebhookHandler extends WebhookHandler
 }
 ```
 
+<alert type="alert">As it is used internally, `/handle` command keyword is forbidden</alert>
+
 ## Callback Queries
 
 Bots messages may ship with keyboard of buttons that trigger actions when pressed:
