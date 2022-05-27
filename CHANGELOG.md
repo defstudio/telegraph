@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.12.2 - 2022-05-27
+
+## What's Changed
+
+- pest logo badge by @trippo
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.12.1...v1.12.2
+
 ## v1.12.1 - 2022-05-24
 
 ## What's Changed
