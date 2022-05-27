@@ -91,7 +91,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 - [Fabio Ivona](https://github.com/def-studio)
 - [Andrea Marco Sartori](https://github.com/cerbero90) for his cool ideas
-- [Alberto Pieripolli](https://github.com/trippo) who had the great Pest logo idea
+- [Alberto Pieripolli](https://github.com/trippo) who had the great Pest badge idea
 - [All Contributors](../../contributors)
 
 ## License
