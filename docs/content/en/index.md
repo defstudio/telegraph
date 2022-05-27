@@ -11,7 +11,7 @@ fullscreen: true
 
 
 <a href="https://packagist.org/packages/defstudio/telegraph" target="_blank">
-    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/v/defstudio/telegraph.svg?style=flat-square" alt="Latest Version on Packagist">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/v/defstudio/telegraph.svg?style=flat" alt="Latest Version on Packagist">
 </a>
 
 <a href="https://github.com/def-studio/telegraph/actions?query=workflow%3Arun-tests+branch%3Amain" target="_blank">
@@ -27,7 +27,7 @@ fullscreen: true
 </a>
 
 <a href="https://packagist.org/packages/defstudio/telegraph" target="_blank">
-    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/dt/defstudio/telegraph.svg?style=flat-square" alt="Total Downloads">
+    <img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/dt/defstudio/telegraph.svg?style=flat" alt="Total Downloads">
 </a>
 
 <a href="https://packagist.org/packages/defstudio/telegraph" target="_blank">
