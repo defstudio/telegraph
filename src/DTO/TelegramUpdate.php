@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /** @noinspection PhpDocSignatureIsNotCompleteInspection */
 
@@ -12,13 +12,21 @@ class TelegramUpdate implements Arrayable
     private ?Message $message = null;
     private ?CallbackQuery $callbackQuery = null;
     private ?ChatMemberUpdate $botChatStatusChange = null;
+    private ?InlineQuery $inlineQuery = null;
 
     private function __construct()
     {
     }
 
     /**
-     * @param array{update_id:int, message?:array<string, mixed>, channel_post?:array<string, mixed>, callback_query?:array<string, mixed>, my_chat_member?:array<string, mixed>} $data
+     * @param array{
+     *     update_id:int,
+     *     message?:array<string, mixed>,
+     *     channel_post?:array<string, mixed>,
+     *     callback_query?:array<string, mixed>,
+     *     my_chat_member?:array<string, mixed>,
+     *     inline_query?:array<string, mixed>
+     * } $data
      */
     public static function fromArray(array $data): TelegramUpdate
     {
@@ -46,6 +54,11 @@ class TelegramUpdate implements Arrayable
             $update->botChatStatusChange = ChatMemberUpdate::fromArray($data['my_chat_member']);
         }
 
+        if (isset($data['inline_query'])) {
+            /* @phpstan-ignore-next-line */
+            $update->inlineQuery = InlineQuery::fromArray($data['inline_query']);
+        }
+
         return $update;
     }
 
@@ -69,6 +82,11 @@ class TelegramUpdate implements Arrayable
         return $this->botChatStatusChange;
     }
 
+    public function inlineQuery(): ?InlineQuery
+    {
+        return $this->inlineQuery;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -76,6 +94,7 @@ class TelegramUpdate implements Arrayable
             'message' => $this->message?->toArray(),
             'callback_query' => $this->callbackQuery?->toArray(),
             'bot_chat_status_change' => $this->botChatStatusChange?->toArray(),
+            'inline_query' => $this->inlineQuery?->toArray(),
         ]);
     }
 }

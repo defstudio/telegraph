@@ -8,6 +8,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class Chat implements Arrayable
 {
+    public const TYPE_SENDER = 'sender';
     public const TYPE_PRIVATE = 'private';
     public const TYPE_GROUP = 'group';
     public const TYPE_SUPERGROUP = 'supergroup';
