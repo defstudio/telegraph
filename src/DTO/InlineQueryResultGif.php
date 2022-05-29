@@ -1,4 +1,6 @@
-<?php /** @noinspection PhpUnused */
+<?php
+
+/** @noinspection PhpUnused */
 
 namespace DefStudio\Telegraph\DTO;
 
@@ -20,39 +22,44 @@ class InlineQueryResultGif extends InlineQueryResult
         $result->id = $id;
         $result->url = $url;
         $result->thumbUrl = $thumbUrl;
+
         return $result;
     }
 
     public function width(int|null $width): InlineQueryResultGif
     {
         $this->width = $width;
+
         return $this;
     }
 
     public function height(int|null $height): InlineQueryResultGif
     {
         $this->height = $height;
+
         return $this;
     }
 
     public function duration(int|null $duration): InlineQueryResultGif
     {
         $this->duration = $duration;
+
         return $this;
     }
 
     public function title(string|null $title): InlineQueryResultGif
     {
         $this->title = $title;
+
         return $this;
     }
 
     public function caption(string|null $caption): InlineQueryResultGif
     {
         $this->caption = $caption;
+
         return $this;
     }
-
 
     public function data(): array
     {

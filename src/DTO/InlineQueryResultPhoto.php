@@ -1,8 +1,8 @@
-<?php /** @noinspection PhpUnused */
+<?php
+
+/** @noinspection PhpUnused */
 
 namespace DefStudio\Telegraph\DTO;
-
-use DefStudio\Telegraph\Keyboard\Keyboard;
 
 class InlineQueryResultPhoto extends InlineQueryResult
 {
@@ -22,39 +22,44 @@ class InlineQueryResultPhoto extends InlineQueryResult
         $result->id = $id;
         $result->url = $url;
         $result->thumbUrl = $thumbUrl;
+
         return $result;
     }
 
     public function width(int|null $width): InlineQueryResultPhoto
     {
         $this->width = $width;
+
         return $this;
     }
 
     public function height(int|null $height): InlineQueryResultPhoto
     {
         $this->height = $height;
+
         return $this;
     }
 
     public function title(string|null $title): InlineQueryResultPhoto
     {
         $this->title = $title;
+
         return $this;
     }
 
     public function caption(string|null $caption): InlineQueryResultPhoto
     {
         $this->caption = $caption;
+
         return $this;
     }
 
     public function description(string|null $description): InlineQueryResultPhoto
     {
         $this->description = $description;
+
         return $this;
     }
-
 
     public function data(): array
     {

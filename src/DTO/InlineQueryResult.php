@@ -21,6 +21,7 @@ abstract class InlineQueryResult
     public function keyboard(Keyboard $keyboard): static
     {
         $this->keyboard = $keyboard;
+
         return $this;
     }
 

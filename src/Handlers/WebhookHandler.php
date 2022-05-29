@@ -212,7 +212,7 @@ abstract class WebhookHandler
             $this->handleCallbackQuery();
         }
 
-        if($this->request->has('inline_query')){
+        if ($this->request->has('inline_query')) {
             $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
         }
     }
