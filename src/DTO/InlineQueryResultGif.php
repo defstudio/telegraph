@@ -61,10 +61,12 @@ class InlineQueryResultGif extends InlineQueryResult
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function data(): array
     {
         return [
-            'id' => $this->id,
             'gif_url' => $this->url,
             'thumb_url' => $this->thumbUrl,
             'gif_width' => $this->width,

@@ -4,6 +4,8 @@
 
 namespace DefStudio\Telegraph\Tests\Support;
 
+use DefStudio\Telegraph\DTO\InlineQuery;
+use DefStudio\Telegraph\DTO\InlineQueryResultGif;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -67,5 +69,26 @@ class TestWebhookHandler extends WebhookHandler
             'originalKeyboard' => $this->originalKeyboard,
             'data' => $this->data,
         ];
+    }
+
+    protected function handleInlineQuery(InlineQuery $inlineQuery): void
+    {
+        $this->bot->answerInlineQuery($inlineQuery->id(), [
+            InlineQueryResultGif::make(99, 'https://gif.dev', 'https://thumb.gif.test')
+            ->caption('foo')
+            ->title('bar')
+            ->duration(200)
+            ->height(400)
+            ->width(300)
+            ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 99)),
+            InlineQueryResultGif::make(98, 'https://gif2.dev', 'https://thumb.gif2.test')
+            ->caption('baz')
+            ->title('quz')
+            ->duration(1200)
+            ->height(1400)
+            ->width(1300)
+            ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 98)),
+
+        ])->send();
     }
 }

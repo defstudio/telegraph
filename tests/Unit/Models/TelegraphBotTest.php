@@ -2,8 +2,11 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use DefStudio\Telegraph\DTO\InlineQueryResultGif;
 use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
 use DefStudio\Telegraph\Facades\Telegraph;
+use DefStudio\Telegraph\Facades\Telegraph as Facade;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can retrieve its telegram info', function () {
@@ -134,4 +137,76 @@ it('can store a downloadable file', function () {
     $bot->store('123456', 'test/bots');
 
     Telegraph::assertStoredFile('123456');
+});
+
+it('can answer to an inline query', function () {
+    Telegraph::fake();
+
+    $bot = make_bot();
+
+    $bot->answerInlineQuery("a99", [
+       InlineQueryResultGif::make(99, 'https://gif.dev', 'https://thumb.gif.test')
+           ->caption('foo')
+           ->title('bar')
+           ->duration(200)
+           ->height(400)
+           ->width(300)
+           ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 99)),
+       InlineQueryResultGif::make(98, 'https://gif2.dev', 'https://thumb.gif2.test')
+           ->caption('baz')
+           ->title('quz')
+           ->duration(1200)
+           ->height(1400)
+           ->width(1300)
+           ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 98)),
+
+   ])->send();
+
+    Facade::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_ANSWER_INLINE_QUERY, [
+        "inline_query_id" => "a99",
+        "results" => [
+            [
+                "gif_url" => "https://gif.dev",
+                "thumb_url" => "https://thumb.gif.test",
+                "gif_width" => 300,
+                "gif_height" => 400,
+                "gif_duration" => 200,
+                "title" => "bar",
+                "caption" => "foo",
+                "id" => "99",
+                "type" => "gif",
+                "reply_markup" => [
+                    "inline_keyboard" => [
+                        [
+                            [
+                                "text" => "buy",
+                                "callback_data" => "action:buy;id:99",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                "gif_url" => "https://gif2.dev",
+                "thumb_url" => "https://thumb.gif2.test",
+                "gif_width" => 1300,
+                "gif_height" => 1400,
+                "gif_duration" => 1200,
+                "title" => "quz",
+                "caption" => "baz",
+                "id" => "98",
+                "type" => "gif",
+                "reply_markup" => [
+                    "inline_keyboard" => [
+                        [
+                            [
+                                "text" => "buy",
+                                "callback_data" => "action:buy;id:98",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]);
 });

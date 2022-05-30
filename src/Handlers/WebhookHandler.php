@@ -213,6 +213,7 @@ abstract class WebhookHandler
         }
 
         if ($this->request->has('inline_query')) {
+            /* @phpstan-ignore-next-line */
             $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
         }
     }

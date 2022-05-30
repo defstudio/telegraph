@@ -143,8 +143,30 @@ function webhook_command($command, $handler = TestWebhookHandler::class): Reques
     ]);
 }
 
+function webhook_inline_query($handler = TestWebhookHandler::class): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'inline_query' => [
+            'id' => "a99",
+            'query' => 'foo',
+            'from' => [
+                'id' => 1,
+                'is_bot' => false,
+                'first_name' => 'e',
+                'last_name' => 'f',
+                'username' => 'g',
+            ],
+            'offset' => '+4',
+            'chat_type' => 'private',
+        ],
+    ]);
+}
+
 
 expect()->extend('toMatchTelegramSnapshot', function () {
+    /** @var Closure(Telegraph): Telegraph $configurationClosure */
     $configurationClosure = $this->value;
 
     /** @var Telegraph $telegraph */

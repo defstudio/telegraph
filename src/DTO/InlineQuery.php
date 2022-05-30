@@ -6,12 +6,12 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class InlineQuery implements Arrayable
 {
-    private int $id;
+    private string $id;
     private string $query;
     private User $from;
     private string $offset;
     private string $chatType;
-    private ?Location $location;
+    private ?Location $location = null;
 
     private function __construct()
     {
@@ -32,19 +32,23 @@ class InlineQuery implements Arrayable
         $inlineQuery = new self();
 
         $inlineQuery->id = $data['id'];
+
+        /** @phpstan-ignore-next-line  */
         $inlineQuery->from = User::fromArray($data['from']);
+
         $inlineQuery->query = $data['query'];
         $inlineQuery->offset = $data['offset'];
         $inlineQuery->chatType = $data['chat_type'];
 
         if (isset($data['location'])) {
-            $inlineQuery->location = $data['location'];
+            /** @phpstan-ignore-next-line */
+            $inlineQuery->location = Location::fromArray($data['location']);
         }
 
         return $inlineQuery;
     }
 
-    public function id(): int
+    public function id(): string
     {
         return $this->id;
     }
@@ -81,7 +85,7 @@ class InlineQuery implements Arrayable
             'query' => $this->query,
             'from' => $this->from,
             'offset' => $this->offset,
-            'chatType' => $this->chatType,
+            'chat_type' => $this->chatType,
             'location' => $this->location,
         ]);
     }

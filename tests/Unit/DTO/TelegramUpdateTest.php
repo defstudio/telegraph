@@ -28,6 +28,19 @@ it('export all properties to array', function () {
                 'username' => 'c',
             ],
         ],
+        'inline_query' => [
+          'id' => "a99",
+          'query' => 'foo',
+          'from' => [
+              'id' => 1,
+              'is_bot' => false,
+              'first_name' => 'e',
+              'last_name' => 'f',
+              'username' => 'g',
+          ],
+          'offset' => '+4',
+          'chat_type' => 'private',
+        ],
         'my_chat_member' => [
             'from' => [
                 'id' => 1,

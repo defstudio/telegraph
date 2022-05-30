@@ -61,14 +61,16 @@ class InlineQueryResultPhoto extends InlineQueryResult
         return $this;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function data(): array
     {
         return [
-            'id' => $this->id,
-            'gif_url' => $this->url,
+            'photo_url' => $this->url,
             'thumb_url' => $this->thumbUrl,
-            'gif_width' => $this->width,
-            'gif_height' => $this->height,
+            'photo_width' => $this->width,
+            'photo_height' => $this->height,
             'title' => $this->title,
             'caption' => $this->caption,
             'description' => $this->description,

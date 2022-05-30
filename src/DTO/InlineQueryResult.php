@@ -16,6 +16,9 @@ abstract class InlineQueryResult
     {
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     abstract protected function data(): array;
 
     public function keyboard(Keyboard $keyboard): static
@@ -25,9 +28,15 @@ abstract class InlineQueryResult
         return $this;
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
-        $data = array_filter($this->data());
+        $data = array_filter($this->data()) + [
+          'id' => $this->id,
+          'type' => $this->type,
+        ];
 
         if ($this->keyboard !== null && $this->keyboard->isFilled()) {
             $data['reply_markup'] = [

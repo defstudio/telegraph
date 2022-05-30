@@ -21,9 +21,9 @@ trait AnswersInlineQueries
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_ANSWER_INLINE_QUERY;
-        $this->data = [
+        $telegraph->data = [
             'inline_query_id' => $inlineQueryID,
-            'results' => collect($results)->map(fn (InlineQueryResult $result) => $result->toArray()),
+            'results' => collect($results)->map(fn (InlineQueryResult $result) => $result->toArray())->toArray(),
         ];
 
         return $telegraph;
