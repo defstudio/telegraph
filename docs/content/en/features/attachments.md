@@ -52,7 +52,7 @@ Telegraph::document(Storage::path('my_document.pdf'))
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
-    ->html('read *this*')
+    ->markdown('read *this*')
     ->send();
 ```
 
