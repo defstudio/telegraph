@@ -10,6 +10,7 @@ namespace DefStudio\Telegraph\Handlers;
 
 use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
+use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -210,5 +211,14 @@ abstract class WebhookHandler
             $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
             $this->handleCallbackQuery();
         }
+
+        if ($this->request->has('inline_query')) {
+            /* @phpstan-ignore-next-line */
+            $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
+        }
+    }
+
+    protected function handleInlineQuery(InlineQuery $inlineQuery): void
+    {
     }
 }

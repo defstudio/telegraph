@@ -9,6 +9,7 @@ namespace DefStudio\Telegraph\Models;
 
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
+use DefStudio\Telegraph\DTO\InlineQueryResult;
 use DefStudio\Telegraph\DTO\TelegramUpdate;
 use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
@@ -103,6 +104,14 @@ class TelegraphBot extends Model
     public function replyWebhook(int $callbackQueryId, string $message): Telegraph
     {
         return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message);
+    }
+
+    /**
+     * @param InlineQueryResult[] $results
+     */
+    public function answerInlineQuery(string $inlineQueryID, array $results): Telegraph
+    {
+        return TelegraphFacade::bot($this)->answerInlineQuery($inlineQueryID, $results);
     }
 
     /**

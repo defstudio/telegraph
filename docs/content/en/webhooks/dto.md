@@ -92,3 +92,21 @@ contains incoming data (a message or a callback query)
 - `->latitude()` location latitude
 - `->longitude()` location longitude
 - `->accuracy()` (optional) location horizontal accuracy
+
+
+## `DefStudio\Telegraph\DTO\InlineQuery`
+
+- `->id()` inline query _id_
+- `->query()` the query typed by the user after the bot's name
+- `->from()` an instance of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding data about the user that started the query
+- `->offset()` offset of the results to be returned, can be controlled by the bot
+- `->chat_type()` type of the chat, from which the inline query was sent. Can be either “sender” for a private chat with the inline query sender, “private”, “group”, “supergroup”, or “channel”. The chat type should be always known for requests sent from official clients and most third-party clients, unless the request was sent from a secret chat
+- `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-photo) containing sender location, only for bots that request user location.
+
+## `DefStudio\Telegraph\DTO\InlineQueryResultGif`
+
+This is a DTO for outgoing data, wraps info about the Gif result returned to the user
+
+## `DefStudio\Telegraph\DTO\InlineQueryResultPhoto`
+
+This is a DTO for outgoing data, wraps info about the Photo result returned to the user

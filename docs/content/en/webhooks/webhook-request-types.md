@@ -87,3 +87,47 @@ class CustomWebhookHandler extends WebhookHandler
     }
 }
 ```
+
+## Inline queries
+
+Users can interact with a bot through inline queries calling it by typing its name followed by the query. The query is sent to the webhook (or can be [manually polled](webhooks/manual-polling)) wrapped in a [`DefStudio\Telegraph\DTO\InlineQuery`](webhooks/dto#defstudio-telegraph-dto-inline-query). For more informations see [inline bot page]((see [here](https://core.telegram.org/bots/inline)) and [the official api documentation](https://core.telegram.org/bots/api#inline-mode)
+
+<alert type="alert">Inline queries should be enabled inside bot configuration (see [here](https://core.telegram.org/bots/inline) for more info)</alert>
+
+Inside a `WebhookHandler`, incoming inline queries are handled by overriding the `handleInlineQuery` method:
+
+```php
+use DefStudio\Telegraph\DTO\InlineQuery;use DefStudio\Telegraph\DTO\InlineQueryResultPhoto;
+
+class CustomWebhookHandler extends WebhookHandler
+{
+    public function handleInlineQuery(InlineQuery $inlineQuery): void
+    {
+        $query = $inlineQuery->query(); // "pest logo"
+        
+        $logo = LogoFinder::search($query); // the code to handle the query. just an example here
+        
+        $this->bot->answerInlineQuery($inlineQuery->id(), [
+            InlineQueryResultPhoto::make($logo->id."-light", "https://logofinder.dev/$logo->id/light.jpg", "https://logofinder.dev/$logo->id/light/thumb.jpg")
+                ->caption('Light Logo'),
+            InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
+                ->caption('Light Logo'),
+        ])->send();
+    }
+}
+```
+
+Different kind of result can be sent through the handler: 
+
+- Article (coming soon)
+- Audio (coming soon)
+- Contact (coming soon)
+- Game (coming soon)
+- Document (coming soon)
+- Gif ([`DefStudio\Telegraph\DTO\InlineQueryResultGif`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-gif))
+- Location (coming soon)
+- Mpeg4Gif (coming soon)
+- Photo([`DefStudio\Telegraph\DTO\InlineQueryResultPhoto`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-photo))
+- Venue (coming soon)
+- Video (coming soon)
+- Voice (coming soon)

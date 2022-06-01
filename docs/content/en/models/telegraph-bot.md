@@ -155,6 +155,18 @@ $telegraphBot->store($photo, Storage::path('bot/images'), 'The Photo.jpg');
 ```
 
 
+## answerInlineQuery
+
+send back the results for an inline query
+
+```php
+ $telegraphBot->answerInlineQuery($inlineQuery->id(), [
+    InlineQueryResultPhoto::make($logo->id."-light", "https://logofinder.dev/$logo->id/light.jpg", "https://logofinder.dev/$logo->id/light/thumb.jpg")
+        ->caption('Light Logo'),
+    InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
+        ->caption('Light Logo'),
+])->cache(seconds: 600)->send();
+```
 
 
 

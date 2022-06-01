@@ -104,3 +104,58 @@ it('can delete the inline keyboard', function () {
 
     Facade::assertSentData(Telegraph::ENDPOINT_REPLACE_KEYBOARD);
 });
+
+it('can handle an inlineQuery', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_inline_query(), $bot);
+
+    Facade::assertSentData(Telegraph::ENDPOINT_ANSWER_INLINE_QUERY, [
+        "inline_query_id" => "a99",
+        "results" => [
+            [
+                "gif_url" => "https://gif.dev",
+                "thumb_url" => "https://thumb.gif.test",
+                "gif_width" => 300,
+                "gif_height" => 400,
+                "gif_duration" => 200,
+                "title" => "bar",
+                "caption" => "foo",
+                "id" => "99",
+                "type" => "gif",
+                "reply_markup" => [
+                    "inline_keyboard" => [
+                        [
+                            [
+                                "text" => "buy",
+                                "callback_data" => "action:buy;id:99",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            [
+                "gif_url" => "https://gif2.dev",
+                "thumb_url" => "https://thumb.gif2.test",
+                "gif_width" => 1300,
+                "gif_height" => 1400,
+                "gif_duration" => 1200,
+                "title" => "quz",
+                "caption" => "baz",
+                "id" => "98",
+                "type" => "gif",
+                "reply_markup" => [
+                    "inline_keyboard" => [
+                        [
+                            [
+                                "text" => "buy",
+                                "callback_data" => "action:buy;id:98",
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ],
+    ]);
+});

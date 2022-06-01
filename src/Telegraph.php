@@ -8,6 +8,7 @@
 namespace DefStudio\Telegraph;
 
 use DefStudio\Telegraph\Client\TelegraphResponse;
+use DefStudio\Telegraph\Concerns\AnswersInlineQueries;
 use DefStudio\Telegraph\Concerns\ComposesMessages;
 use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
@@ -28,6 +29,7 @@ class Telegraph
     use InteractsWithWebhooks;
     use SendsAttachments;
     use StoresFiles;
+    use AnswersInlineQueries;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
@@ -62,6 +64,7 @@ class Telegraph
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
     public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
     public const ENDPOINT_GET_FILE = 'getFile';
+    public const ENDPOINT_ANSWER_INLINE_QUERY = 'answerInlineQuery';
 
 
     /** @var array<string, mixed> */
