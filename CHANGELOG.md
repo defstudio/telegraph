@@ -2,6 +2,19 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.13.0 - 2022-06-01
+
+### What's Changed
+
+- docs improvements by @Opekunov in https://github.com/def-studio/telegraph/pull/91
+- Inline queries by @fabio-ivona in https://github.com/def-studio/telegraph/pull/92
+
+### New Contributors
+
+- @Opekunov made their first contribution in https://github.com/def-studio/telegraph/pull/91
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.12.2...v1.13.0
+
 ## v1.12.2 - 2022-05-27
 
 ## What's Changed
