@@ -90,7 +90,7 @@ class CustomWebhookHandler extends WebhookHandler
 
 ## Inline queries
 
-Users can interact with a bot through inline queries calling it by typing its name followed by the query. The query is sent to the webhook (or can be [manually polled](webhooks/manual-polling)) wrapped in a [`DefStudio\Telegraph\DTO\InlineQuery`](webhooks/dto#defstudio-telegraph-dto-inline-query). For more informations see [inline bot page]((see [here](https://core.telegram.org/bots/inline)) and [the official api documentation](https://core.telegram.org/bots/api#inline-mode)
+Users can interact with a bot through inline queries calling it by typing its name followed by the query. The query is sent to the webhook (or can be [manually polled](webhooks/manual-polling)) wrapped in a [`DefStudio\Telegraph\DTO\InlineQuery`](webhooks/dto#defstudio-telegraph-dto-inline-query). For more information see [inline bot page](https://core.telegram.org/bots/inline) and [the official api documentation](https://core.telegram.org/bots/api#inline-mode)
 
 <alert type="alert">Inline queries should be enabled inside bot configuration (see [here](https://core.telegram.org/bots/inline) for more info)</alert>
 
