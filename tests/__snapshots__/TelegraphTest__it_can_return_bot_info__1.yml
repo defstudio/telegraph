@@ -4,4 +4,4 @@ first_name: telegraph-test
 username: defstudio_test_bot
 can_join_groups: true
 can_read_all_group_messages: false
-supports_inline_queries: false
+supports_inline_queries: true
