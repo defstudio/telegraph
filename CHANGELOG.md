@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.13.2 - 2022-06-04
+
+### What's Changed
+
+- fix exception on null values in inline queries by @fabio-ivona in https://github.com/def-studio/telegraph/pull/93
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.13.1...v1.13.2
+
 ## v1.13.1 - 2022-06-01
 
 **Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.13.0...v1.13.1
