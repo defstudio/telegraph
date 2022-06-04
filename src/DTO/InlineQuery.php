@@ -21,8 +21,8 @@ class InlineQuery implements Arrayable
      * @param array{
      *     id: string,
      *     from: array<string, mixed>,
-     *     query: string,
-     *     offset: string,
+     *     query: string|null,
+     *     offset: string|null,
      *     chat_type: string,
      *     location?: array<string, mixed>
      * } $data
@@ -36,8 +36,8 @@ class InlineQuery implements Arrayable
         /** @phpstan-ignore-next-line  */
         $inlineQuery->from = User::fromArray($data['from']);
 
-        $inlineQuery->query = $data['query'];
-        $inlineQuery->offset = $data['offset'];
+        $inlineQuery->query = $data['query'] ?? '';
+        $inlineQuery->offset = $data['offset'] ?? '';
         $inlineQuery->chatType = $data['chat_type'];
 
         if (isset($data['location'])) {
