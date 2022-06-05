@@ -56,8 +56,7 @@ trait ManagesKeyboards
 
         $telegraph->data['reply_markup'] = [
             'keyboard' => $keyboard->toArray(),
-            ...$keyboard->options(),
-        ];
+        ] + $keyboard->options();
 
         return $telegraph;
     }
