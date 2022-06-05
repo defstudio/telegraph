@@ -67,7 +67,6 @@ class TelegraphFake extends Telegraph
             'bot_token' => $this->getBotIfAvailable()->token ?? null,
             'chat_id' => $this->getChatIfAvailable()->id ?? null,
             'message' => $this->data['text'] ?? null,
-            'keyboard' => $this->keyboard?->toArray() ?? null,
             'parse_mode' => $this->data['parse_mode'] ?? null,
         ];
     }
