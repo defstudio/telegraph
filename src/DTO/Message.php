@@ -35,6 +35,7 @@ class Message implements Arrayable
     private ?Document $document = null;
     private ?Video $video = null;
     private ?Location $location = null;
+    private ?Contact $contact = null;
 
     private function __construct()
     {
@@ -123,6 +124,11 @@ class Message implements Arrayable
             $message->location = Location::fromArray($data['location']);
         }
 
+        if (isset($data['contact'])) {
+            /* @phpstan-ignore-next-line  */
+            $message->contact = Contact::fromArray($data['contact']);
+        }
+
         return $message;
     }
 
@@ -199,6 +205,11 @@ class Message implements Arrayable
         return $this->location;
     }
 
+    public function contact(): ?Contact
+    {
+        return $this->contact;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -216,6 +227,7 @@ class Message implements Arrayable
             'document' => $this->document?->toArray(),
             'video' => $this->video?->toArray(),
             'location' => $this->location?->toArray(),
+            'contact' => $this->contact?->toArray(),
         ]);
     }
 }
