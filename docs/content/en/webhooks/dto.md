@@ -94,6 +94,13 @@ contains incoming data (a message or a callback query)
 - `->longitude()` location longitude
 - `->accuracy()` (optional) location horizontal accuracy
 
+## `DefStudio\Telegraph\DTO\Contact`
+
+- `->phoneNumber()` contact's phone number
+- `->firstName()` contact's first name
+- `->lastName()` (optional) contact's last name
+- `->userId()` (optional) contact's telegram user ID
+- `->vcard()` (optional) contact's [vCard](https://en.wikipedia.org/wiki/VCard)
 
 ## `DefStudio\Telegraph\DTO\InlineQuery`
 

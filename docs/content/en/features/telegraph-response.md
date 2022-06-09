@@ -4,7 +4,7 @@ menuTitle: 'TelegraphResponse'
 description: ''
 category: 'Features'
 fullscreen: false 
-position: 34
+position: 35
 ---
 
 all Telegraph requests return a `TelegraphResponse` that extends the original `Illuminate\Http\Client\Response` adding some useful methods:

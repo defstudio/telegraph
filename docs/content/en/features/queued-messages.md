@@ -4,7 +4,7 @@ menuTitle: 'Queued Messages'
 description: ''
 category: 'Features'
 fullscreen: false 
-position: 34
+position: 35
 ---
 
 A `->dispatch()` method can be used to have Telegraph to interact with telegraph through the Laravel queue system:

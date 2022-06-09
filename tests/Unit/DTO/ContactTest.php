@@ -5,7 +5,7 @@
 use Illuminate\Support\Str;
 
 it('export all properties to array', function () {
-    $dto = Location::fromArray([
+    $dto = Contact::fromArray([
         'phone_number' => '123456789',
         'first_name' => 'John',
         'last_name' => 'Doe',

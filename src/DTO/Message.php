@@ -59,6 +59,7 @@ class Message implements Arrayable
      *     video?: array<string, mixed>,
      *     photo?: array<string, mixed>,
      *     location?: array<string, mixed>,
+     *     contact?: array<string, mixed>,
      *  } $data
      */
     public static function fromArray(array $data): Message
