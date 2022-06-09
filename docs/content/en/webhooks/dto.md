@@ -33,6 +33,7 @@ contains incoming data (a message or a callback query)
 - `->document()` (optional) an instance of [`DefStudio\Telegraph\DTO\Document`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained document
 - `->video()` (optional) an instance of [`DefStudio\Telegraph\DTO\Video`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained video
 - `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained location
+- `->contact()` (optional) an instance of [`DefStudio\Telegraph\DTO\Contact`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained contact data
 
 
 ## `DefStudio\Telegraph\DTO\CallbackQuery`
