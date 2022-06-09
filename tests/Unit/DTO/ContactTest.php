@@ -2,7 +2,6 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-use DefStudio\Telegraph\DTO\Contact;
 use Illuminate\Support\Str;
 
 it('export all properties to array', function () {
