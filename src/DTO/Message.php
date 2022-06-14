@@ -55,6 +55,7 @@ class Message implements Arrayable
      *     chat?: array<string, mixed>,
      *     reply_markup?: array<array<array<string>>>,
      *     audio?:array<string, mixed>,
+     *     voice?:array<string, mixed>,
      *     document?: array<string, mixed>,
      *     video?: array<string, mixed>,
      *     photo?: array<string, mixed>,

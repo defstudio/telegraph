@@ -20,6 +20,15 @@ Telegraph::photo(Storage::path('photo.jpg'))->send();
 ```
 
 
+### Vocal Messages
+
+Photos can be sent through Telegraph `->voice()` method:
+
+```php
+Telegraph::voice(Storage::path('voice.ogg'))->send();
+```
+
+
 ### Documents
 
 Documents can be sent through Telegraph `->document()` method:

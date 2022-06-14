@@ -29,10 +29,11 @@ contains incoming data (a message or a callback query)
 - `->chat()` (optional) an instance of [`DefStudio\Telegraph\DTO\Chat`](webhooks/dto#defstudio-telegraph-dto-chat) holding data about the chat to which the message belongs to 
 - `->keyboard()` (optional) an instance of [`DefStudio\Telegraph\Keyboard\Keyboard`](feature/keyboards) holding the message inline keyboard 
 - `->photos()` (optional) a collection of [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained image resolutions
-- `->audio()` (optional) an instance of [`DefStudio\Telegraph\DTO\Audio`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained audio
-- `->document()` (optional) an instance of [`DefStudio\Telegraph\DTO\Document`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained document
-- `->video()` (optional) an instance of [`DefStudio\Telegraph\DTO\Video`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained video
-- `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained location
+- `->audio()` (optional) an instance of [`DefStudio\Telegraph\DTO\Audio`](webhooks/dto#defstudio-telegraph-dto-audio) holding data about the contained audio
+- `->document()` (optional) an instance of [`DefStudio\Telegraph\DTO\Document`](webhooks/dto#defstudio-telegraph-dto-document) holding data about the contained document
+- `->video()` (optional) an instance of [`DefStudio\Telegraph\DTO\Video`](webhooks/dto#defstudio-telegraph-dto-video) holding data about the contained video
+- `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-location) holding data about the contained location
+- `->voice()` (optional) an instance of [`DefStudio\Telegraph\DTO\Voice`](webhooks/dto#defstudio-telegraph-dto-voice) holding data about the contained voical message
 
 
 ## `DefStudio\Telegraph\DTO\CallbackQuery`
@@ -92,6 +93,15 @@ contains incoming data (a message or a callback query)
 - `->latitude()` location latitude
 - `->longitude()` location longitude
 - `->accuracy()` (optional) location horizontal accuracy
+
+
+## `DefStudio\Telegraph\DTO\Voice`
+
+- `->id()` file ID
+- `->duration()` audio duration
+- `->mimeType()` (optional) audio MIME type
+- `->filesize()` (optional) audio file size in Bytes
+
 
 
 ## `DefStudio\Telegraph\DTO\InlineQuery`

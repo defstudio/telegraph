@@ -176,3 +176,17 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 
 $telegraphChat->photo(Storage::path('photo.jpg'))->send();
 ```
+
+
+## voice
+
+sends a vocal message
+
+```php
+use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->voice(Storage::path('voice.ogg'))->send();
+```

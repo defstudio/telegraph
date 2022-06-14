@@ -29,13 +29,19 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function voice($voice): Telegraph
+    public function voice(string $path, string $filename = null): Telegraph
     {
         $telegraph = clone $this;
 
+        if (!File::exists($path)) {
+            throw FileException::fileNotFound('Voice', $path);
+        }
+
         $telegraph->endpoint = self::ENDPOINT_SEND_VOICE;
-        $telegraph->data['voice'] = $voice;
+
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        $telegraph->files->put('voice', new Attachment($path, $filename));
 
         return $telegraph;
     }
