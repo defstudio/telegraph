@@ -29,6 +29,17 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function voice($voice): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_VOICE;
+        $telegraph->data['voice'] = $voice;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
     public function document(string $path, string $filename = null): Telegraph
     {
         $telegraph = clone $this;

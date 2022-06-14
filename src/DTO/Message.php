@@ -35,6 +35,7 @@ class Message implements Arrayable
     private ?Document $document = null;
     private ?Video $video = null;
     private ?Location $location = null;
+    private ?Voice $voice = null;
 
     private function __construct()
     {
@@ -123,6 +124,11 @@ class Message implements Arrayable
             $message->location = Location::fromArray($data['location']);
         }
 
+        if (isset($data['voice'])) {
+            /* @phpstan-ignore-next-line  */
+            $message->voice = Voice::fromArray($data['voice']);
+        }
+
         return $message;
     }
 
@@ -199,6 +205,11 @@ class Message implements Arrayable
         return $this->location;
     }
 
+    public function voice(): ?Voice
+    {
+        return $this->voice;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -216,6 +227,7 @@ class Message implements Arrayable
             'document' => $this->document?->toArray(),
             'video' => $this->video?->toArray(),
             'location' => $this->location?->toArray(),
+            'voice' => $this->voice?->toArray(),
         ]);
     }
 }
