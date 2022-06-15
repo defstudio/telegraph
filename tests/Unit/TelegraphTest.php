@@ -5,7 +5,7 @@ use DefStudio\Telegraph\Telegraph;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Facades\Http;
 
-test('sync sending returns a TelegraphResponse', function () {
+test('sync sending returns a Telegraph Response', function () {
     Http::fake();
 
     $response = app(Telegraph::class)
@@ -16,7 +16,7 @@ test('sync sending returns a TelegraphResponse', function () {
     expect($response)->toBeInstanceOf(TelegraphResponse::class);
 });
 
-test('async sending returns a PendingDispatch', function () {
+test('async sending returns a Pending Dispatch', function () {
     Http::fake();
 
     $response = app(Telegraph::class)
