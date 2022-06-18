@@ -95,6 +95,13 @@ it('export all properties to array', function () {
             'longitude' => 98765431,
             'horizontal_accuracy' => 3,
         ],
+        'contact' => [
+            'phone_number' => '123456789',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'user_id' => 102030,
+            'vcard' => 'fake',
+        ],
     ]);
 
     $array = $dto->toArray();

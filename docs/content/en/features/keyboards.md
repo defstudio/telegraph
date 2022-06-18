@@ -41,14 +41,14 @@ Telegraph::message('hello world')
 ->keyboard(function(Keyboard $keyboard){
     return $keyboard
         ->button('Delete')->action('delete')->param('id', '42')
-        ->button('open')->url('https://test.it');
+        ->button('open')->url('https://test.it')
         ->button('Web App')->webApp('https://web-app.test.it');
 })->send();
 ```
 
 ## Buttons
 
-Each `Button` can be defined using its fluent methods and can be of two types:
+Each `Button` can be defined using its fluent methods and can be of three types:
 
 ### Callback Buttons
 

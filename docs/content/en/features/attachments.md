@@ -4,7 +4,7 @@ menuTitle: 'Attachments'
 description: ''
 category: 'Features' 
 fullscreen: false 
-position: 35
+position: 36
 ---
 
 Telegraph supports different types of attachments
