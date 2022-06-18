@@ -2,6 +2,33 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.14.0 - 2022-06-18
+
+### What's Changed
+
+- feat: request contact data feature by @intoeetive in https://github.com/def-studio/telegraph/pull/95
+- 
+- feat: send voice by @alessiovietri in https://github.com/def-studio/telegraph/pull/102
+- 
+- feat: reply keyboards by @fabio-ivona in https://github.com/def-studio/telegraph/pull/94
+- 
+- feat: edit caption by @fabio-ivona in https://github.com/def-studio/telegraph/pull/104
+- 
+- feat: pin messages by @fabio-ivona in https://github.com/def-studio/telegraph/pull/105
+- 
+- fix typo by @MahdiMajidzadeh in https://github.com/def-studio/telegraph/pull/98
+- 
+- optimize images by @MahdiMajidzadeh in https://github.com/def-studio/telegraph/pull/99
+- 
+
+### New Contributors
+
+- @intoeetive made their first contribution in https://github.com/def-studio/telegraph/pull/95
+- @MahdiMajidzadeh made their first contribution in https://github.com/def-studio/telegraph/pull/98
+- @alessiovietri made their first contribution in https://github.com/def-studio/telegraph/pull/102
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.13.2...v1.14.0
+
 ## v1.13.2 - 2022-06-04
 
 ### What's Changed
