@@ -244,12 +244,10 @@ it('can attach a voice while writing a message', function () {
         ->toMatchTelegramSnapshot();
 });
 
-
 it('can attach a voice with markdown caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdown('listen **this** one'))
         ->toMatchTelegramSnapshot();
 });
-
 
 it('can attach a voice with html caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->html('listen <b>this</b> one!'))
@@ -265,8 +263,6 @@ it('can send a voice protecting it from sharing', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->protected())
         ->toMatchTelegramSnapshot();
 });
-
-
 
 it('can send a voice replying to a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->reply(1234))
@@ -300,3 +296,8 @@ test('voices are validated', function (string $path, bool $valid, string $except
         'message' => 'not found',
     ],
 ]);
+
+it('can edit a message caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->editCaption(42)->message('foo'))
+        ->toMatchTelegramSnapshot();
+});

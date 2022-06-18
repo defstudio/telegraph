@@ -62,7 +62,7 @@ class TelegraphFake extends Telegraph
         return [
             'url' => $this->getApiUrl(),
             'endpoint' => $this->endpoint ?? null,
-            'data' => $this->data ?? [],
+            'data' => $this->prepareData(),
             'files' => $this->files,
             'bot_token' => $this->getBotIfAvailable()->token ?? null,
             'chat_id' => $this->getChatIfAvailable()->id ?? null,

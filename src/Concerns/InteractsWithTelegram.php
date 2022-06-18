@@ -48,10 +48,7 @@ trait InteractsWithTelegram
     {
         $data = $this->data;
 
-        if ($this->files->isNotEmpty() && !empty($data['text'])) {
-            $data['caption'] = $data['text'];
-            unset($data['text']);
-        }
+        $data = $this->pipeTraits('preprocessData', $data);
 
         if ($asMultipart) {
             $data = collect($data)
@@ -63,6 +60,7 @@ trait InteractsWithTelegram
                     return [$key => json_encode($value)];
                 })->toArray();
         }
+
 
         return $data;
     }

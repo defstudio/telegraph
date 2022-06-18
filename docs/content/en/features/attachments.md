@@ -65,6 +65,9 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
+<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+
+
 ### Without notification
 
 ```php

@@ -17,6 +17,36 @@ use Illuminate\Support\Str;
  */
 trait SendsAttachments
 {
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return array<string, mixed>
+     */
+    public function preprocessDataSendsAttachments(array $data): array
+    {
+        if ($this->files->isNotEmpty() && !empty($data['text'])) {
+            $data['caption'] = $data['text'];
+            unset($data['text']);
+        }
+
+        if ($this->endpoint === self::ENDPOINT_EDIT_CAPTION) {
+            $data['caption'] = $data['text'] ?? '';
+            unset($data['text']);
+        }
+
+        return $data;
+    }
+
+    public function editCaption(int $messageId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_EDIT_CAPTION;
+        $telegraph->data['message_id'] = $messageId;
+
+        return $telegraph;
+    }
+
     public function location(float $latitude, float $longitude): Telegraph
     {
         $telegraph = clone $this;

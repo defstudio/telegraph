@@ -107,3 +107,15 @@ it('can send a voice', function () {
         'voice' => new Attachment(Storage::path('voice.ogg'), 'test'),
     ]);
 });
+
+it('can edit a message caption', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editCaption(42)->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_CAPTION, [
+        'message_id' => 42,
+        'caption' => 'test',
+    ], false);
+});

@@ -1,7 +1,7 @@
 <?php
 
+/** @noinspection PhpUnused */
 /** @noinspection PhpUnhandledExceptionInspection */
-
 /** @noinspection PhpDocMissingThrowsInspection */
 
 namespace DefStudio\Telegraph\Models;
@@ -91,6 +91,11 @@ class TelegraphChat extends Model
     public function edit(int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->edit($messageId);
+    }
+
+    public function editCaption(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->editCaption($messageId);
     }
 
     public function deleteMessage(int $messageId): Telegraph
