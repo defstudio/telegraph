@@ -91,6 +91,22 @@ sends a document
 Telegram::document($documentPath)->send();
 ```
 
+## edit
+
+edits a message
+
+```php
+Telegram::edit($messageId)->markdown('new message')->send();
+```
+
+## editCaption
+
+edits an attachment caption
+
+```php
+Telegram::editCaption($messageId)->markdown('new caption')->send();
+```
+
 ## getWebhookDebugInfo
 
 retrieves webhook debug data for the active bot
@@ -105,7 +121,7 @@ sends a location attachment
 
 ```php
 Telegraph::location(12.345, -54.321)->send();
-``
+```
 
 ## markdown
 

@@ -93,7 +93,17 @@ Starts a `Telegraph` call to edit a message
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 
-$telegraphChat->edit($messageId)->keyboard('new text')->send();
+$telegraphChat->edit($messageId)->message('new text')->send();
+```
+
+### `editCaption()`
+
+Starts a `Telegraph` call to edit an attachment's caption
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->editCaption($messageId)->message('new caption')->send();
 ```
 
 ### `replaceKeyboard()`
