@@ -132,7 +132,7 @@ class Message implements Arrayable
             /* @phpstan-ignore-next-line  */
             $message->contact = Contact::fromArray($data['contact']);
         }
-      
+
         if (isset($data['voice'])) {
             /* @phpstan-ignore-next-line  */
             $message->voice = Voice::fromArray($data['voice']);
@@ -218,7 +218,7 @@ class Message implements Arrayable
     {
         return $this->contact;
     }
-  
+
     public function voice(): ?Voice
     {
         return $this->voice;
