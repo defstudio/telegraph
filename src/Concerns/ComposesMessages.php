@@ -88,6 +88,16 @@ trait ComposesMessages
         return $telegraph;
     }
 
+    public function edit(int $messageId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_EDIT_MESSAGE;
+        $telegraph->data['message_id'] = $messageId;
+
+        return $telegraph;
+    }
+
     public function deleteMessage(int $messageId): Telegraph
     {
         $telegraph = clone $this;
@@ -101,12 +111,40 @@ trait ComposesMessages
         return $telegraph;
     }
 
-    public function edit(int $messageId): Telegraph
+    public function pinMessage(int $messageId): Telegraph
     {
         $telegraph = clone $this;
 
-        $telegraph->endpoint = self::ENDPOINT_EDIT_MESSAGE;
-        $telegraph->data['message_id'] = $messageId;
+        $telegraph->endpoint = self::ENDPOINT_PIN_MESSAGE;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChat()->chat_id,
+            'message_id' => $messageId,
+        ];
+
+        return $telegraph;
+    }
+
+    public function unpinMessage(int $messageId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_UNPIN_MESSAGE;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChat()->chat_id,
+            'message_id' => $messageId,
+        ];
+
+        return $telegraph;
+    }
+
+    public function unpinAllMessages(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_UNPIN_ALL_MESSAGES;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChat()->chat_id,
+        ];
 
         return $telegraph;
     }

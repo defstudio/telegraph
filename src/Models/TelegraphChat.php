@@ -103,6 +103,21 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->deleteMessage($messageId);
     }
 
+    public function pinMessage(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->pinMessage($messageId);
+    }
+
+    public function unpinMessage(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->unpinMessage($messageId);
+    }
+
+    public function unpinAllMessages(): Telegraph
+    {
+        return TelegraphFacade::chat($this)->unpinAllMessages();
+    }
+
     public function action(string $action): Telegraph
     {
         return TelegraphFacade::chat($this)->chatAction($action);

@@ -119,3 +119,45 @@ it('can edit a message caption', function () {
         'caption' => 'test',
     ], false);
 });
+
+it('can delete a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->deleteMessage(42)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_MESSAGE, [
+        'message_id' => 42,
+    ], false);
+});
+
+it('can pin a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->pinMessage(42)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_PIN_MESSAGE, [
+        'message_id' => 42,
+    ], false);
+});
+
+it('can unpin a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->unpinMessage(42)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_MESSAGE, [
+        'message_id' => 42,
+    ], false);
+});
+
+it('can unpin all messages', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->unpinAllMessages()->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_ALL_MESSAGES);
+});
