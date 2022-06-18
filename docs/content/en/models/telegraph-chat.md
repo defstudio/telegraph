@@ -143,6 +143,36 @@ Starts a `Telegraph` call to delete a message
 $telegraphChat->deleteMessage($messageId)->send();
 ```
 
+### `pinMessage()`
+
+Starts a `Telegraph` call to pin a message
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->pinMessage($messageId)->send();
+```
+
+### `unpinMessage()`
+
+Starts a `Telegraph` call to unpin a message
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->pinMessage($messageId)->send();
+```
+
+### `unpinAllMessages()`
+
+Starts a `Telegraph` call to unpin all messages
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->unpinAllMessages()->send();
+```
+
 ### `document()`
 
 sends a document
@@ -174,7 +204,7 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 $telegraphChat->action(ChatActions::TYPING)->send();
 ```
 
-## photo
+## `photo()`
 
 sends a photo
 
@@ -188,7 +218,7 @@ $telegraphChat->photo(Storage::path('photo.jpg'))->send();
 ```
 
 
-## voice
+## `voice()`
 
 sends a vocal message
 

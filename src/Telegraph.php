@@ -23,6 +23,7 @@ use Illuminate\Support\Collection;
 
 class Telegraph
 {
+    use CallTraitsMethods;
     use InteractsWithTelegram;
     use HasBotsAndChats;
     use ComposesMessages;
@@ -31,7 +32,6 @@ class Telegraph
     use SendsAttachments;
     use StoresFiles;
     use AnswersInlineQueries;
-    use CallTraitsMethods;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
@@ -60,6 +60,9 @@ class Telegraph
     public const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
     public const ENDPOINT_MESSAGE = 'sendMessage';
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
+    public const ENDPOINT_PIN_MESSAGE = 'pinChatMessage';
+    public const ENDPOINT_UNPIN_MESSAGE = 'unpinChatMessage';
+    public const ENDPOINT_UNPIN_ALL_MESSAGES = 'unpinAllChatMessages';
     public const ENDPOINT_EDIT_MESSAGE = 'editMessageText';
     public const ENDPOINT_EDIT_CAPTION = 'editMessageCaption';
     public const ENDPOINT_SEND_LOCATION = 'sendLocation';
