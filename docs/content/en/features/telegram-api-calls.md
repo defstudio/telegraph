@@ -75,6 +75,30 @@ deletes a message
 Telegram::deleteMessage($messageId)->send();
 ```
 
+## pinMessage
+
+pins a message
+
+```php
+Telegram::pinMessage($messageId)->send();
+```
+
+## unpinMessage
+
+unpins a message
+
+```php
+Telegram::unpinMessage($messageId)->send();
+```
+
+## unpinAllMessages
+
+unpin al messages
+
+```php
+Telegram::unpinAllMessages()->send();
+```
+
 ## deleteKeyboard
 
 removes a message keyboard (see [keyboards](features/keyboards) for details)
