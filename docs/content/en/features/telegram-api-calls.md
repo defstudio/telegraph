@@ -7,6 +7,20 @@ fullscreen: false
 position: 37
 ---
 
+
+## answerInlineQuery
+
+send back the results for an inline query
+
+```php
+ Telegraph::answerInlineQuery($inlineQuery->id(), [
+    InlineQueryResultPhoto::make($logo->id."-light", "https://logofinder.dev/$logo->id/light.jpg", "https://logofinder.dev/$logo->id/light/thumb.jpg")
+        ->caption('Light Logo'),
+    InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
+        ->caption('Light Logo'),
+])->cache(seconds: 600)->send();
+```
+
 ## botInfo
 
 retrieves Bot data from Telegram APIs
@@ -191,16 +205,13 @@ unregister a webhook for the active bot
 Telegram::registerWebhook()->send();
 ```
 
-## answerInlineQuery
+## voice
 
-send back the results for an inline query
+sends a vocal message
 
 ```php
- Telegraph::answerInlineQuery($inlineQuery->id(), [
-    InlineQueryResultPhoto::make($logo->id."-light", "https://logofinder.dev/$logo->id/light.jpg", "https://logofinder.dev/$logo->id/light/thumb.jpg")
-        ->caption('Light Logo'),
-    InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
-        ->caption('Light Logo'),
-])->cache(seconds: 600)->send();
+Telegram::voice($pathToVoiceFile)->send();
 ```
+
+
 

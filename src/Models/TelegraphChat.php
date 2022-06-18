@@ -113,8 +113,13 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->location(latitude: $latitude, longitude: $longitude);
     }
 
-    public function photo(string $photo): Telegraph
+    public function photo(string $path, string $filename = null): Telegraph
     {
-        return TelegraphFacade::chat($this)->photo($photo);
+        return TelegraphFacade::chat($this)->photo($path, $filename);
+    }
+
+    public function voice(string $path, string $filename = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->voice($path, $filename);
     }
 }

@@ -164,9 +164,8 @@ it('can attach a photo with markdown caption', function () {
         ->toMatchTelegramSnapshot();
 });
 
-
 it('can attach a photo with html caption', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->markdown('look at <b>this</b> photo!'))
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->html('look at <b>this</b> photo!'))
         ->toMatchTelegramSnapshot();
 });
 
@@ -188,7 +187,7 @@ it('can send a photo replying to a message', function () {
 it('can attach a keyboard to a photo', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))
-        ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'))
+            ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'))
     )->toMatchTelegramSnapshot();
 });
 
@@ -228,5 +227,76 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo\'s sum of width and height (11000px) exceed allowed 10000px',
+    ],
+]);
+
+it('can send a voice', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg')))
+        ->toMatchTelegramSnapshot();
+});
+
+it('requires a chat to send a voice', function () {
+    TelegraphFacade::voice(Storage::path('voice.ogg'));
+})->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
+
+it('can attach a voice while writing a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('listen **this** one')->voice(Storage::path('voice.ogg')))
+        ->toMatchTelegramSnapshot();
+});
+
+
+it('can attach a voice with markdown caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdown('listen **this** one'))
+        ->toMatchTelegramSnapshot();
+});
+
+
+it('can attach a voice with html caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->html('listen <b>this</b> one!'))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a voice without notification', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->silent())
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a voice protecting it from sharing', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->protected())
+        ->toMatchTelegramSnapshot();
+});
+
+
+
+it('can send a voice replying to a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->reply(1234))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can attach a keyboard to a voice', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))
+            ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'))
+    )->toMatchTelegramSnapshot();
+});
+
+test('voices are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
+    if ($valid) {
+        expect(chat()->voice(Storage::path($path)))
+            ->toBeInstanceOf(Telegraph::class);
+    } else {
+        expect(fn () => chat()->photo(Storage::path($path)))
+            ->toThrow($exceptionClass, $exceptionMessage);
+    }
+})->with([
+    'valid' => [
+        'file' => 'voice.ogg',
+        'valid' => true,
+    ],
+    'not found' => [
+        'file' => 'fake.ogg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'not found',
     ],
 ]);

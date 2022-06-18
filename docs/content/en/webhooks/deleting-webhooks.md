@@ -1,5 +1,5 @@
 ---
-title: 'Regitering Webhooks'
+title: 'Unregistering Webhooks'
 description: ''
 category: 'Webhooks'
 fullscreen: false 

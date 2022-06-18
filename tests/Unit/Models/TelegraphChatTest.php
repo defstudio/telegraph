@@ -96,3 +96,14 @@ it('can send a photo', function () {
         'photo' => new Attachment(Storage::path('photo.jpg'), 'photo.jpg'),
     ]);
 });
+
+it('can send a voice', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->voice(Storage::path('voice.ogg'), 'test')->markdown('test')->send();
+
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+        'voice' => new Attachment(Storage::path('voice.ogg'), 'test'),
+    ]);
+});

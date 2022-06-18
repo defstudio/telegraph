@@ -84,6 +84,12 @@ it('export all properties to array', function () {
                 'file_size' => 42,
             ],
         ],
+        'voice' => [
+            'file_id' => 31,
+            'duration' => 666,
+            'mime_type' => 'audio/mp3',
+            'file_size' => 42,
+        ],
         'location' => [
             'latitude' => 12456789,
             'longitude' => 98765431,

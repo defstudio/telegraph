@@ -36,6 +36,7 @@ class Message implements Arrayable
     private ?Video $video = null;
     private ?Location $location = null;
     private ?Contact $contact = null;
+    private ?Voice $voice = null;
 
     private function __construct()
     {
@@ -55,6 +56,7 @@ class Message implements Arrayable
      *     chat?: array<string, mixed>,
      *     reply_markup?: array<array<array<string>>>,
      *     audio?:array<string, mixed>,
+     *     voice?:array<string, mixed>,
      *     document?: array<string, mixed>,
      *     video?: array<string, mixed>,
      *     photo?: array<string, mixed>,
@@ -125,9 +127,15 @@ class Message implements Arrayable
             $message->location = Location::fromArray($data['location']);
         }
 
+
         if (isset($data['contact'])) {
             /* @phpstan-ignore-next-line  */
             $message->contact = Contact::fromArray($data['contact']);
+        }
+      
+        if (isset($data['voice'])) {
+            /* @phpstan-ignore-next-line  */
+            $message->voice = Voice::fromArray($data['voice']);
         }
 
         return $message;
@@ -210,6 +218,11 @@ class Message implements Arrayable
     {
         return $this->contact;
     }
+  
+    public function voice(): ?Voice
+    {
+        return $this->voice;
+    }
 
     public function toArray(): array
     {
@@ -229,6 +242,7 @@ class Message implements Arrayable
             'video' => $this->video?->toArray(),
             'location' => $this->location?->toArray(),
             'contact' => $this->contact?->toArray(),
+            'voice' => $this->voice?->toArray(),
         ]);
     }
 }
