@@ -4,8 +4,22 @@ menuTitle: 'Telegram API calls'
 description: ''
 category: 'Features'
 fullscreen: false 
-position: 36
+position: 37
 ---
+
+
+## answerInlineQuery
+
+send back the results for an inline query
+
+```php
+ Telegraph::answerInlineQuery($inlineQuery->id(), [
+    InlineQueryResultPhoto::make($logo->id."-light", "https://logofinder.dev/$logo->id/light.jpg", "https://logofinder.dev/$logo->id/light/thumb.jpg")
+        ->caption('Light Logo'),
+    InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
+        ->caption('Light Logo'),
+])->cache(seconds: 600)->send();
+```
 
 ## botInfo
 
@@ -61,6 +75,30 @@ deletes a message
 Telegram::deleteMessage($messageId)->send();
 ```
 
+## pinMessage
+
+pins a message
+
+```php
+Telegram::pinMessage($messageId)->send();
+```
+
+## unpinMessage
+
+unpins a message
+
+```php
+Telegram::unpinMessage($messageId)->send();
+```
+
+## unpinAllMessages
+
+unpin al messages
+
+```php
+Telegram::unpinAllMessages()->send();
+```
+
 ## deleteKeyboard
 
 removes a message keyboard (see [keyboards](features/keyboards) for details)
@@ -77,6 +115,22 @@ sends a document
 Telegram::document($documentPath)->send();
 ```
 
+## edit
+
+edits a message
+
+```php
+Telegram::edit($messageId)->markdown('new message')->send();
+```
+
+## editCaption
+
+edits an attachment caption
+
+```php
+Telegram::editCaption($messageId)->markdown('new caption')->send();
+```
+
 ## getWebhookDebugInfo
 
 retrieves webhook debug data for the active bot
@@ -91,7 +145,7 @@ sends a location attachment
 
 ```php
 Telegraph::location(12.345, -54.321)->send();
-``
+```
 
 ## markdown
 
@@ -191,16 +245,13 @@ unregister a webhook for the active bot
 Telegram::registerWebhook()->send();
 ```
 
-## answerInlineQuery
+## voice
 
-send back the results for an inline query
+sends a vocal message
 
 ```php
- Telegraph::answerInlineQuery($inlineQuery->id(), [
-    InlineQueryResultPhoto::make($logo->id."-light", "https://logofinder.dev/$logo->id/light.jpg", "https://logofinder.dev/$logo->id/light/thumb.jpg")
-        ->caption('Light Logo'),
-    InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
-        ->caption('Light Logo'),
-])->cache(seconds: 600)->send();
+Telegram::voice($pathToVoiceFile)->send();
 ```
+
+
 

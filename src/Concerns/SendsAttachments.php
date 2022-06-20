@@ -17,6 +17,36 @@ use Illuminate\Support\Str;
  */
 trait SendsAttachments
 {
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return array<string, mixed>
+     */
+    public function preprocessDataSendsAttachments(array $data): array
+    {
+        if ($this->files->isNotEmpty() && !empty($data['text'])) {
+            $data['caption'] = $data['text'];
+            unset($data['text']);
+        }
+
+        if ($this->endpoint === self::ENDPOINT_EDIT_CAPTION) {
+            $data['caption'] = $data['text'] ?? '';
+            unset($data['text']);
+        }
+
+        return $data;
+    }
+
+    public function editCaption(int $messageId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_EDIT_CAPTION;
+        $telegraph->data['message_id'] = $messageId;
+
+        return $telegraph;
+    }
+
     public function location(float $latitude, float $longitude): Telegraph
     {
         $telegraph = clone $this;
@@ -25,6 +55,23 @@ trait SendsAttachments
         $telegraph->data['latitude'] = $latitude;
         $telegraph->data['longitude'] = $longitude;
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
+    public function voice(string $path, string $filename = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!File::exists($path)) {
+            throw FileException::fileNotFound('Voice', $path);
+        }
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_VOICE;
+
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        $telegraph->files->put('voice', new Attachment($path, $filename));
 
         return $telegraph;
     }

@@ -37,6 +37,21 @@ it('can delete a message', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can pin a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->pinMessage(123456))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can unpin a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->unpinMessage(123456))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can unpin al messages', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->unpinAllMessages())
+        ->toMatchTelegramSnapshot();
+});
+
 it('can edit a message', function (callable $setupClosure) {
     expect($setupClosure)->toMatchTelegramSnapshot();
 })->with([

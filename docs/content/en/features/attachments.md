@@ -4,7 +4,7 @@ menuTitle: 'Attachments'
 description: ''
 category: 'Features' 
 fullscreen: false 
-position: 35
+position: 36
 ---
 
 Telegraph supports different types of attachments
@@ -17,6 +17,15 @@ Photos can be sent through Telegraph `->photo()` method:
 
 ```php
 Telegraph::photo(Storage::path('photo.jpg'))->send();
+```
+
+
+### Vocal Messages
+
+Photos can be sent through Telegraph `->voice()` method:
+
+```php
+Telegraph::voice(Storage::path('voice.ogg'))->send();
 ```
 
 
@@ -55,6 +64,9 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->markdown('read *this*')
     ->send();
 ```
+
+<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+
 
 ### Without notification
 

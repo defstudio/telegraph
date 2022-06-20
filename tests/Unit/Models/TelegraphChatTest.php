@@ -96,3 +96,68 @@ it('can send a photo', function () {
         'photo' => new Attachment(Storage::path('photo.jpg'), 'photo.jpg'),
     ]);
 });
+
+it('can send a voice', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->voice(Storage::path('voice.ogg'), 'test')->markdown('test')->send();
+
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+        'voice' => new Attachment(Storage::path('voice.ogg'), 'test'),
+    ]);
+});
+
+it('can edit a message caption', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editCaption(42)->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_CAPTION, [
+        'message_id' => 42,
+        'caption' => 'test',
+    ], false);
+});
+
+it('can delete a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->deleteMessage(42)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_MESSAGE, [
+        'message_id' => 42,
+    ], false);
+});
+
+it('can pin a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->pinMessage(42)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_PIN_MESSAGE, [
+        'message_id' => 42,
+    ], false);
+});
+
+it('can unpin a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->unpinMessage(42)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_MESSAGE, [
+        'message_id' => 42,
+    ], false);
+});
+
+it('can unpin all messages', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->unpinAllMessages()->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_ALL_MESSAGES);
+});

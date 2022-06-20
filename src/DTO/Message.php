@@ -35,6 +35,8 @@ class Message implements Arrayable
     private ?Document $document = null;
     private ?Video $video = null;
     private ?Location $location = null;
+    private ?Contact $contact = null;
+    private ?Voice $voice = null;
 
     private function __construct()
     {
@@ -54,10 +56,12 @@ class Message implements Arrayable
      *     chat?: array<string, mixed>,
      *     reply_markup?: array<array<array<string>>>,
      *     audio?:array<string, mixed>,
+     *     voice?:array<string, mixed>,
      *     document?: array<string, mixed>,
      *     video?: array<string, mixed>,
      *     photo?: array<string, mixed>,
      *     location?: array<string, mixed>,
+     *     contact?: array<string, mixed>,
      *  } $data
      */
     public static function fromArray(array $data): Message
@@ -121,6 +125,17 @@ class Message implements Arrayable
         if (isset($data['location'])) {
             /* @phpstan-ignore-next-line  */
             $message->location = Location::fromArray($data['location']);
+        }
+
+
+        if (isset($data['contact'])) {
+            /* @phpstan-ignore-next-line  */
+            $message->contact = Contact::fromArray($data['contact']);
+        }
+
+        if (isset($data['voice'])) {
+            /* @phpstan-ignore-next-line  */
+            $message->voice = Voice::fromArray($data['voice']);
         }
 
         return $message;
@@ -199,6 +214,16 @@ class Message implements Arrayable
         return $this->location;
     }
 
+    public function contact(): ?Contact
+    {
+        return $this->contact;
+    }
+
+    public function voice(): ?Voice
+    {
+        return $this->voice;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -216,6 +241,8 @@ class Message implements Arrayable
             'document' => $this->document?->toArray(),
             'video' => $this->video?->toArray(),
             'location' => $this->location?->toArray(),
+            'contact' => $this->contact?->toArray(),
+            'voice' => $this->voice?->toArray(),
         ]);
     }
 }

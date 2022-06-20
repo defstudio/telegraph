@@ -1,7 +1,7 @@
 <?php
 
+/** @noinspection PhpUnused */
 /** @noinspection PhpUnhandledExceptionInspection */
-
 /** @noinspection PhpDocMissingThrowsInspection */
 
 namespace DefStudio\Telegraph\Models;
@@ -93,9 +93,29 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->edit($messageId);
     }
 
+    public function editCaption(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->editCaption($messageId);
+    }
+
     public function deleteMessage(int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->deleteMessage($messageId);
+    }
+
+    public function pinMessage(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->pinMessage($messageId);
+    }
+
+    public function unpinMessage(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->unpinMessage($messageId);
+    }
+
+    public function unpinAllMessages(): Telegraph
+    {
+        return TelegraphFacade::chat($this)->unpinAllMessages();
     }
 
     public function action(string $action): Telegraph
@@ -113,8 +133,13 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->location(latitude: $latitude, longitude: $longitude);
     }
 
-    public function photo(string $photo): Telegraph
+    public function photo(string $path, string $filename = null): Telegraph
     {
-        return TelegraphFacade::chat($this)->photo($photo);
+        return TelegraphFacade::chat($this)->photo($path, $filename);
+    }
+
+    public function voice(string $path, string $filename = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->voice($path, $filename);
     }
 }
