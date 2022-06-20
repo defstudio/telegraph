@@ -35,7 +35,7 @@ fullscreen: true
 </a>
 
 
-#### Telegraph is a Laravel package for fluently interacting with Telegram Bots
+#### Telegraph is a Laravel package for fluently interacting with Telegram Bots made by 
 
 ```php
 Telegraph::message('hello world')
@@ -48,4 +48,4 @@ Telegraph::message('hello world')
 Get the full source code at [https://github.com/def-studio/telegraph](https://github.com/def-studio/telegraph)
 
 
-This package is powered by [def:studio](https://github.com/def-studio)
+This package is powered by [def:studio](https://github.com/def-studio), follow us on [Twitter](https://twitter.com/FabioIvona)

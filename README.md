@@ -27,7 +27,7 @@
 ---
 
 
-**Telegraph** is a Laravel package for fluently interacting with Telegram Bots
+**Telegraph** is a Laravel package for fluently interacting with Telegram Bots made by [def:studio](https://twitter.com/FabioIvona)
 
 ```php
 Telegraph::message('hello world')
@@ -81,7 +81,7 @@ composer test
 
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently. [Follow Us](https://twitter.com/FabioIvona) on Twitter for more updates about this package.
 
 ## Contributing
 
