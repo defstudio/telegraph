@@ -47,7 +47,7 @@ class TelegraphBot extends Model
 
     public static function booted()
     {
-        self::created(function (TelegraphBot $bot) {
+        self::creating(function (TelegraphBot $bot) {
             if (empty($bot->name)) {
                 $bot->name = "Bot #$bot->id";
                 $bot->saveQuietly();
