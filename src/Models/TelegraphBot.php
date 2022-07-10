@@ -50,7 +50,6 @@ class TelegraphBot extends Model
         self::creating(function (TelegraphBot $bot) {
             if (empty($bot->name)) {
                 $bot->name = "Bot #$bot->id";
-                $bot->saveQuietly();
             }
         });
     }
