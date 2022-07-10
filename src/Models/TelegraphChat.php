@@ -44,7 +44,6 @@ class TelegraphChat extends Model
         self::creating(function (TelegraphChat $chat) {
             if (empty($chat->name)) {
                 $chat->name = "Chat #$chat->id";
-                $chat->saveQuietly();
             }
         });
     }
