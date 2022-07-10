@@ -18,8 +18,10 @@ class CreateNewChatCommand extends Command
         /** @var int|null $bot_id */
         $bot_id = $this->argument('bot');
 
+        $botModel = config('telegraph.models.bot');
+
         /** @var TelegraphBot|null $bot */
-        $bot = rescue(fn () => TelegraphBot::fromId($bot_id), report: false);
+        $bot = rescue(fn () => $botModel::fromId($bot_id), report: false);
 
         if (empty($bot)) {
             $this->error("Please specify a Bot ID");

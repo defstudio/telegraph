@@ -24,8 +24,10 @@ class CreateNewBotCommand extends Command
 
         $name = $this->ask("Enter the bot name (optional)");
 
-        /** @var TelegraphBot $bot */
-        $bot = TelegraphBot::create([
+        $botModel = config('telegraph.models.bot');
+
+        /** @var TelegraphBot|null $bot */
+        $bot = $botModel::create([
             'token' => $token,
             'name' => $name,
         ]);
