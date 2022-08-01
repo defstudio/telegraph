@@ -28,6 +28,8 @@ class Message implements Arrayable
     private ?Chat $chat = null;
     private Keyboard $keyboard;
 
+    private ?Message $replyToMessage = null;
+
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
 
@@ -55,6 +57,7 @@ class Message implements Arrayable
      *     forward_from?: array<string, mixed>,
      *     chat?: array<string, mixed>,
      *     reply_markup?: array<array<array<string>>>,
+     *     reply_to_message?: array<string, mixed>,
      *     audio?:array<string, mixed>,
      *     voice?:array<string, mixed>,
      *     document?: array<string, mixed>,
@@ -80,13 +83,18 @@ class Message implements Arrayable
 
         $message->protected = $data['has_protected_content'] ?? false;
 
+        if (isset($data['reply_to_message'])) {
+            /* @phpstan-ignore-next-line */
+            $message->replyToMessage = Message::fromArray($data['reply_to_message']);
+        }
+
         if (isset($data['from'])) {
             /* @phpstan-ignore-next-line */
             $message->from = User::fromArray($data['from']);
         }
 
         if (isset($data['forward_from'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->forwardedFrom = User::fromArray($data['forward_from']);
         }
 
@@ -103,38 +111,38 @@ class Message implements Arrayable
         }
 
         if (isset($data['photo'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->photos = collect($data['photo'])->map(fn (array $photoData) => Photo::fromArray($photoData));
         }
 
         if (isset($data['audio'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->audio = Audio::fromArray($data['audio']);
         }
 
         if (isset($data['document'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->document = Document::fromArray($data['document']);
         }
 
         if (isset($data['video'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->video = Video::fromArray($data['video']);
         }
 
         if (isset($data['location'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->location = Location::fromArray($data['location']);
         }
 
 
         if (isset($data['contact'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->contact = Contact::fromArray($data['contact']);
         }
 
         if (isset($data['voice'])) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $message->voice = Voice::fromArray($data['voice']);
         }
 
@@ -184,6 +192,11 @@ class Message implements Arrayable
     public function keyboard(): Keyboard
     {
         return $this->keyboard;
+    }
+
+    public function replyToMessage(): ?Message
+    {
+        return $this->replyToMessage;
     }
 
     /**
@@ -236,6 +249,7 @@ class Message implements Arrayable
             'forwarded_from' => $this->forwardedFrom?->toArray(),
             'chat' => $this->chat?->toArray(),
             'keyboard' => $this->keyboard->isFilled() ? $this->keyboard->toArray() : null,
+            'reply_to_message' => $this->replyToMessage?->toArray(),
             'photos' => $this->photos->toArray(),
             'audio' => $this->audio?->toArray(),
             'document' => $this->document?->toArray(),

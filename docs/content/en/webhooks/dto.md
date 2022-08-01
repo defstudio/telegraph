@@ -27,7 +27,8 @@ contains incoming data (a message or a callback query)
 - `->from()` (optional) an instance of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding data about the message's sender
 - `->forwardedFrom()` (optional) an instance of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding data about a forwarded message's original sender
 - `->chat()` (optional) an instance of [`DefStudio\Telegraph\DTO\Chat`](webhooks/dto#defstudio-telegraph-dto-chat) holding data about the chat to which the message belongs to 
-- `->keyboard()` (optional) an instance of [`DefStudio\Telegraph\Keyboard\Keyboard`](feature/keyboards) holding the message inline keyboard 
+- `->keyboard()` (optional) an instance of [`DefStudio\Telegraph\Keyboard\Keyboard`](feature/keyboards) holding the message inline keyboard
+- `->replyToMessage()` (optional) an instance of the original [`DefStudio\Telegraph\DTO\Message`](webhooks/dto#defstudio-telegraph-dto-message) that the current message is replying 
 - `->photos()` (optional) a collection of [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained image resolutions
 
 - `->audio()` (optional) an instance of [`DefStudio\Telegraph\DTO\Audio`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained audio
