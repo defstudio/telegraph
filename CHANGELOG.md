@@ -2,6 +2,22 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.15.0 - 2022-08-01
+
+### What's Changed
+
+- Bump got from 11.8.3 to 11.8.5 in /docs by @dependabot in https://github.com/def-studio/telegraph/pull/110
+- Bump parse-url from 6.0.0 to 6.0.2 in /docs by @dependabot in https://github.com/def-studio/telegraph/pull/111
+- Bump terser from 4.8.0 to 4.8.1 in /docs by @dependabot in https://github.com/def-studio/telegraph/pull/122
+- [FIX] Changed created to creating by @rzkhrv in https://github.com/def-studio/telegraph/pull/117
+- [Feat] Reply to support by @fabio-ivona in https://github.com/def-studio/telegraph/pull/127
+
+### New Contributors
+
+- @rzkhrv made their first contribution in https://github.com/def-studio/telegraph/pull/117
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.14.1...v1.15.0
+
 ## v1.14.1 - 2022-06-18
 
 **Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.14.0...v1.14.1
