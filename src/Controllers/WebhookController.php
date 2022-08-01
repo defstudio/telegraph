@@ -13,7 +13,11 @@ class WebhookController
 {
     public function handle(Request $request, string $token): Response
     {
-        $bot = TelegraphBot::fromToken($token);
+        /** @var class-string<TelegraphBot> $botModel */
+        $botModel = config('telegraph.models.bot');
+
+        /** @var TelegraphBot $bot */
+        $bot = $botModel::fromToken($token);
 
         /** @var class-string $handler */
         $handler = config('telegraph.webhook_handler');
