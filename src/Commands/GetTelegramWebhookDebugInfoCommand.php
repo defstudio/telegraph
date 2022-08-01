@@ -17,6 +17,7 @@ class GetTelegramWebhookDebugInfoCommand extends Command
         /** @var int|null $bot_id */
         $bot_id = $this->argument('bot');
 
+        /** @var class-string<TelegraphBot> $botModel */
         $botModel = config('telegraph.models.bot');
 
         /** @var TelegraphBot|null $bot */
