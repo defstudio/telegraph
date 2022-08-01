@@ -1,6 +1,7 @@
 <?php
 
 use function Pest\Laravel\artisan;
+
 use Symfony\Component\Console\Command\Command;
 
 test('bot id is required if there are more than one bot', function () {

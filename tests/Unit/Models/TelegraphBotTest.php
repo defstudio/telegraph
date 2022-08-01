@@ -7,6 +7,7 @@ use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can retrieve its telegram info', function () {

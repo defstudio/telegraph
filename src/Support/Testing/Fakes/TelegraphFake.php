@@ -163,79 +163,79 @@ class TelegraphFake extends Telegraph
                         'text' => $this->data['text'],
                     ],
                 ],
-                Telegraph::ENDPOINT_GET_BOT_INFO => [
-                    'ok' => true,
-                    'result' => [
-                        'id' => 42,
-                        'is_bot' => true,
-                        'first_name' => 'telegraph-test',
-                        'username' => 'test_bot',
-                        'can_join_groups' => true,
-                        'can_read_all_group_messages' => false,
-                        'supports_inline_queries' => false,
-                    ],
+            Telegraph::ENDPOINT_GET_BOT_INFO => [
+                'ok' => true,
+                'result' => [
+                    'id' => 42,
+                    'is_bot' => true,
+                    'first_name' => 'telegraph-test',
+                    'username' => 'test_bot',
+                    'can_join_groups' => true,
+                    'can_read_all_group_messages' => false,
+                    'supports_inline_queries' => false,
                 ],
-                Telegraph::ENDPOINT_GET_BOT_UPDATES => [
-                    'ok' => true,
-                    'result' => [
-                        [
-                            'update_id' => 123456,
-                            'message' => [
-                                'message_id' => 42,
-                                'from' => [
-                                    'id' => 444,
-                                    'is_bot' => false,
-                                    'first_name' => 'John',
-                                    'last_name' => 'Smith',
-                                    'username' => 'john_smith',
-                                    'language_code' => 'en',
-                                ],
-                                'chat' => [
-                                    'id' => 987654,
-                                    'first_name' => 'John',
-                                    'last_name' => 'Smith',
-                                    'username' => 'john_smith',
-                                    'type' => 'private',
-                                ],
-                                'date' => 1646516736,
-                                'text' => '/start',
-                                'entities' => [
-                                    [
-                                        'offset' => 0,
-                                        'length' => 6,
-                                        'type' => 'bot_command',
-                                    ],
+            ],
+            Telegraph::ENDPOINT_GET_BOT_UPDATES => [
+                'ok' => true,
+                'result' => [
+                    [
+                        'update_id' => 123456,
+                        'message' => [
+                            'message_id' => 42,
+                            'from' => [
+                                'id' => 444,
+                                'is_bot' => false,
+                                'first_name' => 'John',
+                                'last_name' => 'Smith',
+                                'username' => 'john_smith',
+                                'language_code' => 'en',
+                            ],
+                            'chat' => [
+                                'id' => 987654,
+                                'first_name' => 'John',
+                                'last_name' => 'Smith',
+                                'username' => 'john_smith',
+                                'type' => 'private',
+                            ],
+                            'date' => 1646516736,
+                            'text' => '/start',
+                            'entities' => [
+                                [
+                                    'offset' => 0,
+                                    'length' => 6,
+                                    'type' => 'bot_command',
                                 ],
                             ],
                         ],
-                        [
-                            'update_id' => 123457,
-                            'message' => [
-                                'message_id' => 99,
-                                'from' => [
-                                    'id' => 8974,
-                                    'is_bot' => true,
-                                    'first_name' => 'Test Bot',
-                                    'username' => 'test_bot',
-                                    'can_join_groups' => true,
-                                    'can_read_all_group_messages' => false,
-                                    'supports_inline_queries' => false,
-                                ],
-                                'chat' => [
-                                    'id' => -987455499,
-                                    'title' => 'Bot Test Chat',
-                                    'type' => 'group',
-                                ],
-                                'date' => 1646519736,
-                                'text' => 'Hello world!',
-                                'entities' => [],
+                    ],
+                    [
+                        'update_id' => 123457,
+                        'message' => [
+                            'message_id' => 99,
+                            'from' => [
+                                'id' => 8974,
+                                'is_bot' => true,
+                                'first_name' => 'Test Bot',
+                                'username' => 'test_bot',
+                                'can_join_groups' => true,
+                                'can_read_all_group_messages' => false,
+                                'supports_inline_queries' => false,
                             ],
+                            'chat' => [
+                                'id' => -987455499,
+                                'title' => 'Bot Test Chat',
+                                'type' => 'group',
+                            ],
+                            'date' => 1646519736,
+                            'text' => 'Hello world!',
+                            'entities' => [],
                         ],
                     ],
                 ],
-                default => [
-                    'ok' => true,
-                ],
+            ],
+            default => [
+                'ok' => true,
+            ],
         };
 
         return new Response(new $messageClass($response));

@@ -7,6 +7,7 @@
 use DefStudio\Telegraph\DTO\Photo;
 use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Support\Facades\Storage;
+
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 beforeEach(fn () => sandbox_bot());
