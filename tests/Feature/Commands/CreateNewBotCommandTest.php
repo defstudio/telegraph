@@ -3,7 +3,9 @@
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Telegraph;
+
 use function Pest\Laravel\artisan;
+
 use Symfony\Component\Console\Command\Command;
 
 test('bot token is required', function () {

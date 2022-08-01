@@ -2,6 +2,7 @@
 
 
 use DefStudio\Telegraph\Facades\Telegraph;
+
 use function Spatie\Snapshots\assertMatchesJsonSnapshot;
 
 $fake_response_data = [
