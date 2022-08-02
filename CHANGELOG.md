@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.15.1 - 2022-08-02
+
+### What's Changed
+
+- [Fix] chat id retrieval for messages incoming from channels by @fabio-ivona in https://github.com/def-studio/telegraph/pull/128
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.15.0...v1.15.1
+
 ## v1.15.0 - 2022-08-01
 
 ### What's Changed
