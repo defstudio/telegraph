@@ -74,6 +74,7 @@ trait InteractsWithTelegram
     {
         /** @phpstan-ignore-next-line */
         return (string) Str::of(Telegraph::TELEGRAM_API_BASE_URL)
+            ->append('/bot')
             ->append($this->getBot()->token)
             ->append('/', $this->endpoint)
             ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
@@ -83,6 +84,7 @@ trait InteractsWithTelegram
     {
         /** @phpstan-ignore-next-line */
         return (string) Str::of(Telegraph::TELEGRAM_API_BASE_URL)
+            ->append('/bot')
             ->append($this->getBot()->token)
             ->append('/', $this->endpoint);
     }

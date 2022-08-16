@@ -142,9 +142,9 @@ class TelegraphBot extends Model
         return $reply->json('result');
     }
 
-    public function store(Downloadable|string $attachment, string $path, string $filename = null): string
+    public function store(Downloadable|string $attachment, string $path, string $filename = null, string $baseFileUrl = null): string
     {
-        return TelegraphFacade::bot($this)->store($attachment, $path, $filename);
+        return TelegraphFacade::bot($this)->store($attachment, $path, $filename, $baseFileUrl);
     }
 
     public function url(): string

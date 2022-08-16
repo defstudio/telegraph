@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  location(float $latitude, float $longitude)
  * @method static \DefStudio\Telegraph\Telegraph  botUpdates()
  * @method static \DefStudio\Telegraph\Telegraph  botInfo()
- * @method static string store(Downloadable $attachment, string $path, string $filename = null)
+ * @method static string store(Downloadable $attachment, string $path, string $filename = null, string $baseUrl = null)
  * @method static void  dumpSentData()
  * @method static void  assertSentData(string $endpoint, array $data = null, bool $exact = true)
  * @method static void  assertSentFiles(string $endpoint, array $files = null)
