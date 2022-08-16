@@ -46,7 +46,8 @@ class Telegraph
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';
 
-    protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org';
+    protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
+    protected const TELEGRAM_API_FILE_BASE_URL = 'https://api.telegram.org/file/bot';
 
     public const ENDPOINT_GET_BOT_UPDATES = 'getUpdates';
     public const ENDPOINT_GET_BOT_INFO = 'getMe';

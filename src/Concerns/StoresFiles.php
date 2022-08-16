@@ -23,7 +23,7 @@ trait StoresFiles
         return $telegraph;
     }
 
-    public function store(Downloadable|string $downloadable, string $path, string $filename = null, string $baseFileUrl = null): string
+    public function store(Downloadable|string $downloadable, string $path, string $filename = null): string
     {
         $fileId = is_string($downloadable) ? $downloadable : $downloadable->id();
 
@@ -35,9 +35,7 @@ trait StoresFiles
 
         $filePath = $response->json('result.file_path');
 
-        $url = Str::of($baseFileUrl ?? self::TELEGRAM_API_BASE_URL)
-            ->rtrim('/')
-            ->append('/file/bot')
+        $url = Str::of(self::TELEGRAM_API_FILE_BASE_URL)
             ->append($this->getBot()->token)
             ->append('/', $filePath);
 
