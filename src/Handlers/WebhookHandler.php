@@ -145,17 +145,22 @@ abstract class WebhookHandler
         assert($this->message?->chat() !== null);
 
         /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->firstOrNew([
-            'chat_id' => $this->message->chat()->id(),
-        ]);
-
-        $this->chat = $chat;
+        $this->handleChat();
 
         $this->messageId = $this->message->id();
 
         $this->data = collect([
             'text' => $this->message->text(),
         ]);
+    }
+
+    protected function handleChat(): void
+    {
+        $chat = $this->bot->chats()->firstOrNew([
+            'chat_id' => $this->message->chat()->id(),
+        ]);
+
+        $this->chat = $chat;
     }
 
     protected function handleChatMessage(Stringable $text): void
