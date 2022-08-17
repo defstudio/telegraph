@@ -72,7 +72,7 @@ abstract class WebhookHandler
         $command = (string) $text->after('/')->before(' ')->before('@');
 
         if (!$this->canHandle($command)) {
-            $this->handleChatCommand($text, $command);
+            $this->handleChatMessage($text);
             return;
         }
 
@@ -157,16 +157,6 @@ abstract class WebhookHandler
     protected function handleChatMessage(Stringable $text): void
     {
         // .. do nothing
-    }
-
-    protected function handleChatCommand(Stringable $text, string $command): void
-    {
-        // .. do nothing
-
-        if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
-            report(TelegramWebhookException::invalidCommand($command));
-            $this->chat->html("Unknown command")->send();
-        }
     }
 
     protected function replaceKeyboard(Keyboard $newKeyboard): void
