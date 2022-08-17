@@ -85,6 +85,15 @@ class Telegraph
         $this->files = Collection::empty();
     }
 
+    public function when(bool $condition, callable $callback): Telegraph
+    {
+        if ($condition) {
+            return $callback($this);
+        }
+
+        return $this;
+    }
+
     public function send(): TelegraphResponse
     {
         $response = $this->sendRequestToTelegram();
