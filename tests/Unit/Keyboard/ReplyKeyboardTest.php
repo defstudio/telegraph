@@ -27,9 +27,9 @@ test('keyboard creation by rows', function () {
 test('keyboard creation by buttons', function () {
     $keyboard = ReplyKeyboard::make()
         ->buttons([
-           ReplyButton::make('foo')->requestPoll(),
-           ReplyButton::make('bar')->requestQuiz(),
-           ReplyButton::make('baz')->webApp('https://webapp.dev'),
+            ReplyButton::make('foo')->requestPoll(),
+            ReplyButton::make('bar')->requestQuiz(),
+            ReplyButton::make('baz')->webApp('https://webapp.dev'),
         ])->chunk(2)->toArray();
 
     expect($keyboard)->toMatchArray([
@@ -141,13 +141,29 @@ it('can quickly add buttons', function () {
         ->button('bar')->width(0.5)->requestLocation()
         ->button('baz')->width(0.5)->requestContact();
 
-    expect($keyboard)->toMatchArray([
+    expect($keyboard->toArray())->toBe([
         [
             ['text' => 'foo', 'request_contact' => true],
         ],
         [
-            ['text' => 'bar',  'request_location' => true],
+            ['text' => 'bar', 'request_location' => true],
             ['text' => 'baz', 'request_contact' => true],
+        ],
+    ]);
+});
+
+it('can handle conditional closures', function () {
+    $keyboard = ReplyKeyboard::make()
+        ->button('foo')->requestContact()
+        ->when(true, fn (ReplyKeyboard $keyboard) => $keyboard->button('bar')->width(0.5)->requestLocation())
+        ->when(false, fn (ReplyKeyboard $keyboard) => $keyboard->button('baz')->width(0.5)->requestContact());
+
+    expect($keyboard->toArray())->toBe([
+        [
+            ['text' => 'foo', 'request_contact' => true],
+        ],
+        [
+            ['text' => 'bar', 'request_location' => true],
         ],
     ]);
 });

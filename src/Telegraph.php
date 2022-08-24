@@ -85,6 +85,9 @@ class Telegraph
         $this->files = Collection::empty();
     }
 
+    /**
+     * @param callable(Telegraph $keyboard): Telegraph $callback
+     */
     public function when(bool $condition, callable $callback): Telegraph
     {
         if ($condition) {

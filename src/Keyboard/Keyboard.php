@@ -23,6 +23,9 @@ class Keyboard implements Arrayable
         return new self();
     }
 
+    /**
+     * @param callable(Keyboard $keyboard): Keyboard $callback
+     */
     public function when(bool $condition, callable $callback): Keyboard
     {
         if ($condition) {

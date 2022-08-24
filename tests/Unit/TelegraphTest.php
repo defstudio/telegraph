@@ -26,3 +26,21 @@ test('async sending returns a Pending Dispatch', function () {
 
     expect($response)->toBeInstanceOf(PendingDispatch::class);
 });
+
+it('can handle conditional closures', function () {
+    $count = 0;
+
+    $telegraph = app(Telegraph::class)
+        ->when(true, function (Telegraph $telegraph) use (&$count) {
+            $count++;
+
+            return $telegraph;
+        })->when(false, function (Telegraph $telegraph) use (&$count) {
+            $count += 10;
+
+            return $telegraph;
+        });
+
+    expect($telegraph)->toBeInstanceOf(Telegraph::class)
+        ->and($count)->toBe(1);
+});

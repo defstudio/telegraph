@@ -160,3 +160,13 @@ A keyboard can be removed from a message by submitting its `messageId`:
 ```php
 Telegraph::deleteKeyboard(messageId: 1568794)->send();
 ```
+
+## Conditional methods
+
+a `when` method allows to execute a closure when the given condition is verified
+
+```php
+Keyboard::make()
+    ->button('Dismiss')->action('dismiss')->param('id', '42')->width(0.5)
+    ->when($userCanDelete, fn(Keyboard $keyboard) => $keyboard->button('Delete')->action('delete')->param('id', '42')->width(0.5))
+```
