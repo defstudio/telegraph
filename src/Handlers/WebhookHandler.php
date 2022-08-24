@@ -70,6 +70,7 @@ abstract class WebhookHandler
     private function handleCommand(Stringable $text): void
     {
         $command = (string) $text->after('/')->before(' ')->before('@');
+        $parameter = (string) $text->after('@')->after(' ');
 
         if (!$this->canHandle($command)) {
             if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
@@ -80,7 +81,7 @@ abstract class WebhookHandler
             return;
         }
 
-        $this->$command();
+        $this->$command($parameter);
     }
 
     private function handleMessage(): void

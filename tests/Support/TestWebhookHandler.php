@@ -49,8 +49,11 @@ class TestWebhookHandler extends WebhookHandler
         $this->deleteKeyboard();
     }
 
-    public function hello(): void
+    public function hello($parameter = null): void
     {
+        if ($parameter) {
+            $this->chat->html("Hello!! your parameter is [$parameter]")->send();
+        }
         $this->chat->html("Hello!!")->send();
     }
 
@@ -75,19 +78,19 @@ class TestWebhookHandler extends WebhookHandler
     {
         $this->bot->answerInlineQuery($inlineQuery->id(), [
             InlineQueryResultGif::make(99, 'https://gif.dev', 'https://thumb.gif.test')
-            ->caption('foo')
-            ->title('bar')
-            ->duration(200)
-            ->height(400)
-            ->width(300)
-            ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 99)),
+                ->caption('foo')
+                ->title('bar')
+                ->duration(200)
+                ->height(400)
+                ->width(300)
+                ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 99)),
             InlineQueryResultGif::make(98, 'https://gif2.dev', 'https://thumb.gif2.test')
-            ->caption('baz')
-            ->title('quz')
-            ->duration(1200)
-            ->height(1400)
-            ->width(1300)
-            ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 98)),
+                ->caption('baz')
+                ->title('quz')
+                ->duration(1200)
+                ->height(1400)
+                ->width(1300)
+                ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 98)),
 
         ])->send();
     }
