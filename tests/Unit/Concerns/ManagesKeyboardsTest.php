@@ -102,7 +102,6 @@ it('can attach a one-time reply keyboard', function () {
     })->toMatchTelegramSnapshot();
 });
 
-
 it('can attach a reply keyboard and a text place holder', function () {
     expect(function (Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
@@ -110,7 +109,6 @@ it('can attach a reply keyboard and a text place holder', function () {
             ->replyKeyboard(fn (ReplyKeyboard $keyboard) => $keyboard->button('foo')->requestContact()->inputPlaceholder('select...'));
     })->toMatchTelegramSnapshot();
 });
-
 
 it('can attach a selective reply keyboard', function () {
     expect(function (Telegraph $telegraph) {
