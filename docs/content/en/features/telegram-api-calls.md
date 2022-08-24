@@ -8,6 +8,7 @@ position: 37
 ---
 
 
+
 ## answerInlineQuery
 
 send back the results for an inline query
@@ -44,7 +45,7 @@ supports_inline_queries: false
 retrieves the bot data from Telegram APIs
 
 ```php
-Telegram::bot($telegraphBot)->botInfo()->send();
+Telegraph::bot($telegraphBot)->botInfo()->send();
 ```
 
 ## botUpdates
@@ -52,7 +53,7 @@ Telegram::bot($telegraphBot)->botInfo()->send();
 retrieves the bot updates from Telegram APIs
 
 ```php
-Telegram::bot($telegraphBot)->botUpdates()->send();
+Telegraph::bot($telegraphBot)->botUpdates()->send();
 ```
 
 <alert type="alert">Manual updates polling is not available if a webhook is set up for the bot. Webhook should be remove first using its [unregisterWebhook](webhooks/deleting-webhooks) method</alert>
@@ -64,7 +65,7 @@ Tells the chat users that something is happening on the bot's side. The status i
 <img src="screenshots/chat-action.png" />
 
 ```php
-Telegram::chatAction(ChatActions::TYPING)->send();
+Telegraph::chatAction(ChatActions::TYPING)->send();
 ```
 
 ## deleteMessage
@@ -72,7 +73,7 @@ Telegram::chatAction(ChatActions::TYPING)->send();
 deletes a message
 
 ```php
-Telegram::deleteMessage($messageId)->send();
+Telegraph::deleteMessage($messageId)->send();
 ```
 
 ## pinMessage
@@ -80,7 +81,7 @@ Telegram::deleteMessage($messageId)->send();
 pins a message
 
 ```php
-Telegram::pinMessage($messageId)->send();
+Telegraph::pinMessage($messageId)->send();
 ```
 
 ## unpinMessage
@@ -88,7 +89,7 @@ Telegram::pinMessage($messageId)->send();
 unpins a message
 
 ```php
-Telegram::unpinMessage($messageId)->send();
+Telegraph::unpinMessage($messageId)->send();
 ```
 
 ## unpinAllMessages
@@ -96,7 +97,7 @@ Telegram::unpinMessage($messageId)->send();
 unpin al messages
 
 ```php
-Telegram::unpinAllMessages()->send();
+Telegraph::unpinAllMessages()->send();
 ```
 
 ## deleteKeyboard
@@ -104,7 +105,7 @@ Telegram::unpinAllMessages()->send();
 removes a message keyboard (see [keyboards](features/keyboards) for details)
 
 ```php
-Telegram::deleteKeyboard($messageId)->send();
+Telegraph::deleteKeyboard($messageId)->send();
 ```
 
 ## document
@@ -112,7 +113,7 @@ Telegram::deleteKeyboard($messageId)->send();
 sends a document
 
 ```php
-Telegram::document($documentPath)->send();
+Telegraph::document($documentPath)->send();
 ```
 
 ## edit
@@ -120,7 +121,7 @@ Telegram::document($documentPath)->send();
 edits a message
 
 ```php
-Telegram::edit($messageId)->markdown('new message')->send();
+Telegraph::edit($messageId)->markdown('new message')->send();
 ```
 
 ## editCaption
@@ -128,7 +129,7 @@ Telegram::edit($messageId)->markdown('new message')->send();
 edits an attachment caption
 
 ```php
-Telegram::editCaption($messageId)->markdown('new caption')->send();
+Telegraph::editCaption($messageId)->markdown('new caption')->send();
 ```
 
 ## getWebhookDebugInfo
@@ -136,7 +137,7 @@ Telegram::editCaption($messageId)->markdown('new caption')->send();
 retrieves webhook debug data for the active bot
 
 ```php
-$response = Telegram::getWebhookDebugInfo()->send();
+$response = Telegraph::getWebhookDebugInfo()->send();
 ```
 
 ## location
@@ -176,7 +177,7 @@ Telegraph::html('<b>hello</b> world')->send();
 sends a photo
 
 ```php
-Telegram::photo($pathToPhotoFile)->send();
+Telegraph::photo($pathToPhotoFile)->send();
 ```
 
 ## registerBotCommands
@@ -184,7 +185,7 @@ Telegram::photo($pathToPhotoFile)->send();
 register commands in Telegram Bot in order to display them to the user when the "/" key is pressed
 
 ```php
-Telegram::registerBotCommands([
+Telegraph::registerBotCommands([
     'command1' => 'command 1 description',
     'command2' => 'command 2 description'
 ])->send();
@@ -195,7 +196,7 @@ Telegram::registerBotCommands([
 register a webhook for the active bot
 
 ```php
-Telegram::registerWebhook()->send();
+Telegraph::registerWebhook()->send();
 ```
 
 ## replaceKeyboard
@@ -203,7 +204,7 @@ Telegram::registerWebhook()->send();
 replace a message keyboard (see [keyboards](features/keyboards) for details)
 
 ```php
-Telegram::replaceKeyboard(
+Telegraph::replaceKeyboard(
     $messageId, 
     Keyboard::make()->buttons([
         Button::make('open')->url('https://test.dev')
@@ -216,7 +217,7 @@ Telegram::replaceKeyboard(
 replies to a webhook callback
 
 ```php
-Telegram::replyWebhook($callbackQueryId, 'message received')->send();
+Telegraph::replyWebhook($callbackQueryId, 'message received')->send();
 ```
 
 ## store
@@ -226,7 +227,7 @@ Downloads a media file and stores it in the given path
 ```php
 /** @var DefStudio\Telegraph\DTO\Photo $photo */
 
-Telegram::store($photo, Storage::path('bot/images'), 'The Photo.jpg');
+Telegraph::store($photo, Storage::path('bot/images'), 'The Photo.jpg');
 ```
 
 ## unregisterBotCommands
@@ -234,7 +235,7 @@ Telegram::store($photo, Storage::path('bot/images'), 'The Photo.jpg');
 resets Telegram Bot registered commands
 
 ```php
-Telegram::unregisterBotCommands()->send();
+Telegraph::unregisterBotCommands()->send();
 ```
 
 ## unregisterWebhook
@@ -242,7 +243,7 @@ Telegram::unregisterBotCommands()->send();
 unregister a webhook for the active bot
 
 ```php
-Telegram::registerWebhook()->send();
+Telegraph::registerWebhook()->send();
 ```
 
 ## voice
@@ -250,8 +251,15 @@ Telegram::registerWebhook()->send();
 sends a vocal message
 
 ```php
-Telegram::voice($pathToVoiceFile)->send();
+Telegraph::voice($pathToVoiceFile)->send();
 ```
 
+## when
+
+allows to execute a closure when the given condition is verified
+
+```php
+Telegraph::when(true, fn(Telegraph $telegraph) => $telegraph->message('conditional message')->send());
+```
 
 

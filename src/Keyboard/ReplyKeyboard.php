@@ -29,6 +29,18 @@ class ReplyKeyboard implements Arrayable
         return new self();
     }
 
+    /**
+     * @param callable(ReplyKeyboard $keyboard): ReplyKeyboard $callback
+     */
+    public function when(bool $condition, callable $callback): self
+    {
+        if ($condition) {
+            return $callback($this);
+        }
+
+        return $this;
+    }
+
     protected function clone(): self
     {
         $clone = self::make();

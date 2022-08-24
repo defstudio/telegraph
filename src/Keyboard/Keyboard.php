@@ -23,6 +23,18 @@ class Keyboard implements Arrayable
         return new self();
     }
 
+    /**
+     * @param callable(Keyboard $keyboard): Keyboard $callback
+     */
+    public function when(bool $condition, callable $callback): Keyboard
+    {
+        if ($condition) {
+            return $callback($this);
+        }
+
+        return $this;
+    }
+
     protected function clone(): Keyboard
     {
         $clone = Keyboard::make();

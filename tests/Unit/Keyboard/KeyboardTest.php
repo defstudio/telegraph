@@ -151,13 +151,29 @@ it('can quickly add buttons', function () {
         ->button('open')->width(0.5)->url('https://test.it')
         ->button('foo')->width(0.5)->webApp('https://my-webapp.dev');
 
-    expect($keyboard)->toMatchArray([
+    expect($keyboard->toArray())->toBe([
         [
             ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
         ],
         [
             ['text' => 'open', 'url' => 'https://test.it'],
             ['text' => 'foo', 'web_app' => ['url' => 'https://my-webapp.dev']],
+        ],
+    ]);
+});
+
+it('can handle conditional closures', function () {
+    $keyboard = Keyboard::make()
+        ->button('Delete')->action('delete')->param('id', '42')
+        ->when(true, fn (Keyboard $keyboard) => $keyboard->button('Test')->action('test')->param('foo', 66))
+        ->when(false, fn (Keyboard $keyboard) => $keyboard->button('Unwanted Test')->action('unwanted_test')->param('foo', 33));
+
+    expect($keyboard->toArray())->toBe([
+        [
+            ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
+        ],
+        [
+            ['text' => 'Test', 'callback_data' => 'action:test;foo:66'],
         ],
     ]);
 });
