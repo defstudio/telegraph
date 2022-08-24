@@ -145,7 +145,7 @@ abstract class WebhookHandler
         assert($this->message?->chat() !== null);
 
         /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->firstOrNew([
+        $chat = $this->bot->chats()->firstOrCreate([
             'chat_id' => $this->message->chat()->id(),
         ]);
 
