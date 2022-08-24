@@ -15,7 +15,7 @@ Telegraph can handle two incoming webhook request types: **Chat Messages** and *
 Telegraph bots can receive commands from chats where they are registered. A command is a telegram message has a a `backslash` char followed by a descriptive word, typed in the bot's chat:
 
 ```
-\hi
+\hi Fabio
 ```
 
 what the command will trigger is up to the developer, but a webhook will react to it if it has a public method named as the command:
@@ -26,6 +26,18 @@ class CustomWebhookHandler extends WebhookHandler
     public function hi()
     {
         $this->chat->markdown("*Hi* happy to be here!")->send();
+    }
+}
+```
+
+optionally, the handler method can receive the command parameters:
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    public function hi(string $userName)
+    {
+        $this->chat->markdown("*Hi* $userName, happy to be here!")->send();
     }
 }
 ```

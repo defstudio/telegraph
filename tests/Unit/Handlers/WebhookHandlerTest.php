@@ -84,7 +84,16 @@ it('can handle a command with parameters', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_command('/hello foo'), $bot);
 
-    Facade::assertSent("Hello!!");
+    Facade::assertSent("Hello!! your parameter is [foo]");
+});
+
+it('can handle a command with parameters and bot reference', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello@bot foo bot'), $bot);
+
+    Facade::assertSent("Hello!! your parameter is [foo bot]");
 });
 
 it('can change the inline keyboard', function () {
