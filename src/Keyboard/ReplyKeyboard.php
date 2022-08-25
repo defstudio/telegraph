@@ -45,6 +45,10 @@ class ReplyKeyboard implements Arrayable
     {
         $clone = self::make();
         $clone->buttons = $this->buttons;
+        $clone->resize = $this->resize;
+        $clone->oneTime = $this->oneTime;
+        $clone->selective = $this->selective;
+        $clone->inputPlaceholder = $this->inputPlaceholder;
 
         return $clone;
     }
