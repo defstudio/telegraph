@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
 /** @noinspection PhpUnusedPrivateMethodInspection */
 
 namespace DefStudio\Telegraph\Tests\Support;
@@ -9,9 +11,12 @@ use DefStudio\Telegraph\DTO\InlineQueryResultGif;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Support\Stringable;
 
 class TestWebhookHandler extends WebhookHandler
 {
+    public static bool $handleUnknownCommands = false;
+
     public static int $calls_count = 0;
     public static array $extracted_data = [];
 
@@ -93,5 +98,14 @@ class TestWebhookHandler extends WebhookHandler
                 ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 98)),
 
         ])->send();
+    }
+
+    protected function handleUnknownCommand(Stringable $text): void
+    {
+        if (!self::$handleUnknownCommands) {
+            parent::handleUnknownCommand($text);
+        }
+
+        $this->chat->html("I can't understand your command: $text")->send();
     }
 }

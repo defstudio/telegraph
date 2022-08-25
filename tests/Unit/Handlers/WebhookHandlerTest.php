@@ -69,6 +69,19 @@ it('can handle a command', function () {
     Facade::assertSent("Hello!!");
 });
 
+it('can handle an unknown command', function () {
+    TestWebhookHandler::$handleUnknownCommands = true;
+
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/foo'), $bot);
+
+    Facade::assertSent("I can't understand your command: /foo");
+
+    TestWebhookHandler::$handleUnknownCommands = false;
+});
+
 it('can handle a command with bot reference', function () {
     $bot = bot();
     Facade::fake();

@@ -73,15 +73,25 @@ abstract class WebhookHandler
         $parameter = (string) $text->after('@')->after(' ');
 
         if (!$this->canHandle($command)) {
-            if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
-                report(TelegramWebhookException::invalidCommand($command));
-                $this->chat->html("Unknown command")->send();
-            }
+            $this->handleUnknownCommand($text);
 
             return;
         }
 
         $this->$command($parameter);
+    }
+
+    protected function handleUnknownCommand(Stringable $text): void
+    {
+        if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
+            $command = (string) $text->after('/')->before(' ')->before('@');
+
+            if (config('telegraph.report_unknown_webhook_commands', true)) {
+                report(TelegramWebhookException::invalidCommand($command));
+            }
+
+            $this->chat->html("Unknown command")->send();
+        }
     }
 
     private function handleMessage(): void

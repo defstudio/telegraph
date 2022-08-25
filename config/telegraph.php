@@ -25,7 +25,13 @@ return [
     'debug_mode' => false,
 
     /*
-     * Set model class for both TelegraphBot and TelegraphChat, 
+     * If enabled, unknown webhook commands are
+     * reported as exception in application logs
+     */
+    'report_unknown_webhook_commands' => true,
+
+    /*
+     * Set model class for both TelegraphBot and TelegraphChat,
      * to allow more customization.
      *
      * Bot model must be or extend `DefStudio\Telegraph\Models\TelegraphBot::class`

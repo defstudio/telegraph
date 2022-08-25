@@ -56,6 +56,29 @@ class CustomWebhookHandler extends WebhookHandler
 
 <alert type="alert">As it is used internally, `/handle` command keyword is forbidden</alert>
 
+### Unknown commands
+
+The default Telegraph's behaviour for unknown commands is to report an exception in application log (this can be disabled in telegraph config) and
+answer the user that the command is unknown
+
+A custom handler can be defined by overriding the `WebhookHandler::handleUnknownCommand` method:
+
+```php
+class MyWebhookHandler extends WebhookHandler
+{
+    // ... 
+    
+    protected function handleUnknownCommand(Stringable $text): void
+    {
+        if (!self::$handleUnknownCommands) {
+            parent::handleUnknownCommand($text);
+        }
+
+        $this->chat->html("I can't understand your command: $text")->send();
+    }
+}
+```
+
 ## Callback Queries
 
 Bots messages may ship with keyboard of buttons that trigger actions when pressed:
