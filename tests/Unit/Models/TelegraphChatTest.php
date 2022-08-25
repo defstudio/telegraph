@@ -87,6 +87,30 @@ it('can send a document', function () {
    ]);
 });
 
+it('can send a document from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->document('https://test.dev/document.pdf')->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+        'document' => 'https://test.dev/document.pdf',
+    ]);
+});
+
+it('can send a document from file_id', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $uuid = Str::uuid();
+
+    $chat->document($uuid)->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+        'document' => $uuid,
+    ]);
+});
+
 it('can send a photo', function () {
     Telegraph::fake();
     $chat = make_chat();
@@ -98,6 +122,30 @@ it('can send a photo', function () {
     ]);
 });
 
+it('can send a photo from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->photo('https://test.dev/photo.jpg')->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+        'photo' => 'https://test.dev/photo.jpg',
+    ]);
+});
+
+it('can send a photo from file_id', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $uuid = Str::uuid();
+
+    $chat->photo($uuid)->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+        'photo' => $uuid,
+    ]);
+});
+
 it('can send a voice', function () {
     Telegraph::fake();
     $chat = make_chat();
@@ -106,6 +154,30 @@ it('can send a voice', function () {
 
     Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
         'voice' => new Attachment(Storage::path('voice.ogg'), 'test'),
+    ]);
+});
+
+it('can send a voice from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->voice('https://test.dev/voice.ogg')->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+        'voice' => 'https://test.dev/voice.ogg',
+    ]);
+});
+
+it('can send a voice from file_id', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $uuid = Str::uuid();
+
+    $chat->voice($uuid)->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+        'voice' => $uuid,
     ]);
 });
 

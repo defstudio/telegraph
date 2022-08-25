@@ -73,12 +73,6 @@ test('documents are validated', function (string $path, bool $valid, string $exc
         'file' => 'valid_document.txt',
         'valid' => true,
     ],
-    'not found' => [
-        'file' => 'fake.txt',
-        'valid' => false,
-        'exception' => FileException::class,
-        'message' => 'not found',
-    ],
     'invalid size' => [
         'file' => 'invalid_document_size.txt',
         'valid' => false,
@@ -107,12 +101,6 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
     'valid' => [
         'file' => 'thumbnail.jpg',
         'valid' => true,
-    ],
-    'not found' => [
-        'file' => 'fake.jpg',
-        'valid' => false,
-        'exception' => FileException::class,
-        'message' => 'not found',
     ],
     'invalid size' => [
         'file' => 'invalid_thumbnail_size.jpg',
@@ -204,12 +192,6 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'file' => 'photo.jpg',
         'valid' => true,
     ],
-    'not found' => [
-        'file' => 'fake.jpg',
-        'valid' => false,
-        'exception' => FileException::class,
-        'message' => 'not found',
-    ],
     'invalid weight' => [
         'file' => 'invalid_photo_size.jpg',
         'valid' => false,
@@ -288,12 +270,6 @@ test('voices are validated', function (string $path, bool $valid, string $except
     'valid' => [
         'file' => 'voice.ogg',
         'valid' => true,
-    ],
-    'not found' => [
-        'file' => 'fake.ogg',
-        'valid' => false,
-        'exception' => FileException::class,
-        'message' => 'not found',
     ],
 ]);
 

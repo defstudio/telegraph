@@ -7,7 +7,7 @@ fullscreen: false
 position: 36
 ---
 
-Telegraph supports different types of attachments
+Telegraph supports different types of attachments both from local files, remote urls and existing files on Telegram servers (using their file_id)
 
 ## Attachment types
 
@@ -17,6 +17,8 @@ Photos can be sent through Telegraph `->photo()` method:
 
 ```php
 Telegraph::photo(Storage::path('photo.jpg'))->send();
+Telegraph::photo('https://my-repository/photo.jpg')->send();
+Telegraph::photo($telegramFileId)->send();
 ```
 
 
@@ -26,6 +28,8 @@ Photos can be sent through Telegraph `->voice()` method:
 
 ```php
 Telegraph::voice(Storage::path('voice.ogg'))->send();
+Telegraph::voice('https://my-repository/voice.ogg')->send();
+Telegraph::voice($telegramFileId)->send();
 ```
 
 
@@ -35,6 +39,8 @@ Documents can be sent through Telegraph `->document()` method:
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))->send();
+Telegraph::document('https://my-repository/my_document.pdf')->send();
+Telegraph::document($telegramFileId)->send();
 ```
 
 ### Location
