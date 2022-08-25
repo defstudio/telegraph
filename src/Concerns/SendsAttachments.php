@@ -34,6 +34,11 @@ trait SendsAttachments
             unset($data['text']);
         }
 
+        if (isset($data['caption']) && empty($data['caption'])) {
+            $data['caption'] = $data['text'] ?? '';
+            unset($data['text']);
+        }
+
         return $data;
     }
 
@@ -74,6 +79,7 @@ trait SendsAttachments
         }
 
         $telegraph->data['voice'] = $path;
+        $telegraph->data['caption'] ??= '';
 
         return $telegraph;
     }
@@ -98,6 +104,7 @@ trait SendsAttachments
         }
 
         $telegraph->data['document'] = $path;
+        $telegraph->data['caption'] ??= '';
 
         return $telegraph;
     }
@@ -138,6 +145,7 @@ trait SendsAttachments
         }
 
         $telegraph->data['thumb'] = $path;
+        $telegraph->data['caption'] ??= '';
 
         return $telegraph;
     }
@@ -172,6 +180,7 @@ trait SendsAttachments
         }
 
         $telegraph->data['photo'] = $path;
+        $telegraph->data['caption'] ??= '';
 
         return $telegraph;
     }
