@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.17.1 - 2022-08-25
+
+### What's Changed
+
+- [fix] ReplyKeyboard resize by @fabio-ivona in https://github.com/def-studio/telegraph/pull/155
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.17.0...v1.17.1
+
 ## v1.17.0 - 2022-08-25
 
 ### What's Changed
