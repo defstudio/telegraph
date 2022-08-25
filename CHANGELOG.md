@@ -2,6 +2,22 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.16.0 - 2022-08-25
+
+### What's Changed
+
+- [feat] conditional methods by @ahr1384 in https://github.com/def-studio/telegraph/pull/143
+- [feat] command parameters by @fabio-ivona in https://github.com/def-studio/telegraph/pull/148
+- [feat] unknown commands handling by @fabio-ivona in https://github.com/def-studio/telegraph/pull/151
+- [feat] Telegram API url customization
+- [feat] Telegram API url customization
+
+### New Contributors
+
+- @ahr1384 made their first contribution in https://github.com/def-studio/telegraph/pull/143
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.15.1...v1.16.0
+
 ## v1.15.1 - 2022-08-02
 
 ### What's Changed
