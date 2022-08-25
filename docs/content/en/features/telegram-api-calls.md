@@ -269,3 +269,19 @@ allows to override Telegram API url on a per-message basis:
 ```php
 Telegraph::setApiUrl('https://my-secret-server.dev')->message('secret message')->send();
 ```
+
+## dump
+
+print a `dump()` of the current api call status for testing purposes
+
+```php
+Telegraph::message('test')->dump();
+```
+
+## dd
+
+print a `dd()` of the current api call status for testing purposes
+
+```php
+Telegraph::message('test')->dd();
+```

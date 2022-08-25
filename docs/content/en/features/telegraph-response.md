@@ -54,3 +54,23 @@ $response = Telegraph::message('hello')->send();
 
 $response->telegraphMessageId(); //4568
 ```
+
+## dump
+
+print a `dump()` of the response for testing purposes
+
+```php
+$response = Telegraph::message('hello')->send();
+
+$response->dump();
+```
+
+## dd
+
+print a `dd()` of the response for testing purposes
+
+```php
+$response = Telegraph::message('hello')->send();
+
+$response->dd();
+```
