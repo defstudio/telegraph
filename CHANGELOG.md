@@ -2,6 +2,12 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.17.2 - 2022-08-25
+
+fix missing caption
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.17.1...v1.17.2
+
 ## v1.17.1 - 2022-08-25
 
 ### What's Changed
