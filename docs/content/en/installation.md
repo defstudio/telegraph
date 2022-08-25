@@ -36,6 +36,12 @@ here's an example of what you'll find:
 ```php
 return [
     /*
+     * Telegram api base url, it can be overridden
+     * for self-hosted servers
+     */
+    'telegram_api_url' => 'https://api.telegram.org/',
+
+    /*
      * Sets Telegraph messages default parse mode
      * allowed values: html|markdown
      */

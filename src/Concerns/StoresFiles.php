@@ -35,7 +35,7 @@ trait StoresFiles
 
         $filePath = $response->json('result.file_path');
 
-        $url = Str::of(self::TELEGRAM_API_FILE_BASE_URL)
+        $url = Str::of($this->getFilesBaseUrl())
             ->append($this->getBot()->token)
             ->append('/', $filePath);
 

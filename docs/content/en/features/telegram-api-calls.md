@@ -262,4 +262,10 @@ allows to execute a closure when the given condition is verified
 Telegraph::when(true, fn(Telegraph $telegraph) => $telegraph->message('conditional message')->send());
 ```
 
+## setApiUrl
 
+allows to override Telegram API url on a per-message basis:
+
+```php
+Telegraph::setApiUrl('https://my-secret-server.dev')->message('secret message')->send();
+```

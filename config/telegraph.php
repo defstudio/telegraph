@@ -5,6 +5,12 @@ use DefStudio\Telegraph\Telegraph;
 
 return [
     /*
+     * Telegram api base url, it can be overridden
+     * for self-hosted servers
+     */
+    'telegram_api_url' => 'https://api.telegram.org/',
+
+    /*
      * Sets Telegraph messages default parse mode
      * allowed values: html|markdown
      */

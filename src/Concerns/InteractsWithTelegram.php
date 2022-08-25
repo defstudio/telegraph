@@ -21,6 +21,8 @@ trait InteractsWithTelegram
 {
     protected string $endpoint;
 
+    protected string|null $baseUrl = null;
+
     protected function sendRequestToTelegram(): Response
     {
         $asMultipart = $this->files->isNotEmpty();
@@ -31,7 +33,7 @@ trait InteractsWithTelegram
 
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
-            /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
             function ($request, Attachment $attachment, string $key) {
                 return $request->attach($key, $attachment->contents(), $attachment->filename());
             },
@@ -70,10 +72,35 @@ trait InteractsWithTelegram
         return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->data)->onQueue($queue);
     }
 
+    public function setBaseUrl(string|null $url): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->baseUrl = $url;
+
+        return $telegraph;
+    }
+
+    protected function getBaseUrl(): string
+    {
+        /* @phpstan-ignore-next-line */
+        return Str::of($this->baseUrl ?? config('telegraph.telegram_api_url', 'https://api.telegram.org/'))
+            ->rtrim('/')
+            ->append('/bot');
+    }
+
+    protected function getFilesBaseUrl(): string
+    {
+        /* @phpstan-ignore-next-line */
+        return Str::of($this->baseUrl ?? config('telegraph.telegram_api_url', 'https://api.telegram.org/'))
+            ->rtrim('/')
+            ->append('/file/bot');
+    }
+
     public function getUrl(): string
     {
         /** @phpstan-ignore-next-line */
-        return (string) Str::of(Telegraph::TELEGRAM_API_BASE_URL)
+        return (string) Str::of($this->getBaseUrl())
             ->append($this->getBot()->token)
             ->append('/', $this->endpoint)
             ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
@@ -82,7 +109,7 @@ trait InteractsWithTelegram
     public function getApiUrl(): string
     {
         /** @phpstan-ignore-next-line */
-        return (string) Str::of(Telegraph::TELEGRAM_API_BASE_URL)
+        return (string) Str::of($this->getBaseUrl())
             ->append($this->getBot()->token)
             ->append('/', $this->endpoint);
     }
