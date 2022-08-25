@@ -63,15 +63,17 @@ trait SendsAttachments
     {
         $telegraph = clone $this;
 
-        if (!File::exists($path)) {
-            throw FileException::fileNotFound('Voice', $path);
-        }
-
         $telegraph->endpoint = self::ENDPOINT_SEND_VOICE;
 
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
 
-        $telegraph->files->put('voice', new Attachment($path, $filename));
+        if (File::exists($path)) {
+            $telegraph->files->put('voice', new Attachment($path, $filename));
+
+            return $telegraph;
+        }
+
+        $telegraph->data['voice'] = $path;
 
         return $telegraph;
     }
@@ -80,19 +82,22 @@ trait SendsAttachments
     {
         $telegraph = clone $this;
 
-        if (!File::exists($path)) {
-            throw FileException::fileNotFound("Document", $path);
-        }
-
-        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
-            throw FileException::documentSizeExceeded($size);
-        }
-
         $telegraph->endpoint = self::ENDPOINT_SEND_DOCUMENT;
 
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
 
-        $telegraph->files->put('document', new Attachment($path, $filename));
+
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
+                throw FileException::documentSizeExceeded($size);
+            }
+
+            $telegraph->files->put('document', new Attachment($path, $filename));
+
+            return $telegraph;
+        }
+
+        $telegraph->data['document'] = $path;
 
         return $telegraph;
     }
@@ -110,27 +115,29 @@ trait SendsAttachments
     {
         $telegraph = clone $this;
 
-        if (!File::exists($path)) {
-            throw FileException::fileNotFound("Thumbnail", $path);
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInKb($path)) > Telegraph::MAX_THUMBNAIL_SIZE_IN_KB) {
+                throw FileException::thumbnailSizeExceeded($size);
+            }
+
+            if (($height = $telegraph->imageHeight($path)) > Telegraph::MAX_THUMBNAIL_HEIGHT) {
+                throw FileException::thumbnailHeightExceeded($height);
+            }
+
+            if (($width = $telegraph->imageWidth($path)) > Telegraph::MAX_THUMBNAIL_WIDTH) {
+                throw FileException::thumbnailWidthExceeded($width);
+            }
+
+            if (!Str::of($ext = File::extension($path))->lower()->is('jpg')) {
+                throw FileException::invalidThumbnailExtension($ext);
+            }
+
+            $telegraph->files->put('thumb', new Attachment($path));
+
+            return $telegraph;
         }
 
-        if (($size = $telegraph->fileSizeInKb($path)) > Telegraph::MAX_THUMBNAIL_SIZE_IN_KB) {
-            throw FileException::thumbnailSizeExceeded($size);
-        }
-
-        if (($height = $telegraph->imageHeight($path)) > Telegraph::MAX_THUMBNAIL_HEIGHT) {
-            throw FileException::thumbnailHeightExceeded($height);
-        }
-
-        if (($width = $telegraph->imageWidth($path)) > Telegraph::MAX_THUMBNAIL_WIDTH) {
-            throw FileException::thumbnailWidthExceeded($width);
-        }
-
-        if (!Str::of($ext = File::extension($path))->lower()->is('jpg')) {
-            throw FileException::invalidThumbnailExtension($ext);
-        }
-
-        $telegraph->files->put('thumb', new Attachment($path));
+        $telegraph->data['thumb'] = $path;
 
         return $telegraph;
     }
@@ -139,30 +146,32 @@ trait SendsAttachments
     {
         $telegraph = clone $this;
 
-        if (!File::exists($path)) {
-            throw FileException::fileNotFound('Photo', $path);
-        }
-
-        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
-            throw FileException::photoSizeExceeded($size);
-        }
-
-        $height = $telegraph->imageHeight($path);
-        $width = $telegraph->imageWidth($path);
-
-        if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
-            throw FileException::invalidPhotoSize($totalLength);
-        }
-
-        if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
-            throw FileException::invalidPhotoRatio($ratio);
-        }
-
         $telegraph->endpoint = self::ENDPOINT_SEND_PHOTO;
 
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
 
-        $telegraph->files->put('photo', new Attachment($path, $filename));
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
+                throw FileException::photoSizeExceeded($size);
+            }
+
+            $height = $telegraph->imageHeight($path);
+            $width = $telegraph->imageWidth($path);
+
+            if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
+                throw FileException::invalidPhotoSize($totalLength);
+            }
+
+            if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
+                throw FileException::invalidPhotoRatio($ratio);
+            }
+
+            $telegraph->files->put('photo', new Attachment($path, $filename));
+
+            return $telegraph;
+        }
+
+        $telegraph->data['photo'] = $path;
 
         return $telegraph;
     }

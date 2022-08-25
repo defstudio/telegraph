@@ -4,6 +4,7 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class Attachment implements Arrayable
 {
@@ -16,6 +17,11 @@ class Attachment implements Arrayable
     public function path(): string
     {
         return $this->path;
+    }
+
+    public function local(): bool
+    {
+        return Str::of($this->path)->startsWith('/');
     }
 
     public function contents(): string
