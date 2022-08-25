@@ -193,3 +193,13 @@ Telegraph::message('command received')
     ->removeReplyKeyboard(true)
     ->send();
 ```
+
+## Conditional methods
+
+a `when` method allows to execute a closure when the given condition is verified
+
+```php
+ReplyKeyboard::make()
+    ->button('Send Contact')->requestContact()
+     ->when($shouldRequestLocation, fn(ReplyKeyboard $keyboard) => $keyboard->button('Send Location')->requestLocation())
+```
