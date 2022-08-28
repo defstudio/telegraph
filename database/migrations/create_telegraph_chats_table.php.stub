@@ -10,9 +10,10 @@ return new class () extends Migration {
         Schema::create('telegraph_chats', function (Blueprint $table) {
             $table->id();
             $table->string('chat_id');
-            $table->string('name')->nullable();
+            $table->string('name');
+            $table->unsignedBigInteger('telegraph_bot_id');
 
-            $table->foreignId('telegraph_bot_id')->constrained('telegraph_bots')->cascadeOnDelete();
+            $table->foreign('telegraph_bot_id')->references('id')->on('telegraph_bots')->cascadeOnDelete();
             $table->timestamps();
 
             $table->unique(['chat_id', 'telegraph_bot_id']);
