@@ -5,9 +5,21 @@ use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Str;
 use function Spatie\Snapshots\assertMatchesSnapshot;
+
+test('name is set to ID if missing', function () {
+    $bot = TelegraphBot::create([
+        'token' => Str::uuid(),
+    ]);
+
+    $chat = $bot->chats()->create(['chat_id' => Str::uuid()]);
+
+    expect($chat->name)->toBe("Chat #$chat->id");
+});
 
 it('can send a text message', function () {
     Telegraph::fake();
