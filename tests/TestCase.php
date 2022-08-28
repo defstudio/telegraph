@@ -40,12 +40,6 @@ class TestCase extends Orchestra
 
         $migration = include __DIR__ . '/../database/migrations/create_telegraph_chats_table.php.stub';
         $migration->up();
-
-        $migration = include __DIR__ . '/../database/migrations/make_name_nullable_in_telegraph_bots_table.php.stub';
-        $migration->up();
-
-        $migration = include __DIR__ . '/../database/migrations/make_name_nullable_in_telegraph_chats_table.php.stub';
-        $migration->up();
     }
 
     protected function filesystemSetup($config): void

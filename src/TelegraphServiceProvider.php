@@ -20,8 +20,6 @@ class TelegraphServiceProvider extends PackageServiceProvider
             ->hasRoute('api')
             ->hasMigration('create_telegraph_bots_table')
             ->hasMigration('create_telegraph_chats_table')
-            ->hasMigration('make_name_nullable_in_telegraph_bots_table')
-            ->hasMigration('make_name_nullable_in_telegraph_chats_table')
             ->hasCommand(CreateNewBotCommand::class)
             ->hasCommand(CreateNewChatCommand::class)
             ->hasCommand(SetTelegramWebhookCommand::class)

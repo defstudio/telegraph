@@ -8,20 +8,7 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 
-use DefStudio\Telegraph\Models\TelegraphBot;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use Illuminate\Support\Str;
 use function Spatie\Snapshots\assertMatchesSnapshot;
-
-uses(LazilyRefreshDatabase::class);
-
-test('name is set to ID if missing', function () {
-    $bot = TelegraphBot::create([
-        'token' => Str::uuid(),
-    ]);
-
-    expect($bot->name)->toBe("Bot #$bot->id");
-});
 
 it('can retrieve its telegram info', function () {
     Telegraph::fake();
@@ -67,10 +54,10 @@ it('can register commands', function () {
     Telegraph::assertSentData(
         \DefStudio\Telegraph\Telegraph::ENDPOINT_REGISTER_BOT_COMMANDS,
         [
-            'commands' => [
-                ['command' => 'foo', 'description' => 'bar'],
-            ],
-        ]
+           'commands' => [
+               ['command' => 'foo', 'description' => 'bar'],
+           ],
+       ]
     );
 });
 
@@ -159,22 +146,22 @@ it('can answer to an inline query', function () {
     $bot = make_bot();
 
     $bot->answerInlineQuery("a99", [
-        InlineQueryResultGif::make(99, 'https://gif.dev', 'https://thumb.gif.test')
-            ->caption('foo')
-            ->title('bar')
-            ->duration(200)
-            ->height(400)
-            ->width(300)
-            ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 99)),
-        InlineQueryResultGif::make(98, 'https://gif2.dev', 'https://thumb.gif2.test')
-            ->caption('baz')
-            ->title('quz')
-            ->duration(1200)
-            ->height(1400)
-            ->width(1300)
-            ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 98)),
+       InlineQueryResultGif::make(99, 'https://gif.dev', 'https://thumb.gif.test')
+           ->caption('foo')
+           ->title('bar')
+           ->duration(200)
+           ->height(400)
+           ->width(300)
+           ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 99)),
+       InlineQueryResultGif::make(98, 'https://gif2.dev', 'https://thumb.gif2.test')
+           ->caption('baz')
+           ->title('quz')
+           ->duration(1200)
+           ->height(1400)
+           ->width(1300)
+           ->keyboard(Keyboard::make()->button('buy')->action('buy')->param('id', 98)),
 
-    ])->send();
+   ])->send();
 
     Facade::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_ANSWER_INLINE_QUERY, [
         "inline_query_id" => "a99",
