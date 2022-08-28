@@ -10,7 +10,7 @@ return new class () extends Migration {
         Schema::create('telegraph_bots', function (Blueprint $table) {
             $table->id();
             $table->string('token')->unique();
-            $table->string('name');
+            $table->string('name')->nullable();
 
             $table->timestamps();
         });
