@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.17.3 - 2022-08-28
+
+### What's Changed
+
+- Update create_telegraph_chats_table.php.stub by @evrard-c in https://github.com/def-studio/telegraph/pull/157
+
+### New Contributors
+
+- @evrard-c made their first contribution in https://github.com/def-studio/telegraph/pull/157
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.17.2...v1.17.3
+
 ## v1.17.2 - 2022-08-25
 
 fix missing caption
