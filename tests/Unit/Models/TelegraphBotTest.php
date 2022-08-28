@@ -11,6 +11,7 @@ use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Str;
+
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 uses(LazilyRefreshDatabase::class);

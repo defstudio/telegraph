@@ -9,6 +9,7 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
+
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 test('name is set to ID if missing', function () {
