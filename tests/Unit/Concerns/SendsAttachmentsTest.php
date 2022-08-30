@@ -62,10 +62,10 @@ it('can attach a keyboard to a document', function () {
 
 test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
     if ($valid) {
-        expect(chat()->document(Storage::path($path)))
+        expect(make_chat()->document(Storage::path($path)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => chat()->document(Storage::path($path)))
+        expect(fn () => make_chat()->document(Storage::path($path)))
             ->toThrow($exceptionClass, $exceptionMessage);
     }
 })->with([
@@ -91,10 +91,10 @@ it('can attach a thumbnail', function () {
 
 test('thumbnails are validated', function (string $thumbnailPath, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
     if ($valid) {
-        expect(chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
+        expect(make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
+        expect(fn () => make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
             ->toThrow($exceptionClass, $exceptionMessage);
     }
 })->with([
@@ -181,10 +181,10 @@ it('can attach a keyboard to a photo', function () {
 
 test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
     if ($valid) {
-        expect(chat()->photo(Storage::path($path)))
+        expect(make_chat()->photo(Storage::path($path)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => chat()->photo(Storage::path($path)))
+        expect(fn () => make_chat()->photo(Storage::path($path)))
             ->toThrow($exceptionClass, $exceptionMessage);
     }
 })->with([
@@ -260,10 +260,10 @@ it('can attach a keyboard to a voice', function () {
 
 test('voices are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
     if ($valid) {
-        expect(chat()->voice(Storage::path($path)))
+        expect(make_chat()->voice(Storage::path($path)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => chat()->photo(Storage::path($path)))
+        expect(fn () => make_chat()->photo(Storage::path($path)))
             ->toThrow($exceptionClass, $exceptionMessage);
     }
 })->with([

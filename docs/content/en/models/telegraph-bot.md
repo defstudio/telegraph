@@ -155,7 +155,7 @@ $telegraphBot->store($photo, Storage::path('bot/images'), 'The Photo.jpg');
 ```
 
 
-## answerInlineQuery
+## `answerInlineQuery()`
 
 send back the results for an inline query
 
@@ -166,6 +166,15 @@ send back the results for an inline query
     InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
         ->caption('Light Logo'),
 ])->cache(seconds: 600)->send();
+```
+
+
+## `setBaseUrl()`
+
+allows to override Telegram API url on a per-message basis:
+
+```php
+$telegraphBot->setBaseUrl('https://my-secret-server.dev');
 ```
 
 

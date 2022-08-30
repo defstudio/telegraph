@@ -176,4 +176,9 @@ class TelegraphBot extends Model
         /* @phpstan-ignore-next-line */
         return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
     }
+
+    public function setBaseUrl(string|null $url): Telegraph
+    {
+        return TelegraphFacade::bot($this)->setBaseUrl($url);
+    }
 }

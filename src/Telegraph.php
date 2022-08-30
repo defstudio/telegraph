@@ -72,6 +72,10 @@ class Telegraph
     public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
     public const ENDPOINT_GET_FILE = 'getFile';
     public const ENDPOINT_ANSWER_INLINE_QUERY = 'answerInlineQuery';
+    public const ENDPOINT_SET_CHAT_TITLE = 'setChatTitle';
+    public const ENDPOINT_SET_CHAT_DESCRIPTION = 'setChatDescription';
+    public const ENDPOINT_SET_CHAT_PHOTO = 'setChatPhoto';
+
 
 
     /** @var array<string, mixed> */

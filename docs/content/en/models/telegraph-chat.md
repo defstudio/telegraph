@@ -230,3 +230,61 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 
 $telegraphChat->voice(Storage::path('voice.ogg'))->send();
 ```
+
+
+## `setBaseUrl()`
+
+allows to override Telegram API url on a per-message basis:
+
+```php
+use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->setBaseUrl('https://my-secret-server.dev')->message('secret message')->send();
+```
+
+
+## `setTitle()`
+
+sets chat title
+
+```php
+use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->setTitle("my chat")->send();
+```
+
+
+
+## `setDescription()`
+
+sets chat description
+
+```php
+use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->setDescription("a test chat with my bot")->send();
+```
+
+
+
+## `setChatPhoto()`
+
+sets chat profile photo
+
+```php
+use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->setChatPhoto(Storage::path('photo.jpg'))->send();
+```
