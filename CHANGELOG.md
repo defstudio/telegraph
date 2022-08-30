@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.18.0 - 2022-08-30
+
+### What's Changed
+
+- [feat] set chat title, description and photo by @fabio-ivona in https://github.com/def-studio/telegraph/pull/159
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.17.3...v1.18.0
+
 ## v1.17.3 - 2022-08-28
 
 ### What's Changed
