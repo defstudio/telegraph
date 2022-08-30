@@ -138,11 +138,11 @@ abstract class WebhookHandler
         $this->chat = $chat;
 
         if (!$this->chat->exists) {
-            if (!config('telegraph.security.allow_callback_queries_from_unknown_chats')) {
+            if (!config('telegraph.security.allow_callback_queries_from_unknown_chats', false)) {
                 throw new NotFoundHttpException();
             }
 
-            if (config('telegraph.security.store_unknown_chats_in_db')) {
+            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
                 $this->chat->name = Str::of("")
                     ->append("[", $this->request->input('callback_query.message.chat.type'), ']')
                     ->append(" ", $this->request->input(
@@ -177,11 +177,11 @@ abstract class WebhookHandler
         $this->chat = $chat;
 
         if (!$this->chat->exists) {
-            if (!config('telegraph.security.allow_messages_from_unknown_chats')) {
+            if (!config('telegraph.security.allow_messages_from_unknown_chats', false)) {
                 throw new NotFoundHttpException();
             }
 
-            if (config('telegraph.security.store_unknown_chats_in_db')) {
+            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
                 $this->chat->name = Str::of("")
                     ->append("[", $this->message->chat()->type(), ']')
                     ->append(" ", $this->message->chat()->title());
