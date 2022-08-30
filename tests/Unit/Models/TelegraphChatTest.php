@@ -247,3 +247,25 @@ it('can unpin all messages', function () {
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_ALL_MESSAGES);
 });
+
+it('can set chat title', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->setTitle('foo')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_TITLE, [
+        'title' => 'foo',
+    ], false);
+});
+
+it('can set chat description', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->setDescription('bar')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_DESCRIPTION, [
+        'description' => 'bar',
+    ], false);
+});

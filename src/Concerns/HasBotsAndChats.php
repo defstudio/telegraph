@@ -6,12 +6,16 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Exceptions\BotCommandException;
+use DefStudio\Telegraph\Exceptions\ChatSettingsException;
+use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
+use File;
 
 /**
  * @mixin Telegraph
@@ -164,6 +168,62 @@ trait HasBotsAndChats
         $telegraph->endpoint = self::ENDPOINT_SEND_CHAT_ACTION;
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
         $telegraph->data['action'] = $action;
+
+        return $telegraph;
+    }
+
+    public function setTitle(string $title): Telegraph
+    {
+        $telegraph = clone $this;
+
+        !empty($title) || throw ChatSettingsException::emptyTitle();
+        strlen($title) < 256 || throw ChatSettingsException::titleMaxLengthExceeded();
+
+        $telegraph->endpoint = self::ENDPOINT_SET_CHAT_TITLE;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['title'] = $title;
+
+        return $telegraph;
+    }
+
+    public function setDescription(string $description): Telegraph
+    {
+        $telegraph = clone $this;
+
+        strlen($description) < 256 || throw ChatSettingsException::descriptionMaxLengthExceeded();
+
+        $telegraph->endpoint = self::ENDPOINT_SET_CHAT_DESCRIPTION;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['description'] = $description;
+
+        return $telegraph;
+    }
+
+    public function setChatPhoto(string $path): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SET_CHAT_PHOTO;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        File::exists($path) || throw FileException::fileNotFound('photo', $path);
+
+        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
+            throw FileException::photoSizeExceeded($size);
+        }
+
+        $height = $telegraph->imageHeight($path);
+        $width = $telegraph->imageWidth($path);
+
+        if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
+            throw FileException::invalidPhotoSize($totalLength);
+        }
+
+        if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
+            throw FileException::invalidPhotoRatio($ratio);
+        }
+
+        $telegraph->files->put('photo', new Attachment($path));
 
         return $telegraph;
     }

@@ -142,4 +142,24 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->voice($path, $filename);
     }
+
+    public function setBaseUrl(string|null $url): Telegraph
+    {
+        return TelegraphFacade::chat($this)->setBaseUrl($url);
+    }
+
+    public function setTitle(string $title): Telegraph
+    {
+        return TelegraphFacade::chat($this)->setTitle($title);
+    }
+
+    public function setDescription(string $description): Telegraph
+    {
+        return TelegraphFacade::chat($this)->setDescription($description);
+    }
+
+    public function setChatPhoto(string $path): Telegraph
+    {
+        return TelegraphFacade::chat($this)->setChatPhoto($path);
+    }
 }
