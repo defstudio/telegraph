@@ -19,6 +19,7 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\ItemNotFoundException;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use ReflectionMethod;
@@ -130,28 +131,12 @@ abstract class WebhookHandler
 
     protected function extractCallbackQueryData(): void
     {
-        /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->firstOrNew([
-            'chat_id' => $this->request->input('callback_query.message.chat.id'),
-        ]);
-
-        $this->chat = $chat;
-
-        if (!$this->chat->exists) {
-            if (!config('telegraph.security.allow_callback_queries_from_unknown_chats')) {
-                throw new NotFoundHttpException();
-            }
-
-            if (config('telegraph.security.store_unknown_chats_in_db')) {
-                $this->chat->name = Str::of("")
-                    ->append("[", $this->request->input('callback_query.message.chat.type'), ']')
-                    ->append(" ", $this->request->input(
-                        'callback_query.message.chat.username',
-                        $this->request->input('callback_query.message.chat.title')
-                    ));
-
-                $this->chat->save();
-            }
+        try {
+            /** @var TelegraphChat $chat */
+            $chat = $this->bot->chats->where('chat_id', $this->request->input('callback_query.message.chat.id'))->firstOrFail();
+            $this->chat = $chat;
+        } catch (ItemNotFoundException) {
+            throw new NotFoundHttpException();
         }
 
         assert($this->callbackQuery !== null);
@@ -171,23 +156,11 @@ abstract class WebhookHandler
         assert($this->message?->chat() !== null);
 
         /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->firstOrNew([
+        $chat = $this->bot->chats()->firstOrCreate([
             'chat_id' => $this->message->chat()->id(),
         ]);
+
         $this->chat = $chat;
-
-        if (!$this->chat->exists) {
-            if (!config('telegraph.security.allow_messages_from_unknown_chats')) {
-                throw new NotFoundHttpException();
-            }
-
-            if (config('telegraph.security.store_unknown_chats_in_db')) {
-                $this->chat->name = Str::of("")
-                    ->append("[", $this->message->chat()->type(), ']')
-                    ->append(" ", $this->message->chat()->title());
-                $this->chat->save();
-            }
-        }
 
         $this->messageId = $this->message->id();
 

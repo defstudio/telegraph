@@ -1,6 +1,6 @@
 -
     id: 123456
-    message: { id: 42, date: '2022-03-05T21:45:36.000000Z', text: /start, from: { id: 444, first_name: John, last_name: Smith, username: john_smith }, chat: { id: 987654, type: private, title: john_smith } }
+    message: { id: 42, date: '2022-03-05T21:45:36.000000Z', text: /start, from: { id: 444, first_name: John, last_name: Smith, username: john_smith }, chat: { id: 987654, type: private } }
 -
     id: 123457
     message: { id: 99, date: '2022-03-05T22:35:36.000000Z', text: 'Hello world!', from: { id: 8974, is_bot: true, first_name: 'Test Bot', username: test_bot }, chat: { id: -987455499, type: group, title: 'Bot Test Chat' } }

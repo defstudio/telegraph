@@ -86,7 +86,7 @@ function register_webhook_handler(string $handler = TestWebhookHandler::class): 
     config()->set('telegraph.webhook_handler', $handler);
 }
 
-function webhook_request($action = 'invalid', $handler = TestWebhookHandler::class, int $chat_id = -123456789): Request
+function webhook_request($action = 'invalid', $handler = TestWebhookHandler::class): Request
 {
     register_webhook_handler($handler);
 
@@ -105,9 +105,8 @@ function webhook_request($action = 'invalid', $handler = TestWebhookHandler::cla
             'message' => [
                 'message_id' => 123456,
                 'chat' => [
-                    'id' => $chat_id,
+                    'id' => -123456789,
                     'type' => 'group',
-                    'title' => 'Test chat',
                 ],
                 'reply_markup' => [
                     'inline_keyboard' => [
@@ -127,7 +126,7 @@ function webhook_request($action = 'invalid', $handler = TestWebhookHandler::cla
     ]);
 }
 
-function webhook_command($command, $handler = TestWebhookHandler::class, int $chat_id = -123456789): Request
+function webhook_command($command, $handler = TestWebhookHandler::class): Request
 {
     register_webhook_handler($handler);
 
@@ -135,9 +134,8 @@ function webhook_command($command, $handler = TestWebhookHandler::class, int $ch
         'message' => [
             'message_id' => 123456,
             'chat' => [
-                'id' => $chat_id,
+                'id' => -123456789,
                 'type' => 'private',
-                'username' => 'john-smith',
             ],
             'text' => $command,
             'date' => 1646516736,

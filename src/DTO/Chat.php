@@ -23,7 +23,7 @@ class Chat implements Arrayable
     }
 
     /**
-     * @param array{id:int, type:string, title?:string, username?: string} $data
+     * @param array{id:int, type:string, title?:string} $data
      */
     public static function fromArray(array $data): Chat
     {
@@ -31,7 +31,7 @@ class Chat implements Arrayable
 
         $chat->id = $data['id'];
         $chat->type = $data['type'];
-        $chat->title = $data['title'] ?? $data['username'] ?? '';
+        $chat->title = $data['title'] ?? '';
 
         return $chat;
     }
