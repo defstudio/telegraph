@@ -6,8 +6,44 @@
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Telegraph;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+it('rejects unknown chat queries', function () {
+    $bot = make_bot();
+
+    app(TestWebhookHandler::class)->handle(webhook_request('test'), $bot);
+})->throws(NotFoundHttpException::class);
+
+it('can handle known chat queries', function () {
+    $chat = chat();
+
+    app(TestWebhookHandler::class)->handle(webhook_request('test'), $chat->bot);
+
+    expect(TestWebhookHandler::$calls_count)->toBe(1);
+});
+
+it('can save unknown chats sending queries', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+
+    $bot = bot();
+
+    app(TestWebhookHandler::class)->handle(webhook_request('test', chat_id: 99), $bot);
+
+    expect($bot->chats()->count())->toBe(1);
+
+    Config::set('telegraph.security.store_unknown_chats_in_db', true);
+
+    app(TestWebhookHandler::class)->handle(webhook_request('test', chat_id: 99), $bot);
+
+    expect($bot)
+        ->chats->count()->toBe(2)
+        ->chats->last()->name->toBe('[group] Test chat');
+});
 
 it('extracts call data', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
 
     app(TestWebhookHandler::class)->handle(webhook_request('test'), $bot);
@@ -17,6 +53,9 @@ it('extracts call data', function () {
 });
 
 it('can handle a registered action', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
 
     app(TestWebhookHandler::class)->handle(webhook_request('test'), $bot);
@@ -25,6 +64,9 @@ it('can handle a registered action', function () {
 });
 
 it('rejects unregistered actions', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
     Facade::fake();
 
@@ -34,6 +76,9 @@ it('rejects unregistered actions', function () {
 });
 
 it('rejects actions for non public methods', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
     Facade::fake();
 
@@ -43,6 +88,9 @@ it('rejects actions for non public methods', function () {
 });
 
 it('can reply', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
     Facade::fake();
 
@@ -52,12 +100,50 @@ it('can reply', function () {
 });
 
 it('logs webhook calls', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
     Facade::fake();
 
     app(TestWebhookHandler::class)->handle(webhook_request('send_reply'), $bot);
 
     Facade::assertRepliedWebhook('foo');
+});
+
+it('rejects unknown chats commands', function () {
+    $bot = make_bot();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $bot);
+})->throws(NotFoundHttpException::class);
+
+it('can handle known chat commands', function () {
+    $chat = chat();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $chat->bot);
+
+    Facade::assertSent("Hello!!");
+});
+
+it('can save unknown chats sending commands', function () {
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
+    $bot = bot();
+
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello', chat_id: 99), $bot);
+
+    expect($bot->chats()->count())->toBe(1);
+
+    Config::set('telegraph.security.store_unknown_chats_in_db', true);
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello', chat_id: 99), $bot);
+
+    expect($bot)
+        ->chats->count()->toBe(2)
+        ->chats->last()->name->toBe('[private] john-smith');
 });
 
 it('can handle a command', function () {
@@ -110,6 +196,9 @@ it('can handle a command with parameters and bot reference', function () {
 });
 
 it('can change the inline keyboard', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
     Facade::fake();
 
@@ -119,6 +208,9 @@ it('can change the inline keyboard', function () {
 });
 
 it('can delete the inline keyboard', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
     $bot = make_bot();
     Facade::fake();
 
