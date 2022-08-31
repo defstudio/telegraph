@@ -326,4 +326,26 @@ trait HasBotsAndChats
 
         return $telegraph;
     }
+
+    /**
+     * @param array<int|string, string|bool> $permissions
+     */
+    public function setChatPermissions(array $permissions): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SET_CHAT_PERMISSIONS;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        $permissions = collect($permissions)
+            ->mapWithKeys(
+                fn ($value, $key) => is_bool($value)
+                    ? [$key => $value]
+                    : [$value => true]
+            );
+
+        $telegraph->data['permissions'] = $permissions;
+
+        return $telegraph;
+    }
 }

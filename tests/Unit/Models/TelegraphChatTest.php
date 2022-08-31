@@ -4,6 +4,7 @@
 
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Enums\ChatPermissions;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -325,5 +326,26 @@ it('can revoke an invite link', function () {
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REVOKE_CHAT_INVITE_LINK, [
         'invite_link' => 'https://t.me/123456',
+    ], false);
+});
+
+it('can set permissions', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->setPermissions([
+        ChatPermissions::CAN_INVITE_USERS,
+        ChatPermissions::CAN_CHANGE_INFO,
+        ChatPermissions::CAN_ADD_WEB_PAGE_PREVIEWS => true,
+        ChatPermissions::CAN_SEND_MESSAGES => false,
+    ])->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_PERMISSIONS, [
+        'permissions' => [
+            'can_invite_users' => true,
+            'can_change_info' => true,
+            'can_add_web_page_previews' => true,
+            'can_send_messages' => false,
+        ],
     ], false);
 });

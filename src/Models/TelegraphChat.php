@@ -210,4 +210,12 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->revokeChatInviteLink($link);
     }
+
+    /**
+     * @param array<int|string, string|bool> $permissions
+     */
+    public function setPermissions(array $permissions): Telegraph
+    {
+        return TelegraphFacade::chat($this)->setChatPermissions($permissions);
+    }
 }
