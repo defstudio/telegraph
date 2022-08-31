@@ -7,6 +7,7 @@
 namespace DefStudio\Telegraph\Models;
 
 use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
+use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
@@ -53,6 +54,21 @@ class TelegraphChat extends Model
     {
         /** @phpstan-ignore-next-line */
         return $this->belongsTo(config('telegraph.models.bot'), 'telegraph_bot_id');
+    }
+
+    /**
+     * @return array{id: integer, type: string, title?: string, description?: string, username?: string, first_name?: string, last_name?: string, photo?: array<string, mixed>, pinned_message?: array<string, mixed>, permissions?: array<string, mixed>, bio?: string, has_private_forwards?: true, has_restricted_voice_and_video_messages?: true, join_to_send_messages?: true, join_by_request?: true, has_protected_content?: true, invite_link?: string, sticker_set_name?: string, sticker_set_name?: true, linked_chat_id?: integer, slow_mode_delay?: integer, location?: array<string, mixed>, message_auto_delete_time?: integer}
+     */
+    public function info(): array
+    {
+        $reply = TelegraphFacade::chat($this)->chatInfo()->send();
+
+        if ($reply->telegraphError()) {
+            throw TelegraphException::failedToRetrieveChatInfo();
+        }
+
+        /* @phpstan-ignore-next-line */
+        return $reply->json('result');
     }
 
     public function message(string $message): Telegraph
@@ -161,5 +177,25 @@ class TelegraphChat extends Model
     public function setChatPhoto(string $path): Telegraph
     {
         return TelegraphFacade::chat($this)->setChatPhoto($path);
+    }
+
+    public function generatePrimaryInviteLink(): Telegraph
+    {
+        return TelegraphFacade::chat($this)->generateChatPrimaryInviteLink();
+    }
+
+    public function createInviteLink(): Telegraph
+    {
+        return TelegraphFacade::chat($this)->createChatInviteLink();
+    }
+
+    public function editInviteLink(string $link): Telegraph
+    {
+        return TelegraphFacade::chat($this)->editChatInviteLink($link);
+    }
+
+    public function revokeInviteLink(string $link): Telegraph
+    {
+        return TelegraphFacade::chat($this)->revokeChatInviteLink($link);
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection PhpUnhandledExceptionInspection */
+
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Facades\Telegraph;
@@ -267,5 +269,52 @@ it('can set chat description', function () {
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_DESCRIPTION, [
         'description' => 'bar',
+    ], false);
+});
+
+it('can retrieve its telegram info', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    assertMatchesSnapshot($chat->info());
+});
+
+it('can generate a primary invite link', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->generatePrimaryInviteLink()->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EXPORT_CHAT_INVITE_LINK);
+});
+
+it('can create an invite link', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->createInviteLink()->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_CREATE_CHAT_INVITE_LINK);
+});
+
+it('can edit an invite link', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editInviteLink('https://t.me/123456')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_CHAT_INVITE_LINK, [
+        'invite_link' => 'https://t.me/123456',
+    ], false);
+});
+
+it('can revoke an invite link', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->revokeInviteLink('https://t.me/123456')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REVOKE_CHAT_INVITE_LINK, [
+        'invite_link' => 'https://t.me/123456',
     ], false);
 });

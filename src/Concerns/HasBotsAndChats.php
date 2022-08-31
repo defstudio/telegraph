@@ -16,6 +16,7 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
 use File;
+use Illuminate\Support\Carbon;
 
 /**
  * @mixin Telegraph
@@ -224,6 +225,94 @@ trait HasBotsAndChats
         }
 
         $telegraph->files->put('photo', new Attachment($path));
+
+        return $telegraph;
+    }
+
+    public function chatInfo(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_GET_CHAT_INFO;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
+    public function generateChatPrimaryInviteLink(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_EXPORT_CHAT_INVITE_LINK;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
+    public function createChatInviteLink(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_CREATE_CHAT_INVITE_LINK;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
+    public function expire(Carbon $expiration): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['expire_date'] = $expiration->timestamp;
+
+        return $telegraph;
+    }
+
+    public function name(string $name): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['name'] = $name;
+
+        return $telegraph;
+    }
+
+    public function memberLimit(int $limit): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['member_limit'] = $limit;
+
+        return $telegraph;
+    }
+
+    public function withJoinRequest(bool $enable = true): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['creates_join_request'] = $enable;
+
+        return $telegraph;
+    }
+
+    public function editChatInviteLink(string $link): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_EDIT_CHAT_INVITE_LINK;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['invite_link'] = $link;
+
+        return $telegraph;
+    }
+
+    public function revokeChatInviteLink(string $link): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_REVOKE_CHAT_INVITE_LINK;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['invite_link'] = $link;
 
         return $telegraph;
     }
