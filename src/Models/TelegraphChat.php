@@ -218,4 +218,35 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->setChatPermissions($permissions);
     }
+
+    public function banMember(string $userId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->banChatMember($userId);
+    }
+
+    public function unbanMember(string $userId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->unbanChatMember($userId);
+    }
+
+    /**
+     * @param array<int|string, string|bool> $permissions
+     */
+    public function restrictMember(string $userId, array $permissions): Telegraph
+    {
+        return TelegraphFacade::chat($this)->restrictChatMember($userId, $permissions);
+    }
+
+    /**
+     * @param array<int|string, string|bool> $permissions
+     */
+    public function promoteMember(string $userId, array $permissions): Telegraph
+    {
+        return TelegraphFacade::chat($this)->promoteChatMember($userId, $permissions);
+    }
+
+    public function demoteMember(string $userId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->demoteChatMember($userId);
+    }
 }
