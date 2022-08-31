@@ -437,10 +437,9 @@ trait HasBotsAndChats
                     : [$value => true]
             );
 
-        $telegraph->data = [
-            ...$telegraph->data,
-            ...$permissions,
-        ];
+        foreach ($permissions as $permission => $enabled) {
+            $telegraph->data[$permission] = $enabled;
+        }
 
         return $telegraph;
     }
@@ -456,10 +455,9 @@ trait HasBotsAndChats
         $permissions = collect(ChatAdminPermissions::available_permissions())
             ->mapWithKeys(fn ($value) => [$value => false]);
 
-        $telegraph->data = [
-            ...$telegraph->data,
-            ...$permissions,
-        ];
+        foreach ($permissions as $permission => $enabled) {
+            $telegraph->data[$permission] = $enabled;
+        }
 
         return $telegraph;
     }
