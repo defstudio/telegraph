@@ -6,6 +6,7 @@
 
 
 use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Enums\ChatAdminPermissions;
 use DefStudio\Telegraph\Enums\ChatPermissions;
 use DefStudio\Telegraph\Exceptions\ChatSettingsException;
 use DefStudio\Telegraph\Exceptions\FileException;
@@ -237,5 +238,79 @@ it('can set chat permissions', function () {
                 ChatPermissions::CAN_ADD_WEB_PAGE_PREVIEWS => true,
                 ChatPermissions::CAN_SEND_MESSAGES => false,
             ]);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can ban a chat member', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->banChatMember(123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can ban a chat member until a given date', function () {
+    testTime()->freeze('2021-01-02 12:34:56');
+
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->banChatMember(123456)
+            ->until(now()->addDay());
+    })->toMatchTelegramSnapshot();
+});
+
+it('can ban a chat member and remove all his messages', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->banChatMember(123456)
+            ->andRevokeMessages();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can unban a chat member', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->unbanChatMember(123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can restrict a chat member', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->restrictChatMember(123456, [
+                ChatPermissions::CAN_PIN_MESSAGES => false,
+                ChatPermissions::CAN_INVITE_USERS => true,
+                ChatPermissions::CAN_SEND_MESSAGES,
+            ]);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can restrict a chat member until a given date', function () {
+    testTime()->freeze('2021-01-02 12:34:56');
+
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->restrictChatMember(123456, [
+                ChatPermissions::CAN_PIN_MESSAGES => false,
+                ChatPermissions::CAN_INVITE_USERS => true,
+                ChatPermissions::CAN_SEND_MESSAGES,
+            ])->until(now()->addDay());
+    })->toMatchTelegramSnapshot();
+});
+
+it('can promote a chat member', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->promoteChatMember(123456, [
+                ChatAdminPermissions::CAN_PIN_MESSAGES => false,
+                ChatAdminPermissions::CAN_INVITE_USERS => true,
+                ChatAdminPermissions::CAN_CHANGE_INFO,
+            ]);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can demote a chat member', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->demoteChatMember(123456);
     })->toMatchTelegramSnapshot();
 });

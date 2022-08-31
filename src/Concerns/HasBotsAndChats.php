@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection DuplicatedCode */
+
 /** @noinspection PhpDocMissingThrowsInspection */
 
 /** @noinspection PhpUnhandledExceptionInspection */
@@ -8,6 +10,7 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Enums\ChatAdminPermissions;
 use DefStudio\Telegraph\Exceptions\BotCommandException;
 use DefStudio\Telegraph\Exceptions\ChatSettingsException;
 use DefStudio\Telegraph\Exceptions\FileException;
@@ -345,6 +348,118 @@ trait HasBotsAndChats
             );
 
         $telegraph->data['permissions'] = $permissions;
+
+        return $telegraph;
+    }
+
+    public function banChatMember(string $userId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_BAN_CHAT_MEMBER;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['user_id'] = $userId;
+
+        return $telegraph;
+    }
+
+    public function until(Carbon $date): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['until_date'] = $date->timestamp;
+
+        return $telegraph;
+    }
+
+    public function andRevokeMessages(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['revoke_messages'] = true;
+
+        return $telegraph;
+    }
+
+    public function unbanChatMember(string $userId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_UNBAN_CHAT_MEMBER;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['user_id'] = $userId;
+        $telegraph->data['only_if_banned'] = true;
+
+        return $telegraph;
+    }
+
+    /**
+     * @param array<int|string, string|bool> $permissions
+     */
+    public function restrictChatMember(string $userId, array $permissions): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_RESTRICT_CHAT_MEMBER;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['user_id'] = $userId;
+
+        /** @var array<string, bool> $permissions */
+        $permissions = collect($permissions)
+            ->mapWithKeys(
+                fn ($value, $key) => is_bool($value)
+                    ? [$key => $value]
+                    : [$value => true]
+            );
+
+
+        $telegraph->data['permissions'] = $permissions;
+
+        return $telegraph;
+    }
+
+    /**
+     * @param array<int|string, string|bool> $permissions
+     */
+    public function promoteChatMember(string $userId, array $permissions): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_PROMOTE_CHAT_MEMBER;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['user_id'] = $userId;
+
+        /** @var array<string, bool> $permissions */
+        $permissions = collect($permissions)
+            ->mapWithKeys(
+                fn ($value, $key) => is_bool($value)
+                    ? [$key => $value]
+                    : [$value => true]
+            );
+
+        $telegraph->data = [
+            ...$telegraph->data,
+            ...$permissions,
+        ];
+
+        return $telegraph;
+    }
+
+    public function demoteChatMember(string $userId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_PROMOTE_CHAT_MEMBER;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['user_id'] = $userId;
+
+        $permissions = collect(ChatAdminPermissions::available_permissions())
+            ->mapWithKeys(fn ($value) => [$value => false]);
+
+        $telegraph->data = [
+            ...$telegraph->data,
+            ...$permissions,
+        ];
 
         return $telegraph;
     }

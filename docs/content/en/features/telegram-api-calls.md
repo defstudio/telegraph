@@ -366,6 +366,60 @@ Telegraph::setChatPermissions([
 ])->send();
 ```
 
+## banChatMember
+
+ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#banchatmember)
+
+```php
+Telegraph::banChatMember($userid)
+    ->until(now()->addDay());      //optional, only for supergroups and channels
+    ->andRevokeMessages()          //optional, always true for supergroups and channels
+    ->send();
+```
+
+## unbanChatMember
+
+unban a user in a group, a supergroup or a channel. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#unbanchatmember)
+
+```php
+Telegraph::unbanChatMember($userid)->send();
+```
+
+## restrictChatMember
+
+restrict a user in a group, a supergroup or a channel from taking the give actions. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#restrictchatmember)
+
+```php
+Telegraph::restrictChatMember($userid, [
+       DefStudio\Telegraph\Enums\ChatPermissions::CAN_PIN_MESSAGES => false,
+       DefStudio\Telegraph\Enums\ChatPermissions::CAN_INVITE_USERS => true,
+       DefStudio\Telegraph\Enums\ChatPermissions::CAN_SEND_MESSAGES,
+    ])
+    ->until(now()->addDay())        //optional
+    ->send();
+```
+
+## promoteChatMember
+
+promotes a user in a group, a supergroup or a channel to administrator status. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#promotechatmember)
+
+```php
+Telegraph::promoteChatMember($userid, [
+   DefStudio\Telegraph\Enums\ChatAdminPermissions::CAN_PIN_MESSAGES => false,
+   DefStudio\Telegraph\Enums\ChatAdminPermissions::CAN_INVITE_USERS => true,
+   DefStudio\Telegraph\Enums\ChatAdminPermissions::CAN_CHANGE_INFO,
+])
+->send();
+```
+
+## demoteChatMember
+
+demote a user in a group, a supergroup or a channel from administrator status.
+
+```php
+Telegraph::demoteChatMember($userid)->send();
+```
+
 ## dump
 
 print a `dump()` of the current api call status for testing purposes

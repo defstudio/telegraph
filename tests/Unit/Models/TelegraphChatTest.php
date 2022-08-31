@@ -4,6 +4,7 @@
 
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Enums\ChatAdminPermissions;
 use DefStudio\Telegraph\Enums\ChatPermissions;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
@@ -99,8 +100,8 @@ it('can send a document', function () {
     $chat->document(Storage::path('test.txt'))->markdown('test')->send();
 
     Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
-       'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
-   ]);
+        'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
+    ]);
 });
 
 it('can send a document from remote url', function () {
@@ -347,5 +348,87 @@ it('can set permissions', function () {
             'can_add_web_page_previews' => true,
             'can_send_messages' => false,
         ],
+    ], false);
+});
+
+it('can ban a chat member', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->banMember(123456)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_BAN_CHAT_MEMBER, [
+        'user_id' => 123456,
+    ], false);
+});
+
+it('can unban a chat member', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->unbanMember(123456)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNBAN_CHAT_MEMBER, [
+        'user_id' => 123456,
+    ], false);
+});
+
+it('can restrict a chat member', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->restrictMember(123456, [
+        ChatPermissions::CAN_PIN_MESSAGES => false,
+        ChatPermissions::CAN_INVITE_USERS => true,
+        ChatPermissions::CAN_SEND_MESSAGES,
+    ])->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_RESTRICT_CHAT_MEMBER, [
+        'user_id' => 123456,
+        'permissions' => [
+            'can_pin_messages' => false,
+            'can_invite_users' => true,
+            'can_send_messages' => true,
+        ],
+    ], false);
+});
+
+it('can promote a chat member', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+
+    $chat->promoteMember(123456, [
+        ChatAdminPermissions::CAN_PIN_MESSAGES => false,
+        ChatAdminPermissions::CAN_INVITE_USERS => true,
+        ChatAdminPermissions::CAN_CHANGE_INFO,
+    ])->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_PROMOTE_CHAT_MEMBER, [
+        'user_id' => 123456,
+        'can_pin_messages' => false,
+        'can_invite_users' => true,
+        'can_change_info' => true,
+    ], false);
+});
+
+it('can demote a chat member', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->demoteMember(123456)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_PROMOTE_CHAT_MEMBER, [
+        'user_id' => 123456,
+        'can_manage_chat' => false,
+        'can_post_messages' => false,
+        'can_delete_messages' => false,
+        'can_manage_video_chats' => false,
+        'can_restrict_members' => false,
+        'can_promote_members' => false,
+        'can_change_info' => false,
+        'can_invite_users' => false,
+        'can_pin_messages' => false,
+
     ], false);
 });

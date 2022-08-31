@@ -372,3 +372,77 @@ $telegraphChat->setPermissions([
     ChatPermissions::CAN_SEND_MESSAGES => false,
 ])->send();
 ```
+
+## `banMember()`
+
+ban a user in a group, a supergroup or a channel. In the case of supergroups and channels, the user will not be able to return to the chat on their own using invite links. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#banchatmember)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->banMember($userId)
+    ->until(now()->addDay());      //optional, only for supergroups and channels
+    ->andRevokeMessages()          //optional, always true for supergroups and channels
+    ->send();
+```
+
+## `unbanMember()`
+
+unban a user in a group, a supergroup or a channel. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#unbanchatmember)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->unbanMember($userId)->send();
+```
+
+## `restrictMember()`
+
+restrict a user in a group, a supergroup or a channel from taking the give actions. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#restrictchatmember)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->restrictMember($userId[
+       DefStudio\Telegraph\Enums\ChatPermissions::CAN_PIN_MESSAGES => false,
+       DefStudio\Telegraph\Enums\ChatPermissions::CAN_INVITE_USERS => true,
+       DefStudio\Telegraph\Enums\ChatPermissions::CAN_SEND_MESSAGES,
+    ])
+    ->until(now()->addDay())        //optional+
+    ->send();
+```
+
+## `promoteMember()`
+
+promotes a user in a group, a supergroup or a channel to administrator status. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#promotechatmember)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->promoteMember($userid, [
+       DefStudio\Telegraph\Enums\ChatAdminPermissions::CAN_PIN_MESSAGES => false,
+       DefStudio\Telegraph\Enums\ChatAdminPermissions::CAN_INVITE_USERS => true,
+       DefStudio\Telegraph\Enums\ChatAdminPermissions::CAN_CHANGE_INFO,
+    ])
+    ->send();
+```
+
+## `demoteMember()`
+
+demote a user in a group, a supergroup or a channel from administrator status.
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->demoteMember($userid)->send();
+```
