@@ -3,11 +3,9 @@ title: 'Telegram API calls'
 menuTitle: 'Telegram API calls'
 description: ''
 category: 'Features'
-fullscreen: false 
+fullscreen: false
 position: 37
 ---
-
-
 
 ## answerInlineQuery
 
@@ -270,7 +268,6 @@ allows to override Telegram API url on a per-message basis:
 Telegraph::setBaseUrl('https://my-secret-server.dev')->message('secret message')->send();
 ```
 
-
 ## setTitle
 
 sets chat title
@@ -287,11 +284,9 @@ sets chat description
 Telegraph::setDescription("a test chat with my bot")->send();
 ```
 
-
 ## setChatPhoto
 
 sets chat profile photo
-
 
 ## chatInfo
 
@@ -323,7 +318,6 @@ generates a new primary invite link for a chat. Any previously generated primary
 ```php
 Telegraph::generateChatPrimaryInviteLink()->send();
 ```
-
 
 ## createChatInviteLink
 
@@ -359,6 +353,18 @@ revokes an existing invite link for a chat. For more info, see telegram [bot doc
 Telegraph::revokeChatInviteLink('http://t.me/123456')->send();
 ```
 
+## setChatPermissions
+
+set users permissions for a chat. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#setchatpermissions)
+
+```php
+Telegraph::setChatPermissions([
+    ChatPermissions::CAN_INVITE_USERS,
+    ChatPermissions::CAN_CHANGE_INFO,
+    ChatPermissions::CAN_ADD_WEB_PAGE_PREVIEWS => true,
+    ChatPermissions::CAN_SEND_MESSAGES => false,
+])->send();
+```
 
 ## dump
 

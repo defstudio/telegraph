@@ -355,3 +355,20 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 
 $telegraphChat->revokeInviteLink('http://t.me/123456')->send();
 ```
+
+## `setPermissions()`
+
+set users permissions for a chat. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#setchatpermissions)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->setPermissions([
+    ChatPermissions::CAN_INVITE_USERS,
+    ChatPermissions::CAN_CHANGE_INFO,
+    ChatPermissions::CAN_ADD_WEB_PAGE_PREVIEWS => true,
+    ChatPermissions::CAN_SEND_MESSAGES => false,
+])->send();
+```

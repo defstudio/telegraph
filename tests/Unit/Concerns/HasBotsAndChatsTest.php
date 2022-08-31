@@ -6,6 +6,7 @@
 
 
 use DefStudio\Telegraph\Enums\ChatActions;
+use DefStudio\Telegraph\Enums\ChatPermissions;
 use DefStudio\Telegraph\Exceptions\ChatSettingsException;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Facades\Telegraph;
@@ -224,5 +225,17 @@ it('can revoke a chat invite link', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->revokeChatInviteLink("https://t.me/123456");
+    })->toMatchTelegramSnapshot();
+});
+
+it('can set chat permissions', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->setChatPermissions([
+                ChatPermissions::CAN_INVITE_USERS,
+                ChatPermissions::CAN_CHANGE_INFO,
+                ChatPermissions::CAN_ADD_WEB_PAGE_PREVIEWS => true,
+                ChatPermissions::CAN_SEND_MESSAGES => false,
+            ]);
     })->toMatchTelegramSnapshot();
 });
