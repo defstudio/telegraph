@@ -52,6 +52,16 @@ title: my telegram group
 */
 ```
 
+### `memberCount()`
+
+Retrieves the chat member count from telegram
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->info(); /* 42 */
+```
+
 ### `message()`
 
 Starts a `Telegraph` call to send a message

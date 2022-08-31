@@ -308,6 +308,14 @@ title: my telegram group
 */
 ```
 
+## chatMemberCount
+
+retrieves Chat member count
+
+```php
+Telegraph::chatMemberCount()->send();
+```
+
 ## generateChatPrimaryInviteLink
 
 generates a new primary invite link for a chat. Any previously generated primary link is revoked. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#exportchatinvitelink)

@@ -80,6 +80,7 @@ class Telegraph
     public const ENDPOINT_EDIT_CHAT_INVITE_LINK = 'editChatInviteLink';
     public const ENDPOINT_REVOKE_CHAT_INVITE_LINK = 'revokeChatInviteLink';
     public const ENDPOINT_GET_CHAT_INFO = 'getChat';
+    public const ENDPOINT_GET_CHAT_MEMBER_COUNT = 'getChatMemberCount';
 
 
 
