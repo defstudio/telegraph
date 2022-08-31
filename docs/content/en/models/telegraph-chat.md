@@ -37,23 +37,19 @@ You should specify the class name of your model in the `models.chat` key of the 
 
 ### `info()`
 
-Retrieves the bot data from telegram
+Retrieves the chat data from telegram
 
 ```php
-/** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 
-$telegraphBot->info();
+$telegraphChat->info();
 
 /*
- * id: 42
- * is_bot: true
- * first_name: telegraph-test
- * username: test_bot
- * can_join_groups: true
- * can_read_all_group_messages: false
- * supports_inline_queries: false
- */
-
+id: xxxxx
+type: group
+title: my telegram group
+...
+*/
 ```
 
 ### `message()`
@@ -287,4 +283,65 @@ use DefStudio\Telegraph\Models\TelegraphChat;
 /** @var TelegraphChat $telegraphChat */
 
 $telegraphChat->setChatPhoto(Storage::path('photo.jpg'))->send();
+```
+
+
+## `generatePrimaryInviteLink()`
+
+generates a new primary invite link for a chat. Any previously generated primary link is revoked. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#exportchatinvitelink)
+
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->generatePrimaryInviteLink()->send();
+```
+
+## `createInviteLink()`
+
+creates an additional invite link for a chat. For more info about options, see telegram [bot documentation](https://core.telegram.org/bots/api#createchatinvitelink)
+
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->createInviteLink()
+    ->name('September promotional link')    //optional
+    ->expire(today()->addMonth())           //optional
+    ->memberLimit(42)                       //optional
+    ->withJoinRequest()                     //optional
+    ->send();
+```
+
+## `editInviteLink()`
+
+edits an existing invite link for a chat. For more info about options, see telegram [bot documentation](https://core.telegram.org/bots/api#editchatinvitelink)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->editInviteLink('http://t.me/123456')
+    ->name('new name')               //optional
+    ->expire(today()->addYear())     //optional
+    ->memberLimit(12)                //optional
+    ->withJoinRequest(false)         //optional
+    ->send();
+```
+
+## `revokeInviteLink()`
+
+revokes an existing invite link for a chat. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#revokechatinvitelink)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->revokeInviteLink('http://t.me/123456')->send();
 ```

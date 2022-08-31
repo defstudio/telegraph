@@ -26,6 +26,11 @@ final class TelegraphException extends Exception
         return new self("Failed to retrieve bot info from telegram");
     }
 
+    public static function failedToRetrieveChatInfo(): TelegraphException
+    {
+        return new self("Failed to retrieve chat info from telegram");
+    }
+
     public static function invalidChatAction(string $action): TelegraphException
     {
         return new self("Invalid chat action: $action");

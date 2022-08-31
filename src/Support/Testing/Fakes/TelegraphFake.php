@@ -175,6 +175,18 @@ class TelegraphFake extends Telegraph
                     'supports_inline_queries' => false,
                 ],
             ],
+            Telegraph::ENDPOINT_GET_CHAT_INFO => [
+                'ok' => true,
+                'result' => [
+                    'id' => 42,
+                    'type' => 'group',
+                    'title' => 'foo',
+                    'description' => 'bar',
+                    'has_private_forwards' => true,
+                    'join_by_request' => true,
+                    'has_protected_content' => true,
+                ],
+            ],
             Telegraph::ENDPOINT_GET_BOT_UPDATES => [
                 'ok' => true,
                 'result' => [

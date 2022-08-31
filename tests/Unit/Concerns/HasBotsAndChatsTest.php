@@ -10,6 +10,7 @@ use DefStudio\Telegraph\Exceptions\ChatSettingsException;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Facades\Telegraph;
 
+use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can customize the destination bot', function () {
@@ -78,11 +79,9 @@ it('can change chat description', function () {
     })->toMatchTelegramSnapshot();
 });
 
-
 test('chat description cannot overflow 255 chars', function () {
     Telegraph::chat(make_chat())->setDescription(str_repeat('a', 256));
 })->throws(ChatSettingsException::class, "Telegram Chat description max length (255) exceeded");
-
 
 it('can change chat photo', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
@@ -122,3 +121,102 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
         'message' => 'Photo\'s sum of width and height (11000px) exceed allowed 10000px',
     ],
 ]);
+
+it('can retrieve chat info', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->chatInfo();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can generate a chat primary invite link', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->generateChatPrimaryInviteLink();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can create a chat invite link', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->createChatInviteLink();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can create a chat invite link with expiration', function () {
+    testTime()->freeze('2021-01-02 12:34:56');
+
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->createChatInviteLink()
+            ->expire(today()->addDay());
+    })->toMatchTelegramSnapshot();
+});
+
+it('can create a chat invite link with name', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->createChatInviteLink()
+            ->name('foo');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can create a chat invite link with member limit', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->createChatInviteLink()
+            ->memberLimit(42);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can create a chat invite link with a join request', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->createChatInviteLink()
+            ->withJoinRequest();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can edit a chat invite link', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->editChatInviteLink("https://t.me/123456");
+    })->toMatchTelegramSnapshot();
+});
+
+it('can edit a chat invite link with expiration', function () {
+    testTime()->freeze('2021-01-02 12:34:56');
+
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->editChatInviteLink("https://t.me/123456")
+            ->expire(today()->addDay());
+    })->toMatchTelegramSnapshot();
+});
+
+it('can edit a chat invite link with name', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->editChatInviteLink("https://t.me/123456")
+            ->name('foo');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can edit a chat invite link with member limit', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->editChatInviteLink("https://t.me/123456")
+            ->memberLimit(42);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can edit a chat invite link with a join request', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->editChatInviteLink("https://t.me/123456")
+            ->withJoinRequest();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can revoke a chat invite link', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->revokeChatInviteLink("https://t.me/123456");
+    })->toMatchTelegramSnapshot();
+});

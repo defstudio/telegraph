@@ -288,13 +288,67 @@ Telegraph::setDescription("a test chat with my bot")->send();
 ```
 
 
-
 ## setChatPhoto
 
 sets chat profile photo
 
+
+## chatInfo
+
+retrieves Chat data from Telegram APIs
+
 ```php
-Telegraph::setChatPhoto(Storage::path('photo.jpg'))->send();
+Telegraph::chatInfo()->send();
+
+/*
+id: xxxxx
+type: group
+title: my telegram group
+...
+*/
+```
+
+## generateChatPrimaryInviteLink
+
+generates a new primary invite link for a chat. Any previously generated primary link is revoked. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#exportchatinvitelink)
+
+```php
+Telegraph::generateChatPrimaryInviteLink()->send();
+```
+
+
+## createChatInviteLink
+
+creates an additional invite link for a chat. For more info about options, see telegram [bot documentation](https://core.telegram.org/bots/api#createchatinvitelink)
+
+```php
+Telegraph::createChatInviteLink()
+    ->name('September promotional link')    //optional
+    ->expire(today()->addMonth())           //optional
+    ->memberLimit(42)                       //optional
+    ->withJoinRequest()                     //optional
+    ->send();
+```
+
+## editChatInviteLink
+
+edits an existing invite link for a chat. For more info about options, see telegram [bot documentation](https://core.telegram.org/bots/api#editchatinvitelink)
+
+```php
+Telegraph::editChatInviteLink('http://t.me/123456')
+    ->name('new name')               //optional
+    ->expire(today()->addYear())     //optional
+    ->memberLimit(12)                //optional
+    ->withJoinRequest(false)         //optional
+    ->send();
+```
+
+## revokeChatInviteLink
+
+revokes an existing invite link for a chat. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#revokechatinvitelink)
+
+```php
+Telegraph::revokeChatInviteLink('http://t.me/123456')->send();
 ```
 
 
