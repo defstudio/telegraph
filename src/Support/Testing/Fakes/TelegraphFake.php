@@ -151,18 +151,18 @@ class TelegraphFake extends Telegraph
 
         $response = $this->replies[$this->endpoint] ?? match ($this->endpoint) {
             Telegraph::ENDPOINT_MESSAGE => [
-                    'ok' => true,
-                    'result' => [
-                        'message_id' => rand(1, 99999),
-                        'sender_chat' => [
-                            'id' => $this->getChatIfAvailable()?->chat_id ?? -rand(1, 99999),
-                            'title' => 'Test Chat',
-                            'type' => 'channel',
-                        ],
-                        'date' => now()->timestamp,
-                        'text' => $this->data['text'],
+                'ok' => true,
+                'result' => [
+                    'message_id' => rand(1, 99999),
+                    'sender_chat' => [
+                        'id' => $this->getChatIfAvailable()?->chat_id ?? -rand(1, 99999),
+                        'title' => 'Test Chat',
+                        'type' => 'channel',
                     ],
+                    'date' => now()->timestamp,
+                    'text' => $this->data['text'],
                 ],
+            ],
             Telegraph::ENDPOINT_GET_BOT_INFO => [
                 'ok' => true,
                 'result' => [
@@ -186,6 +186,10 @@ class TelegraphFake extends Telegraph
                     'join_by_request' => true,
                     'has_protected_content' => true,
                 ],
+            ],
+            Telegraph::ENDPOINT_GET_CHAT_MEMBER_COUNT => [
+                'ok' => true,
+                'result' => 1,
             ],
             Telegraph::ENDPOINT_GET_BOT_UPDATES => [
                 'ok' => true,

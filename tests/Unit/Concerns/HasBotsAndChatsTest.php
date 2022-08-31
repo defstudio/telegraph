@@ -128,6 +128,12 @@ it('can retrieve chat info', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can retrieve chat member count', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->chatMemberCount();
+    })->toMatchTelegramSnapshot();
+});
+
 it('can generate a chat primary invite link', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->generateChatPrimaryInviteLink();

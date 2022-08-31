@@ -71,6 +71,18 @@ class TelegraphChat extends Model
         return $reply->json('result');
     }
 
+    public function memberCount(): int
+    {
+        $reply = TelegraphFacade::chat($this)->chatMemberCount()->send();
+
+        if ($reply->telegraphError()) {
+            throw TelegraphException::failedToRetrieveChatInfo();
+        }
+
+        /* @phpstan-ignore-next-line */
+        return $reply->json('result');
+    }
+
     public function message(string $message): Telegraph
     {
         return TelegraphFacade::chat($this)->message($message);

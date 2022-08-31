@@ -279,6 +279,15 @@ it('can retrieve its telegram info', function () {
     assertMatchesSnapshot($chat->info());
 });
 
+it('can retrieve its member count', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->memberCount();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MEMBER_COUNT);
+});
+
 it('can generate a primary invite link', function () {
     Telegraph::fake();
     $chat = make_chat();
