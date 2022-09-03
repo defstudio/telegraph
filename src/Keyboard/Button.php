@@ -108,7 +108,7 @@ class Button
             return 1;
         }
 
-        return round($this->width / 100, 1);
+        return $this->width / 100;
     }
 
     public function has_width(): bool

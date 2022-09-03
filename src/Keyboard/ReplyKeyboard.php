@@ -253,7 +253,7 @@ class ReplyKeyboard implements Arrayable
         $rowWidth = 0;
 
         $this->buttons->each(function (ReplyButton $button) use (&$keyboard, &$row, &$rowWidth): void {
-            if ($rowWidth + $button->get_width() > 1) {
+            if ($rowWidth + $button->get_width() > 1.0000000000001) {
                 $keyboard[] = $row;
                 $row = [];
                 $rowWidth = 0;
