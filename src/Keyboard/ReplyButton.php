@@ -119,7 +119,7 @@ class ReplyButton
             return 1;
         }
 
-        return round($this->width / 100, 2);
+        return $this->width / 100;
     }
 
     public function has_width(): bool
