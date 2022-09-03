@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.19.1 - 2022-09-03
+
+### What's Changed
+
+- [fix] keyboard buttons width computation by @fabio-ivona in https://github.com/def-studio/telegraph/pull/169
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.19.0...v1.19.1
+
 ## v1.19.0 - 2022-08-31
 
 ### What's Changed
