@@ -1,6 +1,5 @@
 <?php
 
-use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Keyboard\ReplyKeyboard;
 
