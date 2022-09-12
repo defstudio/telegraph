@@ -303,6 +303,14 @@ title: my telegram group
 */
 ```
 
+### getFileInfo
+
+Retrieve file info from ID
+
+```php
+Telegraph::getFileInfo($fileId)->send();
+```
+
 ## chatMemberCount
 
 retrieves Chat member count

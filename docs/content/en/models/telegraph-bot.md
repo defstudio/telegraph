@@ -154,6 +154,14 @@ Downloads a media file and stores it in the given path
 $telegraphBot->store($photo, Storage::path('bot/images'), 'The Photo.jpg');
 ```
 
+### `getFileInfo()`
+
+Retrieve file info from ID
+
+```php
+$telegraphBot->getFileInfo($fileId)->send();
+```
+
 
 ## `answerInlineQuery()`
 

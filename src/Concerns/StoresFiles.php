@@ -13,12 +13,12 @@ use Illuminate\Support\Str;
 
 trait StoresFiles
 {
-    public function getFileInfo(string $file_id): Telegraph
+    public function getFileInfo(string $fileId): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_GET_FILE;
-        $telegraph->data['file_id'] = $file_id;
+        $telegraph->data['file_id'] = $fileId;
 
         return $telegraph;
     }
