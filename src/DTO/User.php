@@ -28,7 +28,7 @@ class User implements Arrayable
         $user->id = $data['id'];
         $user->isBot = $data['is_bot'];
 
-        $user->firstName = $data['first_name'];
+        $user->firstName = $data['first_name'] ?? '';
         $user->lastName = $data['last_name'] ?? '';
         $user->username = $data['username'] ?? '';
 
