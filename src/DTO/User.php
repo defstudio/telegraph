@@ -19,7 +19,7 @@ class User implements Arrayable
     }
 
     /**
-     * @param array{id:int, is_bot:bool, first_name:string, last_name?:string, username?:string} $data
+     * @param array{id:int, is_bot:bool, first_name?:string, last_name?:string, username?:string} $data
      */
     public static function fromArray(array $data): User
     {
@@ -28,7 +28,7 @@ class User implements Arrayable
         $user->id = $data['id'];
         $user->isBot = $data['is_bot'];
 
-        $user->firstName = $data['first_name'];
+        $user->firstName = $data['first_name'] ?? '';
         $user->lastName = $data['last_name'] ?? '';
         $user->username = $data['username'] ?? '';
 
