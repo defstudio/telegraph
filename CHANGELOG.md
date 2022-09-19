@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.19.3 - 2022-09-19
+
+### What's Changed
+
+- [fix] missing user first_name in message by @fabio-ivona in https://github.com/def-studio/telegraph/pull/176
+
+**Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.19.2...v1.19.3
+
 ## v1.19.2 - 2022-09-12
 
 **Full Changelog**: https://github.com/def-studio/telegraph/compare/v1.19.1...v1.19.2
