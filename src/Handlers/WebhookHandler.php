@@ -12,7 +12,6 @@ use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
-use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
