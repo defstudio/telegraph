@@ -273,3 +273,67 @@ it('can handle an inlineQuery', function () {
         ],
     ]);
 });
+
+it('can handle message', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_message(message: [
+        'message_id' => 123456,
+        'chat' => [
+            'id' => -123456789,
+            'type' => 'group',
+            'title' => 'Test chat',
+        ],
+        'date' => 1646516736,
+        'text' => 'foo',
+    ]), $bot);
+
+    Facade::assertSent("Received: foo");
+});
+
+it('can handle a member join', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_message(message: [
+        'message_id' => 123456,
+        'chat' => [
+            'id' => -123456789,
+            'type' => 'group',
+            'title' => 'Test chat',
+        ],
+        'date' => 1646516736,
+        'new_chat_members' => [
+            [
+                'id' => 123457,
+                'is_bot' => 'false',
+                'first_name' => 'Bob',
+            ],
+        ],
+    ]), $bot);
+
+    Facade::assertSent("Welcome Bob");
+});
+
+it('can handle a member left', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_message(message: [
+        'message_id' => 123456,
+        'chat' => [
+            'id' => -123456789,
+            'type' => 'group',
+            'title' => 'Test chat',
+        ],
+        'date' => 1646516736,
+        'left_chat_member' => [
+            'id' => 123457,
+            'is_bot' => 'false',
+            'first_name' => 'Bob',
+        ],
+    ]), $bot);
+
+    Facade::assertSent("Bob just left");
+});

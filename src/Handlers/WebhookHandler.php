@@ -12,6 +12,7 @@ use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
@@ -105,9 +106,26 @@ abstract class WebhookHandler
 
         if ($text->startsWith('/')) {
             $this->handleCommand($text);
-        } else {
-            $this->handleChatMessage($text);
+
+            return;
         }
+
+
+        if ($this->message?->newChatMembers()->isNotEmpty()) {
+            foreach ($this->message->newChatMembers() as $member) {
+                $this->handleChatMemberJoined($member);
+            }
+
+            return;
+        }
+
+        if ($this->message?->leftChatMember() !== null) {
+            $this->handleChatMemberLeft($this->message->leftChatMember());
+
+            return;
+        }
+
+        $this->handleChatMessage($text);
     }
 
     protected function canHandle(string $action): bool
@@ -194,6 +212,16 @@ abstract class WebhookHandler
         $this->data = collect([
             'text' => $this->message->text(),
         ]);
+    }
+
+    protected function handleChatMemberJoined(User $member): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleChatMemberLeft(User $member): void
+    {
+        // .. do nothing
     }
 
     protected function handleChatMessage(Stringable $text): void
