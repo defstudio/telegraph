@@ -71,7 +71,7 @@ Telegraph::message('this is great')->send();
 
 An extensive documentation is available at
 
-https://def-studio.github.io/telegraph
+https://defstudio.github.io/telegraph
 
 ## Testing
 
