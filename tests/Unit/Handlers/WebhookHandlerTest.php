@@ -316,7 +316,6 @@ it('can handle a member join', function () {
     Facade::assertSent("Welcome Bob");
 });
 
-
 it('can handle a member left', function () {
     $bot = bot();
     Facade::fake();

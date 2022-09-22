@@ -30,9 +30,12 @@ class Message implements Arrayable
 
     private ?Message $replyToMessage = null;
 
+    /** @var Collection<array-key, User> */
+    private Collection $newChatMembers;
+    private ?User $leftChatMember = null;
+
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
-
     private ?Audio $audio = null;
     private ?Document $document = null;
     private ?Video $video = null;
@@ -112,10 +115,8 @@ class Message implements Arrayable
             $message->keyboard = Keyboard::make();
         }
 
-        if (isset($data['photo'])) {
-            /* @phpstan-ignore-next-line */
-            $message->photos = collect($data['photo'])->map(fn (array $photoData) => Photo::fromArray($photoData));
-        }
+        /* @phpstan-ignore-next-line */
+        $message->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
 
         if (isset($data['audio'])) {
             /* @phpstan-ignore-next-line */
@@ -146,6 +147,15 @@ class Message implements Arrayable
         if (isset($data['voice'])) {
             /* @phpstan-ignore-next-line */
             $message->voice = Voice::fromArray($data['voice']);
+        }
+
+        /* @phpstan-ignore-next-line */
+        $message->newChatMembers = collect($data['new_chat_members'] ?? [])->map(fn (array $userData) => User::fromArray($userData));
+
+
+        if (isset($data['left_chat_member'])) {
+            /* @phpstan-ignore-next-line */
+            $message->leftChatMember = User::fromArray($data['left_chat_member']);
         }
 
         return $message;
@@ -237,6 +247,19 @@ class Message implements Arrayable
     public function voice(): ?Voice
     {
         return $this->voice;
+    }
+
+    /**
+     * @return Collection<array-key, User>
+     */
+    public function newChatMembers(): Collection
+    {
+        return $this->newChatMembers;
+    }
+
+    public function leftChatMember(): ?User
+    {
+        return $this->leftChatMember;
     }
 
     public function toArray(): array

@@ -8,6 +8,7 @@ namespace DefStudio\Telegraph\Tests\Support;
 
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
+use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -107,5 +108,20 @@ class TestWebhookHandler extends WebhookHandler
         }
 
         $this->chat->html("I can't understand your command: $text")->send();
+    }
+
+    protected function handleChatMessage(Stringable $text): void
+    {
+        $this->chat->html("Received: $text")->send();
+    }
+
+    protected function handleChatMemberJoined(User $member): void
+    {
+        $this->chat->html("Welcome {$member->firstName()}")->send();
+    }
+
+    protected function handleChatMemberLeft(User $member): void
+    {
+        $this->chat->html("{$member->firstName()} just left")->send();
     }
 }
