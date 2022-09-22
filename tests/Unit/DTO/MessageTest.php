@@ -198,6 +198,23 @@ it('export all properties to array', function () {
             'user_id' => 102030,
             'vcard' => 'fake',
         ],
+        'left_chat_member' => [
+            'id' => 123455,
+            'is_bot' => 'false',
+            'first_name' => 'Steph',
+        ],
+        'new_chat_members' => [
+            [
+                'id' => 123456,
+                'is_bot' => 'false',
+                'first_name' => 'John',
+            ],
+            [
+                'id' => 123457,
+                'is_bot' => 'false',
+                'first_name' => 'Bob',
+            ],
+        ],
     ]);
 
     $array = $dto->toArray();

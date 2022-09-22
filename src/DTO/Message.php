@@ -65,6 +65,8 @@ class Message implements Arrayable
      *     photo?: array<string, mixed>,
      *     location?: array<string, mixed>,
      *     contact?: array<string, mixed>,
+     *     new_chat_members?: array<string, mixed>,
+     *     left_chat_member?: array<string, mixed>,
      *  } $data
      */
     public static function fromArray(array $data): Message
@@ -257,6 +259,8 @@ class Message implements Arrayable
             'location' => $this->location?->toArray(),
             'contact' => $this->contact?->toArray(),
             'voice' => $this->voice?->toArray(),
+            'new_chat_members' => $this->newChatMembers->toArray(),
+            'left_chat_member' => $this->leftChatMember,
         ]);
     }
 }

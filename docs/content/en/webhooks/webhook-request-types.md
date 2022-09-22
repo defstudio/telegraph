@@ -166,3 +166,32 @@ Different kind of result can be sent through the handler:
 - Venue (coming soon)
 - Video (coming soon)
 - Voice (coming soon)
+
+
+## Member activities
+
+Telegraph bots can listen for members join/leave activity in chats where they are registered and handle them by overriding `handleChatMemberJoined` and `handleChatMemberLeaved` methods:
+
+### Member joined
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    protected function handleChatMemberJoined(User $member): void
+    {
+        $this->chat->html("Welcome {$member->firstName()}")->send();
+    }
+}
+```
+
+### Member left
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    protected function handleChatMemberLeft(User $member): void
+    {
+        $this->chat->html("{$member->firstName()} just left")->send();
+    }
+}
+```

@@ -37,6 +37,11 @@ contains incoming data (a message or a callback query)
 - `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained location
 - `->contact()` (optional) an instance of [`DefStudio\Telegraph\DTO\Contact`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained contact data
 - `->voice()` (optional) an instance of [`DefStudio\Telegraph\DTO\Voice`](webhooks/dto#defstudio-telegraph-dto-voice) holding data about the contained voical message
+-
+- `->newChatMembers()` a collection of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding the list of users that joined the group/supergroup
+- `->leftChatMember()` (optional) an instance of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding data about the user that left the group/supergroup
+
+
 
 
 ## `DefStudio\Telegraph\DTO\CallbackQuery`
