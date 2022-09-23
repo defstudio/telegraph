@@ -1,11 +1,11 @@
 {
   "title": "Laravel Telegraph",
-  "url": "https://def-studio.github.io/telegraph/",
+  "url": "https://defstudio.github.io/telegraph/",
   "logo": {
     "light": "logo-wide-light.png",
     "dark": "logo-wide-dark.png"
   },
-  "github": "def-studio/telegraph",
+  "github": "defstudio/telegraph",
   "twitter": "@FabioIvona",
   "defaultDir": "/docs"
 }

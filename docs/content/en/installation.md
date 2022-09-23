@@ -51,7 +51,7 @@ return [
      * Sets the handler to be used when Telegraph
      * receives a new webhook call.
      *
-     * For reference, see https://def-studio.github.io/telegraph/webhooks/overview
+     * For reference, see https://defstudio.github.io/telegraph/webhooks/overview
      */
     'webhook_handler' => EmptyWebhookHandler::class,
 
