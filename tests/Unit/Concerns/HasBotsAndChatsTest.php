@@ -124,6 +124,12 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
     ],
 ]);
 
+it('can delete chat photo', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->deleteChatPhoto();
+    })->toMatchTelegramSnapshot();
+});
+
 it('can retrieve chat info', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->chatInfo();
