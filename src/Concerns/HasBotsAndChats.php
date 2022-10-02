@@ -232,6 +232,16 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function deleteChatPhoto(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_DELETE_CHAT_PHOTO;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
     public function chatInfo(): Telegraph
     {
         $telegraph = clone $this;
