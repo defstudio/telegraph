@@ -25,6 +25,7 @@ trait FakesRequests
     /** @var array<int, string> */
     protected static array $downloadedFiles = [];
 
+    /** @var array<string, mixed[]> */
     protected array $replies = [];
 
     public static function reset(): void
@@ -256,7 +257,7 @@ trait FakesRequests
     }
 
     /**
-     * @param array<string, string> $data
+     * @param array<string, mixed> $data
      */
     public static function assertSentData(string $endpoint, array $data = [], bool $exact = true): void
     {

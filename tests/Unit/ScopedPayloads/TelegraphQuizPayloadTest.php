@@ -15,7 +15,6 @@ it('can create a quiz', function () {
     )->toMatchTelegramSnapshot();
 });
 
-
 it('can disable anonymous answers', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
@@ -34,5 +33,16 @@ it('can set quiz validity', function () {
         ->option('bar')
         ->option('baz')
         ->validUntil(now()->addSeconds(30))
+    )->toMatchTelegramSnapshot();
+});
+
+it('can set answer explanation', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph
+        ->quiz('foo?')
+        ->option('bar')
+        ->option('baz', true)
+        ->option('qux')
+        ->explanation("quux")
     )->toMatchTelegramSnapshot();
 });

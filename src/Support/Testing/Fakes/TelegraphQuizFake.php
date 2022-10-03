@@ -26,6 +26,9 @@ class TelegraphQuizFake extends TelegraphQuizPayload
         $this->replies = $replies;
     }
 
+    /**
+     * @param array<int, string> $options
+     */
     public static function assertSentQuiz(string $question, array $options = [], int $correct_index = null): void
     {
         $data = ['question' => $question, 'type' => 'quiz'];

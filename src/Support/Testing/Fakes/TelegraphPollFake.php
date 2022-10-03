@@ -26,6 +26,9 @@ class TelegraphPollFake extends TelegraphPollPayload
         $this->replies = $replies;
     }
 
+    /**
+     * @param array<int, string> $options
+     */
     public static function assertSentPoll(string $question, array $options = []): void
     {
         if (empty($options)) {
