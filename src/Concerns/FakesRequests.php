@@ -66,9 +66,6 @@ trait FakesRequests
         self::$sentMessages[] = $this->messageToArray();
 
         $messageClass = new class () implements MessageInterface {
-            /**
-             * @param array<string, mixed> $reply
-             */
             public function __construct(private array|string $reply = [])
             {
             }
@@ -256,29 +253,32 @@ trait FakesRequests
         return $path . "/" . ($filename ?? 'missing_name.jpg');
     }
 
-    /**
-     * @param array<string, mixed> $data
-     */
-    public static function assertSentData(string $endpoint, array $data = [], bool $exact = true): void
+    public function dumpSentData(): void
+    {
+        dump(self::$sentMessages);
+    }
+
+    /** @phpstan-ignore-next-line  */
+    public static function assertSentData(string $endpoint, array $data = null, bool $exact = true): void
     {
         $foundMessages = collect(self::$sentMessages);
 
         $foundMessages = $foundMessages
             ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
             ->filter(function (array $message) use ($data, $exact): bool {
-                foreach ($data as $key => $value) {
+                foreach ($data ?? [] as $key => $value) {
                     /** @var array<string, string> $data */
-                    $data = $message['data'];
-                    if (!Arr::has($data, $key)) {
+                    $messageData = $message['data'];
+                    if (!Arr::has($messageData, $key)) {
                         return false;
                     }
 
                     if ($exact) {
-                        if ($value != $data[$key]) {
+                        if ($value != $messageData[$key]) {
                             return false;
                         }
                     } else {
-                        if (!Str::of($data[$key])->contains($value)) {
+                        if (!Str::of($messageData[$key])->contains($value)) {
                             return false;
                         }
                     }
@@ -295,10 +295,5 @@ trait FakesRequests
         }
 
         Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
-    }
-
-    public function dumpSentData(): void
-    {
-        dump(self::$sentMessages);
     }
 }

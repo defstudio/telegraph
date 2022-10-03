@@ -34,7 +34,6 @@ it('fails if the given message is not sent', function () {
 
     Telegraph::assertSent('bar');
 })->throws(ExpectationFailedException::class, 'Failed to assert that a request was sent to [sendMessage] endpoint with the given data (sent 1 requests so far)');
-;
 
 it('asserts a partial message is sent', function () {
     $bot = make_bot();

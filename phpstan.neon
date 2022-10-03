@@ -3,6 +3,8 @@ parameters:
     level: max
     paths:
         - src
+    excludePaths:
+        - src/Support/Testing
 
     checkMissingIterableValueType: true
     checkGenericClassInNonGenericObjectType: false
