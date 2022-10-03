@@ -10,6 +10,8 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphPollFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphQuizFake;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
@@ -440,4 +442,22 @@ it('can demote a chat member', function () {
         'can_pin_messages' => false,
 
     ], false);
+});
+
+it('can create a poll', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->poll('foo?')->option('bar!')->option('baz!')->send();
+
+    TelegraphPollFake::assertSentPoll('foo?', ['bar!', 'baz!']);
+});
+
+it('can create a quiz', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->quiz('foo?')->option('bar!')->option('baz!', true)->send();
+
+    TelegraphQuizFake::assertSentQuiz('foo?', ['bar!', 'baz!'], 1);
 });
