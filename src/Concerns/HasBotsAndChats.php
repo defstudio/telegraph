@@ -105,6 +105,16 @@ trait HasBotsAndChats
         return $telegraph->getChatIfAvailable() ?? throw TelegraphException::missingChat();
     }
 
+    public function leaveChat(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_LEAVE_CHAT;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        return $telegraph;
+    }
+
     public function botInfo(): Telegraph
     {
         $telegraph = clone $this;

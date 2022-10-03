@@ -79,6 +79,7 @@ class Telegraph
     public const ENDPOINT_CREATE_CHAT_INVITE_LINK = 'createChatInviteLink';
     public const ENDPOINT_EDIT_CHAT_INVITE_LINK = 'editChatInviteLink';
     public const ENDPOINT_REVOKE_CHAT_INVITE_LINK = 'revokeChatInviteLink';
+    public const ENDPOINT_LEAVE_CHAT = 'leaveChat';
     public const ENDPOINT_GET_CHAT_INFO = 'getChat';
     public const ENDPOINT_GET_CHAT_MEMBER_COUNT = 'getChatMemberCount';
     public const ENDPOINT_SET_CHAT_PERMISSIONS = 'setChatPermissions';

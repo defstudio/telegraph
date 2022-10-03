@@ -55,6 +55,12 @@ it('can unregister commands', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can leave a chat', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->leaveChat();
+    })->toMatchTelegramSnapshot();
+});
+
 it('can send a chat action', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->chatAction(ChatActions::TYPING);
