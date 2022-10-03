@@ -10,6 +10,8 @@ use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
+use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -258,5 +260,15 @@ class TelegraphChat extends Model
     public function demoteMember(string $userId): Telegraph
     {
         return TelegraphFacade::chat($this)->demoteChatMember($userId);
+    }
+
+    public function poll(string $question): TelegraphPollPayload
+    {
+        return TelegraphFacade::chat($this)->poll($question);
+    }
+
+    public function quiz(string $question): TelegraphQuizPayload
+    {
+        return TelegraphFacade::chat($this)->quiz($question);
     }
 }

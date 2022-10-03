@@ -56,14 +56,15 @@
         "x-ray": "vendor/bin/x-ray .",
         "lint": "vendor/bin/php-cs-fixer fix -v",
         "test:lint": "vendor/bin/php-cs-fixer fix -v --dry-run",
-        "test:types": "vendor/bin/phpstan analyse --ansi",
+        "test:types": "vendor/bin/phpstan analyse --ansi --memory-limit=-1",
         "test:unit": "vendor/bin/pest --colors=always --exclude-group=sandbox",
         "test:sandbox": "vendor/bin/pest --colors=always --group=sandbox",
         "test": [
             "@test:lint",
             "@test:types",
             "@test:unit",
-            "@test:sandbox"
+            "@test:sandbox",
+            "x-ray"
         ],
         "update:snapshots": "vendor/bin/pest --colors=always -d --update-snapshots",
         "coverage": "@test:unit --coverage"

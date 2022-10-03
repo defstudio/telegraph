@@ -26,9 +26,9 @@ use Illuminate\Support\Carbon;
  */
 trait HasBotsAndChats
 {
-    private TelegraphBot|null $bot;
+    protected TelegraphBot|null $bot;
 
-    private TelegraphChat|null $chat;
+    protected TelegraphChat|null $chat;
 
     public function bot(TelegraphBot $bot): Telegraph
     {

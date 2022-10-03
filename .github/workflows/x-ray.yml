@@ -22,5 +22,5 @@ jobs:
       - name: Install composer dependencies
         uses: ramsey/composer-install@v1
 
-      - name: Run PHPStan
+      - name: Run X-Ray
         run: ./vendor/bin/x-ray .

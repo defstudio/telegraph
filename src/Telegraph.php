@@ -11,6 +11,7 @@ use DefStudio\Telegraph\Client\TelegraphResponse;
 use DefStudio\Telegraph\Concerns\AnswersInlineQueries;
 use DefStudio\Telegraph\Concerns\CallTraitsMethods;
 use DefStudio\Telegraph\Concerns\ComposesMessages;
+use DefStudio\Telegraph\Concerns\CreatesScopedPayloads;
 use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
@@ -32,6 +33,7 @@ class Telegraph
     use SendsAttachments;
     use StoresFiles;
     use AnswersInlineQueries;
+    use CreatesScopedPayloads;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
@@ -88,7 +90,7 @@ class Telegraph
     public const ENDPOINT_UNBAN_CHAT_MEMBER = 'unbanChatMember';
     public const ENDPOINT_RESTRICT_CHAT_MEMBER = 'restrictChatMember';
     public const ENDPOINT_PROMOTE_CHAT_MEMBER = 'promoteChatMember';
-
+    public const ENDPOINT_SEND_POLL = 'sendPoll';
 
 
     /** @var array<string, mixed> */

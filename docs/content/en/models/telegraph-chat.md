@@ -443,6 +443,40 @@ demote a user in a group, a supergroup or a channel from administrator status.
 use DefStudio\Telegraph\Models\TelegraphChat;
 
 /** @var TelegraphChat $telegraphChat */
-
 $telegraphChat->demoteMember($userid)->send();
+```
+
+
+## `poll`
+
+creates a native poll. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#sendpoll)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+$telegraphChat->poll("What's your favourite programming language?")
+    ->option('php')
+    ->option('typescript')
+    ->option('rust')
+    ->allowMultipeAnswers()
+    ->validUntil(now()->addMinutes(5))
+    ->send();
+```
+
+## `quiz`
+
+creates a quiz. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#sendpoll)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+$telegraphChat->quiz("What's your favourite programming language?")
+    ->option('php', correct: true)
+    ->option('typescript')
+    ->option('rust')
+    ->explanation('We all love php, right?')
+    ->validUntil(now()->addMinutes(5))
+    ->send();
 ```
