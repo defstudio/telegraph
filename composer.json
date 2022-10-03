@@ -63,7 +63,8 @@
             "@test:lint",
             "@test:types",
             "@test:unit",
-            "@test:sandbox"
+            "@test:sandbox",
+            "x-ray"
         ],
         "update:snapshots": "vendor/bin/pest --colors=always -d --update-snapshots",
         "coverage": "@test:unit --coverage"
