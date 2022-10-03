@@ -13,6 +13,6 @@ paths:
     - 'build/*'
     - 'docs/*'
     - 'vendor/*'
-    - 'src/Support/Concerns/FakesRequests.php'
+    - 'src/Concerns/FakesRequests.php'
     - 'src/Telegraph.php'
     - 'src/Client/TelegraphResponse.php'
