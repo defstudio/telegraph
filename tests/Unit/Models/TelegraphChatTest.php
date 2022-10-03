@@ -261,6 +261,15 @@ it('can delete a chat photo', function () {
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_CHAT_PHOTO);
 });
 
+it('can leave a chat', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->leave()->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_LEAVE_CHAT);
+});
+
 it('can set chat title', function () {
     Telegraph::fake();
     $chat = make_chat();
