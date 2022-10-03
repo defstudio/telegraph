@@ -196,6 +196,11 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->setChatPhoto($path);
     }
 
+    public function deleteChatPhoto(): Telegraph
+    {
+        return TelegraphFacade::chat($this)->deleteChatPhoto();
+    }
+
     public function generatePrimaryInviteLink(): Telegraph
     {
         return TelegraphFacade::chat($this)->generateChatPrimaryInviteLink();

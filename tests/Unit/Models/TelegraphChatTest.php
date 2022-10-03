@@ -252,6 +252,15 @@ it('can unpin all messages', function () {
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_ALL_MESSAGES);
 });
 
+it('can delete a chat photo', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->deleteChatPhoto()->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_CHAT_PHOTO);
+});
+
 it('can leave a chat', function () {
     Telegraph::fake();
     $chat = make_chat();
