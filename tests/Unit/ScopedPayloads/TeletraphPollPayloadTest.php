@@ -4,7 +4,6 @@
 
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Carbon;
-use Spatie\TestTime\TestTime;
 
 it('can create a poll', function () {
     expect(

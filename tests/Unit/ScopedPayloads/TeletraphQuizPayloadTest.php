@@ -4,7 +4,6 @@
 
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Carbon;
-use Spatie\PestPluginTestTime\TestTime;
 
 it('can create a quiz', function () {
     expect(
