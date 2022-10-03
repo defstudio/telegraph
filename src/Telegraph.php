@@ -19,7 +19,6 @@ use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Concerns\SendsAttachments;
 use DefStudio\Telegraph\Concerns\StoresFiles;
 use DefStudio\Telegraph\DTO\Attachment;
-use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
 
@@ -141,10 +140,5 @@ class Telegraph
         dump($this->toArray());
 
         return $this;
-    }
-
-    public function getChat(): TelegraphChat
-    {
-        return  $this->chat;
     }
 }
