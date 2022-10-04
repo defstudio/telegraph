@@ -5,6 +5,7 @@
 use DefStudio\Telegraph\DTO\InlineQueryResultArticle;
 use DefStudio\Telegraph\DTO\InlineQueryResultContact;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
+use DefStudio\Telegraph\DTO\InlineQueryResultMpeg4Gif;
 use DefStudio\Telegraph\DTO\InlineQueryResultPhoto;
 use DefStudio\Telegraph\Exceptions\InlineQueryException;
 use DefStudio\Telegraph\Telegraph;
@@ -15,6 +16,7 @@ it('can answer an inline query', function () {
         InlineQueryResultPhoto::make(42, 'https://photo.dev', 'https://photo-thumb.dev'),
         InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
         InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
+        InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
     ]))->toMatchTelegramSnapshot();
 });
 
@@ -25,6 +27,7 @@ it('can set cache duration', function () {
             InlineQueryResultPhoto::make(42, 'https://photo.dev', 'https://photo-thumb.dev'),
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
+            InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
         ])->cache(600)
     )->toMatchTelegramSnapshot();
 });
@@ -36,6 +39,7 @@ it('can set next offset', function () {
             InlineQueryResultPhoto::make(42, 'https://photo.dev', 'https://photo-thumb.dev'),
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
+            InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
         ])->nextOffset('2')
     )->toMatchTelegramSnapshot();
 });
@@ -47,6 +51,7 @@ it('can set results as personal', function () {
             InlineQueryResultPhoto::make(42, 'https://photo.dev', 'https://photo-thumb.dev'),
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
+            InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
         ])->personal()
     )->toMatchTelegramSnapshot();
 });
@@ -58,6 +63,7 @@ it('can offer to switch to private message', function () {
             InlineQueryResultPhoto::make(42, 'https://photo.dev', 'https://photo-thumb.dev'),
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
+            InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
         ])->offertToSwitchToPrivateMessage('configure', '123456')
     )->toMatchTelegramSnapshot();
 });
