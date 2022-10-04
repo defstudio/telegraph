@@ -10,4 +10,9 @@ final class KeyboardException extends Exception
     {
         return new self("Undefined keyboard method [$name]");
     }
+
+    public static function maxPlaceholderLengthExcedeed(string $placeholder): KeyboardException
+    {
+        return new self("Placeholder [$placeholder] exceeds maximum length (64 characters)");
+    }
 }

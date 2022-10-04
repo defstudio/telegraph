@@ -64,7 +64,7 @@
             "@test:types",
             "@test:unit",
             "@test:sandbox",
-            "x-ray"
+            "@x-ray"
         ],
         "update:snapshots": "vendor/bin/pest --colors=always -d --update-snapshots",
         "coverage": "@test:unit --coverage"
