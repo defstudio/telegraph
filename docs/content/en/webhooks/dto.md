@@ -135,3 +135,7 @@ This is a DTO for outgoing data, wraps info about the Gif result returned to the
 ## `DefStudio\Telegraph\DTO\InlineQueryResultPhoto`
 
 This is a DTO for outgoing data, wraps info about the Photo result returned to the user
+
+## `DefStudio\Telegraph\DTO\InlineQueryResultContact`
+
+This is a DTO for outgoing data, wraps info about the Contact result returned to the user
