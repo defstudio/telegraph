@@ -91,6 +91,7 @@ class Telegraph
     public const ENDPOINT_RESTRICT_CHAT_MEMBER = 'restrictChatMember';
     public const ENDPOINT_PROMOTE_CHAT_MEMBER = 'promoteChatMember';
     public const ENDPOINT_SEND_POLL = 'sendPoll';
+    public const ENDPOINT_FORWARD_MESSAGE = 'forwardMessage';
 
 
     /** @var array<string, mixed> */
