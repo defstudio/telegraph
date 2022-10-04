@@ -139,3 +139,7 @@ This is a DTO for outgoing data, wraps info about the Photo result returned to t
 ## `DefStudio\Telegraph\DTO\InlineQueryResultContact`
 
 This is a DTO for outgoing data, wraps info about the Contact result returned to the user
+
+## `DefStudio\Telegraph\DTO\InlineQueryResultArticle`
+
+This is a DTO for outgoing data, wraps info about the Article result returned to the user
