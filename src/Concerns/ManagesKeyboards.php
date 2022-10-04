@@ -8,6 +8,7 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\Exceptions\KeyboardException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Keyboard\ReplyKeyboard;
 use DefStudio\Telegraph\Telegraph;
@@ -55,8 +56,25 @@ trait ManagesKeyboards
         }
 
         $telegraph->data['reply_markup'] = [
-            'keyboard' => $keyboard->toArray(),
-        ] + $keyboard->options();
+                'keyboard' => $keyboard->toArray(),
+            ] + $keyboard->options();
+
+        return $telegraph;
+    }
+
+    public function forceReply(string $placeholder = '', bool $selective = false): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['reply_markup'] = ['force_reply' => true, 'selective' => $selective];
+
+        if ($placeholder !== '') {
+            if (strlen($placeholder) > 64) {
+                throw KeyboardException::maxPlaceholderLengthExcedeed($placeholder);
+            }
+
+            $telegraph->data['reply_markup']['input_field_placeholder'] = $placeholder;
+        }
 
         return $telegraph;
     }

@@ -35,13 +35,20 @@ Updates an existing message instead of sending a new one
 $chat->edit(123456)->message("new text")->send();
 ```
 
-
 ### reply
 
 The message can be sent as a reply by setting the original message ID
 
 ```php
 $chat->message("ok!")->reply(123456)->send();
+```
+
+### forceReply
+
+Forces the user to reply to the message. For more information see [the official api documentation](https://core.telegram.org/bots/api#forcereply)
+
+```php
+$chat->message("ok!")->forceReply(placeholder: 'Enter your reply...')->send();
 ```
 
 ### protected
