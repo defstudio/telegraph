@@ -148,4 +148,18 @@ trait ComposesMessages
 
         return $telegraph;
     }
+
+    public function forwardMessage(int $originalChatId, int $messageId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_FORWARD_MESSAGE;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChat()->chat_id,
+            'message_id' => $messageId,
+            'from_chat_id' => $originalChatId,
+        ];
+
+        return $telegraph;
+    }
 }
