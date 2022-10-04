@@ -58,3 +58,8 @@ it('can edit a message', function (callable $setupClosure) {
     'edit before text' => fn () => fn (Telegraph $telegraph) => $telegraph->edit(123456)->markdown('new text'),
     'edit after text' => fn () => fn (Telegraph $telegraph) => $telegraph->markdown('new text')->edit(123456),
 ]);
+
+it('can forward a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->forwardMessage(123456789, 123456))
+        ->toMatchTelegramSnapshot();
+});
