@@ -156,7 +156,7 @@ Different kind of result can be sent through the handler:
 
 - Article (coming soon)
 - Audio (coming soon)
-- Contact (coming soon)
+- Contact ([`DefStudio\Telegraph\DTO\InlineQueryResultContact`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-contact))
 - Game (coming soon)
 - Document (coming soon)
 - Gif ([`DefStudio\Telegraph\DTO\InlineQueryResultGif`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-gif))
