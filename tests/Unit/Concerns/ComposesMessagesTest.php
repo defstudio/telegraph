@@ -60,6 +60,8 @@ it('can edit a message', function (callable $setupClosure) {
 ]);
 
 it('can forward a message', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->forwardMessage(123456789, 123456))
+    $chat = make_chat();
+
+    expect(fn (Telegraph $telegraph) => $telegraph->forwardMessage($chat, 123456))
         ->toMatchTelegramSnapshot();
 });

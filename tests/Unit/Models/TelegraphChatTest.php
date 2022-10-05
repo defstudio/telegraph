@@ -475,10 +475,10 @@ it('can forward a message', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-    $chat->forwardMessage(123456789, 123)->send();
+    $chat->forwardMessage($chat, 123)->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_FORWARD_MESSAGE, [
-        'from_chat_id' => 123456789,
+        'from_chat_id' => $chat->chat_id,
         'message_id' => 123,
     ]);
 });
