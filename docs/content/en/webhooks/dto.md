@@ -147,3 +147,7 @@ This is a DTO for outgoing data, wraps info about the Article result returned to
 ## `DefStudio\Telegraph\DTO\InlineQueryResultMpeg4Gif`
 
 This is a DTO for outgoing data, wraps info about the Mpeg4Gif result returned to the user
+
+## `DefStudio\Telegraph\DTO\InlineQueryResultAudio`
+
+This is a DTO for outgoing data, wraps info about the Audio result returned to the user
