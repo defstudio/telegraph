@@ -8,21 +8,21 @@ class InlineQueryResultVideo extends InlineQueryResult
 {
     protected string $type = 'video';
     protected string $id;
-    protected string $videoUrl;
+    protected string $url;
     protected string $mimeType;
     protected string $thumbUrl;
     protected string $title;
     protected string|null $caption = null;
     protected string|null $description = null;
-    protected int|null $videoWidth = null;
-    protected int|null $videoHeight = null;
-    protected int|null $videoDuration = null;
+    protected int|null $width = null;
+    protected int|null $height = null;
+    protected int|null $duration = null;
 
-    public static function make(string $id, string $videoUrl, string $mimeType, string $thumbUrl, string $title): InlineQueryResultVideo
+    public static function make(string $id, string $url, string $mimeType, string $thumbUrl, string $title): InlineQueryResultVideo
     {
         $result = new InlineQueryResultVideo();
         $result->id = $id;
-        $result->videoUrl = $videoUrl;
+        $result->url = $url;
         $result->mimeType = $mimeType;
         $result->thumbUrl = $thumbUrl;
         $result->title = $title;
@@ -44,23 +44,23 @@ class InlineQueryResultVideo extends InlineQueryResult
         return $this;
     }
 
-    public function videoWidth(int|null $videoWidth): InlineQueryResultVideo
+    public function width(int|null $width): InlineQueryResultVideo
     {
-        $this->videoWidth = $videoWidth;
+        $this->width = $width;
 
         return $this;
     }
 
-    public function videoHeight(int|null $videoHeight): InlineQueryResultVideo
+    public function height(int|null $height): InlineQueryResultVideo
     {
-        $this->videoHeight = $videoHeight;
+        $this->height = $height;
 
         return $this;
     }
 
-    public function videoDuration(int|null $videoDuration): InlineQueryResultVideo
+    public function duration(int|null $duration): InlineQueryResultVideo
     {
-        $this->videoDuration = $videoDuration;
+        $this->duration = $duration;
 
         return $this;
     }
@@ -72,15 +72,15 @@ class InlineQueryResultVideo extends InlineQueryResult
     {
         return [
             'title' => $this->title,
-            '$video_url' => $this->videoUrl,
+            '$video_url' => $this->url,
             '$mime_type' => $this->mimeType,
             '$thumb_url' => $this->thumbUrl,
             '$title' => $this->title,
             '$caption' => $this->caption,
             '$description' => $this->description,
-            '$video_width' => $this->videoWidth,
-            '$video_height' => $this->videoHeight,
-            '$video_duration' => $this->videoDuration,
+            '$video_width' => $this->width,
+            '$video_height' => $this->height,
+            '$video_duration' => $this->duration,
         ];
     }
 }
