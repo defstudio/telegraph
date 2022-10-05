@@ -286,5 +286,6 @@ abstract class WebhookHandler
 
     protected function handleInlineQuery(InlineQuery $inlineQuery): void
     {
+        // .. do nothing
     }
 }
