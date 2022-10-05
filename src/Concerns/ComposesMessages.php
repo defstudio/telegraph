@@ -150,9 +150,9 @@ trait ComposesMessages
         return $telegraph;
     }
 
-    public function forwardMessage(TelegraphChat|int $fromChatId, int $messageId): Telegraph
+    public function forwardMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
     {
-        $fromChatId = is_int($fromChatId) ? $fromChatId : $fromChatId->chat_id;
+        $fromChatId = is_int($fromChat) ? $fromChat : $fromChat->chat_id;
 
         $telegraph = clone $this;
 
