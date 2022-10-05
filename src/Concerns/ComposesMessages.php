@@ -4,6 +4,7 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
 
 trait ComposesMessages
@@ -149,15 +150,17 @@ trait ComposesMessages
         return $telegraph;
     }
 
-    public function forwardMessage(int $originalChatId, int $messageId): Telegraph
+    public function forwardMessage(TelegraphChat|int $from_chat_id, int $messageId): Telegraph
     {
+        $from_chat_id = is_int($from_chat_id) ? $from_chat_id : $from_chat_id->chat_id;
+
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_FORWARD_MESSAGE;
         $telegraph->data = [
             'chat_id' => $telegraph->getChat()->chat_id,
             'message_id' => $messageId,
-            'from_chat_id' => $originalChatId,
+            'from_chat_id' => $from_chat_id,
         ];
 
         return $telegraph;
