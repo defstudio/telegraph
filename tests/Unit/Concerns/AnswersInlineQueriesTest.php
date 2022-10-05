@@ -3,6 +3,7 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\DTO\InlineQueryResultArticle;
+use DefStudio\Telegraph\DTO\InlineQueryResultAudio;
 use DefStudio\Telegraph\DTO\InlineQueryResultContact;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
 use DefStudio\Telegraph\DTO\InlineQueryResultMpeg4Gif;
@@ -17,6 +18,7 @@ it('can answer an inline query', function () {
         InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
         InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
         InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
+        InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
     ]))->toMatchTelegramSnapshot();
 });
 
@@ -28,6 +30,7 @@ it('can set cache duration', function () {
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
             InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
+            InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
         ])->cache(600)
     )->toMatchTelegramSnapshot();
 });
@@ -40,6 +43,7 @@ it('can set next offset', function () {
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
             InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
+            InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
         ])->nextOffset('2')
     )->toMatchTelegramSnapshot();
 });
@@ -52,6 +56,7 @@ it('can set results as personal', function () {
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
             InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
+            InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
         ])->personal()
     )->toMatchTelegramSnapshot();
 });
@@ -64,6 +69,7 @@ it('can offer to switch to private message', function () {
             InlineQueryResultContact::make(42, '399999999', 'testFirstName'),
             InlineQueryResultArticle::make(42, 'testTitle', 'testMessage'),
             InlineQueryResultMpeg4Gif::make(42, 'testMpeg4Url', 'testThumbUrl'),
+            InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
         ])->offertToSwitchToPrivateMessage('configure', '123456')
     )->toMatchTelegramSnapshot();
 });
