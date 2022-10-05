@@ -272,8 +272,8 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->quiz($question);
     }
 
-    public function forwardMessage(TelegraphChat|int $fromChatId, int $messageId): Telegraph
+    public function forwardMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
     {
-        return TelegraphFacade::chat($this)->forwardMessage($fromChatId, $messageId);
+        return TelegraphFacade::chat($this)->forwardMessage($fromChat, $messageId);
     }
 }
