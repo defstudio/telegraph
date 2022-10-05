@@ -7,9 +7,9 @@ it('can export to array', function () {
         InlineQueryResultVideo::make('a45', 'testVideoUrl', 'testMimeType', 'testThumbUrl', 'testTitle')
             ->caption('testCaption')
             ->description('testDescription')
-            ->videoWidth(400)
-            ->videoHeight(200)
-            ->videoDuration(10)
+            ->width(400)
+            ->height(200)
+            ->duration(10)
             ->toArray()
     )->toBe([
         'title' => 'testTitle',
