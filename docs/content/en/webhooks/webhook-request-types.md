@@ -164,7 +164,7 @@ Different kind of result can be sent through the handler:
 - Mpeg4Gif ([`DefStudio\Telegraph\DTO\InlineQueryResultMpeg4Gif`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-Mpeg4Gif))
 - Photo([`DefStudio\Telegraph\DTO\InlineQueryResultPhoto`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-photo))
 - Venue (coming soon)
-- Video (coming soon)
+- Video ([`DefStudio\Telegraph\DTO\InlineQueryResultVideo`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-video))
 - Voice (coming soon)
 
 
