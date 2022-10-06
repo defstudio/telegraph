@@ -1,7 +1,7 @@
 url: 'https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/answerInlineQuery'
 payload:
     inline_query_id: '99'
-    results: [{ gif_url: 'https://gif.dev', thumb_url: 'https://gif-thumb.dev', id: '42', type: gif }, { photo_url: 'https://photo.dev', thumb_url: 'https://photo-thumb.dev', id: '42', type: photo }, { phone_number: '399999999', first_name: testFirstName, id: '42', type: contact }, { title: testTitle, input_message_content: { message: testMessage, parse_mode: html }, id: '42', type: article }, { mpeg4_url: testMpeg4Url, thumb_url: testThumbUrl, id: '42', type: mpeg4_gif }, { title: testTitle, $video_url: testVideoUrl, $mime_type: testMimeType, $thumb_url: testThumbUrl, $title: testTitle, id: '42', type: video }, { $audio_url: testAudioUrl, $title: testTitle, id: '42', type: audio }]
+    results: [{ gif_url: 'https://gif.dev', thumb_url: 'https://gif-thumb.dev', id: '42', type: gif }, { photo_url: 'https://photo.dev', thumb_url: 'https://photo-thumb.dev', id: '42', type: photo }, { phone_number: '399999999', first_name: testFirstName, id: '42', type: contact }, { title: testTitle, input_message_content: { message: testMessage, parse_mode: html }, id: '42', type: article }, { mpeg4_url: testMpeg4Url, thumb_url: testThumbUrl, id: '42', type: mpeg4_gif }, { title: testTitle, $video_url: testVideoUrl, $mime_type: testMimeType, $thumb_url: testThumbUrl, $title: testTitle, id: '42', type: video }, { $audio_url: testAudioUrl, $title: testTitle, id: '42', type: audio }, { $voice_url: testVoiceUrl, $title: testTitle, id: '42', type: voice }]
     switch_pm_text: configure
     switch_pm_parameter: '123456'
 files: {  }
