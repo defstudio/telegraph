@@ -158,7 +158,7 @@ Different kind of result can be sent through the handler:
 - Audio ([`DefStudio\Telegraph\DTO\InlineQueryResultAudio`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-audio))
 - Contact ([`DefStudio\Telegraph\DTO\InlineQueryResultContact`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-contact))
 - Game (coming soon)
-- Document (coming soon)
+- Document ([`DefStudio\Telegraph\DTO\InlineQueryResultDocument`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-document))
 - Gif ([`DefStudio\Telegraph\DTO\InlineQueryResultGif`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-gif))
 - Location (coming soon)
 - Mpeg4Gif ([`DefStudio\Telegraph\DTO\InlineQueryResultMpeg4Gif`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-Mpeg4Gif))
