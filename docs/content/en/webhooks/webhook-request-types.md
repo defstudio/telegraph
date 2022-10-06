@@ -165,7 +165,7 @@ Different kind of result can be sent through the handler:
 - Photo([`DefStudio\Telegraph\DTO\InlineQueryResultPhoto`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-photo))
 - Venue (coming soon)
 - Video ([`DefStudio\Telegraph\DTO\InlineQueryResultVideo`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-video))
-- Voice (coming soon)
+- Voice ([`DefStudio\Telegraph\DTO\InlineQueryResultVoice`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-voice))
 
 
 ## Member activities
