@@ -155,7 +155,7 @@ class CustomWebhookHandler extends WebhookHandler
 Different kind of result can be sent through the handler: 
 
 - Article ([`DefStudio\Telegraph\DTO\InlineQueryResultArticle`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-article))
-- Audio (coming soon)
+- Audio ([`DefStudio\Telegraph\DTO\InlineQueryResultAudio`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-audio))
 - Contact ([`DefStudio\Telegraph\DTO\InlineQueryResultContact`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-contact))
 - Game (coming soon)
 - Document (coming soon)
