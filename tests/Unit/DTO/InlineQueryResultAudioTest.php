@@ -7,7 +7,7 @@ it('can export to array', function () {
         InlineQueryResultAudio::make('a45', 'testAudioUrl', 'testTitle')
         ->caption('testCaption')
         ->performer('testPerformer')
-        ->audioDuration(10)
+        ->duration(10)
         ->toArray()
     )->toBe([
         '$audio_url' => 'testAudioUrl',
