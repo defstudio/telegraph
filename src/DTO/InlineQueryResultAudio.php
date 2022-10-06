@@ -8,17 +8,17 @@ class InlineQueryResultAudio extends InlineQueryResult
 {
     protected string $type = 'audio';
     protected string $id;
-    protected string $audioUrl;
+    protected string $url;
     protected string $title;
     protected string|null $caption = null;
     protected string|null $performer = null;
-    protected int|null $audioDuration = null;
+    protected int|null $duration = null;
 
-    public static function make(string $id, string $audioUrl, string $title): InlineQueryResultAudio
+    public static function make(string $id, string $url, string $title): InlineQueryResultAudio
     {
         $result = new InlineQueryResultAudio();
         $result->id = $id;
-        $result->audioUrl = $audioUrl;
+        $result->url = $url;
         $result->title = $title;
 
         return $result;
@@ -38,9 +38,9 @@ class InlineQueryResultAudio extends InlineQueryResult
         return $this;
     }
 
-    public function audioDuration(int|null $audioDuration): InlineQueryResultAudio
+    public function duration(int|null $duration): InlineQueryResultAudio
     {
-        $this->audioDuration = $audioDuration;
+        $this->duration = $duration;
 
         return $this;
     }
@@ -51,11 +51,11 @@ class InlineQueryResultAudio extends InlineQueryResult
     public function data(): array
     {
         return [
-            '$audio_url' => $this->audioUrl,
+            '$audio_url' => $this->url,
             '$title' => $this->title,
             '$caption' => $this->caption,
             '$performer' => $this->performer,
-            '$audio_duration' => $this->audioDuration,
+            '$audio_duration' => $this->duration,
         ];
     }
 }
