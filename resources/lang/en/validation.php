@@ -13,11 +13,11 @@ return [
     /**
      * Will write to the user if such an action does not exist (default "Invalid action")
      */
-    'invalid_action_message' => 'Invalid action',
+    'invalid_action' => 'Invalid action',
 
     /**
      * Will write to the user if such an command does not exist (default "Unknown command")
      */
-    'invalid_command_message' => 'Unknown command',
+    'invalid_command' => 'Unknown command',
 
 ];
