@@ -25,10 +25,14 @@ php artisan migrate
 
 ## Configuration
 
-You can publish the config file with:
+You can publish the config and translation file with:
 
 ```bash
 php artisan vendor:publish --tag="telegraph-config"
+```
+
+```bash
+php artisan vendor:publish --tag="telegraph-translations"
 ```
 
 here's an example of what you'll find:
