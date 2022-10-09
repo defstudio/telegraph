@@ -60,7 +60,7 @@ abstract class WebhookHandler
         if (!$this->canHandle($action)) {
             report(TelegramWebhookException::invalidAction($action));
 
-            $this->reply(config('telegraph.validation.invalid_action_message', 'Invalid action'));
+            $this->reply(__(key: 'telegraph::validation.invalid_action_message', locale: config('telegraph.system_alert_lang')));
             return;
         }
 
@@ -90,7 +90,7 @@ abstract class WebhookHandler
                 report(TelegramWebhookException::invalidCommand($command));
             }
 
-            $this->chat->html(config('telegraph.validation.invalid_command_message', 'Unknown command'))->send();
+            $this->chat->html(__(key: 'telegraph::validation.invalid_command_message', locale: config('telegraph.system_alert_lang')))->send();
         }
     }
 

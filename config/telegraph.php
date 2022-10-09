@@ -64,15 +64,10 @@ return [
         'chat' => DefStudio\Telegraph\Models\TelegraphChat::class,
     ],
 
-    'validation' => [
-        /**
-         * Will write to the user if such an action does not exist (default "Invalid action")
-         */
-        'invalid_action_message' => 'Invalid action',
+    /**
+     * The language in which the bot will write in case of errors / other system events
+     */
+    'system_alert_lang' => 'en',
 
-        /**
-         * Will write to the user if such an command does not exist (default "Unknown command")
-         */
-        'invalid_command_message' => 'Unknown command',
-    ],
+
 ];
