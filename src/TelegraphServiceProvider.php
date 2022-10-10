@@ -7,6 +7,7 @@ use DefStudio\Telegraph\Commands\CreateNewChatCommand;
 use DefStudio\Telegraph\Commands\GetTelegramWebhookDebugInfoCommand;
 use DefStudio\Telegraph\Commands\SetTelegramWebhookCommand;
 use DefStudio\Telegraph\Commands\UnsetTelegramWebhookCommand;
+use Illuminate\Support\Facades\App;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -24,8 +25,10 @@ class TelegraphServiceProvider extends PackageServiceProvider
             ->hasCommand(CreateNewChatCommand::class)
             ->hasCommand(SetTelegramWebhookCommand::class)
             ->hasCommand(UnsetTelegramWebhookCommand::class)
-            ->hasCommand(GetTelegramWebhookDebugInfoCommand::class);
+            ->hasCommand(GetTelegramWebhookDebugInfoCommand::class)
+            ->hasTranslations();
 
         $this->app->bind('telegraph', fn () => new Telegraph());
+        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'telegraph');
     }
 }

@@ -63,4 +63,11 @@ return [
         'bot' => DefStudio\Telegraph\Models\TelegraphBot::class,
         'chat' => DefStudio\Telegraph\Models\TelegraphChat::class,
     ],
+
+    /**
+     * The language in which the bot will write in case of errors / other system events
+     */
+    'system_alert_lang' => 'en',
+
+
 ];
