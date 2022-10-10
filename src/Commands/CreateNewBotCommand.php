@@ -13,16 +13,16 @@ class CreateNewBotCommand extends Command
 
     public function handle(): int
     {
-        $this->info('You are about to create a new Telegram Bot');
+        $this->info(__('telegraph::commands.new_bot.starting_message'));
 
-        $token = $this->ask("Please, enter the bot token");
+        $token = $this->ask(__('telegraph::commands.new_bot.enter_bot_token'));
         if (empty($token)) {
-            $this->error('Token cannot be empty');
+            $this->error(__('telegraph::errors.empty_token'));
 
             return self::FAILURE;
         }
 
-        $name = $this->ask("Enter the bot name (optional)");
+        $name = $this->ask(__('telegraph::commands.new_bot.enter_bot_name'));
 
         /** @var class-string<TelegraphBot> $botModel */
         $botModel = config('telegraph.models.bot');
@@ -33,13 +33,13 @@ class CreateNewBotCommand extends Command
             'name' => $name,
         ]);
 
-        if ($this->confirm("Do you want to add a chat to this bot?")) {
-            while (empty($chat_id = $this->ask("Enter the chat id - press [x] to abort:"))) {
-                $this->error("The chat ID cannot be null");
+        if ($this->confirm(__('telegraph::commands.new_bot.ask_to_add_a_chat'))) {
+            while (empty($chat_id = $this->ask(__('telegraph::commands.new_chat.enter_chat_id')))) {
+                $this->error(__('telegraph::errors.empty_chat_id'));
             }
 
             if ($chat_id != 'x') {
-                $chat_name = $this->ask("Enter the chat name (optional):");
+                $chat_name = $this->ask(__('telegraph::commands.new_chat.enter_chat_name'));
                 $bot->chats()->create([
                     'chat_id' => $chat_id,
                     'name' => $chat_name,
@@ -49,11 +49,11 @@ class CreateNewBotCommand extends Command
 
 
 
-        if ($this->confirm("Do you want to setup a webhook for this bot?")) {
+        if ($this->confirm(__('telegraph::commands.new_bot.ask_to_setup_webhook'))) {
             $bot->registerWebhook()->send();
         }
 
-        $this->info("New bot $bot->name has been created");
+        $this->info(__('telegraph::commands.new_bot.bot_created', ['bot_name' => $bot->name]));
 
         return self::SUCCESS;
     }

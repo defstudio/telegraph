@@ -85,7 +85,7 @@ test('it dumps error when telegram request is unsuccessful', function () {
 
     /** @phpstan-ignore-next-line */
     artisan("telegraph:debug-webhook $bot->id")
-        ->expectsOutput("Failed to get log from telegram server")
+        ->expectsOutput("Failed to get log from Telegram server")
         ->expectsOutput('{"ok":false,"result":{"error":"foo"}}')
         ->assertExitCode(Command::FAILURE);
 });

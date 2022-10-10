@@ -25,20 +25,19 @@ class CreateNewChatCommand extends Command
         $bot = rescue(fn () => $botModel::fromId($bot_id), report: false);
 
         if (empty($bot)) {
-            $this->error("Please specify a Bot ID");
+            $this->error(__('telegraph::errors.missing_bot_id'));
 
             return self::FAILURE;
         }
 
-        $this->info("You are about to create a new Telegram Chat for bot $bot->name");
+        $this->info(__('telegraph::commands.new_chat.starting_message', ['bot_name' => $bot->name]));
 
-
-        while (empty($chat_id = $this->ask("Enter the chat id - press [x] to abort:"))) {
-            $this->error("The chat ID cannot be null");
+        while (empty($chat_id = $this->ask(__('telegraph::commands.new_chat.enter_chat_id')))) {
+            $this->error(__('telegraph::errors.empty_chat_id'));
         }
 
         if ($chat_id != 'x') {
-            $chat_name = $this->ask("Enter the chat name (optional):");
+            $chat_name = $this->ask(__('telegraph::commands.new_chat.enter_chat_name'));
 
             /** @var TelegraphChat $chat */
             $chat = $bot->chats()->create([
@@ -46,7 +45,7 @@ class CreateNewChatCommand extends Command
                 'name' => $chat_name,
             ]);
 
-            $this->info("New chat $chat->name has been create for bot $bot->name");
+            $this->info(__('telegraph::commands.new_chat.chat_created', ['chat_name' => $chat->name, 'bot_name' => $bot->name]));
         }
 
 

@@ -24,7 +24,7 @@ class GetTelegramWebhookDebugInfoCommand extends Command
         $bot = rescue(fn () => $botModel::fromId($bot_id), report: false);
 
         if (empty($bot)) {
-            $this->error("Please specify a Bot ID");
+            $this->error(__('telegraph::errors.missing_bot_id'));
 
             return self::FAILURE;
         }
@@ -32,7 +32,7 @@ class GetTelegramWebhookDebugInfoCommand extends Command
         $response = $bot->getWebhookDebugInfo()->send();
 
         if (!$response->json('ok')) {
-            $this->error("Failed to get log from telegram server");
+            $this->error(__('telegraph::errors.failed_to_get_log_from_telegram'));
             $this->error($response->body());
 
             return self::FAILURE;
@@ -43,9 +43,10 @@ class GetTelegramWebhookDebugInfoCommand extends Command
 
         foreach ($result as $key => $value) {
             if (is_bool($value)) {
-                $value = $value ? 'yes' : 'no';
+                $value = $value ? __('telegraph::misc.yes') : __('telegraph::misc.no');
             }
 
+            /** @phpstan-ignore-next-line  */
             $this->line("$key: $value");
         }
 
