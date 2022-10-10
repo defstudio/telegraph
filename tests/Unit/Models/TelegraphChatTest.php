@@ -470,3 +470,15 @@ it('can create a quiz', function () {
 
     TelegraphQuizFake::assertSentQuiz('foo?', ['bar!', 'baz!'], 1);
 });
+
+it('can forward a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->forwardMessage($chat, 123)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_FORWARD_MESSAGE, [
+        'from_chat_id' => $chat->chat_id,
+        'message_id' => 123,
+    ]);
+});
