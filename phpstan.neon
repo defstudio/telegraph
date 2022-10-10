@@ -6,6 +6,9 @@ parameters:
     excludePaths:
         - src/Support/Testing
 
+    ignoreErrors:
+        - '#expects string, array\|string\|null given#'
+
     checkMissingIterableValueType: true
     checkGenericClassInNonGenericObjectType: false
     reportUnmatchedIgnoredErrors: false

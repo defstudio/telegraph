@@ -28,6 +28,5 @@ class TelegraphServiceProvider extends PackageServiceProvider
             ->hasTranslations();
 
         $this->app->bind('telegraph', fn () => new Telegraph());
-        $this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'telegraph');
     }
 }

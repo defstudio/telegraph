@@ -54,8 +54,8 @@ it('can assign a chat to the new bot', function () {
         ->expectsQuestion("Please, enter the bot token", "123456789")
         ->expectsQuestion("Enter the bot name (optional)", "foo")
         ->expectsQuestion("Do you want to add a chat to this bot?", true)
-        ->expectsQuestion("Enter the chat id - press [x] to abort:", "888999444")
-        ->expectsQuestion("Enter the chat name (optional):", 'bar')
+        ->expectsQuestion("Enter the chat ID - press [x] to abort", "888999444")
+        ->expectsQuestion("Enter the chat name (optional)", 'bar')
         ->expectsQuestion("Do you want to setup a webhook for this bot?", false)
         ->assertExitCode(Command::SUCCESS);
 
@@ -78,9 +78,9 @@ it('keeps asking for the chat name until pressed x', function () {
         ->expectsQuestion("Please, enter the bot token", "123456789")
         ->expectsQuestion("Enter the bot name (optional)", "foo")
         ->expectsQuestion("Do you want to add a chat to this bot?", true)
-        ->expectsQuestion("Enter the chat id - press [x] to abort:", "")
-        ->expectsQuestion("Enter the chat id - press [x] to abort:", "")
-        ->expectsQuestion("Enter the chat id - press [x] to abort:", "x")
+        ->expectsQuestion("Enter the chat ID - press [x] to abort", "")
+        ->expectsQuestion("Enter the chat ID - press [x] to abort", "")
+        ->expectsQuestion("Enter the chat ID - press [x] to abort", "x")
         ->expectsQuestion("Do you want to setup a webhook for this bot?", false)
         ->assertExitCode(Command::SUCCESS);
 
