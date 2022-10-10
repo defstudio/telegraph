@@ -44,7 +44,6 @@ abstract class WebhookHandler
     public function __construct()
     {
         $this->originalKeyboard = Keyboard::make();
-        $this->systemLanguage();
     }
 
     private function handleCallbackQuery(): void
@@ -289,6 +288,4 @@ abstract class WebhookHandler
     {
         // .. do nothing
     }
-
-    abstract protected function systemLanguage(): void;
 }
