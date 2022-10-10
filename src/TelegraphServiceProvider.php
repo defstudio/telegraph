@@ -7,7 +7,6 @@ use DefStudio\Telegraph\Commands\CreateNewChatCommand;
 use DefStudio\Telegraph\Commands\GetTelegramWebhookDebugInfoCommand;
 use DefStudio\Telegraph\Commands\SetTelegramWebhookCommand;
 use DefStudio\Telegraph\Commands\UnsetTelegramWebhookCommand;
-use Illuminate\Support\Facades\App;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

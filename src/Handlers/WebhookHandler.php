@@ -61,6 +61,7 @@ abstract class WebhookHandler
             report(TelegramWebhookException::invalidAction($action));
 
             $this->reply(__(key: 'telegraph::validation.invalid_action', locale: \App::getLocale()));
+
             return;
         }
 
