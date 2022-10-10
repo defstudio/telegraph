@@ -60,6 +60,7 @@ abstract class WebhookHandler
         if (!$this->canHandle($action)) {
             report(TelegramWebhookException::invalidAction($action));
             $this->reply(__('telegraph::errors.invalid_action'));
+
             return;
         }
 
