@@ -149,6 +149,16 @@ Starts a `Telegraph` call to delete a message
 $telegraphChat->deleteMessage($messageId)->send();
 ```
 
+### `forwardMessage()`
+
+forwards a message from another chat
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->forwardMessage($fromChat, $messageId)->send();
+```
+
 ### `pinMessage()`
 
 Starts a `Telegraph` call to pin a message

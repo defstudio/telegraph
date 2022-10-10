@@ -74,6 +74,14 @@ deletes a message
 Telegraph::deleteMessage($messageId)->send();
 ```
 
+## forwardMessage
+
+forwards a message from another chat
+
+```php
+Telegraph::forwardMessage($fromChat, $messageId)->send();
+```
+
 ## pinMessage
 
 pins a message

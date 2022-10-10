@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  replaceKeyboard(string $messageId, Keyboard|callable $newKeyboard)
  * @method static \DefStudio\Telegraph\Telegraph  deleteKeyboard(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  deleteMessage(string $messageId)
+ * @method static \DefStudio\Telegraph\Telegraph  forwardMessage($fromChat, $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  pinMessage(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  unpinMessage(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  unpinAllMessages()
