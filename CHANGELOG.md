@@ -2,6 +2,35 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.21.0 - 2022-10-13
+
+### What's Changed
+
+- [feat] `leaveChat` method by @adevade in https://github.com/defstudio/telegraph/pull/206
+- [feat] `deleteChatPhoto` method by @adevade in https://github.com/defstudio/telegraph/pull/205
+- [feat] `poll` and `quiz` methods by @fabio-ivona in https://github.com/defstudio/telegraph/pull/211
+- [feat] forced replies by @fabio-ivona in https://github.com/defstudio/telegraph/pull/212
+- [feat] `InlineQueryResultContact` class by @MarioGattolla in https://github.com/defstudio/telegraph/pull/213
+- Fix issue #196 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/214
+- Fix issue #197 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/215
+- Fix issue #198 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/218
+- Fix issue #199 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/219
+- Fix issue #200 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/220
+- Fix issue #201 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/221
+- [feat] Php 8.2 support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/222
+- Add validate error to config by @GhostWalkers in https://github.com/defstudio/telegraph/pull/223
+- [feat] translations by @fabio-ivona in https://github.com/defstudio/telegraph/pull/225
+- [feat] forwardMessage method #184 by @nicola-posa in https://github.com/defstudio/telegraph/pull/216
+
+### New Contributors
+
+- @adevade made their first contribution in https://github.com/defstudio/telegraph/pull/206
+- @MarioGattolla made their first contribution in https://github.com/defstudio/telegraph/pull/213
+- @GhostWalkers made their first contribution in https://github.com/defstudio/telegraph/pull/223
+- @nicola-posa made their first contribution in https://github.com/defstudio/telegraph/pull/216
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.20.1...v1.21.0
+
 ## v1.20.1 - 2022-09-23
 
 ### What's Changed
