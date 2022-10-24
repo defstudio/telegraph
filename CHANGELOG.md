@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.21.1 - 2022-10-24
+
+### What's Changed
+
+- docs: Fix typo in messages section by @nikosid in https://github.com/defstudio/telegraph/pull/230
+- Added Russian translation by @andrey-helldar in https://github.com/defstudio/telegraph/pull/231
+
+### New Contributors
+
+- @nikosid made their first contribution in https://github.com/defstudio/telegraph/pull/230
+- @andrey-helldar made their first contribution in https://github.com/defstudio/telegraph/pull/231
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.0...v1.21.1
+
 ## v1.21.0 - 2022-10-13
 
 ### What's Changed
