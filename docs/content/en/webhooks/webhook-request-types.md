@@ -4,15 +4,33 @@ menuTitle: 'Request Types'
 description: ''
 category: 'Webhooks'
 fullscreen: false 
-position: 64
+position: 63
 ---
 
 
-Telegraph can handle two incoming webhook request types: **Chat Messages** and **Callback Queries**
+Telegraph can handle four incoming webhook request types: **Chat Messages**,  **Chat Commands**, **Callback Queries** and **Inline Queries**:
 
 ## Chat Messages
 
-Telegraph bots can receive commands from chats where they are registered. A command is a telegram message has a a `backslash` char followed by a descriptive word, typed in the bot's chat:
+Plain chat messages (messages that are not commands or queries) can be handled by overriding `DefStudio\Telegraph\Handlers\WebhookHandler::handleChatMessage()` method:
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    protected function handleChatMessage(Stringable $text): void
+    {
+        //in this example, a received message is sent back to the chat
+        $this->chat->html("Received: $text")->send();
+    }
+}
+```
+
+<alert type="alert">A bot can read non-command/queries messages only if its `privacy mode` is disabled. To change a bot privacy settings see [this guide](quickstart/new-bot#privacy)</alert>
+
+
+## Chat Commands
+
+Telegraph bots can receive commands from chats where they are registered. A command is a telegram message has a _backslash_ (`\`) char followed by a descriptive word:
 
 ```
 \hi Fabio
@@ -49,12 +67,11 @@ class CustomWebhookHandler extends WebhookHandler
 {
     public function hi()
     {
-        $text = $this->message()->text(); //hi
+        $text = $this->message()->text(); //\hi Fabio
     }
 }
 ```
 
-<alert type="alert">As it is used internally, `/handle` command keyword is forbidden</alert>
 
 ### Unknown commands
 
