@@ -12,11 +12,11 @@ Go to the [@BotFather](https://t.me/botfather) app on Telegram.
 
 Send `/newbot`, to start creating a new Bot and setting its name and username.
 
-    <img src="screenshots/new-bot.jpg" />
+<img src="screenshots/new-bot.jpg" />
 
 Take note of the bot `token`.
 
-    <img src="screenshots/new-bot-token.jpg" />
+<img src="screenshots/new-bot-token.jpg" />
 
 ### Join groups permission
 
