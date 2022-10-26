@@ -22,7 +22,7 @@ Take note of the bot `token`.
 
 To allow the bot to join Telegram groups, use the `/setjoingroups` command in @BotFather:
 
-    <img src="screenshots/new-bot-joingroups.jpg" />
+<img src="screenshots/new-bot-joingroups.jpg" />
 
 ### Privacy
 Now you need to choose how much the bot will be able to read from the chats. Send `/setprivacy` command to @BotFather, and select your bot privacy:
