@@ -177,7 +177,7 @@ Different kind of result can be sent through the handler:
 - Game (coming soon)
 - Document ([`DefStudio\Telegraph\DTO\InlineQueryResultDocument`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-document))
 - Gif ([`DefStudio\Telegraph\DTO\InlineQueryResultGif`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-gif))
-- Location (coming soon)
+- Location ([`DefStudio\Telegraph\DTO\InlineQueryResultLocation`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-location))
 - Mpeg4Gif ([`DefStudio\Telegraph\DTO\InlineQueryResultMpeg4Gif`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-Mpeg4Gif))
 - Photo([`DefStudio\Telegraph\DTO\InlineQueryResultPhoto`](webhooks/dto#defstudio-telegraph-dto-inline-query-result-photo))
 - Venue (coming soon)

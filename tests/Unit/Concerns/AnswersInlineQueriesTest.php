@@ -7,6 +7,7 @@ use DefStudio\Telegraph\DTO\InlineQueryResultAudio;
 use DefStudio\Telegraph\DTO\InlineQueryResultContact;
 use DefStudio\Telegraph\DTO\InlineQueryResultDocument;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
+use DefStudio\Telegraph\DTO\InlineQueryResultLocation;
 use DefStudio\Telegraph\DTO\InlineQueryResultMpeg4Gif;
 use DefStudio\Telegraph\DTO\InlineQueryResultPhoto;
 use DefStudio\Telegraph\DTO\InlineQueryResultVideo;
@@ -25,6 +26,7 @@ it('can answer an inline query', function () {
         InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
         InlineQueryResultVoice::make(42, 'testVoiceUrl', 'testTitle'),
         InlineQueryResultDocument::make(42, 'testDocumentTitle', 'testDocumentUrl', 'testDocumentMimeType'),
+        InlineQueryResultLocation::make(42, 'testLocationTitle', 10.5, 10.5),
     ]))->toMatchTelegramSnapshot();
 });
 
@@ -40,6 +42,7 @@ it('can set cache duration', function () {
             InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
             InlineQueryResultVoice::make(42, 'testVoiceUrl', 'testTitle'),
             InlineQueryResultDocument::make(42, 'testDocumentTitle', 'testDocumentUrl', 'testDocumentMimeType'),
+            InlineQueryResultLocation::make(42, 'testLocationTitle', 10.5, 10.5),
         ])->cache(600)
     )->toMatchTelegramSnapshot();
 });
@@ -56,6 +59,7 @@ it('can set next offset', function () {
             InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
             InlineQueryResultVoice::make(42, 'testVoiceUrl', 'testTitle'),
             InlineQueryResultDocument::make(42, 'testDocumentTitle', 'testDocumentUrl', 'testDocumentMimeType'),
+            InlineQueryResultLocation::make(42, 'testLocationTitle', 10.5, 10.5),
         ])->nextOffset('2')
     )->toMatchTelegramSnapshot();
 });
@@ -72,6 +76,7 @@ it('can set results as personal', function () {
             InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
             InlineQueryResultVoice::make(42, 'testVoiceUrl', 'testTitle'),
             InlineQueryResultDocument::make(42, 'testDocumentTitle', 'testDocumentUrl', 'testDocumentMimeType'),
+            InlineQueryResultLocation::make(42, 'testLocationTitle', 10.5, 10.5),
         ])->personal()
     )->toMatchTelegramSnapshot();
 });
@@ -88,6 +93,7 @@ it('can offer to switch to private message', function () {
             InlineQueryResultAudio::make(42, 'testAudioUrl', 'testTitle'),
             InlineQueryResultVoice::make(42, 'testVoiceUrl', 'testTitle'),
             InlineQueryResultDocument::make(42, 'testDocumentTitle', 'testDocumentUrl', 'testDocumentMimeType'),
+            InlineQueryResultLocation::make(42, 'testLocationTitle', 10.5, 10.5),
         ])->offertToSwitchToPrivateMessage('configure', '123456')
     )->toMatchTelegramSnapshot();
 });
