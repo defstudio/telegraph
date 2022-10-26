@@ -160,9 +160,9 @@ class TelegraphBot extends Model
     /**
      * @return \Illuminate\Support\Collection<int, TelegramUpdate>
      */
-    public function updates(): \Illuminate\Support\Collection
+    public function updates(?int $offset, int $timeout = 0): \Illuminate\Support\Collection
     {
-        $reply = TelegraphFacade::bot($this)->botUpdates()->send();
+        $reply = TelegraphFacade::bot($this)->botUpdates($offset, $timeout)->send();
 
         if ($reply->telegraphError()) {
             if (!$reply->successful()) {

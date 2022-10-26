@@ -124,11 +124,17 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function botUpdates(): Telegraph
+    public function botUpdates(?int $offset, int $timeout = 0): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_GET_BOT_UPDATES;
+
+        if ($offset) {
+            $telegraph->data['offset'] = $offset;
+        }
+
+        $telegraph->data['timeout'] = $timeout;
 
         return $telegraph;
     }
