@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.21.3 - 2022-10-26
+
+### What's Changed
+
+- Screenshot problem solved! by @Mrjavaci in https://github.com/defstudio/telegraph/pull/234
+- added InlineQueryResultLocation + test + snapshots + fix other inline… by @MarioGattolla in https://github.com/defstudio/telegraph/pull/235
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.2...v1.21.3
+
 ## v1.21.2 - 2022-10-25
 
 ### What's Changed
