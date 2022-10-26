@@ -71,16 +71,15 @@ class InlineQueryResultVideo extends InlineQueryResult
     public function data(): array
     {
         return [
+            'video_url' => $this->url,
+            'mime_type' => $this->mimeType,
+            'thumb_url' => $this->thumbUrl,
             'title' => $this->title,
-            '$video_url' => $this->url,
-            '$mime_type' => $this->mimeType,
-            '$thumb_url' => $this->thumbUrl,
-            '$title' => $this->title,
-            '$caption' => $this->caption,
-            '$description' => $this->description,
-            '$video_width' => $this->width,
-            '$video_height' => $this->height,
-            '$video_duration' => $this->duration,
+            'caption' => $this->caption,
+            'video_width' => $this->width,
+            'video_height' => $this->height,
+            'video_duration' => $this->duration,
+            'description' => $this->description,
         ];
     }
 }

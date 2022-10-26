@@ -51,11 +51,11 @@ class InlineQueryResultAudio extends InlineQueryResult
     public function data(): array
     {
         return [
-            '$audio_url' => $this->url,
-            '$title' => $this->title,
-            '$caption' => $this->caption,
-            '$performer' => $this->performer,
-            '$audio_duration' => $this->duration,
+            'audio_url' => $this->url,
+            'title' => $this->title,
+            'caption' => $this->caption,
+            'performer' => $this->performer,
+            'audio_duration' => $this->duration,
         ];
     }
 }

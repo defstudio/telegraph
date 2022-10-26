@@ -69,14 +69,14 @@ class InlineQueryResultDocument extends InlineQueryResult
     public function data(): array
     {
         return [
-            '$title' => $this->title,
-            '$document_url' => $this->url,
-            '$mime_type' => $this->mimeType,
-            '$caption' => $this->caption,
-            '$description' => $this->description,
-            '$thumb_url' => $this->thumbUrl,
-            '$thumb_width' => $this->thumbWidth,
-            '$thumb_height' => $this->thumbHeight,
+            'title' => $this->title,
+            'caption' => $this->caption,
+            'document_url' => $this->url,
+            'mime_type' => $this->mimeType,
+            'description' => $this->description,
+            'thumb_url' => $this->thumbUrl,
+            'thumb_width' => $this->thumbWidth,
+            'thumb_height' => $this->thumbHeight,
         ];
     }
 }
