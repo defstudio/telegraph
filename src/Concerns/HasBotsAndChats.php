@@ -124,7 +124,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function botUpdates(?int $offset, int $timeout = 0): Telegraph
+    public function botUpdates(?int $offset = null, int $timeout = 0): Telegraph
     {
         $telegraph = clone $this;
 
