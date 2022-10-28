@@ -40,6 +40,10 @@ trait InteractsWithTelegram
             $request
         );
 
+        if (array_key_exists('timeout', $this->data) && $this->data['timeout'] > 0) {
+            $request->timeout($this->data['timeout']);
+        }
+
         return $request->post($this->getApiUrl(), $this->prepareData($asMultipart));
     }
 
