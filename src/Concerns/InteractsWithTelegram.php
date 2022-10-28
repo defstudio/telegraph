@@ -33,21 +33,23 @@ trait InteractsWithTelegram
 
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
-            /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line */
             function ($request, Attachment $attachment, string $key) {
                 return $request->attach($key, $attachment->contents(), $attachment->filename());
             },
             $request
         );
 
-        return $request->post($this->getApiUrl(), $this->prepareData($asMultipart));
+        return $request->post($this->getApiUrl(), $this->prepareData());
     }
 
     /**
      * @return array<string, mixed>
      */
-    protected function prepareData(bool $asMultipart = false): array
+    protected function prepareData(): array
     {
+        $asMultipart = $this->files->isNotEmpty();
+
         $data = $this->data;
 
         $data = $this->pipeTraits('preprocessData', $data);
@@ -69,7 +71,7 @@ trait InteractsWithTelegram
 
     protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
     {
-        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->data)->onQueue($queue);
+        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files)->onQueue($queue);
     }
 
     public function setBaseUrl(string|null $url): Telegraph
