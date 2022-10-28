@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.21.4 - 2022-10-28
+
+### What's Changed
+
+- [Fix] queued requests by @fabio-ivona in https://github.com/defstudio/telegraph/pull/240
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.3...v1.21.4
+
 ## v1.21.3 - 2022-10-26
 
 ### What's Changed
