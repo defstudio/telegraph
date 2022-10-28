@@ -35,7 +35,7 @@ class SendRequestToTelegramJob implements ShouldQueue
 
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
-        /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore-next-line */
             function ($request, Attachment $attachment, string $key) {
                 return $request->attach($key, $attachment->contents(), $attachment->filename());
             },
