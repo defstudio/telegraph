@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  answerInlineQuery(string $inlineQueryID, array $results)
  * @method static \DefStudio\Telegraph\Telegraph  document(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  photo(string $path, string $filename = null)
+ * @method static \DefStudio\Telegraph\Telegraph  mediaGroup(array $mediaGroup)
  * @method static \DefStudio\Telegraph\Telegraph  voice(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  location(float $latitude, float $longitude)
  * @method static \DefStudio\Telegraph\Telegraph  botUpdates()

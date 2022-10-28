@@ -18,6 +18,7 @@ use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
+use DefStudio\Telegraph\Validator;
 use File;
 use Illuminate\Support\Carbon;
 
@@ -222,20 +223,7 @@ trait HasBotsAndChats
 
         File::exists($path) || throw FileException::fileNotFound('photo', $path);
 
-        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
-            throw FileException::photoSizeExceeded($size);
-        }
-
-        $height = $telegraph->imageHeight($path);
-        $width = $telegraph->imageWidth($path);
-
-        if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
-            throw FileException::invalidPhotoSize($totalLength);
-        }
-
-        if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
-            throw FileException::invalidPhotoRatio($ratio);
-        }
+        Validator::validatePhotoFile($path);
 
         $telegraph->files->put('photo', new Attachment($path));
 

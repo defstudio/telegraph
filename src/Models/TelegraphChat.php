@@ -173,6 +173,11 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->photo($path, $filename);
     }
 
+    public function mediaGroup(array $mediaGroup): Telegraph
+    {
+        return TelegraphFacade::chat($this)->mediaGroup($mediaGroup);
+    }
+
     public function voice(string $path, string $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->voice($path, $filename);
