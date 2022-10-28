@@ -77,7 +77,7 @@ class InlineQueryResultArticle extends InlineQueryResult
         return [
             'title' => $this->title,
             'input_message_content' => [
-                'message' => $this->message,
+                'message_text' => $this->message,
                 'parse_mode' => config('telegraph.default_parse_mode', 'html'),
             ],
             'url' => $this->url,
