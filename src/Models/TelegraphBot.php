@@ -7,6 +7,7 @@
 
 namespace DefStudio\Telegraph\Models;
 
+use DefStudio\Telegraph\Bus\Interfaces\CallbackBusInterface;
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
 use DefStudio\Telegraph\DTO\InlineQueryResult;
@@ -177,9 +178,17 @@ class TelegraphBot extends Model
             throw TelegramUpdatesException::pollingError($this, $reply->json('description'));
         }
 
+        /** @var CallbackBusInterface $bus */
+        $bus = app(CallbackBusInterface::class, ['bot' => $this]);
 
         /* @phpstan-ignore-next-line */
-        return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
+        return collect($reply->json('result'))->map(function (array $update) use ($bus): TelegramUpdate {
+            $tgUpdate = TelegramUpdate::fromArray($update);
+            $callbackData = $bus->parseData($tgUpdate->callbackQuery()->rawData());
+            $tgUpdate->callbackQuery()->setData($callbackData);
+
+            return $tgUpdate;
+        });
     }
 
     public function setBaseUrl(string|null $url): Telegraph

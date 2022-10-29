@@ -17,12 +17,12 @@ class Button
     ) {
     }
 
-    public static function make(string $label): Button
+    public static function make(string $label): static
     {
-        return new self($label);
+        return new static($label);
     }
 
-    public function width(float $percentage): Button
+    public function width(float $percentage): static
     {
         $width = (int)($percentage * 100);
 

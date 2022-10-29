@@ -8,7 +8,7 @@
 
 namespace DefStudio\Telegraph\Handlers;
 
-use DefStudio\Telegraph\DTO\CallbackQuery;
+use DefStudio\Telegraph\Bus\Interfaces\CallbackBusInterface;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
@@ -35,36 +35,11 @@ abstract class WebhookHandler
 
     protected Request $request;
     protected Message|null $message = null;
-    protected CallbackQuery|null $callbackQuery = null;
 
     protected Collection $data;
 
-    protected Keyboard $originalKeyboard;
-
     public function __construct()
     {
-        $this->originalKeyboard = Keyboard::make();
-    }
-
-    private function handleCallbackQuery(): void
-    {
-        $this->extractCallbackQueryData();
-
-        if (config('telegraph.debug_mode')) {
-            Log::debug('Telegraph webhook callback', $this->data->toArray());
-        }
-
-        /** @var string $action */
-        $action = $this->callbackQuery?->data()->get('action') ?? '';
-
-        if (!$this->canHandle($action)) {
-            report(TelegramWebhookException::invalidAction($action));
-            $this->reply(__('telegraph::errors.invalid_action'));
-
-            return;
-        }
-
-        $this->$action();
     }
 
     private function handleCommand(Stringable $text): void
@@ -144,44 +119,6 @@ abstract class WebhookHandler
         }
 
         return true;
-    }
-
-    protected function extractCallbackQueryData(): void
-    {
-        /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->firstOrNew([
-            'chat_id' => $this->request->input('callback_query.message.chat.id'),
-        ]);
-
-        $this->chat = $chat;
-
-        if (!$this->chat->exists) {
-            if (!config('telegraph.security.allow_callback_queries_from_unknown_chats', false)) {
-                throw new NotFoundHttpException();
-            }
-
-            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
-                $this->chat->name = Str::of("")
-                    ->append("[", $this->request->input('callback_query.message.chat.type'), ']')
-                    ->append(" ", $this->request->input(
-                        'callback_query.message.chat.username',
-                        $this->request->input('callback_query.message.chat.title')
-                    ));
-
-                $this->chat->save();
-            }
-        }
-
-        assert($this->callbackQuery !== null);
-
-        $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData('message id missing');
-
-        $this->callbackQueryId = $this->callbackQuery->id();
-
-        /** @phpstan-ignore-next-line */
-        $this->originalKeyboard = $this->callbackQuery->message()?->keyboard() ?? Keyboard::make();
-
-        $this->data = $this->callbackQuery->data();
     }
 
     protected function extractMessageData(): void
@@ -271,11 +208,8 @@ abstract class WebhookHandler
             return;
         }
 
-
         if ($this->request->has('callback_query')) {
-            /* @phpstan-ignore-next-line */
-            $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
-            $this->handleCallbackQuery();
+            $this->callbackBus()->processCallback($this->request);
         }
 
         if ($this->request->has('inline_query')) {
@@ -287,5 +221,12 @@ abstract class WebhookHandler
     protected function handleInlineQuery(InlineQuery $inlineQuery): void
     {
         // .. do nothing
+    }
+
+    protected function callbackBus(): CallbackBusInterface
+    {
+        assert(isset($this->bot));
+
+        return app(CallbackBusInterface::class, ['bot' => $this->bot]);
     }
 }

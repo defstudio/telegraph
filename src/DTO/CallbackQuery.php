@@ -5,8 +5,6 @@
 namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class CallbackQuery implements Arrayable
 {
@@ -16,7 +14,9 @@ class CallbackQuery implements Arrayable
 
     private Message|null $message = null;
 
-    private Collection $data;
+    private CallbackData $data;
+
+    private string $rawData;
 
     private function __construct()
     {
@@ -25,9 +25,9 @@ class CallbackQuery implements Arrayable
     /**
      * @param array{id:int, from:array<string, mixed>, message?:array<string, mixed>, data?:string} $data
      */
-    public static function fromArray(array $data): CallbackQuery
+    public static function fromArray(array $data): static
     {
-        $callbackQuery = new self();
+        $callbackQuery = new static();
 
         $callbackQuery->id = $data['id'];
 
@@ -39,17 +39,7 @@ class CallbackQuery implements Arrayable
             $callbackQuery->message = Message::fromArray($data['message']);
         }
 
-        $callbackQuery->data = Str::of($data['data'] ?? '')
-            ->explode(';')
-            ->filter()
-            /* @phpstan-ignore-next-line */
-            ->mapWithKeys(function (string $entity) {
-                $entity = explode(':', $entity);
-                $key = $entity[0];
-                $value = $entity[1];
-
-                return [$key => $value];
-            });
+        $callbackQuery->rawData = $data['data'] ?? '';
 
         return $callbackQuery;
     }
@@ -69,9 +59,21 @@ class CallbackQuery implements Arrayable
         return $this->message;
     }
 
-    public function data(): Collection
+    public function data(): CallbackData
     {
         return $this->data;
+    }
+
+    public function rawData(): string
+    {
+        return $this->rawData;
+    }
+
+    public function setData(CallbackData $data): static
+    {
+        $this->data = $data;
+
+        return $this;
     }
 
     public function toArray(): array
