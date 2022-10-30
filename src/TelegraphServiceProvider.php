@@ -2,8 +2,6 @@
 
 namespace DefStudio\Telegraph;
 
-use DefStudio\Telegraph\Bus\CallbackBus;
-use DefStudio\Telegraph\Bus\Interfaces\CallbackBusInterface;
 use DefStudio\Telegraph\Commands\CreateNewBotCommand;
 use DefStudio\Telegraph\Commands\CreateNewChatCommand;
 use DefStudio\Telegraph\Commands\GetTelegramWebhookDebugInfoCommand;
@@ -31,6 +29,8 @@ class TelegraphServiceProvider extends PackageServiceProvider
 
         $this->app->bind('telegraph', fn () => new Telegraph());
 
-        $this->app->bind(CallbackBusInterface::class, CallbackBus::class);
+        $this->app->singleton('callbackResolver', function (): CallbackResolver {
+            return new CallbackResolver(config('telegraph'));
+        });
     }
 }

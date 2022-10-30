@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 abstract class Callback
 {
     /**
-     * @var class-string<CallbackData> $callbackDataClass
+     * @var class-string<CallbackData>
      */
     public static string $callbackDataClass;
 

@@ -8,12 +8,14 @@
 
 namespace DefStudio\Telegraph\Handlers;
 
-use DefStudio\Telegraph\Bus\Interfaces\CallbackBusInterface;
+use DefStudio\Telegraph\Callback;
+use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
+use DefStudio\Telegraph\Facades\CallbackResolver;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
@@ -31,15 +33,35 @@ abstract class WebhookHandler
     protected TelegraphChat $chat;
 
     protected int $messageId;
-    protected int $callbackQueryId;
 
     protected Request $request;
     protected Message|null $message = null;
+    protected CallbackQuery|null $callbackQuery = null;
 
     protected Collection $data;
 
     public function __construct()
     {
+    }
+
+    protected function handleCallbackQuery(): void
+    {
+        assert($this->callbackQuery !== null);
+
+        $data = CallbackResolver::toCallbackData($this->bot->name, $this->callbackQuery->rawData());
+        $this->callbackQuery->setData($data);
+
+        if (config('telegraph.debug_mode')) {
+            Log::debug('Telegraph webhook callback', $data->toArray());
+        }
+
+        /** @var class-string<Callback> $callbackClass */
+        $callbackClass = CallbackResolver::callbackClassByName($this->bot->name, $data::name());
+
+        /** @var Callback $callback */
+        $callback = new $callbackClass($this->bot, $this->callbackQuery, $this->request);
+
+        $callback->handle();
     }
 
     private function handleCommand(Stringable $text): void
@@ -209,7 +231,9 @@ abstract class WebhookHandler
         }
 
         if ($this->request->has('callback_query')) {
-            $this->callbackBus()->processCallback($this->request);
+            /* @phpstan-ignore-next-line */
+            $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
+            $this->handleCallbackQuery();
         }
 
         if ($this->request->has('inline_query')) {
@@ -221,12 +245,5 @@ abstract class WebhookHandler
     protected function handleInlineQuery(InlineQuery $inlineQuery): void
     {
         // .. do nothing
-    }
-
-    protected function callbackBus(): CallbackBusInterface
-    {
-        assert(isset($this->bot));
-
-        return app(CallbackBusInterface::class, ['bot' => $this->bot]);
     }
 }

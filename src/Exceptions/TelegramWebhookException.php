@@ -2,7 +2,7 @@
 
 namespace DefStudio\Telegraph\Exceptions;
 
-class TelegramWebhookException extends \Exception
+final class TelegramWebhookException extends \Exception
 {
     public static function invalidAction(string $action): TelegramWebhookException
     {

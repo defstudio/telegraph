@@ -7,13 +7,13 @@
 
 namespace DefStudio\Telegraph\Models;
 
-use DefStudio\Telegraph\Bus\Interfaces\CallbackBusInterface;
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
 use DefStudio\Telegraph\DTO\InlineQueryResult;
 use DefStudio\Telegraph\DTO\TelegramUpdate;
 use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
+use DefStudio\Telegraph\Facades\CallbackResolver;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Collection;
@@ -178,13 +178,11 @@ class TelegraphBot extends Model
             throw TelegramUpdatesException::pollingError($this, $reply->json('description'));
         }
 
-        /** @var CallbackBusInterface $bus */
-        $bus = app(CallbackBusInterface::class, ['bot' => $this]);
 
         /* @phpstan-ignore-next-line */
-        return collect($reply->json('result'))->map(function (array $update) use ($bus): TelegramUpdate {
+        return collect($reply->json('result'))->map(function (array $update): TelegramUpdate {
             $tgUpdate = TelegramUpdate::fromArray($update);
-            $callbackData = $bus->parseData($tgUpdate->callbackQuery()->rawData());
+            $callbackData = CallbackResolver::toCallbackData($this->name, $tgUpdate->callbackQuery()->rawData());
             $tgUpdate->callbackQuery()->setData($callbackData);
 
             return $tgUpdate;
