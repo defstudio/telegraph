@@ -14,7 +14,7 @@ class Button
 
     private int $width = 0;
 
-    private function __construct(
+    final public function __construct(
         private string $label,
     ) {
     }

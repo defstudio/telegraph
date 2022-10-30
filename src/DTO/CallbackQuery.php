@@ -18,7 +18,7 @@ class CallbackQuery implements Arrayable
 
     private Collection $data;
 
-    private function __construct()
+    final public function __construct()
     {
     }
 

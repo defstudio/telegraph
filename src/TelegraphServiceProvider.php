@@ -29,11 +29,16 @@ class TelegraphServiceProvider extends PackageServiceProvider
             ->hasTranslations();
 
         $this->app->bind('telegraph', fn () => new Telegraph());
+    }
 
+    public function bootingPackage(): void
+    {
         $this->app->singleton('callbackResolver', function (): CallbackResolver {
-            return new CallbackResolver(config('telegraph'));
+            /* @phpstan-ignore-next-line */
+            return new CallbackResolver(config('telegraph.bots', []));
         });
 
+        /* @phpstan-ignore-next-line */
         $this->app->bind(CallbackQueryDataParserInterface::class, config('telegraph.callback_parser'));
     }
 }

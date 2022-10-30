@@ -12,7 +12,7 @@ class DefaultCallbackQueryDataParser implements CallbackQueryDataParserInterface
 {
     public function parse(string $rawData): Collection
     {
-        return Str::of($data['data'] ?? '')
+        return Str::of($rawData)
             ->explode(';')
             ->filter()
             /* @phpstan-ignore-next-line */
@@ -25,6 +25,9 @@ class DefaultCallbackQueryDataParser implements CallbackQueryDataParserInterface
             });
     }
 
+    /**
+     * @param array<string, string> $data
+     */
     public function encode(array $data): string
     {
         return implode(';', $data);

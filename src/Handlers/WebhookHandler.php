@@ -67,15 +67,15 @@ abstract class WebhookHandler
         }
 
         // if callback handle class exist try use it
-        /** @var class-string<Callback> $callbackClass */
         if ($callbackClass = CallbackResolver::callbackClassByName($this->bot->name, $action)) {
+            /** @var class-string<Callback> $callbackClass */
             /** @var Callback $callback */
             $callback = new $callbackClass(
                 $this->bot,
                 $this->callbackQuery,
                 $this->request,
                 $this->messageId,
-                $this->callbackQueryId
+                $this->callbackQueryId,
             );
 
             $callback->handle();
@@ -110,7 +110,7 @@ abstract class WebhookHandler
                 report(TelegramWebhookException::invalidCommand($command));
             }
 
-            $this->chat->html(__('telegraph::errors.invalid_command', ))->send();
+            $this->chat->html(__('telegraph::errors.invalid_command'))->send();
         }
     }
 
@@ -198,7 +198,9 @@ abstract class WebhookHandler
 
         assert($this->callbackQuery !== null);
 
-        $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData('message id missing');
+        $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData(
+            'message id missing'
+        );
 
         $this->callbackQueryId = $this->callbackQuery->id();
 
