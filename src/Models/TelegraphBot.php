@@ -13,7 +13,6 @@ use DefStudio\Telegraph\DTO\InlineQueryResult;
 use DefStudio\Telegraph\DTO\TelegramUpdate;
 use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
-use DefStudio\Telegraph\Facades\CallbackResolver;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Collection;
@@ -180,13 +179,7 @@ class TelegraphBot extends Model
 
 
         /* @phpstan-ignore-next-line */
-        return collect($reply->json('result'))->map(function (array $update): TelegramUpdate {
-            $tgUpdate = TelegramUpdate::fromArray($update);
-            $callbackData = CallbackResolver::toCallbackData($this->name, $tgUpdate->callbackQuery()->rawData());
-            $tgUpdate->callbackQuery()->setData($callbackData);
-
-            return $tgUpdate;
-        });
+        return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
     }
 
     public function setBaseUrl(string|null $url): Telegraph

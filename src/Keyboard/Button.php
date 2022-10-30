@@ -2,6 +2,8 @@
 
 namespace DefStudio\Telegraph\Keyboard;
 
+use DefStudio\Telegraph\Parsers\CallbackQueryDataParserInterface;
+
 class Button
 {
     private string $url;
@@ -70,9 +72,12 @@ class Button
     public function toArray(): array
     {
         if (count($this->callbackData) > 0) {
+            /** @var CallbackQueryDataParserInterface $parser */
+            $parser = app(CallbackQueryDataParserInterface::class);
+
             return [
                 'text' => $this->label,
-                'callback_data' => implode(';', $this->callbackData),
+                'callback_data' => $parser->encode($this->callbackData),
             ];
         }
 

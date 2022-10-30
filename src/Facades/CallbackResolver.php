@@ -2,12 +2,10 @@
 
 namespace DefStudio\Telegraph\Facades;
 
-use DefStudio\Telegraph\DTO\CallbackData;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static string callbackClassByName(string $botName, string $name)
- * @method static CallbackData toCallbackData(string $botName, string $rawData)
+ * @method static string|false callbackClassByName(string $botName, string $name)
  *
  * @see \DefStudio\Telegraph\CallbackResolver
  */

@@ -24,6 +24,15 @@ return [
     'webhook_handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
 
     /*
+     * Sets the callback data parser to be used when Telegraph
+     * receives a callback_query call.
+     *
+     * format: `action:name;param:1;param2:...`- DefaultCallbackQueryDataParser
+     * format: `action?param=1&param2=...`     - HttpQueryFormatCallbackDataParser
+     */
+    'callback_parser' => DefStudio\Telegraph\Parsers\DefaultCallbackQueryDataParser::class,
+
+    /*
      * If enabled, Telegraph dumps received
      * webhook messages to logs
      */
