@@ -101,9 +101,9 @@ class TelegraphBot extends Model
         return TelegraphFacade::bot($this)->getWebhookDebugInfo();
     }
 
-    public function replyWebhook(int $callbackQueryId, string $message): Telegraph
+    public function replyWebhook(int $callbackQueryId, string $message, bool $showAlert = false): Telegraph
     {
-        return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message);
+        return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message, $showAlert);
     }
 
     /**

@@ -239,9 +239,9 @@ abstract class WebhookHandler
         $this->chat->deleteKeyboard($this->messageId)->send();
     }
 
-    protected function reply(string $message): void
+    protected function reply(string $message, bool $showAlert = false): void
     {
-        $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
+        $this->bot->replyWebhook($this->callbackQueryId, $message, $showAlert)->send();
     }
 
     public function chatid(): void

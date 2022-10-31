@@ -51,7 +51,7 @@ trait InteractsWithWebhooks
         return $telegraph;
     }
 
-    public function replyWebhook(int $callbackQueryId, string $message): Telegraph
+    public function replyWebhook(int $callbackQueryId, string $message, bool $showAlert = false): Telegraph
     {
         $telegraph = clone $this;
 
@@ -59,6 +59,7 @@ trait InteractsWithWebhooks
         $telegraph->data = [
             'callback_query_id' => $callbackQueryId,
             'text' => $message,
+            'show_alert' => $showAlert,
         ];
 
         return $telegraph;

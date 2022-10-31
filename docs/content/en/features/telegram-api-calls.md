@@ -223,7 +223,7 @@ Telegraph::replaceKeyboard(
 replies to a webhook callback
 
 ```php
-Telegraph::replyWebhook($callbackQueryId, 'message received')->send();
+Telegraph::replyWebhook($callbackQueryId, 'message received', $showAlert)->send();
 ```
 
 ## store

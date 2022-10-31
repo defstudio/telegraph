@@ -2,4 +2,5 @@ url: 'https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/answerCal
 payload:
     callback_query_id: 2123456
     text: foo
+    show_alert: false
 files: {  }
