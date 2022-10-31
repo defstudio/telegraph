@@ -16,7 +16,7 @@ final class CallbackResolver
             $this->callbackMap[$botName] = [];
             /** @var class-string<Callback> $callback */
             foreach ($botConfig['callbacks'] as $callback) {
-                $this->callbackMap[$botName][$callback::$name] = $callback;
+                $this->callbackMap[$botName][$callback::name()] = $callback;
             }
         }
     }
