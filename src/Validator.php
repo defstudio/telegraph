@@ -17,6 +17,7 @@ class Validator
     {
         if (File::exists($path)) {
             static::validatePhotoFile($path);
+
             return;
         }
 
@@ -59,6 +60,7 @@ class Validator
             throw FileException::documentSizeExceeded($size);
         }
     }
+
     /**
      * @throws FileException
      */

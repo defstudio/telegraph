@@ -173,7 +173,7 @@ trait SendsAttachments
             if ($mediaItem->local()) {
                 $this->files->put($mediaItem->getAttachName(), $mediaItem->toAttachment());
             }
-            $media[] =  $mediaItem->toMediaArray();
+            $media[] = $mediaItem->toMediaArray();
         }
 
         $telegraph->data['media'] = $media;
