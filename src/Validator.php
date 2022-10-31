@@ -17,6 +17,7 @@ class Validator
     {
         if (File::exists($path)) {
             static::validatePhotoFile($path);
+            return;
         }
 
         // check path is valid url or fileID
@@ -24,7 +25,7 @@ class Validator
             !filter_var($path, FILTER_VALIDATE_URL)
             && !(preg_match('/^[\w\-]{20,}+$/u', trim($path)) > 0)
         ) {
-            throw InputMediaException::undefinedFormat();
+            throw InputMediaException::undefinedFormat($path);
         }
     }
 
