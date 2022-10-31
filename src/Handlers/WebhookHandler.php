@@ -72,6 +72,7 @@ abstract class WebhookHandler
             /** @var Callback $callback */
             $callback = new $callbackClass(
                 $this->bot,
+                $this->chat,
                 $this->callbackQuery,
                 $this->request,
                 $this->messageId,
