@@ -30,6 +30,8 @@ class DefaultCallbackQueryDataParser implements CallbackQueryDataParserInterface
      */
     public function encode(array $data): string
     {
-        return implode(';', $data);
+        return Collection::wrap($data)
+            ->transform(fn (string $value, string $key): string => "$key:$value")
+            ->implode(';');
     }
 }

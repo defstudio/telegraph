@@ -47,7 +47,7 @@ class Button
         $key = trim($key);
         $value = trim((string) $value);
 
-        $this->callbackData[] = "$key:$value";
+        $this->callbackData[$key] = $value;
 
         return $this;
     }
