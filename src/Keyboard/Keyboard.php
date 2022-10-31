@@ -2,10 +2,10 @@
 
 namespace DefStudio\Telegraph\Keyboard;
 
+use DefStudio\Telegraph\Parsers\CallbackQueryDataParserInterface;
 use DefStudio\Telegraph\Proxies\KeyboardButtonProxy;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class Keyboard implements Arrayable
 {
@@ -59,12 +59,11 @@ class Keyboard implements Arrayable
                 $rowButton = Button::make($button['text']);
 
                 if (array_key_exists("callback_data", $button)) {
-                    $params = explode(";", $button['callback_data']);
+                    /** @var CallbackQueryDataParserInterface $parser */
+                    $parser = app(CallbackQueryDataParserInterface::class);
+                    $params = $parser->parse($button['callback_data'])->all();
 
-                    foreach ($params as $param) {
-                        $key = Str::of($param)->before(':');
-                        $value = Str::of($param)->after(':');
-
+                    foreach ($params as $key => $value) {
                         $rowButton = $rowButton->param($key, $value);
                     }
                 }
