@@ -75,8 +75,6 @@ abstract class WebhookHandler
                 $this->chat,
                 $this->callbackQuery,
                 $this->request,
-                $this->messageId,
-                $this->callbackQueryId,
             );
 
             $callback->handle();
