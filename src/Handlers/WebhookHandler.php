@@ -153,8 +153,8 @@ abstract class WebhookHandler
         assert($this->callbackQuery !== null);
 
         $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData(
-                'message id missing'
-            );
+            'message id missing'
+        );
 
         $this->callbackQueryId = $this->callbackQuery->id();
 
