@@ -2,12 +2,13 @@
 
 namespace DefStudio\Telegraph\DTO;
 
+use Illuminate\Support\Str;
+
 abstract class InputMedia
 {
     protected string $type;
-
+    protected string $path;
     protected ?string $filename;
-
     protected string $attachName;
 
     public function getAttachName(): string
@@ -20,10 +21,23 @@ abstract class InputMedia
         return 'attach://' . $this->getAttachName();
     }
 
-    abstract public function local(): bool;
+    protected function local(): bool
+    {
+        return Str::of($this->path)->startsWith('/');
+    }
+
+    protected function remote(): bool
+    {
+        return (bool) filter_var($this->path, FILTER_VALIDATE_URL);
+    }
+
+    abstract public function asMultipart(): bool;
 
     abstract public function toAttachment(): Attachment;
 
+    /**
+     * @return array<string, string>
+     */
     abstract public function toMediaArray(): array;
 
     abstract protected function validate(): void;

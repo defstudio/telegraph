@@ -7,6 +7,7 @@
 namespace DefStudio\Telegraph\Models;
 
 use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
+use DefStudio\Telegraph\DTO\InputMedia;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -173,6 +174,9 @@ class TelegraphChat extends Model
         return TelegraphFacade::chat($this)->photo($path, $filename);
     }
 
+    /**
+     * @param  array<InputMedia> $mediaGroup
+     */
     public function mediaGroup(array $mediaGroup): Telegraph
     {
         return TelegraphFacade::chat($this)->mediaGroup($mediaGroup);

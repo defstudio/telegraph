@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph\DTO;
 
+use GuzzleHttp\Psr7\Utils;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -26,7 +27,11 @@ class Attachment implements Arrayable
 
     public function contents(): string
     {
-        return File::get($this->path);
+        if ($this->local()) {
+            return File::get($this->path);
+        }
+
+        return (string) Utils::streamFor($this->path);
     }
 
     public function filename(): string
