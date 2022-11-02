@@ -168,6 +168,8 @@ abstract class WebhookHandler
     {
         $this->setupChat();
 
+        assert($this->message !== null);
+
         $this->messageId = $this->message->id();
 
         $this->data = collect([
@@ -252,8 +254,9 @@ abstract class WebhookHandler
 
     protected function setupChat(): void
     {
-        assert($this->message?->chat() !== null || $this->callbackQuery !== null);
         $tgChat = $this->message?->chat() ?? $this->callbackQuery?->message()?->chat();
+
+        assert($tgChat !== null);
 
         /** @var TelegraphChat $chat */
         $chat = $this->bot->chats()->firstOrNew([
@@ -277,7 +280,7 @@ abstract class WebhookHandler
 
     protected function allowUnknownChat(): bool
     {
-        return match (true) {
+        return (bool) match (true) {
             $this->message !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
             $this->callbackQuery != null => config(
                 'telegraph.security.allow_callback_queries_from_unknown_chats',
