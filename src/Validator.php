@@ -6,6 +6,7 @@ use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\InputMediaException;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use Psr\Http\Message\StreamInterface;
 
 class Validator
 {
@@ -13,20 +14,24 @@ class Validator
      * @throws FileException
      * @throws InputMediaException
      */
-    public static function validatePhoto(string $path): void
+    public static function validatePhoto(string|StreamInterface $contents): void
     {
-        if (File::exists($path)) {
-            static::validatePhotoFile($path);
+        if ($contents instanceof StreamInterface) {
+            return;
+        }
+
+        if (File::exists($contents)) {
+            static::validatePhotoFile($contents);
 
             return;
         }
 
         // check path is valid url or fileID
         if (
-            !filter_var($path, FILTER_VALIDATE_URL)
-            && !(preg_match('/^[\w\-]{20,}+$/u', trim($path)) > 0)
+            !filter_var($contents, FILTER_VALIDATE_URL)
+            && !(preg_match('/^[\w\-]{20,}+$/u', trim($contents)) > 0)
         ) {
-            throw InputMediaException::undefinedFormat($path);
+            throw InputMediaException::undefinedFormat($contents);
         }
     }
 

@@ -9,25 +9,6 @@ use DefStudio\Telegraph\Validator;
 
 class InputMediaPhoto extends InputMedia
 {
-    /**
-     * @throws FileException
-     * @throws InputMediaException
-     */
-    public function __construct(
-        string $path,
-        ?string $filename = null,
-        private ?string $caption = null,
-        private ?string $parseMode = null,
-        private bool $preload = false,
-    ) {
-        $this->type = 'photo';
-        $this->path = $path;
-        $this->filename = $filename;
-        $this->attachName = $this->generateRandomName();
-
-        $this->validate();
-    }
-
     public function html(string $message = null): static
     {
         $this->parseMode = Telegraph::PARSE_HTML;
@@ -44,11 +25,6 @@ class InputMediaPhoto extends InputMedia
         return $this;
     }
 
-    public function toAttachment(): Attachment
-    {
-        return new Attachment($this->path, $this->filename);
-    }
-
     /**
      * @return array<string, string>
      */
@@ -56,15 +32,10 @@ class InputMediaPhoto extends InputMedia
     {
         return array_filter([
             'type' => $this->type,
-            'media' => $this->asMultipart() ? $this->attachString() : $this->path,
+            'media' => $this->attachment()->media(),
             'caption' => $this->caption,
             'parse_mode' => $this->parseMode,
         ]);
-    }
-
-    public function asMultipart(): bool
-    {
-        return $this->local() || ($this->remote() && $this->preload);
     }
 
     /**
@@ -73,6 +44,6 @@ class InputMediaPhoto extends InputMedia
      */
     protected function validate(): void
     {
-        Validator::validatePhoto($this->path);
+        Validator::validatePhoto($this->contents);
     }
 }
