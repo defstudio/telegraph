@@ -150,6 +150,15 @@ it('asserts a webhook reply has been sent', function () {
     Telegraph::assertRepliedWebhook('hello');
 });
 
+it('asserts a webhook reply has been sent as alert', function () {
+    Telegraph::fake();
+    $bot = make_bot();
+
+    Telegraph::bot($bot)->replyWebhook(44, 'hello', true)->send();
+
+    Telegraph::assertRepliedWebhookIsAlert();
+});
+
 it('fails if the wrong webhook reply has been sent', function () {
     Telegraph::fake();
     $bot = make_bot();

@@ -128,7 +128,7 @@ replies to a webhook callback
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
 
-$telegraphBot->replyWebhook($callbackQueryId, 'message received')->send();
+$telegraphBot->replyWebhook($callbackQueryId, 'message received', $showAlert)->send();
 ```
 
 

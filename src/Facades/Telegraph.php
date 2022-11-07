@@ -69,6 +69,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void  assertUnregisteredWebhook()
  * @method static void  assertRequestedWebhookDebugInfo()
  * @method static void  assertRepliedWebhook(string $message)
+ * @method static void  assertRepliedWebhookIsAlert()
  * @method static void  assertStoredFile(string $fileId)
  *
  * @see \DefStudio\Telegraph\Telegraph
