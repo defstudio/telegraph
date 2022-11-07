@@ -74,6 +74,15 @@ Must declare the web app `url` and are used to start a telegram bot [Web App](ht
 Button::make('open')->webApp('https://webapp.url.dev'),
 ```
 
+### Switch Inline Query Buttons
+
+Must declare an `inline query` and are used , after selected a chat , to open that chat and insert the bot's username and the specified `inline query`. An empty string will insert only the bot's username
+
+
+```php
+Button::make('switch')->switchInlineQuery('foo'),
+```
+
 
 
 

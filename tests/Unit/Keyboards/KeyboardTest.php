@@ -148,16 +148,18 @@ it('can flatten its buttons', function () {
 it('can quickly add buttons', function () {
     $keyboard = Keyboard::make()
         ->button('Delete')->action('delete')->param('id', '42')
-        ->button('open')->width(0.5)->url('https://test.it')
-        ->button('foo')->width(0.5)->webApp('https://my-webapp.dev');
+        ->button('open')->url('https://test.it')
+        ->button('foo')->webApp('https://my-webapp.dev')
+        ->button('switch')->switchInlineQuery('test')->chunk(2);
 
     expect($keyboard->toArray())->toBe([
         [
             ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
+            ['text' => 'open', 'url' => 'https://test.it'],
         ],
         [
-            ['text' => 'open', 'url' => 'https://test.it'],
             ['text' => 'foo', 'web_app' => ['url' => 'https://my-webapp.dev']],
+            ['text' => 'switch', 'switch_inline_query' => 'test'],
         ],
     ]);
 });

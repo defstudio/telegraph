@@ -6,6 +6,7 @@ class Button
 {
     private string $url;
     private string $webAppUrl;
+    private string $switchInlineQuery;
 
     /** @var string[] */
     private array $callbackData = [];
@@ -64,6 +65,13 @@ class Button
         return $this;
     }
 
+    public function switchInlineQuery(string $switchInlineQuery): static
+    {
+        $this->switchInlineQuery = $switchInlineQuery;
+
+        return $this;
+    }
+
     /**
      * @return array<string, string|string[]>
      */
@@ -89,6 +97,13 @@ class Button
                 'web_app' => [
                     'url' => $this->webAppUrl,
                 ],
+            ];
+        }
+
+        if (isset($this->switchInlineQuery)) {
+            return [
+              'text' => $this->label,
+              'switch_inline_query' => $this->switchInlineQuery,
             ];
         }
 
