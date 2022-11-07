@@ -152,9 +152,7 @@ abstract class WebhookHandler
 
         assert($this->callbackQuery !== null);
 
-        $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData(
-            'message id missing'
-        );
+        $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData('message id missing');
 
         $this->callbackQueryId = $this->callbackQuery->id();
 
@@ -254,13 +252,13 @@ abstract class WebhookHandler
 
     protected function setupChat(): void
     {
-        $tgChat = $this->message?->chat() ?? $this->callbackQuery?->message()?->chat();
+        $telegramChat = $this->message?->chat() ?? $this->callbackQuery?->message()?->chat();
 
-        assert($tgChat !== null);
+        assert($telegramChat !== null);
 
         /** @var TelegraphChat $chat */
         $chat = $this->bot->chats()->firstOrNew([
-            'chat_id' => $tgChat->id(),
+            'chat_id' => $telegramChat->id(),
         ]);
         $this->chat = $chat;
 
@@ -271,8 +269,8 @@ abstract class WebhookHandler
 
             if (config('telegraph.security.store_unknown_chats_in_db', false)) {
                 $this->chat->name = Str::of("")
-                    ->append("[", $tgChat->type(), ']')
-                    ->append(" ", $tgChat->title());
+                    ->append("[", $telegramChat->type(), ']')
+                    ->append(" ", $telegramChat->title());
                 $this->chat->save();
             }
         }
@@ -282,10 +280,7 @@ abstract class WebhookHandler
     {
         return (bool) match (true) {
             $this->message !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
-            $this->callbackQuery != null => config(
-                'telegraph.security.allow_callback_queries_from_unknown_chats',
-                false
-            ),
+            $this->callbackQuery != null => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
             default => false,
         };
     }
