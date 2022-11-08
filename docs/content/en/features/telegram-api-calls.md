@@ -327,6 +327,14 @@ retrieves Chat member count
 Telegraph::chatMemberCount()->send();
 ```
 
+## userProfilePhotos
+
+retrieves the User's profile photos from ID
+
+```php
+Telegraph::userProfilePhotos($userId)->send();
+```
+
 ## generateChatPrimaryInviteLink
 
 generates a new primary invite link for a chat. Any previously generated primary link is revoked. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#exportchatinvitelink)
