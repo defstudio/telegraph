@@ -92,6 +92,7 @@ class Telegraph
     public const ENDPOINT_PROMOTE_CHAT_MEMBER = 'promoteChatMember';
     public const ENDPOINT_SEND_POLL = 'sendPoll';
     public const ENDPOINT_FORWARD_MESSAGE = 'forwardMessage';
+    public const ENDPOINT_GET_CHAT_MENU_BUTTON = 'getChatMenuButton';
 
 
     /** @var array<string, mixed> */
