@@ -2,6 +2,23 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.22 - 2022-11-10
+
+### What's Changed
+
+- Setup chat by @YSRoot in https://github.com/defstudio/telegraph/pull/246
+- implement showAlert for replyWebhook by @YSRoot in https://github.com/defstudio/telegraph/pull/245
+- fix chatInfo error by @MarioGattolla in https://github.com/defstudio/telegraph/pull/249
+- Bump loader-utils from 1.4.0 to 1.4.1 in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/250
+- implement switch inline query type in button with relative test and doc by @MarioGattolla in https://github.com/defstudio/telegraph/pull/247
+- Implement get user profile photos by @MarioGattolla in https://github.com/defstudio/telegraph/pull/251
+
+### New Contributors
+
+- @YSRoot made their first contribution in https://github.com/defstudio/telegraph/pull/246
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.4...v1.22
+
 ## v1.21.4 - 2022-10-28
 
 ### What's Changed
