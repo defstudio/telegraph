@@ -7,6 +7,7 @@ class Button
     private string $url;
     private string $webAppUrl;
     private string $switchInlineQuery;
+    private string $switchInlineQueryCurrentChat;
 
     /** @var string[] */
     private array $callbackData = [];
@@ -25,7 +26,7 @@ class Button
 
     public function width(float $percentage): Button
     {
-        $width = (int)($percentage * 100);
+        $width = (int) ($percentage * 100);
 
         if ($width > 100) {
             $width = 100;
@@ -65,9 +66,17 @@ class Button
         return $this;
     }
 
-    public function switchInlineQuery(string $switchInlineQuery): static
+    public function switchInlineQuery(string $switchInlineQuery = ''): static
     {
         $this->switchInlineQuery = $switchInlineQuery;
+
+        return $this;
+    }
+
+    public function currentChat(): static
+    {
+        $this->switchInlineQueryCurrentChat = $this->switchInlineQuery;
+        unset($this->switchInlineQuery);
 
         return $this;
     }
@@ -102,8 +111,15 @@ class Button
 
         if (isset($this->switchInlineQuery)) {
             return [
-              'text' => $this->label,
-              'switch_inline_query' => $this->switchInlineQuery,
+                'text' => $this->label,
+                'switch_inline_query' => $this->switchInlineQuery,
+            ];
+        }
+
+        if (isset($this->switchInlineQueryCurrentChat)) {
+            return [
+                'text' => $this->label,
+                'switch_inline_query_current_chat' => $this->switchInlineQueryCurrentChat,
             ];
         }
 

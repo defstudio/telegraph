@@ -52,7 +52,7 @@ Each `Button` can be defined using its fluent methods and can be of three types:
 
 ### Callback Buttons
 
-Must define an `action` and some `params`. They triggers a **callback query** to be handled by a custom webhook
+Define an `action` and some `params`. They triggers a **callback query** to be handled by a custom webhook
 
 ```php
 Button::make('Delete')->action('delete')->param('id', '42'),
@@ -60,7 +60,7 @@ Button::make('Delete')->action('delete')->param('id', '42'),
 
 ### URL Buttons
 
-Must define an `url` and are used to open an external url when pressed:
+Define an `url` and are used to open an external url when pressed:
 
 ```php
 Button::make('open')->url('https://test.it'),
@@ -68,7 +68,7 @@ Button::make('open')->url('https://test.it'),
 
 ### Web App Buttons
 
-Must declare the web app `url` and are used to start a telegram bot [Web App](https://core.telegram.org/bots/webapps) :
+Declare the web app `url` and are used to start a telegram bot [Web App](https://core.telegram.org/bots/webapps) :
 
 ```php
 Button::make('open')->webApp('https://webapp.url.dev'),
@@ -76,14 +76,23 @@ Button::make('open')->webApp('https://webapp.url.dev'),
 
 ### Switch Inline Query Buttons
 
-Must declare an `inline query` and are used , after selected a chat , to open that chat and insert the bot's username and the specified `inline query`. An empty string will insert only the bot's username
+Pressing the button will prompt the user to select one of their chats, 
+open that chat and insert the bot's username and the specified inline query 
+in the input field. The query text may be empty, in which case just the 
+bot's username will be inserted. (see `switch_inline_query` in [Telegram Bot docs](https://core.telegram.org/bots/api#inlinekeyboardbutton) for reference)
 
 
 ```php
 Button::make('switch')->switchInlineQuery('foo'),
 ```
 
+Additionally, an inline query button may act for the current chat
+(so, would skip the destination chat prompt) only if `->currentChat()` method is added
+(see `switch_inline_query_current_chat` in [Telegram Bot docs](https://core.telegram.org/bots/api#inlinekeyboardbutton) for reference)
 
+```php
+Button::make('switch')->switchInlineQuery('foo')->currentChat(),
+```
 
 
 ## Keyboard Rows

@@ -150,7 +150,9 @@ it('can quickly add buttons', function () {
         ->button('Delete')->action('delete')->param('id', '42')
         ->button('open')->url('https://test.it')
         ->button('foo')->webApp('https://my-webapp.dev')
-        ->button('switch')->switchInlineQuery('test')->chunk(2);
+        ->button('switch')->switchInlineQuery('test')
+        ->button('switch here')->switchInlineQuery('test 2')->currentChat()
+        ->chunk(2);
 
     expect($keyboard->toArray())->toBe([
         [
@@ -160,6 +162,9 @@ it('can quickly add buttons', function () {
         [
             ['text' => 'foo', 'web_app' => ['url' => 'https://my-webapp.dev']],
             ['text' => 'switch', 'switch_inline_query' => 'test'],
+        ],
+        [
+            ['text' => 'switch here', 'switch_inline_query_current_chat' => 'test 2'],
         ],
     ]);
 });
