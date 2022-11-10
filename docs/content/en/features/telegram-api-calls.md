@@ -329,7 +329,7 @@ Telegraph::chatMemberCount()->send();
 
 ## userProfilePhotos
 
-retrieves the User's profile photos from ID
+retrieves the User's profile photos
 
 ```php
 Telegraph::userProfilePhotos($userId)->send();
