@@ -39,6 +39,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  photo(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  voice(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  location(float $latitude, float $longitude)
+ * @method static \DefStudio\Telegraph\Telegraph  dice()
  * @method static \DefStudio\Telegraph\Telegraph  botUpdates()
  * @method static \DefStudio\Telegraph\Telegraph  botInfo()
  * @method static \DefStudio\Telegraph\Telegraph  setBaseUrl(string|null $url)

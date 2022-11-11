@@ -14,6 +14,11 @@ it('can send a document', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can send a dice', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->dice())
+        ->toMatchTelegramSnapshot();
+});
+
 it('requires a chat to send a document', function () {
     TelegraphFacade::document(Storage::path('test.txt'));
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
