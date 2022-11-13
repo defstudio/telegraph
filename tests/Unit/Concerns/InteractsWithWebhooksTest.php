@@ -11,6 +11,15 @@ it('can register a webhook', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can register a webhook with a custom domain', function () {
+    withfakeUrl();
+
+    config()->set('custom_webhook_domain', 'http://foo.bar.baz');
+
+    expect(fn (Telegraph $telegraph) => $telegraph->bot(make_bot())->registerWebhook())
+        ->toMatchTelegramSnapshot();
+});
+
 it('requires an https url to register a webhook', function () {
     \DefStudio\Telegraph\Facades\Telegraph::bot(make_bot())->registerWebhook();
 })->throws(TelegramWebhookException::class, 'You application must have a secure (https) url in order to accept webhook calls');
