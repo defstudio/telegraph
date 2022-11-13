@@ -189,6 +189,11 @@ abstract class WebhookHandler
     {
         // .. do nothing
     }
+    
+    protected function handleChannelPost(): void
+    {
+        // .. do nothing
+    }
 
     protected function replaceKeyboard(Keyboard $newKeyboard): void
     {
@@ -227,7 +232,7 @@ abstract class WebhookHandler
         if ($this->request->has('channel_post')) {
             /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('channel_post'));
-            $this->handleMessage();
+            $this->handleChannelPost();
 
             return;
         }
