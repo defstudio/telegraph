@@ -12,19 +12,30 @@ use DefStudio\Telegraph\Telegraph;
  */
 trait InteractsWithWebhooks
 {
+    private function getWebhookUrl(): string
+    {
+        $customWebhookUrl = config('custom_webhook_domain');
+
+        if ($customWebhookUrl === null) {
+            $url = route('telegraph.webhook', $this->getBot());
+
+            if (!str_starts_with($url, 'https://')) {
+                throw TelegramWebhookException::invalidScheme();
+            }
+
+            return $url;
+        }
+
+        return $customWebhookUrl . route('telegraph.webhook', $this->getBot(), false);
+    }
+
     public function registerWebhook(): Telegraph
     {
         $telegraph = clone $this;
 
-        $url = route('telegraph.webhook', $telegraph->getBot());
-
-        if (!str_starts_with($url, 'https://')) {
-            throw TelegramWebhookException::invalidScheme();
-        }
-
         $telegraph->endpoint = self::ENDPOINT_SET_WEBHOOK;
         $telegraph->data = [
-            'url' => $url,
+            'url' => $this->getWebhookUrl(),
         ];
 
         return $telegraph;
