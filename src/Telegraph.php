@@ -87,6 +87,7 @@ class Telegraph
     public const ENDPOINT_LEAVE_CHAT = 'leaveChat';
     public const ENDPOINT_GET_CHAT_INFO = 'getChat';
     public const ENDPOINT_GET_CHAT_MEMBER_COUNT = 'getChatMemberCount';
+    public const ENDPOINT_GET_CHAT_MEMBER = 'getChatMember';
     public const ENDPOINT_SET_CHAT_PERMISSIONS = 'setChatPermissions';
     public const ENDPOINT_BAN_CHAT_MEMBER = 'banChatMember';
     public const ENDPOINT_UNBAN_CHAT_MEMBER = 'unbanChatMember';

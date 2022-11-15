@@ -51,6 +51,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  editChatInviteLink()
  * @method static \DefStudio\Telegraph\Telegraph  revokeChatInviteLink()
  * @method static \DefStudio\Telegraph\Telegraph  chatMemberCount()
+ * @method static \DefStudio\Telegraph\Telegraph  chatMember(string $userId)
  * @method static \DefStudio\Telegraph\Telegraph  setChatPermissions(array $permissions)
  * @method static \DefStudio\Telegraph\Telegraph  banChatMember(string $userId)
  * @method static \DefStudio\Telegraph\Telegraph  unbanChatMember(string $userId)

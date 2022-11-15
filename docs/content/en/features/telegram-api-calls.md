@@ -327,6 +327,14 @@ retrieves Chat member count
 Telegraph::chatMemberCount()->send();
 ```
 
+## chatMember
+
+retrieves a Chat member
+
+```php
+Telegraph::chatMember($userId)->send();
+```
+
 ## userProfilePhotos
 
 retrieves the User's profile photos
