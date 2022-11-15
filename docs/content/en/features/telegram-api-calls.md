@@ -312,7 +312,7 @@ title: my telegram group
 ```
 ## chatMenuButton
 
-retrieves the default bot's menu button
+retrieves a bot current menu button info
 
 ```php
 Telegraph::chatMenuButton()->send();
