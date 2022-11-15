@@ -310,6 +310,13 @@ title: my telegram group
 ...
 */
 ```
+## chatMenuButton
+
+retrieves a bot current menu button info
+
+```php
+Telegraph::chatMenuButton()->send();
+```
 
 ### getFileInfo
 
