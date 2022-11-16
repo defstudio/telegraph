@@ -19,10 +19,10 @@ class FileStorageDriver implements StorageDriver
      */
     public function __construct(string $itemClass, string $itemKey, array $configuration)
     {
-        $this->file = Str::of($configuration['root'])
+        $this->file = (string) Str::of($configuration['root'])
             ->append('/', class_basename($itemClass))
-            ->append("/", $itemKey, '.json')
-            ->toString();
+            ->append("/", $itemKey, '.json');
+
         $this->disk = Storage::disk($configuration['disk'] ?? null);
     }
 

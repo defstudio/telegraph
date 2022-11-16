@@ -22,8 +22,7 @@ it('can store and retrieve data data', function (string $key, mixed $value) {
 
     $file = Str::of('telegraph')
         ->append('/', class_basename($class::class))
-        ->append("/", 'foo', '.json')
-        ->toString();
+        ->append("/", 'foo', '.json');
 
     expect(Storage::exists($file))->toBeTrue();
 

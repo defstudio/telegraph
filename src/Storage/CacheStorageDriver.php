@@ -19,10 +19,9 @@ class CacheStorageDriver implements StorageDriver
      */
     public function __construct(string $itemClass, string $itemKey, array $configuration)
     {
-        $this->key = Str::of($configuration['key_prefix'])
+        $this->key = (string) Str::of($configuration['key_prefix'])
             ->append("_", class_basename($itemClass))
-            ->append("_", $itemKey)
-            ->toString();
+            ->append("_", $itemKey);
 
         $this->cache = Cache::store($configuration['store'] ?? null);
     }

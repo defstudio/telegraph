@@ -19,8 +19,7 @@ it('can store and retrieve data data', function (string $key, mixed $value) {
 
     $cacheKey = Str::of('tgph')
         ->append("_", class_basename($class::class))
-        ->append("_", 'foo')
-        ->toString();
+        ->append("_", 'foo');
 
     expect(Cache::get("{$cacheKey}_$key"))->toBe($value);
     expect($class->storage('cache')->get($key))->toBe($value);
