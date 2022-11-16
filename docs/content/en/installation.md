@@ -54,6 +54,14 @@ return [
      * For reference, see https://defstudio.github.io/telegraph/webhooks/overview
      */
     'webhook_handler' => EmptyWebhookHandler::class,
+    
+    /*
+     * Sets a custom domain when registering a webhook. This will allow a loca telegram bot api server
+     * to reach the webhook. Disabled by default
+     *
+     * For reference, see https://core.telegram.org/bots/api#using-a-local-bot-api-server
+     */
+    // 'custom_webhook_domain' => 'http://my.custom.domain';
 
     /*
      * If enabled, Telegraph dumps received

@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.23.0 - 2022-11-13
+
+### What's Changed
+
+- [feat] custom webhook domain by @fabio-ivona in https://github.com/defstudio/telegraph/pull/256
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.22...v1.23.0
+
 ## v1.22 - 2022-11-10
 
 ### What's Changed

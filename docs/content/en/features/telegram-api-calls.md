@@ -310,6 +310,13 @@ title: my telegram group
 ...
 */
 ```
+## chatMenuButton
+
+retrieves a bot current menu button info
+
+```php
+Telegraph::chatMenuButton()->send();
+```
 
 ### getFileInfo
 
@@ -325,6 +332,14 @@ retrieves Chat member count
 
 ```php
 Telegraph::chatMemberCount()->send();
+```
+
+## chatMember
+
+retrieves a Chat member
+
+```php
+Telegraph::chatMember($userId)->send();
 ```
 
 ## userProfilePhotos
