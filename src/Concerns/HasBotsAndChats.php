@@ -359,6 +359,17 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function chatMember(string $userId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_GET_CHAT_MEMBER;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['user_id'] = $userId;
+
+        return $telegraph;
+    }
+
     /**
      * @param array<int|string, string|bool> $permissions
      */
