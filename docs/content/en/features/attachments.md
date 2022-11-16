@@ -59,6 +59,12 @@ An animated emoji attachment that will display a random value can be sent throug
 Telegraph::dice()->send();
 ```
 
+Different items can be used as "dice"
+
+```php
+Telegraph::dice(\DefStudio\Telegraph\Enums\Emojis::SLOT_MACHINE)->send();
+```
+
 ## Options
 
 When sending files, some options are available:
