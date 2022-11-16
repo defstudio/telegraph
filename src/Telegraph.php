@@ -97,6 +97,7 @@ class Telegraph
     public const ENDPOINT_FORWARD_MESSAGE = 'forwardMessage';
     public const ENDPOINT_GET_USER_PROFILE_PHOTOS = 'getUserProfilePhotos';
     public const ENDPOINT_GET_CHAT_MENU_BUTTON = 'getChatMenuButton';
+    public const ENDPOINT_DICE = 'sendDice';
 
 
     /** @var array<string, mixed> */

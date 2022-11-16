@@ -51,6 +51,20 @@ A location attachment can be sent through Telegraph `->location()` method:
 Telegraph::location(12.345, -54.321)->send();
 ```
 
+### Dice
+
+An animated emoji attachment that will display a random value can be sent through Telegraph `->dice()` method:
+
+```php
+Telegraph::dice()->send();
+```
+
+Different items can be used as "dice"
+
+```php
+Telegraph::dice(\DefStudio\Telegraph\Enums\Emojis::SLOT_MACHINE)->send();
+```
+
 ## Options
 
 When sending files, some options are available:

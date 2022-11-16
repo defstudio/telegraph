@@ -2,6 +2,7 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use DefStudio\Telegraph\Enums\Emojis;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
@@ -13,6 +14,23 @@ it('can send a document', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt')))
         ->toMatchTelegramSnapshot();
 });
+
+it('can send a dice', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->dice())
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a dice with different emojis', function (string $emoji) {
+    expect(fn (Telegraph $telegraph) => $telegraph->dice($emoji))
+        ->toMatchTelegramSnapshot();
+})->with([
+    'DICE' => Emojis::DICE,
+    'ARROW' => Emojis::ARROW,
+    'BASKETBALL' => Emojis::BASKETBALL,
+    'FOOTBALL' => Emojis::FOOTBALL,
+    'BOWLING' => Emojis::BOWLING,
+    'SLOT_MACHINE' => Emojis::SLOT_MACHINE,
+]);
 
 it('requires a chat to send a document', function () {
     TelegraphFacade::document(Storage::path('test.txt'));
