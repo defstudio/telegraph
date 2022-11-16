@@ -71,4 +71,50 @@ return [
         'bot' => DefStudio\Telegraph\Models\TelegraphBot::class,
         'chat' => DefStudio\Telegraph\Models\TelegraphChat::class,
     ],
+
+    'storage' => [
+        /**
+         * Default storage driver to be used for Telegraph data
+         */
+        'default' => 'file',
+
+        'stores' => [
+            'file' => [
+                /**
+                 * Telegraph cache driver to be used, must implement
+                 * DefStudio\Telegraph\Contracts\StorageDriver contract
+                 */
+                'driver' => \DefStudio\Telegraph\Storage\FileStorageDriver::class,
+
+                /*
+                 * Laravel Storage disk to use. See /config/filesystems/disks for available disks
+                 * If 'null', Laravel default store will be used,
+                 */
+                'disk' => 'local',
+
+                /**
+                 * Folder inside filesystem to be used as root for Telegraph storage
+                 */
+                'root' => 'telegraph',
+            ],
+            'cache' => [
+                /**
+                 * Telegraph cache driver to be used, must implement
+                 * DefStudio\Telegraph\Contracts\StorageDriver contract
+                 */
+                'driver' => \DefStudio\Telegraph\Storage\CacheStorageDriver::class,
+
+                /*
+                 * Laravel Cache store to use. See /config/cache/stores for available stores
+                 * If 'null', Laravel default store will be used,
+                 */
+                'store' => null,
+
+                /*
+                 * Prefix to be prepended to cache keys
+                 */
+                'key_prefix' => 'tgph',
+            ],
+        ],
+    ],
 ];

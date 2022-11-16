@@ -6,6 +6,8 @@
 
 namespace DefStudio\Telegraph\Models;
 
+use DefStudio\Telegraph\Concerns\HasStorage;
+use DefStudio\Telegraph\Contracts\Storable;
 use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
@@ -28,9 +30,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon $updated_at
  * @property-read TelegraphBot $bot
  */
-class TelegraphChat extends Model
+class TelegraphChat extends Model implements Storable
 {
     use HasFactory;
+    use HasStorage;
 
     protected $fillable = [
         'chat_id',
@@ -50,6 +53,11 @@ class TelegraphChat extends Model
                 $chat->saveQuietly();
             }
         });
+    }
+
+    public function storageKey(): string|int
+    {
+        return $this->id;
     }
 
     public function bot(): BelongsTo
