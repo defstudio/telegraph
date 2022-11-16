@@ -67,7 +67,7 @@ class CustomWebhookHandler extends WebhookHandler
 {
     public function hi()
     {
-        $text = $this->message()->text(); //\hi Fabio
+        $text = $this->message->text(); //\hi Fabio
     }
 }
 ```
