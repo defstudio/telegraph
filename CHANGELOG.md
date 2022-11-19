@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.24.0 - 2022-11-19
+
+### What's Changed
+
+- [feat] storage system by @fabio-ivona in https://github.com/defstudio/telegraph/pull/263
+- [feat] upgrade to markdown V2 by @fabio-ivona in https://github.com/defstudio/telegraph/pull/265
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.23.1...v1.24.0
+
 ## v1.23.0 - 2022-11-13
 
 ### What's Changed
