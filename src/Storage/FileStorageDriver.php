@@ -3,10 +3,12 @@
 namespace DefStudio\Telegraph\Storage;
 
 use DefStudio\Telegraph\Contracts\StorageDriver;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use JsonException;
 
 class FileStorageDriver implements StorageDriver
 {
@@ -31,10 +33,14 @@ class FileStorageDriver implements StorageDriver
      */
     private function getData(): array
     {
-        $json = $this->disk->get($this->file) ?? '{}';
+        try {
+            $json = $this->disk->get($this->file);
 
-        /** @phpstan-ignore-next-line  */
-        return json_decode($json, true);
+            /** @phpstan-ignore-next-line */
+            return rescue(fn () => json_decode($json, true, flags: JSON_THROW_ON_ERROR), []);
+        } catch (FileNotFoundException|JsonException) {
+            return [];
+        }
     }
 
     /**
@@ -44,7 +50,7 @@ class FileStorageDriver implements StorageDriver
     {
         $json = json_encode($data);
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         $this->disk->put($this->file, $json);
     }
 
