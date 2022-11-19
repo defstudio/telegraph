@@ -7,7 +7,9 @@
 
 namespace DefStudio\Telegraph\Models;
 
+use DefStudio\Telegraph\Concerns\HasStorage;
 use DefStudio\Telegraph\Contracts\Downloadable;
+use DefStudio\Telegraph\Contracts\Storable;
 use DefStudio\Telegraph\Database\Factories\TelegraphBotFactory;
 use DefStudio\Telegraph\DTO\InlineQueryResult;
 use DefStudio\Telegraph\DTO\TelegramUpdate;
@@ -31,9 +33,10 @@ use Illuminate\Support\Carbon;
  * @property Carbon $updated_at
  * @property-read Collection<TelegraphChat> $chats
  */
-class TelegraphBot extends Model
+class TelegraphBot extends Model implements Storable
 {
     use HasFactory;
+    use HasStorage;
 
     protected $fillable = [
         'token',
@@ -53,6 +56,11 @@ class TelegraphBot extends Model
                 $bot->saveQuietly();
             }
         });
+    }
+
+    public function storageKey(): string|int
+    {
+        return $this->id;
     }
 
     public function getRouteKeyName(): string
