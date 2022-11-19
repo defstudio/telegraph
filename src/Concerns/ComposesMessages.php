@@ -48,7 +48,7 @@ trait ComposesMessages
             $telegraph->setMessageText($message);
         }
 
-        $telegraph->data['parse_mode'] = 'markdown';
+        $telegraph->data['parse_mode'] = 'MarkdownV2';
 
         return $telegraph;
     }
