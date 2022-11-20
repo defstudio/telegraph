@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.24.1 - 2022-11-20
+
+### What's Changed
+
+- [fix] add missing dice method in TelegraphChat by @fabio-ivona in https://github.com/defstudio/telegraph/pull/266
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.24.0...v1.24.1
+
 ## v1.24.0 - 2022-11-19
 
 ### What's Changed
