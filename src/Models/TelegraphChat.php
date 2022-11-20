@@ -280,6 +280,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->quiz($question);
     }
 
+    public function dice(string $emoji = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->dice($emoji);
+    }
+
     public function forwardMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->forwardMessage($fromChat, $messageId);
