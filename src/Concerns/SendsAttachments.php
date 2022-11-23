@@ -172,10 +172,10 @@ trait SendsAttachments
 
         $media = Collection::wrap($mediaGroup)
             ->filter(fn (mixed $mediaItem): bool => $mediaItem instanceof InputMedia)
-            ->map(function (InputMedia $mediaItem): array {
+            ->map(function (InputMedia $mediaItem) use ($telegraph): array {
                 if ($mediaItem->asMultipart()) {
                     $attachment = $mediaItem->attachment();
-                    $this->files->put($attachment->getName(), $attachment);
+                    $telegraph->files->put($attachment->getName(), $attachment);
                 }
 
                 return $mediaItem->toMediaArray();
