@@ -12,6 +12,7 @@ abstract class StorageDriver implements \DefStudio\Telegraph\Contracts\StorageDr
     final public function set(string $key, mixed $value): static
     {
         $this->storeData($key, $this->dehydrate($value));
+
         return $this;
     }
 
@@ -45,6 +46,7 @@ abstract class StorageDriver implements \DefStudio\Telegraph\Contracts\StorageDr
         if (is_array($value)) {
             if (array_key_exists(self::MODEL_CLASS_KEY, $value)) {
                 $modelClass = $value[self::MODEL_CLASS_KEY];
+
                 return $modelClass::find($value[self::MODEL_ID_KEY]);
             }
 
