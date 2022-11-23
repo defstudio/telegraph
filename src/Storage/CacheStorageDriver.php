@@ -4,12 +4,11 @@
 
 namespace DefStudio\Telegraph\Storage;
 
-use DefStudio\Telegraph\Contracts\StorageDriver;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
-class CacheStorageDriver implements StorageDriver
+class CacheStorageDriver extends StorageDriver
 {
     private string $key;
     private Repository $cache;
@@ -26,14 +25,12 @@ class CacheStorageDriver implements StorageDriver
         $this->cache = Cache::store($configuration['store'] ?? null);
     }
 
-    public function set(string $key, mixed $value): static
+    public function storeData(string $key, mixed $value): void
     {
         $this->cache->set("{$this->key}_$key", $value);
-
-        return $this;
     }
 
-    public function get(string $key, mixed $default = null): mixed
+    public function retrieveData(string $key, mixed $default = null): mixed
     {
         return $this->cache->get("{$this->key}_$key", $default);
     }
