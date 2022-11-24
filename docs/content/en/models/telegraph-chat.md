@@ -92,6 +92,16 @@ Starts a `Telegraph` call to send a message using markdown formatting
 $telegraphChat->markdown('*hello*')->send();
 ```
 
+### `markdownV2()`
+
+Starts a `Telegraph` call to send a message using markdown V2 formatting
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->markdownV2('*hello*')->send();
+```
+
 ### `edit()`
 
 Starts a `Telegraph` call to edit a message

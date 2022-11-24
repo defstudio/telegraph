@@ -77,11 +77,25 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
+<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+
+
 ### Markdown caption
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
     ->markdown('read *this*')
+    ->send();
+```
+
+<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+
+
+### MarkdownV2 caption
+
+```php
+Telegraph::document(Storage::path('my_document.pdf'))
+    ->markdownV2('read *this*')
     ->send();
 ```
 

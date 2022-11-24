@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  reply(int $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  edit(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  markdown(string $message)
+ * @method static \DefStudio\Telegraph\Telegraph  markdownV2(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  registerWebhook()
  * @method static \DefStudio\Telegraph\Telegraph  unregisterWebhook(bool $dropPendingUpdates = false)
  * @method static \DefStudio\Telegraph\Telegraph  registerBotCommands(array $commands)
