@@ -2,6 +2,6 @@ url: 'https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/sendMessa
 payload:
     text: test
     chat_id: '-123456789'
-    parse_mode: MarkdownV2
+    parse_mode: markdown
     disable_web_page_preview: true
 files: {  }
