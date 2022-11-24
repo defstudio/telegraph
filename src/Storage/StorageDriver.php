@@ -3,6 +3,7 @@
 namespace DefStudio\Telegraph\Storage;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 abstract class StorageDriver implements \DefStudio\Telegraph\Contracts\StorageDriver
 {
@@ -25,32 +26,38 @@ abstract class StorageDriver implements \DefStudio\Telegraph\Contracts\StorageDr
 
     abstract protected function retrieveData(string $key, mixed $default): mixed;
 
-    private function hydrate(mixed $value): mixed
+    private function dehydrate(mixed $value): mixed
     {
-        if (is_array($value)) {
-            return array_map(fn ($item) => $this->hydrate($item), $value);
+        if (is_iterable($value)) {
+            /** @var iterable<array-key, mixed> $value */
+            return Collection::make($value)
+                ->map(fn ($item) => $this->dehydrate($item))
+                ->toArray();
         }
 
         if ($value instanceof Model) {
             return [
                 self::MODEL_CLASS_KEY => $value::class,
-                self::MODEL_ID_KEY => $value->id,
+                self::MODEL_ID_KEY => $value->getKey(),
             ];
         }
 
         return $value;
     }
 
-    private function dehydrate(mixed $value): mixed
+    private function hydrate(mixed $value): mixed
     {
-        if (is_array($value)) {
-            if (array_key_exists(self::MODEL_CLASS_KEY, $value)) {
-                $modelClass = $value[self::MODEL_CLASS_KEY];
+        if (is_iterable($value)) {
+            /** @var iterable<array-key, mixed> $value */
+            $collection = Collection::make($value);
+            if ($collection->has(self::MODEL_CLASS_KEY)) {
+                /** @var class-string<Model> $modelClass */
+                $modelClass = $collection->get(self::MODEL_CLASS_KEY);
 
-                return $modelClass::find($value[self::MODEL_ID_KEY]);
+                return $modelClass::find($collection->get(self::MODEL_ID_KEY));
             }
 
-            return array_map(fn ($item) => $this->dehydrate($item), $value);
+            return $collection->map(fn ($item) => $this->hydrate($item))->toArray();
         }
 
         return $value;

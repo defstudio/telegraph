@@ -5,6 +5,7 @@
 namespace DefStudio\Telegraph\Storage;
 
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
@@ -27,17 +28,49 @@ class CacheStorageDriver extends StorageDriver
 
     public function storeData(string $key, mixed $value): void
     {
-        $this->cache->set("{$this->key}_$key", $value);
+        if (!Str::of($key)->contains('.')) {
+            $this->cache->set("{$this->key}_$key", $value);
+
+            return;
+        }
+
+        $mainKey = Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey->toString(), []);
+
+        $otherKeys = Str::of($key)->after('.');
+        data_set($mainValue, $otherKeys->toString(), $value);
+
+        $this->cache->set("{$this->key}_".$mainKey->toString(), $mainValue);
     }
 
     public function retrieveData(string $key, mixed $default = null): mixed
     {
-        return $this->cache->get("{$this->key}_$key", $default);
+        if (!Str::of($key)->contains('.')) {
+            return $this->cache->get("{$this->key}_$key", $default);
+        }
+
+        $mainKey = Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey->toString(), []);
+
+        $otherKeys = Str::of($key)->after('.');
+
+        return data_get($mainValue, $otherKeys->toString(), $default);
     }
 
     public function forget(string $key): static
     {
-        $this->cache->forget("{$this->key}_$key");
+        if (!Str::of($key)->contains('.')) {
+            $this->cache->forget("{$this->key}_$key");
+        }
+
+        $mainKey = Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey->toString(), []);
+
+        $otherKeys = Str::of($key)->after('.');
+
+        Arr::forget($mainValue, $otherKeys);
+
+        $this->storeData($mainKey, $mainValue);
 
         return $this;
     }
