@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph\Storage;
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -36,7 +37,7 @@ class FileStorageDriver extends StorageDriver
 
             /** @phpstan-ignore-next-line */
             return rescue(fn () => json_decode($json, true, flags: JSON_THROW_ON_ERROR), []);
-        } catch (JsonException) {
+        } catch (JsonException|FileNotFoundException) {
             return [];
         }
     }

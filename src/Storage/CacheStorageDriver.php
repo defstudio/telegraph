@@ -34,13 +34,13 @@ class CacheStorageDriver extends StorageDriver
             return;
         }
 
-        $mainKey = Str::of($key)->before('.');
-        $mainValue = $this->retrieveData($mainKey->toString(), []);
+        $mainKey = (string)Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey, []);
 
-        $otherKeys = Str::of($key)->after('.');
-        data_set($mainValue, $otherKeys->toString(), $value);
+        $otherKeys = (string)Str::of($key)->after('.');
+        data_set($mainValue, $otherKeys, $value);
 
-        $this->cache->set("{$this->key}_".$mainKey->toString(), $mainValue);
+        $this->cache->set("{$this->key}_".$mainKey, $mainValue);
     }
 
     public function retrieveData(string $key, mixed $default = null): mixed
@@ -49,12 +49,12 @@ class CacheStorageDriver extends StorageDriver
             return $this->cache->get("{$this->key}_$key", $default);
         }
 
-        $mainKey = Str::of($key)->before('.');
-        $mainValue = $this->retrieveData($mainKey->toString(), []);
+        $mainKey = (string) Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey, []);
 
-        $otherKeys = Str::of($key)->after('.');
+        $otherKeys = (string) Str::of($key)->after('.');
 
-        return data_get($mainValue, $otherKeys->toString(), $default);
+        return data_get($mainValue, $otherKeys, $default);
     }
 
     public function forget(string $key): static
@@ -63,10 +63,10 @@ class CacheStorageDriver extends StorageDriver
             $this->cache->forget("{$this->key}_$key");
         }
 
-        $mainKey = Str::of($key)->before('.');
-        $mainValue = $this->retrieveData($mainKey->toString(), []);
+        $mainKey = (string) Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey, []);
 
-        $otherKeys = Str::of($key)->after('.');
+        $otherKeys = (string) Str::of($key)->after('.');
 
         Arr::forget($mainValue, $otherKeys);
 
