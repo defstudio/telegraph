@@ -7,9 +7,22 @@ fullscreen: false
 position: 70
 ---
 
-**Telegraph** offers a quick, multi driver, data storage solution to save and retrieve information about Bots, Chats and Users. A fine grained configuration is available in the `storage` section of Telegraph [configuration file](installation#configuration) 
+**Telegraph** offers a quick, multi driver, data storage solution to save and retrieve information about Bots, Chats and Users. A fine grained configuration is available in the `storage` section of Telegraph [configuration file](installation#configuration)
 
-## Overview
+## Storages Available
+
+Telegraph implements, by default, contextual storage for Bots, Chats and User DTOs. Additionally a storage can be added to every class, it is only needed to implement the `\DefStudio\Telegraph\Contracts\Storable` contract and use the `\DefStudio\Telegraph\Concerns\HasStorage` trait:
+
+```php
+class MyCustomClass implements \DefStudio\Telegraph\Contracts\Storable{
+    use \DefStudio\Telegraph\Concerns\HasStorage;
+    
+    public function storageKey(): string|int
+    {
+        return "MyCustomClass instance unique ID";
+    }
+}
+```
 
 ### Bot Storage
 
@@ -132,4 +145,18 @@ value inside Laravel Redis Cache
 
 ```php
 $telegraphUser->storage('cache')->put('name', 'Daniele');
+```
+
+
+## Storing models
+
+Telegraph can store model references as well: when a model is found inside data stored, it is internally converted in a class/id pair and the model is retrieved from DB when the value is fetched:
+
+```php
+/** @var \DefStudio\Telegraph\DTO\User $telegraphUser */
+$systemUser = \App\Models\User::where('username', $telegraphUser->username());
+
+$telegraphUser->storage()->set('system_data.user', $systemUser);
+
+$telegraphUser->storage()->get('system_data.user') // will return an Instance of \App\Models\User 
 ```
