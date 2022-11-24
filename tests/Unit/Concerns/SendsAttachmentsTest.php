@@ -46,6 +46,11 @@ it('can attach a document with markdown caption', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can attach a document with markdownV2 caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->markdownV2('look at **this** file!'))
+        ->toMatchTelegramSnapshot();
+});
+
 it('can attach a document with html caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->markdown('look at <b>this</b> file!'))
         ->toMatchTelegramSnapshot();
@@ -170,6 +175,11 @@ it('can attach a photo with markdown caption', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can attach a photo with markdownV2 caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->markdownV2('look at **this** photo!'))
+        ->toMatchTelegramSnapshot();
+});
+
 it('can attach a photo with html caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->html('look at <b>this</b> photo!'))
         ->toMatchTelegramSnapshot();
@@ -246,6 +256,11 @@ it('can attach a voice while writing a message', function () {
 
 it('can attach a voice with markdown caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdown('listen **this** one'))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can attach a voice with markdownV2 caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdownV2('listen **this** one'))
         ->toMatchTelegramSnapshot();
 });
 

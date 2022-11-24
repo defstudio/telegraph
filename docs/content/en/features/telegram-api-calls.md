@@ -135,7 +135,7 @@ Telegraph::edit($messageId)->markdown('new message')->send();
 edits an attachment caption
 
 ```php
-Telegraph::editCaption($messageId)->markdown('new caption')->send();
+Telegraph::editCaption($messageId)->markdownV2('new caption')->send();
 ```
 
 ## getWebhookDebugInfo
@@ -160,6 +160,14 @@ compose a new telegram message (parsed as markdown)
 
 ```php
 Telegraph::markdown('*hello* world')->send();
+```
+
+## markdownV2
+
+compose a new telegram message (parsed as markdownV2)
+
+```php
+Telegraph::markdownV2('*hello* world')->send();
 ```
 
 ## message

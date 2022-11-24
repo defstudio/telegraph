@@ -25,3 +25,9 @@ as an alternative, messages can be formatted with markdown:
 ```php
 $chat->markdown("*Hello!*\n\nI'm here!")->send();
 ```
+
+or markdownV2:
+
+```php
+$chat->markdownV2("*Hello!*\n\nI'm here!")->send();
+```

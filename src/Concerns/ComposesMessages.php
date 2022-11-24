@@ -15,6 +15,7 @@ trait ComposesMessages
 
         return match (config('telegraph.default_parse_mode')) {
             self::PARSE_MARKDOWN => $telegraph->markdown($message),
+            self::PARSE_MARKDOWNV2 => $telegraph->markdownV2($message),
             default => $telegraph->html($message)
         };
     }
@@ -49,6 +50,19 @@ trait ComposesMessages
         }
 
         $telegraph->data['parse_mode'] = 'markdown';
+
+        return $telegraph;
+    }
+
+    public function markdownV2(string $message = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if ($message !== null) {
+            $telegraph->setMessageText($message);
+        }
+
+        $telegraph->data['parse_mode'] = 'MarkdownV2';
 
         return $telegraph;
     }
