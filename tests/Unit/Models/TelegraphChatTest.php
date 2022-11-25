@@ -482,3 +482,38 @@ it('can forward a message', function () {
         'message_id' => 123,
     ]);
 });
+
+it('can send a audio', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->audio(Storage::path('Snail.mp3'), 'test')->markdown('test')->send();
+
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+        'audio' => new Attachment(Storage::path('Snail.mp3'), 'test'),
+    ]);
+});
+
+it('can send a audio from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->audio('https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3')->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+        'audio' => 'https://github.com/TelegramBots/book/raw/master/src/docs/audio-guitar.mp3',
+    ]);
+});
+
+it('can send a audio from file_id', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $uuid = Str::uuid();
+
+    $chat->audio($uuid)->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+        'audio' => $uuid,
+    ]);
+});

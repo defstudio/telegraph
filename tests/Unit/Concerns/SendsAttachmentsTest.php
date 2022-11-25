@@ -277,3 +277,23 @@ it('can edit a message caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->editCaption(42)->message('foo'))
         ->toMatchTelegramSnapshot();
 });
+
+it('can send a audio', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('Snail.mp3')))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a audio with thumbnail', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('Snail.mp3'))->thumbnail(Storage::path('thumbnail.jpg')))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a audio without notification', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('Snail.mp3'))->silent())
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a audio protecting it from sharing', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('Snail.mp3'))->protected())
+        ->toMatchTelegramSnapshot();
+});
