@@ -276,4 +276,9 @@ class TelegraphChat extends Model
     {
         return TelegraphFacade::chat($this)->forwardMessage($fromChat, $messageId);
     }
+
+    public function audio(string $path, string $title = null, string $performer = null, int $duration = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->audio($path, $title, $performer, $duration);
+    }
 }

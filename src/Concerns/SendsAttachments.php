@@ -223,4 +223,26 @@ trait SendsAttachments
 
         return ceil($sizeInKBytes * 100) / 100;
     }
+
+    public function audio(string $path, string $title = null, string $performer = null, int $duration = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_AUDIO;
+
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        if (File::exists($path)) {
+            $telegraph->files->put('audio', new Attachment($path, $title));
+
+            return $telegraph;
+        }
+
+        $telegraph->data['audio'] = $path;
+        $telegraph->data['title'] = $title;
+        $telegraph->data['performer'] = $performer;
+        $telegraph->data['duration'] = $duration;
+
+        return $telegraph;
+    }
 }
