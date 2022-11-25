@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.24.3 - 2022-11-25
+
+### What's Changed
+
+- fix #274 by @fabio-ivona in https://github.com/defstudio/telegraph/pull/275
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.24.2...v1.24.3
+
 ## v1.24.2 - 2022-11-24
 
 ### What's Changed
