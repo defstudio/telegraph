@@ -4,10 +4,14 @@
 
 namespace DefStudio\Telegraph\DTO;
 
+use DefStudio\Telegraph\Concerns\HasStorage;
+use DefStudio\Telegraph\Contracts\Storable;
 use Illuminate\Contracts\Support\Arrayable;
 
-class User implements Arrayable
+class User implements Arrayable, Storable
 {
+    use HasStorage;
+
     private int $id;
     private bool $isBot;
     private string $firstName;
@@ -33,6 +37,11 @@ class User implements Arrayable
         $user->username = $data['username'] ?? '';
 
         return $user;
+    }
+
+    public function storageKey(): string|int
+    {
+        return $this->id;
     }
 
     public function id(): int
@@ -63,11 +72,11 @@ class User implements Arrayable
     public function toArray(): array
     {
         return array_filter([
-           'id' => $this->id,
-           'is_bot' => $this->isBot,
-           'first_name' => $this->firstName,
-           'last_name' => $this->lastName,
-           'username' => $this->username,
+            'id' => $this->id,
+            'is_bot' => $this->isBot,
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName,
+            'username' => $this->username,
         ]);
     }
 }

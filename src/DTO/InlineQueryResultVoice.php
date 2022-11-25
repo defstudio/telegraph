@@ -43,10 +43,10 @@ class InlineQueryResultVoice extends InlineQueryResult
     public function data(): array
     {
         return [
-            '$voice_url' => $this->url,
-            '$title' => $this->title,
-            '$caption' => $this->caption,
-            '$voice_duration' => $this->duration,
+            'voice_url' => $this->url,
+            'title' => $this->title,
+            'caption' => $this->caption,
+            'voice_duration' => $this->duration,
         ];
     }
 }

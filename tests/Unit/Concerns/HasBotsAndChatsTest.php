@@ -148,6 +148,12 @@ it('can retrieve chat member count', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can retrieve a chat member', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->chatMember(123456);
+    })->toMatchTelegramSnapshot();
+});
+
 it('can generate a chat primary invite link', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->generateChatPrimaryInviteLink();
@@ -324,5 +330,12 @@ it('can demote a chat member', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->demoteChatMember(123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can retrieve chat menu button', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->chatMenuButton();
     })->toMatchTelegramSnapshot();
 });

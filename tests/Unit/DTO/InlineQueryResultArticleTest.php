@@ -15,7 +15,7 @@ it('can export to array', function () {
     )->toBe([
         'title' => 'testTitle',
         'input_message_content' => [
-            'message' => 'testMessage',
+            'message_text' => 'testMessage',
             'parse_mode' => 'html',
         ],
         'url' => 'https://gif.dev',

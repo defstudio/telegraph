@@ -51,6 +51,20 @@ A location attachment can be sent through Telegraph `->location()` method:
 Telegraph::location(12.345, -54.321)->send();
 ```
 
+### Dice
+
+An animated emoji attachment that will display a random value can be sent through Telegraph `->dice()` method:
+
+```php
+Telegraph::dice()->send();
+```
+
+Different items can be used as "dice"
+
+```php
+Telegraph::dice(\DefStudio\Telegraph\Enums\Emojis::SLOT_MACHINE)->send();
+```
+
 ## Options
 
 When sending files, some options are available:
@@ -63,11 +77,25 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
+<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+
+
 ### Markdown caption
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
     ->markdown('read *this*')
+    ->send();
+```
+
+<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+
+
+### MarkdownV2 caption
+
+```php
+Telegraph::document(Storage::path('my_document.pdf'))
+    ->markdownV2('read *this*')
     ->send();
 ```
 

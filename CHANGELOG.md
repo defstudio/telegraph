@@ -2,6 +2,137 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.24.3 - 2022-11-25
+
+### What's Changed
+
+- fix #274 by @fabio-ivona in https://github.com/defstudio/telegraph/pull/275
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.24.2...v1.24.3
+
+## v1.24.2 - 2022-11-24
+
+### What's Changed
+
+- [revert] upgrade to markdown V2 by @fabio-ivona in https://github.com/defstudio/telegraph/pull/272
+- [fix] markdown-v2 opt-in through configs or `markdownV2 ()`method by @fabio-ivona in https://github.com/defstudio/telegraph/pull/273
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.24.1...v1.24.2
+
+## v1.24.1 - 2022-11-20
+
+### What's Changed
+
+- [fix] add missing dice method in TelegraphChat by @fabio-ivona in https://github.com/defstudio/telegraph/pull/266
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.24.0...v1.24.1
+
+## v1.24.0 - 2022-11-19
+
+### What's Changed
+
+- [feat] storage system by @fabio-ivona in https://github.com/defstudio/telegraph/pull/263
+- [feat] upgrade to markdown V2 by @fabio-ivona in https://github.com/defstudio/telegraph/pull/265
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.23.1...v1.24.0
+
+## v1.23.0 - 2022-11-13
+
+### What's Changed
+
+- [feat] custom webhook domain by @fabio-ivona in https://github.com/defstudio/telegraph/pull/256
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.22...v1.23.0
+
+## v1.22 - 2022-11-10
+
+### What's Changed
+
+- Setup chat by @YSRoot in https://github.com/defstudio/telegraph/pull/246
+- implement showAlert for replyWebhook by @YSRoot in https://github.com/defstudio/telegraph/pull/245
+- fix chatInfo error by @MarioGattolla in https://github.com/defstudio/telegraph/pull/249
+- Bump loader-utils from 1.4.0 to 1.4.1 in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/250
+- implement switch inline query type in button with relative test and doc by @MarioGattolla in https://github.com/defstudio/telegraph/pull/247
+- Implement get user profile photos by @MarioGattolla in https://github.com/defstudio/telegraph/pull/251
+
+### New Contributors
+
+- @YSRoot made their first contribution in https://github.com/defstudio/telegraph/pull/246
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.4...v1.22
+
+## v1.21.4 - 2022-10-28
+
+### What's Changed
+
+- [Fix] queued requests by @fabio-ivona in https://github.com/defstudio/telegraph/pull/240
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.3...v1.21.4
+
+## v1.21.3 - 2022-10-26
+
+### What's Changed
+
+- Screenshot problem solved! by @Mrjavaci in https://github.com/defstudio/telegraph/pull/234
+- added InlineQueryResultLocation + test + snapshots + fix other inline… by @MarioGattolla in https://github.com/defstudio/telegraph/pull/235
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.2...v1.21.3
+
+## v1.21.2 - 2022-10-25
+
+### What's Changed
+
+- Documentation fix by @Mrjavaci in https://github.com/defstudio/telegraph/pull/233
+
+### New Contributors
+
+- @Mrjavaci made their first contribution in https://github.com/defstudio/telegraph/pull/233
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.1...v1.21.2
+
+## v1.21.1 - 2022-10-24
+
+### What's Changed
+
+- docs: Fix typo in messages section by @nikosid in https://github.com/defstudio/telegraph/pull/230
+- Added Russian translation by @andrey-helldar in https://github.com/defstudio/telegraph/pull/231
+
+### New Contributors
+
+- @nikosid made their first contribution in https://github.com/defstudio/telegraph/pull/230
+- @andrey-helldar made their first contribution in https://github.com/defstudio/telegraph/pull/231
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.21.0...v1.21.1
+
+## v1.21.0 - 2022-10-13
+
+### What's Changed
+
+- [feat] `leaveChat` method by @adevade in https://github.com/defstudio/telegraph/pull/206
+- [feat] `deleteChatPhoto` method by @adevade in https://github.com/defstudio/telegraph/pull/205
+- [feat] `poll` and `quiz` methods by @fabio-ivona in https://github.com/defstudio/telegraph/pull/211
+- [feat] forced replies by @fabio-ivona in https://github.com/defstudio/telegraph/pull/212
+- [feat] `InlineQueryResultContact` class by @MarioGattolla in https://github.com/defstudio/telegraph/pull/213
+- Fix issue #196 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/214
+- Fix issue #197 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/215
+- Fix issue #198 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/218
+- Fix issue #199 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/219
+- Fix issue #200 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/220
+- Fix issue #201 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/221
+- [feat] Php 8.2 support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/222
+- Add validate error to config by @GhostWalkers in https://github.com/defstudio/telegraph/pull/223
+- [feat] translations by @fabio-ivona in https://github.com/defstudio/telegraph/pull/225
+- [feat] forwardMessage method #184 by @nicola-posa in https://github.com/defstudio/telegraph/pull/216
+
+### New Contributors
+
+- @adevade made their first contribution in https://github.com/defstudio/telegraph/pull/206
+- @MarioGattolla made their first contribution in https://github.com/defstudio/telegraph/pull/213
+- @GhostWalkers made their first contribution in https://github.com/defstudio/telegraph/pull/223
+- @nicola-posa made their first contribution in https://github.com/defstudio/telegraph/pull/216
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.20.1...v1.21.0
+
 ## v1.20.1 - 2022-09-23
 
 ### What's Changed

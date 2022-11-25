@@ -92,6 +92,16 @@ Starts a `Telegraph` call to send a message using markdown formatting
 $telegraphChat->markdown('*hello*')->send();
 ```
 
+### `markdownV2()`
+
+Starts a `Telegraph` call to send a message using markdown V2 formatting
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->markdownV2('*hello*')->send();
+```
+
 ### `edit()`
 
 Starts a `Telegraph` call to edit a message
@@ -479,9 +489,7 @@ $telegraphChat->poll("What's your favourite programming language?")
 creates a quiz. For more info, see telegram [bot documentation](https://core.telegram.org/bots/api#sendpoll)
 
 ```php
-use DefStudio\Telegraph\Models\TelegraphChat;
-
-/** @var TelegraphChat $telegraphChat */
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 $telegraphChat->quiz("What's your favourite programming language?")
     ->option('php', correct: true)
     ->option('typescript')
@@ -489,4 +497,13 @@ $telegraphChat->quiz("What's your favourite programming language?")
     ->explanation('We all love php, right?')
     ->validUntil(now()->addMinutes(5))
     ->send();
+```
+
+### `dice`
+
+An animated emoji attachment that will display a random value can be sent through Telegraph `->dice()` method:
+
+```php
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+$telegraphChat->dice()->send();
 ```

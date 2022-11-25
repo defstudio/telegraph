@@ -10,11 +10,11 @@ it('can export to array', function () {
         ->duration(10)
         ->toArray()
     )->toBe([
-        '$audio_url' => 'testAudioUrl',
-        '$title' => 'testTitle',
-        '$caption' => 'testCaption',
-        '$performer' => 'testPerformer',
-        '$audio_duration' => 10,
+        'audio_url' => 'testAudioUrl',
+        'title' => 'testTitle',
+        'caption' => 'testCaption',
+        'performer' => 'testPerformer',
+        'audio_duration' => 10,
         'id' => "a45",
         'type' => "audio",
     ]);

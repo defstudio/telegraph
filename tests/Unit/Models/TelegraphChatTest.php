@@ -53,6 +53,14 @@ it('can send a markdown message', function () {
     assertMatchesSnapshot($telegraph->toArray());
 });
 
+it('can send a markdownV2 message', function () {
+    $chat = make_chat();
+
+    $telegraph = $chat->markdownV2('foo');
+
+    assertMatchesSnapshot($telegraph->toArray());
+});
+
 it('can replace a keyboard', function () {
     Telegraph::fake();
     $chat = make_chat();

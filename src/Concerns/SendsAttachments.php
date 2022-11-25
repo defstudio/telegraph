@@ -224,6 +224,20 @@ trait SendsAttachments
         return ceil($sizeInKBytes * 100) / 100;
     }
 
+    public function dice(string $emoji = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_DICE;
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+        if ($emoji !== null) {
+            $telegraph->data['emoji'] = $emoji;
+        }
+
+        return $telegraph;
+    }
+
     public function audio(string $path, string $title = null, string $performer = null, int $duration = null): Telegraph
     {
         $telegraph = clone $this;

@@ -163,3 +163,7 @@ This is a DTO for outgoing data, wraps info about the Voice result returned to t
 ## `DefStudio\Telegraph\DTO\InlineQueryResultDocument`
 
 This is a DTO for outgoing data, wraps info about the Document result returned to the user
+
+## `DefStudio\Telegraph\DTO\InlineQueryResultLocation`
+
+This is a DTO for outgoing data, wraps info about the Location result returned to the user

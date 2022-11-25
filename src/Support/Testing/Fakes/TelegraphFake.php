@@ -131,4 +131,11 @@ class TelegraphFake extends Telegraph
             'text' => $message,
         ]);
     }
+
+    public function assertRepliedWebhookIsAlert(): void
+    {
+        $this->assertSentData(Telegraph::ENDPOINT_ANSWER_WEBHOOK, [
+            'show_alert' => true,
+        ]);
+    }
 }

@@ -2,6 +2,7 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
+use DefStudio\Telegraph\Enums\Emojis;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
@@ -14,6 +15,23 @@ it('can send a document', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can send a dice', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->dice())
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a dice with different emojis', function (string $emoji) {
+    expect(fn (Telegraph $telegraph) => $telegraph->dice($emoji))
+        ->toMatchTelegramSnapshot();
+})->with([
+    'DICE' => Emojis::DICE,
+    'ARROW' => Emojis::ARROW,
+    'BASKETBALL' => Emojis::BASKETBALL,
+    'FOOTBALL' => Emojis::FOOTBALL,
+    'BOWLING' => Emojis::BOWLING,
+    'SLOT_MACHINE' => Emojis::SLOT_MACHINE,
+]);
+
 it('requires a chat to send a document', function () {
     TelegraphFacade::document(Storage::path('test.txt'));
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
@@ -25,6 +43,11 @@ it('can attach a document while writing a message', function () {
 
 it('can attach a document with markdown caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->markdown('look at **this** file!'))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can attach a document with markdownV2 caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))->markdownV2('look at **this** file!'))
         ->toMatchTelegramSnapshot();
 });
 
@@ -152,6 +175,11 @@ it('can attach a photo with markdown caption', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can attach a photo with markdownV2 caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->markdownV2('look at **this** photo!'))
+        ->toMatchTelegramSnapshot();
+});
+
 it('can attach a photo with html caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->html('look at <b>this</b> photo!'))
         ->toMatchTelegramSnapshot();
@@ -228,6 +256,11 @@ it('can attach a voice while writing a message', function () {
 
 it('can attach a voice with markdown caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdown('listen **this** one'))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can attach a voice with markdownV2 caption', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdownV2('listen **this** one'))
         ->toMatchTelegramSnapshot();
 });
 

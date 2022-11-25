@@ -12,6 +12,11 @@ it('can send a markdown message', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can send a markdownV2 message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdownV2('foobar'))
+        ->toMatchTelegramSnapshot();
+});
+
 it('can send protected content', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->markdown('test')->protected())
         ->toMatchTelegramSnapshot();

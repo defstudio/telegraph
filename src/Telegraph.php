@@ -15,6 +15,7 @@ use DefStudio\Telegraph\Concerns\CreatesScopedPayloads;
 use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
+use DefStudio\Telegraph\Concerns\InteractWithUsers;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Concerns\SendsAttachments;
 use DefStudio\Telegraph\Concerns\StoresFiles;
@@ -34,6 +35,7 @@ class Telegraph
     use StoresFiles;
     use AnswersInlineQueries;
     use CreatesScopedPayloads;
+    use InteractWithUsers;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
@@ -47,6 +49,7 @@ class Telegraph
 
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';
+    public const PARSE_MARKDOWNV2 = 'MarkdownV2';
 
     protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
     protected const TELEGRAM_API_FILE_BASE_URL = 'https://api.telegram.org/file/bot';
@@ -85,6 +88,7 @@ class Telegraph
     public const ENDPOINT_LEAVE_CHAT = 'leaveChat';
     public const ENDPOINT_GET_CHAT_INFO = 'getChat';
     public const ENDPOINT_GET_CHAT_MEMBER_COUNT = 'getChatMemberCount';
+    public const ENDPOINT_GET_CHAT_MEMBER = 'getChatMember';
     public const ENDPOINT_SET_CHAT_PERMISSIONS = 'setChatPermissions';
     public const ENDPOINT_BAN_CHAT_MEMBER = 'banChatMember';
     public const ENDPOINT_UNBAN_CHAT_MEMBER = 'unbanChatMember';
@@ -92,6 +96,9 @@ class Telegraph
     public const ENDPOINT_PROMOTE_CHAT_MEMBER = 'promoteChatMember';
     public const ENDPOINT_SEND_POLL = 'sendPoll';
     public const ENDPOINT_FORWARD_MESSAGE = 'forwardMessage';
+    public const ENDPOINT_GET_USER_PROFILE_PHOTOS = 'getUserProfilePhotos';
+    public const ENDPOINT_GET_CHAT_MENU_BUTTON = 'getChatMenuButton';
+    public const ENDPOINT_DICE = 'sendDice';
     public const ENDPOINT_SEND_AUDIO = 'sendAudio';
 
 

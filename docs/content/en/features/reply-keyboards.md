@@ -24,12 +24,11 @@ use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 
 Telegraph::message('hello world')
-->keyboard(ReplyKeyboard::make()
-->buttons([
-   ReplyButton::make('foo')->requestPoll(),
-   ReplyButton::make('bar')->requestQuiz(),
-   ReplyButton::make('baz')->webApp('https://webapp.dev'),
-]))->send();
+    ->replyKeyboard(ReplyKeyboard::make()->buttons([
+       ReplyButton::make('foo')->requestPoll(),
+       ReplyButton::make('bar')->requestQuiz(),
+       ReplyButton::make('baz')->webApp('https://webapp.dev'),
+    ]))->send();
 ```
 
 Additionally, a keyboard can be added to a message using a closure:
@@ -59,11 +58,11 @@ use DefStudio\Telegraph\Keyboard\ReplyKeyboard;
 
 $keyboard = ReplyKeyboard::make()
     ->row([
-        ReplyButton::make('Delete')->action('delete')->param('id', '42'),
-        ReplyButton::make('Dismiss')->action('dismiss')->param('id', '42'),
+        ReplyButton::make('Send Contact')->requestContact(),
+        ReplyButton::make('Send Location')->requestLocation(),
     ])
     ->row([
-        ReplyButton::make('open')->url('https://test.it'),
+        ReplyButton::make('Quiz')->requestQuiz(),
     ]);
 ```
 

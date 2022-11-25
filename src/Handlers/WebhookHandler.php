@@ -90,7 +90,7 @@ abstract class WebhookHandler
                 report(TelegramWebhookException::invalidCommand($command));
             }
 
-            $this->chat->html(__('telegraph::errors.invalid_command', ))->send();
+            $this->chat->html(__('telegraph::errors.invalid_command'))->send();
         }
     }
 
@@ -148,29 +148,7 @@ abstract class WebhookHandler
 
     protected function extractCallbackQueryData(): void
     {
-        /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->firstOrNew([
-            'chat_id' => $this->request->input('callback_query.message.chat.id'),
-        ]);
-
-        $this->chat = $chat;
-
-        if (!$this->chat->exists) {
-            if (!config('telegraph.security.allow_callback_queries_from_unknown_chats', false)) {
-                throw new NotFoundHttpException();
-            }
-
-            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
-                $this->chat->name = Str::of("")
-                    ->append("[", $this->request->input('callback_query.message.chat.type'), ']')
-                    ->append(" ", $this->request->input(
-                        'callback_query.message.chat.username',
-                        $this->request->input('callback_query.message.chat.title')
-                    ));
-
-                $this->chat->save();
-            }
-        }
+        $this->setupChat();
 
         assert($this->callbackQuery !== null);
 
@@ -186,26 +164,9 @@ abstract class WebhookHandler
 
     protected function extractMessageData(): void
     {
-        assert($this->message?->chat() !== null);
+        $this->setupChat();
 
-        /** @var TelegraphChat $chat */
-        $chat = $this->bot->chats()->firstOrNew([
-            'chat_id' => $this->message->chat()->id(),
-        ]);
-        $this->chat = $chat;
-
-        if (!$this->chat->exists) {
-            if (!config('telegraph.security.allow_messages_from_unknown_chats', false)) {
-                throw new NotFoundHttpException();
-            }
-
-            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
-                $this->chat->name = Str::of("")
-                    ->append("[", $this->message->chat()->type(), ']')
-                    ->append(" ", $this->message->chat()->title());
-                $this->chat->save();
-            }
-        }
+        assert($this->message !== null);
 
         $this->messageId = $this->message->id();
 
@@ -239,9 +200,9 @@ abstract class WebhookHandler
         $this->chat->deleteKeyboard($this->messageId)->send();
     }
 
-    protected function reply(string $message): void
+    protected function reply(string $message, bool $showAlert = false): void
     {
-        $this->bot->replyWebhook($this->callbackQueryId, $message)->send();
+        $this->bot->replyWebhook($this->callbackQueryId, $message, $showAlert)->send();
     }
 
     public function chatid(): void
@@ -287,5 +248,40 @@ abstract class WebhookHandler
     protected function handleInlineQuery(InlineQuery $inlineQuery): void
     {
         // .. do nothing
+    }
+
+    protected function setupChat(): void
+    {
+        $telegramChat = $this->message?->chat() ?? $this->callbackQuery?->message()?->chat();
+
+        assert($telegramChat !== null);
+
+        /** @var TelegraphChat $chat */
+        $chat = $this->bot->chats()->firstOrNew([
+            'chat_id' => $telegramChat->id(),
+        ]);
+        $this->chat = $chat;
+
+        if (!$this->chat->exists) {
+            if (!$this->allowUnknownChat()) {
+                throw new NotFoundHttpException();
+            }
+
+            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
+                $this->chat->name = Str::of("")
+                    ->append("[", $telegramChat->type(), ']')
+                    ->append(" ", $telegramChat->title());
+                $this->chat->save();
+            }
+        }
+    }
+
+    protected function allowUnknownChat(): bool
+    {
+        return (bool) match (true) {
+            $this->message !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
+            $this->callbackQuery != null => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
+            default => false,
+        };
     }
 }
