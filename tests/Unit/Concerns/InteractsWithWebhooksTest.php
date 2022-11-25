@@ -14,7 +14,7 @@ it('can register a webhook', function () {
 it('can register a webhook with a custom domain', function () {
     withfakeUrl();
 
-    config()->set('custom_webhook_domain', 'http://foo.bar.baz');
+    config()->set('telegraph.custom_webhook_domain', 'http://foo.bar.baz');
 
     expect(fn (Telegraph $telegraph) => $telegraph->bot(make_bot())->registerWebhook())
         ->toMatchTelegramSnapshot();
