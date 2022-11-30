@@ -115,9 +115,8 @@ it('can store and retrieve a nested model', function () {
         ],
     ]);
 
-    expect($class->storage('file'))
-        ->get('models.0')->id->toBe(1)
-        ->get('models.1')->id->toBe(2)
-        ->get('models.2')->id->toBe(3)
-        ->get('models.3')->id->toBe(4);
+    expect($class->storage('file')->get('models.0'))->toBeInstanceOf(TelegraphChat::class)->id->toBe(1);
+    expect($class->storage('file')->get('models.1'))->toBeInstanceOf(TelegraphChat::class)->id->toBe(2);
+    expect($class->storage('file')->get('models.2'))->toBeInstanceOf(TelegraphChat::class)->id->toBe(3);
+    expect($class->storage('file')->get('models.3'))->toBeInstanceOf(TelegraphChat::class)->id->toBe(4);
 });

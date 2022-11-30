@@ -57,7 +57,7 @@ abstract class StorageDriver implements \DefStudio\Telegraph\Contracts\StorageDr
                 return $modelClass::find($collection->get(self::MODEL_ID_KEY));
             }
 
-            return $collection->map(fn ($item) => $this->hydrate($item))->toArray();
+            return array_map(fn ($item) => $this->hydrate($item), $collection->toArray());
         }
 
         return $value;
