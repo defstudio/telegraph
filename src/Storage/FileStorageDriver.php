@@ -2,7 +2,6 @@
 
 namespace DefStudio\Telegraph\Storage;
 
-use DefStudio\Telegraph\Contracts\StorageDriver;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
@@ -10,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use JsonException;
 
-class FileStorageDriver implements StorageDriver
+class FileStorageDriver extends StorageDriver
 {
     private string $file;
 
@@ -31,14 +30,14 @@ class FileStorageDriver implements StorageDriver
     /**
      * @return array<array-key, mixed>
      */
-    private function getData(): array
+    private function getDataFromJson(): array
     {
         try {
             $json = $this->disk->get($this->file);
 
             /** @phpstan-ignore-next-line */
             return rescue(fn () => json_decode($json, true, flags: JSON_THROW_ON_ERROR), []);
-        } catch (FileNotFoundException|JsonException) {
+        } catch (JsonException|FileNotFoundException) {
             return [];
         }
     }
@@ -46,7 +45,7 @@ class FileStorageDriver implements StorageDriver
     /**
      * @param array<array-key, mixed> $data
      */
-    private function storeData(array $data): void
+    private function storeDataInJson(array $data): void
     {
         $json = json_encode($data);
 
@@ -54,27 +53,25 @@ class FileStorageDriver implements StorageDriver
         $this->disk->put($this->file, $json);
     }
 
-    public function set(string $key, mixed $value): static
+    public function storeData(string $key, mixed $value): void
     {
-        $data = $this->getData();
+        $data = $this->getDataFromJson();
         Arr::set($data, $key, $value);
-        $this->storeData($data);
-
-        return $this;
+        $this->storeDataInJson($data);
     }
 
-    public function get(string $key, mixed $default = null): mixed
+    public function retrieveData(string $key, mixed $default = null): mixed
     {
-        $data = $this->getData();
+        $data = $this->getDataFromJson();
 
         return Arr::get($data, $key, $default);
     }
 
     public function forget(string $key): static
     {
-        $data = $this->getData();
+        $data = $this->getDataFromJson();
         Arr::forget($data, $key);
-        $this->storeData($data);
+        $this->storeDataInJson($data);
 
         return $this;
     }

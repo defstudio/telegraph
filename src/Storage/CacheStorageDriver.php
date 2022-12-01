@@ -4,12 +4,12 @@
 
 namespace DefStudio\Telegraph\Storage;
 
-use DefStudio\Telegraph\Contracts\StorageDriver;
 use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
-class CacheStorageDriver implements StorageDriver
+class CacheStorageDriver extends StorageDriver
 {
     private string $key;
     private Repository $cache;
@@ -26,21 +26,51 @@ class CacheStorageDriver implements StorageDriver
         $this->cache = Cache::store($configuration['store'] ?? null);
     }
 
-    public function set(string $key, mixed $value): static
+    public function storeData(string $key, mixed $value): void
     {
-        $this->cache->set("{$this->key}_$key", $value);
+        if (!Str::of($key)->contains('.')) {
+            $this->cache->set("{$this->key}_$key", $value);
 
-        return $this;
+            return;
+        }
+
+        $mainKey = (string)Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey, []);
+
+        $otherKeys = (string)Str::of($key)->after('.');
+        data_set($mainValue, $otherKeys, $value);
+
+        $this->cache->set("{$this->key}_".$mainKey, $mainValue);
     }
 
-    public function get(string $key, mixed $default = null): mixed
+    public function retrieveData(string $key, mixed $default = null): mixed
     {
-        return $this->cache->get("{$this->key}_$key", $default);
+        if (!Str::of($key)->contains('.')) {
+            return $this->cache->get("{$this->key}_$key", $default);
+        }
+
+        $mainKey = (string) Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey, []);
+
+        $otherKeys = (string) Str::of($key)->after('.');
+
+        return data_get($mainValue, $otherKeys, $default);
     }
 
     public function forget(string $key): static
     {
-        $this->cache->forget("{$this->key}_$key");
+        if (!Str::of($key)->contains('.')) {
+            $this->cache->forget("{$this->key}_$key");
+        }
+
+        $mainKey = (string) Str::of($key)->before('.');
+        $mainValue = $this->retrieveData($mainKey, []);
+
+        $otherKeys = (string) Str::of($key)->after('.');
+
+        Arr::forget($mainValue, $otherKeys);
+
+        $this->storeData($mainKey, $mainValue);
 
         return $this;
     }
