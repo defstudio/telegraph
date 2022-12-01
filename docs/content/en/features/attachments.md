@@ -21,6 +21,8 @@ Telegraph::photo('https://my-repository/photo.jpg')->send();
 Telegraph::photo($telegramFileId)->send();
 ```
 
+<alert type="alert">Sent Photos can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
+
 
 ### Vocal Messages
 
@@ -42,6 +44,8 @@ Telegraph::document(Storage::path('my_document.pdf'))->send();
 Telegraph::document('https://my-repository/my_document.pdf')->send();
 Telegraph::document($telegramFileId)->send();
 ```
+
+<alert type="alert">Sent Documents can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
 
 ### Location
 

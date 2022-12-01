@@ -52,6 +52,19 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function editMedia(int $messageId, string $media): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_EDIT_MEDIA;
+
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['message_id'] = $messageId;
+        $telegraph->data['media'] = $media;
+
+        return $telegraph;
+    }
+
     public function location(float $latitude, float $longitude): Telegraph
     {
         $telegraph = clone $this;

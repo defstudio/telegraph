@@ -310,3 +310,10 @@ it('can edit a message caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->editCaption(42)->message('foo'))
         ->toMatchTelegramSnapshot();
 });
+
+it('can edit a media messages', function () {
+    $media = json_encode(["media" => "www.mediaUrl.com", "type" => "photo"]);
+
+    expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42, $media))
+        ->toMatchTelegramSnapshot();
+});

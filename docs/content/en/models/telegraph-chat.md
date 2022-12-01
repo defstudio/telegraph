@@ -122,6 +122,16 @@ Starts a `Telegraph` call to edit an attachment's caption
 $telegraphChat->editCaption($messageId)->message('new caption')->send();
 ```
 
+### `editMedia()`
+
+Starts a `Telegraph` call to edit a media messages
+
+```php
+/** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+
+$telegraphChat->editMedia($messageId, $media)->send();
+```
+
 ### `replaceKeyboard()`
 
 Starts a `Telegraph` call to replace a message keyboard (see [keyboards](features/keyboards) for details)

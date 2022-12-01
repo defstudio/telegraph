@@ -138,6 +138,14 @@ edits an attachment caption
 Telegraph::editCaption($messageId)->markdownV2('new caption')->send();
 ```
 
+## editMedia
+
+edits a media messages
+
+```php
+Telegraph::editMedia($messageId, $media)->send();
+```
+
 ## getWebhookDebugInfo
 
 retrieves webhook debug data for the active bot

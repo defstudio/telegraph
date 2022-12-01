@@ -220,6 +220,21 @@ it('can edit a message caption', function () {
     ], false);
 });
 
+it('can edit a media messages', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $media = json_encode(["media" => "www.mediaUrl.com", "type" => "photo"]);
+
+    $chat->editMedia(42, $media)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_MEDIA, [
+        'chat_id' => '-123456789',
+        'message_id' => 42,
+        'media' => '{"media":"www.mediaUrl.com","type":"photo"}',
+    ], false);
+});
+
 it('can delete a message', function () {
     Telegraph::fake();
     $chat = make_chat();
