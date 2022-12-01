@@ -82,8 +82,6 @@ use Illuminate\Support\Facades\Facade;
  */
 class Telegraph extends Facade
 {
-    protected static $cached = false;
-
     /**
      * @param array<string, array<mixed>> $replies
      */
