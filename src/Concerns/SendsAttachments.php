@@ -8,6 +8,7 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Exceptions\FileException;
+use DefStudio\Telegraph\ScopedPayloads\TelegraphEditMediaPayload;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -52,7 +53,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function editMedia(int $messageId, string $media): Telegraph
+    public function editMedia(int $messageId): TelegraphEditMediaPayload
     {
         $telegraph = clone $this;
 
@@ -60,12 +61,11 @@ trait SendsAttachments
 
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
         $telegraph->data['message_id'] = $messageId;
-        $telegraph->data['media'] = $media;
 
-        return $telegraph;
+        return TelegraphEditMediaPayload::makeFrom($this);
     }
 
-    public function location(float $latitude, float $longitude): Telegraph
+    public function location(float $latitude, float $longitude): self
     {
         $telegraph = clone $this;
 
@@ -77,7 +77,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function voice(string $path, string $filename = null): Telegraph
+    public function voice(string $path, string $filename = null): self
     {
         $telegraph = clone $this;
 
@@ -97,7 +97,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function document(string $path, string $filename = null): Telegraph
+    public function document(string $path, string $filename = null): self
     {
         $telegraph = clone $this;
 
@@ -106,23 +106,12 @@ trait SendsAttachments
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
 
 
-        if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
-                throw FileException::documentSizeExceeded($size);
-            }
-
-            $telegraph->files->put('document', new Attachment($path, $filename));
-
-            return $telegraph;
-        }
-
-        $telegraph->data['document'] = $path;
-        $telegraph->data['caption'] ??= '';
+        $this->attachDocument($telegraph, $path, $filename);
 
         return $telegraph;
     }
 
-    public function withoutContentTypeDetection(): Telegraph
+    public function withoutContentTypeDetection(): self
     {
         $telegraph = clone $this;
 
@@ -131,7 +120,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function thumbnail(string $path): Telegraph
+    public function thumbnail(string $path): self
     {
         $telegraph = clone $this;
 
@@ -163,7 +152,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function photo(string $path, string $filename = null): Telegraph
+    public function photo(string $path, string $filename = null): self
     {
         $telegraph = clone $this;
 
@@ -171,29 +160,7 @@ trait SendsAttachments
 
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
 
-        if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
-                throw FileException::photoSizeExceeded($size);
-            }
-
-            $height = $telegraph->imageHeight($path);
-            $width = $telegraph->imageWidth($path);
-
-            if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
-                throw FileException::invalidPhotoSize($totalLength);
-            }
-
-            if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
-                throw FileException::invalidPhotoRatio($ratio);
-            }
-
-            $telegraph->files->put('photo', new Attachment($path, $filename));
-
-            return $telegraph;
-        }
-
-        $telegraph->data['photo'] = $path;
-        $telegraph->data['caption'] ??= '';
+        $this->attachPhoto($telegraph, $path, $filename);
 
         return $telegraph;
     }
@@ -237,7 +204,7 @@ trait SendsAttachments
         return ceil($sizeInKBytes * 100) / 100;
     }
 
-    public function dice(string $emoji = null): Telegraph
+    public function dice(string $emoji = null): self
     {
         $telegraph = clone $this;
 
@@ -249,5 +216,44 @@ trait SendsAttachments
         }
 
         return $telegraph;
+    }
+
+    protected function attachPhoto(self $telegraph, string $path, ?string $filename): void
+    {
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
+                throw FileException::photoSizeExceeded($size);
+            }
+
+            $height = $telegraph->imageHeight($path);
+            $width = $telegraph->imageWidth($path);
+
+            if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
+                throw FileException::invalidPhotoSize($totalLength);
+            }
+
+            if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
+                throw FileException::invalidPhotoRatio($ratio);
+            }
+
+            $telegraph->files->put('photo', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['photo'] = $path;
+            $telegraph->data['caption'] ??= '';
+        }
+    }
+
+    protected function attachDocument(self $telegraph, string $path,  ?string $filename): void
+    {
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
+                throw FileException::documentSizeExceeded($size);
+            }
+
+            $telegraph->files->put('document', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['document'] = $path;
+            $telegraph->data['caption'] ??= '';
+        }
     }
 }
