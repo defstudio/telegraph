@@ -124,12 +124,13 @@ $telegraphChat->editCaption($messageId)->message('new caption')->send();
 
 ### `editMedia()`
 
-Starts a `Telegraph` call to edit a media messages with a new media content (A JSON-serialized object is required)
+Starts a `Telegraph` call to edit a media messages with a new media content
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 
-$telegraphChat->editMedia($messageId, $media)->send();
+$telegraphChat->editMedia($messageId)->photo($path)->send();
+$telegraphChat->editMedia($messageId)->document($path)->send();
 ```
 
 ### `replaceKeyboard()`

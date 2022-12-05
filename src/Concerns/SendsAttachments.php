@@ -62,7 +62,7 @@ trait SendsAttachments
         $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
         $telegraph->data['message_id'] = $messageId;
 
-        return TelegraphEditMediaPayload::makeFrom($this);
+        return TelegraphEditMediaPayload::makeFrom($telegraph);
     }
 
     public function location(float $latitude, float $longitude): self

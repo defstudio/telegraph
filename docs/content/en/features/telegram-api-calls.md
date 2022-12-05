@@ -140,10 +140,11 @@ Telegraph::editCaption($messageId)->markdownV2('new caption')->send();
 
 ## editMedia
 
-edits a media messages with a new media content (A JSON-serialized object is required) 
+edits a media messages with a new media content
 
 ```php
-Telegraph::editMedia($messageId, $media)->send();
+Telegraph::editMedia($messageId)->photo($path)->send();
+Telegraph::editMedia($messageId)->document($path)->send();
 ```
 
 ## getWebhookDebugInfo

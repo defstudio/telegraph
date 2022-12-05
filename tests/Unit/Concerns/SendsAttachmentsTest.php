@@ -311,9 +311,16 @@ it('can edit a message caption', function () {
         ->toMatchTelegramSnapshot();
 });
 
-it('can edit a media messages', function () {
-    $media = json_encode(["media" => "www.mediaUrl.com", "type" => "photo"]);
+it('can edit a media messages with a photo', function () {
+    $photo_path = 'www.photoUrl.com';
 
-    expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42, $media))
+    expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->photo($photo_path))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can edit a media messages with a document', function () {
+    $document_path = 'www.documentUrl.com';
+
+    expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->document($document_path))
         ->toMatchTelegramSnapshot();
 });

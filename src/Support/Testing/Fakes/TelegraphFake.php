@@ -29,6 +29,15 @@ class TelegraphFake extends Telegraph
         $this->replies = $replies;
     }
 
+    public function editMedia(int $messageId): TelegraphEditMediaFake
+    {
+        $fake = new TelegraphEditMediaFake($this->replies);
+        $fake->endpoint = self::ENDPOINT_EDIT_MEDIA;
+        $fake->data['message_id'] = $messageId;
+
+        return $fake;
+    }
+
     public function poll(string $question): TelegraphPollPayload
     {
         $fake = new TelegraphPollFake($this->replies);

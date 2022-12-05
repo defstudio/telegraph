@@ -35,7 +35,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  unpinMessage(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  unpinAllMessages()
  * @method static \DefStudio\Telegraph\Telegraph  editCaption(string $messageId)
- * @method static \DefStudio\Telegraph\Telegraph  editMedia(string $messageId, string $media)
+ * @method static \DefStudio\Telegraph\Telegraph  editMedia(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  answerInlineQuery(string $inlineQueryID, array $results)
  * @method static \DefStudio\Telegraph\Telegraph  document(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  photo(string $path, string $filename = null)
