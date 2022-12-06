@@ -44,7 +44,7 @@ class Location implements Arrayable
 
     public function accuracy(): ?float
     {
-        return $this->accuracy();
+        return $this->accuracy;
     }
 
     public function toArray(): array
