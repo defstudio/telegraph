@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.25.0 - 2022-12-07
+
+### What's Changed
+
+- [feat] model storage by @fabio-ivona in https://github.com/defstudio/telegraph/pull/271
+- [fix] disable telegraph facade caching by @MarioGattolla in https://github.com/defstudio/telegraph/pull/279
+- [fix] bug in DTO/Location by @ahr1384 in https://github.com/defstudio/telegraph/pull/282
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.24.3...v1.24.4
+
 ## v1.24.3 - 2022-11-25
 
 ### What's Changed
