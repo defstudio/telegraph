@@ -16,7 +16,7 @@ send back the results for an inline query
     InlineQueryResultPhoto::make($logo->id."-light", "https://logofinder.dev/$logo->id/light.jpg", "https://logofinder.dev/$logo->id/light/thumb.jpg")
         ->caption('Light Logo'),
     InlineQueryResultPhoto::make($logo->id."-dark", "https://logofinder.dev/$logo->id/dark.jpg", "https://logofinder.dev/$logo->id/dark/thumb.jpg")
-        ->caption('Light Logo'),
+        ->caption('Dark Logo'),
 ])->cache(seconds: 600)->send();
 ```
 
