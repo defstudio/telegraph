@@ -19,13 +19,33 @@ class CustomWebhookHandler extends WebhookHandler
 {
     protected function handleChatMessage(Stringable $text): void
     {
-        //in this example, a received message is sent back to the chat
+        // in this example, a received message is sent back to the chat
         $this->chat->html("Received: $text")->send();
     }
 }
 ```
 
 <alert type="alert">A bot can read non-command/queries messages only if its `privacy mode` is disabled. To change a bot privacy settings see [this guide](quickstart/new-bot#privacy)</alert>
+
+You can also handle any content of Telegram, like: Contact, Photo, Voice and etc...
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    protected function handleChatMessage(Stringable $text): void
+    {
+        // in this example we get securely contact phone number
+
+        $phone = $this->message->contact()->phoneNumber();  // Get phone of contact
+        $userId = $this->message->contact()->userId();  // Get id of contact
+        $verifyUserId = $this->message->from()->id();  // Verify author of message and user of contact
+
+        $isVerifyPhone = intval($userId == $verifyUserId);  // Protect, if 1 - secure, 0 - bad
+
+        $this->chat->html("Received: $phone, $userId, $verifyUserId, total: $isVerifyPhone")->send();  // Send stats
+    }
+}
+```
 
 
 ## Chat Commands
