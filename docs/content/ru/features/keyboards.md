@@ -74,7 +74,7 @@ Button::make('open')->url('https://test.it'),
 Button::make('open')->webApp('https://webapp.url.dev'),
 ```
 
-### Switch Inline Query Buttons
+### Switch Inline Query Buttons - переключение встроенных запросов
 
 Pressing the button will prompt the user to select one of their chats, 
 open that chat and insert the bot's username and the specified inline query 
@@ -95,11 +95,11 @@ Button::make('switch')->switchInlineQuery('foo')->currentChat(),
 ```
 
 
-## Keyboard Rows
+## Keyboard Rows - строки клавиатуры
 
-A keyboard will normally place one button per row, this behaviour can be customized by defining rows, by setting individual buttons width or by chunking buttons
+Стандартно клавиатура размещает в одной строке только одну кнопку, это можно изменить введением строк, устанавливая ширину кнопок или количество на строку.
 
-### by rows
+### по строкам
 
 ```php
 use DefStudio\Telegraph\Keyboard\Button;
@@ -115,8 +115,9 @@ $keyboard = Keyboard::make()
     ]);
 ```
 
-### by setting buttons width
+### по ширине кнопок
 
+Кнопкам задают дробное число, ко, указывающее процент занимаемого места. Кнопки будут
 A button relative width can be set using a float number the total width percentage to be taken. Buttons will flow through the rows according to their width
 
 this example would define two buttons on the first row and a large button on the second one:
@@ -132,17 +133,17 @@ $keyboard = Keyboard::make()
     ->button('open')->webApp('https://web-app.url.dev');
 ```
 
-**notes**
+**примечания**
 
- - A button default width is 1 (that's to say, the entire row width)
- - Each width is defined as a float between 0 and 1 that represents the floating point percentage of the row taken by the button.
- - each button will fill the current row or flow in the subsequent one if there isn't enough space left
+ - стандартная ширина кнопки - 1 (то есть на всю ширину кнопки)
+ - каждая ширина определяется дробным числом между 0 и 1, которое определяет процент занимаемого пространства в строке.
+ - каждая кнопка будет заполнять строку, но при переполнении перенесётся на следующую строку
 
-### by chunking
+### разбиение по количеству в строке (by chunking)
 
-Buttons can be authomatically chunked in rows using the `->chunk()` method.
+Кнопки могут автоматически расположиться в строках, используя метод разбиения по количеству `->chunk()`.
 
-This example would return a first row of two buttons, a second row of two buttons and the last row with the remaining button.
+Этот пример выведет первую строку с двумя кнопками, и вторую с двумя кнопками, но **последнюю с одной кнопкой**.
 
 ```php
 use DefStudio\Telegraph\Keyboard\Button;
@@ -157,9 +158,9 @@ $keyboard = Keyboard::make()
     ->chunk(2);
 ```
 
-## Updating a keyboard
+## Обновление или замена клавиатуры
 
-A message keyboard can be replaced by a new one by submitting its `messageId`:
+Сообщение с клавиатурой можно заменить, если указать `messageId` этого сообщения:
 
 ```php
 Telegraph::replaceKeyboard(
@@ -171,17 +172,17 @@ Telegraph::replaceKeyboard(
 )->send();
 ```
 
-## Deleting a keyboard
+## Удаление клавиатуры
 
-A keyboard can be removed from a message by submitting its `messageId`:
+Можно удалить сообщение с клавиатурой, зная `messageId`:
 
 ```php
 Telegraph::deleteKeyboard(messageId: 1568794)->send();
 ```
 
-## Conditional methods
+## Методы с условиями, условный оператор
 
-a `when` method allows to execute a closure when the given condition is verified
+Метод `when` позволяет выполнить функцию-замыкание когда выполнено заданное условие:
 
 ```php
 Keyboard::make()
