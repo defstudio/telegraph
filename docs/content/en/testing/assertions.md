@@ -59,6 +59,14 @@ Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMEN
 ]);
 ```
 
+## assertSentEditMedia
+
+asserts that the given data was sent to a Telegram API endpoint
+
+```php
+Telegraph::assertSentEditMedia('mediaType', Storage::path('photo.jpg'));
+```
+
 ## assertStoredFile
 
 asserts that the given incoming file was stored 

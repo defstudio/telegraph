@@ -70,6 +70,7 @@ class Telegraph
     public const ENDPOINT_UNPIN_ALL_MESSAGES = 'unpinAllChatMessages';
     public const ENDPOINT_EDIT_MESSAGE = 'editMessageText';
     public const ENDPOINT_EDIT_CAPTION = 'editMessageCaption';
+    public const ENDPOINT_EDIT_MEDIA = 'editMessageMedia';
     public const ENDPOINT_SEND_LOCATION = 'sendLocation';
     public const ENDPOINT_SEND_VOICE = 'sendVoice';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';

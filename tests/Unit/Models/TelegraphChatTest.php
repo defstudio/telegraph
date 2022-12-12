@@ -10,6 +10,7 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphEditMediaFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphPollFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphQuizFake;
 use Illuminate\Support\Facades\Storage;
@@ -218,6 +219,24 @@ it('can edit a message caption', function () {
         'message_id' => 42,
         'caption' => 'test',
     ], false);
+});
+
+it('can edit a media messages with a photo', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editMedia(42)->photo('www.newMediaUrl.com')->send();
+
+    TelegraphEditMediaFake::assertSentEditMedia('photo', 'www.newMediaUrl.com');
+});
+
+it('can edit a media messages with a document', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editMedia(42)->document('www.newMediaUrl.com')->send();
+
+    TelegraphEditMediaFake::assertSentEditMedia('document', 'www.newMediaUrl.com');
 });
 
 it('can delete a message', function () {

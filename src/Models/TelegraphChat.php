@@ -141,6 +141,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->editCaption($messageId);
     }
 
+    public function editMedia(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->editMedia($messageId);
+    }
+
     public function deleteMessage(int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->deleteMessage($messageId);
