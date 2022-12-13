@@ -113,7 +113,7 @@ trait HasBotsAndChats
     {
         $chat = $this->getChat();
 
-        if($chat instanceof TelegraphChat){
+        if ($chat instanceof TelegraphChat) {
             return $chat->chat_id;
         }
 
