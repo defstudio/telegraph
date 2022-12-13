@@ -34,15 +34,16 @@ class CustomWebhookHandler extends WebhookHandler
 {
     protected function handleChatMessage(Stringable $text): void
     {
-        // in this example we get securely contact phone number
+        // checks that the contact matches the sender ID
 
-        $phone = $this->message->contact()->phoneNumber();  // Get phone of contact
-        $userId = $this->message->contact()->userId();  // Get id of contact
-        $verifyUserId = $this->message->from()->id();  // Verify author of message and user of contact
+        $contactUserId = $this->message->contact()->userId();
+        $senderId = $this->message->from()->id();
 
-        $isVerifyPhone = intval($userId == $verifyUserId);  // Protect, if 1 - secure, 0 - bad
-
-        $this->chat->html("Received: $phone, $userId, $verifyUserId, total: $isVerifyPhone")->send();  // Send stats
+        if($contactUserId == $senderId){
+            $this->reply('this is your contact');
+        }else{
+            $this->reply('this is NOT your contact');  
+        }
     }
 }
 ```
