@@ -11,7 +11,7 @@ position: 32
 
 <img src="screenshots/keyboard-example.png" />
 
-## Attaching a keyboard - прикрепление клавиатуры
+## Attaching a keyboard (прикрепление клавиатуры)
 
 Клавиатура может быть добавлена, используя `->keyboard()` команду, передавая `Keyboard` новый объект как аргумент.
 
@@ -46,11 +46,11 @@ Telegraph::message('hello world')
 })->send();
 ```
 
-## Buttons - кнопки
+## Buttons (кнопки)
 
 Каждая `Button` может быть определена методами и может быть трёх типов:
 
-### Callback Buttons - кнопки обратного вызова
+### Callback Buttons (кнопки обратного вызова)
 
 Определяют свойство `action` и несколько аргументов `params`. Они обрабатываются как **запрос обратного вызова** в пользовательском WebHook:
 
@@ -58,7 +58,7 @@ Telegraph::message('hello world')
 Button::make('Delete')->action('delete')->param('id', '42'),
 ```
 
-### URL Buttons - кнопка-ссылка
+### URL Buttons (кнопка-ссылка)
 
 Определяют `url` и используются для открытия внешнего URL после нажатия:
 
@@ -66,7 +66,7 @@ Button::make('Delete')->action('delete')->param('id', '42'),
 Button::make('open')->url('https://test.it'),
 ```
 
-### Web App Buttons - кнопка веб-приложения
+### Web App Buttons (кнопка веб-приложения)
 
 Определяют для веб-приложения `url` и используются для открытия в Telegram Bot [Web App](https://core.telegram.org/bots/webapps)(веб-приложения):
 
@@ -74,21 +74,21 @@ Button::make('open')->url('https://test.it'),
 Button::make('open')->webApp('https://webapp.url.dev'),
 ```
 
-### Switch Inline Query Buttons - переключение встроенных запросов
+### Switch Inline Query Buttons (переключить встроенные кнопки запросов)
 
-Pressing the button will prompt the user to select one of their chats, 
-open that chat and insert the bot's username and the specified inline query 
-in the input field. The query text may be empty, in which case just the 
-bot's username will be inserted. (see `switch_inline_query` in [Telegram Bot docs](https://core.telegram.org/bots/api#inlinekeyboardbutton) for reference)
+Нажатие кнопки предложит пользователю выбрать один из своих чатов,
+откройте этот чат и вставьте имя бота и указанный встроенный запрос
+в поле ввода. Текст запроса может быть пустым, в этом случае будет вставлено 
+имя бота. (смотрите `switch_inline_query` в [Telegram Bot docs](https://core.telegram.org/bots/api#inlinekeyboardbutton))
 
 
 ```php
 Button::make('switch')->switchInlineQuery('foo'),
 ```
 
-Additionally, an inline query button may act for the current chat
-(so, would skip the destination chat prompt) only if `->currentChat()` method is added
-(see `switch_inline_query_current_chat` in [Telegram Bot docs](https://core.telegram.org/bots/api#inlinekeyboardbutton) for reference)
+Дополнительно, кнопки встроенных запросов могут выполняться для текущего чата
+(так, можно пропустить выбор чата) только если `->currentChat()` метод добавлен к кнопке
+(см. `switch_inline_query_current_chat` в [Telegram Bot docs](https://core.telegram.org/bots/api#inlinekeyboardbutton))
 
 ```php
 Button::make('switch')->switchInlineQuery('foo')->currentChat(),
@@ -117,10 +117,9 @@ $keyboard = Keyboard::make()
 
 ### по ширине кнопок
 
-Кнопкам задают дробное число, ко, указывающее процент занимаемого места. Кнопки будут
-A button relative width can be set using a float number the total width percentage to be taken. Buttons will flow through the rows according to their width
+Кнопкам задают дробное число [0..1], указывающее процент занимаемого места. Кнопки будут занимать лишь доступную ширину строки, но при превышении максимальной ширины строки - перенесутся.
 
-this example would define two buttons on the first row and a large button on the second one:
+например, объявим две кнопки в первой строке и большую кнопку по второй:
 
 ```php
 use DefStudio\Telegraph\Keyboard\Button;

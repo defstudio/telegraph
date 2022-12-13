@@ -11,7 +11,7 @@ Telegraph поддерживает разные типы вложений, на�
 
 ## Типы вложений
 
-### Photos - фотографии
+### Фотография
 
 Фотографии могут быть отправлены через Telegraph с помощью `->photo()` метода:
 
@@ -22,7 +22,7 @@ Telegraph::photo($telegramFileId)->send();
 ```
 
 
-### Vocal Messages - голосовые сообщения
+### Голосовое сообщение
 
 Голосовые сообщения могут быть отправлены через Telegraph с помощью `->voice()` метода:
 
@@ -33,7 +33,7 @@ Telegraph::voice($telegramFileId)->send();
 ```
 
 
-### Documents - документы
+### Документы
 
 Документы могут быть отправлены через Telegraph с помощью `->document()` метода:
 
@@ -43,7 +43,7 @@ Telegraph::document('https://my-repository/my_document.pdf')->send();
 Telegraph::document($telegramFileId)->send();
 ```
 
-### Location - GPS-местонахождение
+### GPS-местонахождение / Локация
 
 Местонахождение может быть отправлено через Telegraph с помощью `->location()` метода:
 
@@ -65,11 +65,11 @@ Telegraph::dice()->send();
 Telegraph::dice(\DefStudio\Telegraph\Enums\Emojis::SLOT_MACHINE)->send();
 ```
 
-## Options - настройки
+## Настройки
 
 Когда отправляете файлы - вам доступны некоторые настройки:
 
-### Html caption - HTML-описание
+### HTML-описание
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
@@ -77,10 +77,10 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
-<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+<alert type="alert">Изменить отправленное описание можно с помощью [editCaption](features/telegram-api-calls#editCaption)</alert>
 
 
-### Markdown caption - Markdown-описание
+### Markdown-описание
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
@@ -88,10 +88,10 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
-<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+<alert type="alert">Изменить отправленное описание можно с помощью [editCaption](features/telegram-api-calls#editCaption)</alert>
 
 
-### MarkdownV2 caption - MarkownV2 описание
+### MarkdownV2 описание
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
@@ -99,10 +99,10 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
-<alert type="alert">Sent attachment captions can be edited with the [editCaption](features/telegram-api-calls#editCaption) call</alert>
+<alert type="alert">Изменить отправленное описание можно с помощью [editCaption](features/telegram-api-calls#editCaption)</alert>
 
 
-### Without notification - без оповещений
+### Без оповещений
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
@@ -110,7 +110,7 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
-### Prevent sharing - безопасно отправить вложение
+### Безопасно отправить вложение. Запрет пересылок
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
@@ -118,7 +118,7 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
-### Reply to a message - ответить на сообщение
+### Ответить на сообщение
 
 ```php
 Telegraph::document(Storage::path('my_document.pdf'))
@@ -126,7 +126,7 @@ Telegraph::document(Storage::path('my_document.pdf'))
     ->send();
 ```
 
-### Attach a keyboard - прикрепить Keyboard
+### Прикрепить Keyboard. Клавиатура
 
 ```php
 Telegraph::document(Storage::path('brochure.pdf'))
@@ -134,7 +134,7 @@ Telegraph::document(Storage::path('brochure.pdf'))
     ->send();
 ```
 
-### Add a thumbnail - добавить изображение
+### Добавить изображение
 
 ```php
 Telegraph::document(Storage::path('brochure.pdf'))
