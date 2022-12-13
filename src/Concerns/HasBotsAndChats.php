@@ -26,43 +26,43 @@ use Illuminate\Support\Carbon;
  */
 trait HasBotsAndChats
 {
-    protected TelegraphBot|null $bot;
+    protected TelegraphBot|string|null $bot;
 
-    protected TelegraphChat|null $chat;
+    protected TelegraphChat|string|null $chat;
 
-    public function bot(TelegraphBot $bot): Telegraph
+    public function bot(TelegraphBot|string $bot): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->bot = $bot;
 
-        if (empty($telegraph->chat)) {
+        if (empty($telegraph->chat) && $bot instanceof TelegraphBot) {
             $telegraph->chat = rescue(fn () => $telegraph->bot->chats->sole(), report: false); //@phpstan-ignore-line
         }
 
         return $telegraph;
     }
 
-    public function chat(TelegraphChat $chat): Telegraph
+    public function chat(TelegraphChat|string $chat): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->chat = $chat;
 
-        if (empty($telegraph->bot)) {
-            $telegraph->bot = $telegraph->chat->bot;
+        if (empty($telegraph->bot) && $chat instanceof TelegraphChat) {
+            $telegraph->bot = $chat->bot;
         }
 
         return $telegraph;
     }
 
-    protected function getBotIfAvailable(): TelegraphBot|null
+    protected function getBotIfAvailable(): TelegraphBot|string|null
     {
         $telegraph = clone $this;
 
         if (empty($telegraph->bot)) {
-            /** @var TelegraphBot $bot */
-            $bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole(), null, false);
+            /** @var TelegraphBot|string $bot */
+            $bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole(), config('telegraph.bot_id'), false);
 
             $telegraph->bot = $bot;
         }
@@ -70,22 +70,26 @@ trait HasBotsAndChats
         return $telegraph->bot;
     }
 
-    protected function getBot(): TelegraphBot
+    protected function getBot(): TelegraphBot|string
     {
         $telegraph = clone $this;
 
         return $telegraph->getBotIfAvailable() ?? throw TelegraphException::missingBot();
     }
 
-    protected function getChatIfAvailable(): TelegraphChat|null
+    protected function getChatIfAvailable(): TelegraphChat|string|null
     {
         $telegraph = clone $this;
 
         if (empty($telegraph->chat)) {
-            /** @var TelegraphChat $chat */
-            $chat = rescue(fn () => $telegraph->getBotIfAvailable()?->chats()->sole(), null, false);
+            $bot = $telegraph->getBotIfAvailable();
 
-            $telegraph->chat = $chat;
+            if ($bot instanceof TelegraphBot) {
+                /** @var TelegraphChat|string $chat */
+                $chat = rescue(fn () => $bot?->chats()->sole(), config('telegraph.chat_id'), false);
+
+                $telegraph->chat = $chat;
+            }
         }
 
         if (empty($telegraph->chat)) {
@@ -98,7 +102,7 @@ trait HasBotsAndChats
         return $telegraph->chat;
     }
 
-    protected function getChat(): TelegraphChat
+    protected function getChat(): TelegraphChat|string
     {
         $telegraph = clone $this;
 
