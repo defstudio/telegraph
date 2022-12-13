@@ -44,7 +44,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?: string[]}>> $arrayKeyboard
+     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[]}>> $arrayKeyboard
      *
      * @return Keyboard
      */
@@ -75,6 +75,10 @@ class Keyboard implements Arrayable
 
                 if (array_key_exists("web_app", $button)) {
                     $rowButton = $rowButton->webApp($button['web_app']['url']);
+                }
+
+                if (array_key_exists("login_url", $button)) {
+                    $rowButton = $rowButton->loginUrl($button['login_url']['url']);
                 }
 
                 $rowButtons[] = $rowButton;

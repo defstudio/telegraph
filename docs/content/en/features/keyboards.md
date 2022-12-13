@@ -28,6 +28,7 @@ Telegraph::message('hello world')
         Button::make('Delete')->action('delete')->param('id', '42'),
         Button::make('open')->url('https://test.it'),
         Button::make('Web App')->webApp('https://web-app.test.it'),
+        Button::make('Login Url')->loginUrl('https://loginUrl.test.it'),
 ]))->send();
 ```
 
@@ -42,7 +43,8 @@ Telegraph::message('hello world')
     return $keyboard
         ->button('Delete')->action('delete')->param('id', '42')
         ->button('open')->url('https://test.it')
-        ->button('Web App')->webApp('https://web-app.test.it');
+        ->button('Web App')->webApp('https://web-app.test.it')
+        ->button('Login Url')->loginUrl('https://loginUrl.test.it');
 })->send();
 ```
 
@@ -72,6 +74,14 @@ Declare the web app `url` and are used to start a telegram bot [Web App](https:/
 
 ```php
 Button::make('open')->webApp('https://webapp.url.dev'),
+```
+
+### Login Url Buttons
+
+Declare the login `url` and are used to start a telegram widget [Login Url](https://core.telegram.org/widgets/login) :
+
+```php
+Button::make('open')->loginUrl('https://login.url.dev'),
 ```
 
 ### Switch Inline Query Buttons
@@ -130,6 +140,7 @@ $keyboard = Keyboard::make()
     ->button('Dismiss')->action('dismiss')->param('id', '42')->width(0.5)
     ->button('open')->url('https://test.it');
     ->button('open')->webApp('https://web-app.url.dev');
+    ->button('open')->loginUrl('https://login.url.dev');
 ```
 
 **notes**
