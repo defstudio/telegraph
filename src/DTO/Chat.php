@@ -14,7 +14,7 @@ class Chat implements Arrayable
     public const TYPE_SUPERGROUP = 'supergroup';
     public const TYPE_CHANNEL = 'channel';
 
-    private int $id;
+    private string $id;
     private string $type;
     private string $title;
 
@@ -23,7 +23,7 @@ class Chat implements Arrayable
     }
 
     /**
-     * @param array{id:int, type:string, title?:string, username?: string} $data
+     * @param array{id:string, type:string, title?:string, username?: string} $data
      */
     public static function fromArray(array $data): Chat
     {
@@ -36,7 +36,7 @@ class Chat implements Arrayable
         return $chat;
     }
 
-    public function id(): int
+    public function id(): string
     {
         return $this->id;
     }
