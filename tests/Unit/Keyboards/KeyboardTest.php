@@ -152,6 +152,7 @@ it('can quickly add buttons', function () {
         ->button('foo')->webApp('https://my-webapp.dev')
         ->button('switch')->switchInlineQuery('test')
         ->button('switch here')->switchInlineQuery('test 2')->currentChat()
+        ->button('foo')->loginUrl('https://my-loginUrl.dev')
         ->chunk(2);
 
     expect($keyboard->toArray())->toBe([
@@ -165,6 +166,7 @@ it('can quickly add buttons', function () {
         ],
         [
             ['text' => 'switch here', 'switch_inline_query_current_chat' => 'test 2'],
+            ['text' => 'foo', 'login_url' => ['url' => 'https://my-loginUrl.dev']],
         ],
     ]);
 });

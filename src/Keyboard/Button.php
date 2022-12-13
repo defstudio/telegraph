@@ -6,6 +6,9 @@ class Button
 {
     private string $url;
     private string $webAppUrl;
+
+    private string $loginUrl;
+
     private string $switchInlineQuery;
     private string $switchInlineQueryCurrentChat;
 
@@ -66,6 +69,13 @@ class Button
         return $this;
     }
 
+    public function loginUrl(string $url): static
+    {
+        $this->loginUrl = $url;
+
+        return $this;
+    }
+
     public function switchInlineQuery(string $switchInlineQuery = ''): static
     {
         $this->switchInlineQuery = $switchInlineQuery;
@@ -105,6 +115,15 @@ class Button
                 'text' => $this->label,
                 'web_app' => [
                     'url' => $this->webAppUrl,
+                ],
+            ];
+        }
+
+        if (isset($this->loginUrl)) {
+            return [
+                'text' => $this->label,
+                'login_url' => [
+                    'url' => $this->loginUrl,
                 ],
             ];
         }
