@@ -25,7 +25,7 @@ trait ComposesMessages
         $this->endpoint ??= self::ENDPOINT_MESSAGE;
 
         $this->data['text'] = $message;
-        $this->data['chat_id'] = $this->getChat()->chat_id;
+        $this->data['chat_id'] = $this->getChatId();
     }
 
     public function html(string $message = null): Telegraph
@@ -119,7 +119,7 @@ trait ComposesMessages
 
         $telegraph->endpoint = self::ENDPOINT_DELETE_MESSAGE;
         $telegraph->data = [
-            'chat_id' => $telegraph->getChat()->chat_id,
+            'chat_id' => $telegraph->getChatId(),
             'message_id' => $messageId,
         ];
 
