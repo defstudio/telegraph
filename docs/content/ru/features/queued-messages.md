@@ -1,13 +1,13 @@
 ---
-title: 'Queued Messages'
-menuTitle: 'Queued Messages'
-description: ''
-category: 'Features'
+title: 'Очереди Сообщений'
+menuTitle: 'Очереди сообщений'
+description: 'Сообщения можно выстраивать в очередь'
+category: 'Особенности'
 fullscreen: false 
 position: 35
 ---
 
-A `->dispatch()` method can be used to have Telegraph to interact with telegraph through the Laravel queue system:
+`->dispatch()` метод может использоваться в Telegraph для работы с Laravel системой очередей:
 
 
 ```php
@@ -15,4 +15,4 @@ Telegraph::message('hello')->dispatch();
 ```
 
 
-optionally a queue name can be hinted: `->dispatch('my queue')`
+дополнительно, очередь можно обозвать: `->dispatch('моя крутая очередь')`
