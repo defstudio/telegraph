@@ -13,5 +13,12 @@ export default theme({
     },
     buildModules: [
         ['@nuxtjs/google-analytics', {id: 'UA-211287441-1'}]
-    ]
+    ],
+    build: {
+        optimization: {
+            splitChunks: {
+                name: true
+            }
+        }
+    }
 });
