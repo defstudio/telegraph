@@ -20,10 +20,10 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
-        run: cd docs && yarn
+        run: cd docs && npm install
 
       - name: Generate
-        run: cd docs && yarn run generate
+        run: cd docs && npm run generate
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
