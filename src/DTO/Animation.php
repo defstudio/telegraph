@@ -11,13 +11,13 @@ class Animation implements Arrayable, Downloadable
 
     private int $width;
     private int $height;
-    private int $duration;
-    private int $filesize;
+    private ?int $duration = null;
+    private ?int $filesize = null;
 
-    private string $filename;
-    private string $mimeType;
+    private ?string $filename = null;
+    private ?string $mimeType = null;
 
-    private ?Photo $thumbnail;
+    private ?Photo $thumbnail = null;
 
     private function __construct()
     {
@@ -71,22 +71,22 @@ class Animation implements Arrayable, Downloadable
         return $this->height;
     }
 
-    public function duration(): int
+    public function duration(): ?int
     {
         return $this->duration;
     }
 
-    public function filesize(): int
+    public function filesize(): ?int
     {
         return $this->filesize;
     }
 
-    public function filename(): string
+    public function filename(): ?string
     {
         return $this->filename;
     }
 
-    public function mimeType(): string
+    public function mimeType(): ?string
     {
         return $this->mimeType;
     }
@@ -98,9 +98,9 @@ class Animation implements Arrayable, Downloadable
             'width' => $this->width,
             'height' => $this->height,
             'duration' => $this->duration,
-            'file_name' => $this->filename,
+            'filename' => $this->filename,
             'mime_type' => $this->mimeType,
-            'file_size' => $this->filesize,
+            'filesize' => $this->filesize,
             'thumbnail' => $this->thumbnail?->toArray(),
         ]);
     }

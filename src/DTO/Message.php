@@ -36,6 +36,7 @@ class Message implements Arrayable
 
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
+    private ?Animation $animation = null;
     private ?Audio $audio = null;
     private ?Document $document = null;
     private ?Video $video = null;
@@ -61,6 +62,7 @@ class Message implements Arrayable
      *     chat?: array<string, mixed>,
      *     reply_markup?: array<array<array<string>>>,
      *     reply_to_message?: array<string, mixed>,
+     *     animation?:array<string, mixed>,
      *     audio?:array<string, mixed>,
      *     voice?:array<string, mixed>,
      *     document?: array<string, mixed>,
@@ -117,6 +119,11 @@ class Message implements Arrayable
 
         /* @phpstan-ignore-next-line */
         $message->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
+
+        if (isset($data['animation'])) {
+            /* @phpstan-ignore-next-line */
+            $message->animation = Animation::fromArray($data['animation']);
+        }
 
         if (isset($data['audio'])) {
             /* @phpstan-ignore-next-line */
@@ -219,6 +226,11 @@ class Message implements Arrayable
         return $this->photos;
     }
 
+    public function animation(): ?Animation
+    {
+        return $this->animation;
+    }
+
     public function audio(): ?Audio
     {
         return $this->audio;
@@ -276,6 +288,7 @@ class Message implements Arrayable
             'keyboard' => $this->keyboard->isFilled() ? $this->keyboard->toArray() : null,
             'reply_to_message' => $this->replyToMessage?->toArray(),
             'photos' => $this->photos->toArray(),
+            'animation' => $this->animation?->toArray(),
             'audio' => $this->audio?->toArray(),
             'document' => $this->document?->toArray(),
             'video' => $this->video?->toArray(),

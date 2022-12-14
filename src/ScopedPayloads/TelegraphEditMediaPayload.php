@@ -47,4 +47,23 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
 
         return $telegraph;
     }
+
+    public function animation(string $path, string $filename = null): self
+    {
+        $telegraph = clone $this;
+
+        $this->attachAnimation($telegraph, $path, $filename);
+
+        $data = [
+            'type' => 'animation',
+            'media' => $telegraph->files->has('animation')
+                ? "attach://animation"
+                : $telegraph->data['animation'],
+        ];
+
+
+        $telegraph->data['media'] = json_encode($data);
+
+        return $telegraph;
+    }
 }

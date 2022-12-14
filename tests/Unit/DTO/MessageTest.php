@@ -71,6 +71,21 @@ it('export all properties to array', function () {
                     'file_size' => 42,
                 ],
             ],
+            'animation' => [
+                'file_id' => 99,
+                'width' => 10,
+                'height' => 20,
+                'duration' => 10,
+                'file_name' => 'name',
+                'mime_type' => 'type',
+                'file_size' => 20,
+                'thumb' => [
+                    'file_id' => 99,
+                    'width' => 1024,
+                    'height' => 768,
+                    'file_size' => 42,
+                ],
+            ],
             'audio' => [
                 'file_id' => 31,
                 'duration' => 666,
@@ -133,6 +148,21 @@ it('export all properties to array', function () {
         ],
         'photo' => [
             [
+                'file_id' => 99,
+                'width' => 1024,
+                'height' => 768,
+                'file_size' => 42,
+            ],
+        ],
+        'animation' => [
+            'file_id' => 99,
+            'width' => 10,
+            'height' => 20,
+            'duration' => 10,
+            'file_name' => 'name',
+            'mime_type' => 'type',
+            'file_size' => 20,
+            'thumb' => [
                 'file_id' => 99,
                 'width' => 1024,
                 'height' => 768,

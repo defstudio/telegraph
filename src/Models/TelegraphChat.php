@@ -191,6 +191,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->photo($path, $filename);
     }
 
+    public function animation(string $path, string $filename = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->animation($path, $filename);
+    }
+
     public function voice(string $path, string $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->voice($path, $filename);
