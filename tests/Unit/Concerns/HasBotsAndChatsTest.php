@@ -25,9 +25,25 @@ it('can customize the destination bot', function () {
     expect($telegraph->getApiUrl())->toStartWith("https://api.telegram.org/bot$bot->token/");
 });
 
+it('can customize the destination bot through its token', function () {
+    withfakeUrl();
+
+    $telegraph = Telegraph::bot('TOKEN')
+        ->registerWebhook();
+
+    expect($telegraph->getApiUrl())->toStartWith("https://api.telegram.org/botTOKEN/");
+});
+
 it('can customize the destination chat', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
+            ->html('foobar');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can customize the destination chat through its ID', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat("123456789")
             ->html('foobar');
     })->toMatchTelegramSnapshot();
 });
@@ -40,9 +56,24 @@ it('can retrieve bot info', function () {
     assertMatchesSnapshot($response->json('result'));
 });
 
+it('can retrieve bot info from its token', function () {
+    Telegraph::fake();
+    $response = Telegraph::bot("3f3814e1-5836-3d77-904e-60f64b15df36")->botInfo()->send();
+    assertMatchesSnapshot($response->json('result'));
+});
+
 it('can register commands', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->bot(make_bot())->registerBotCommands([
+            'foo' => 'first command',
+            'bar' => 'second command',
+        ]);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can register commands with token', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->bot("3f3814e1-5836-3d77-904e-60f64b15df36")->registerBotCommands([
             'foo' => 'first command',
             'bar' => 'second command',
         ]);
@@ -69,7 +100,7 @@ it('can send a chat action', function () {
 
 it('can change chat title', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        return $telegraph->chat(make_chat())->setTitle('foo');
+        return $telegraph->chat("-123456789")->setTitle('foo');
     })->toMatchTelegramSnapshot();
 });
 

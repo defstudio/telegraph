@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string getUrl()
- * @method static \DefStudio\Telegraph\Telegraph  bot(TelegraphBot $bot)
- * @method static \DefStudio\Telegraph\Telegraph  chat(TelegraphChat $chat)
+ * @method static \DefStudio\Telegraph\Telegraph  bot(TelegraphBot|string $bot)
+ * @method static \DefStudio\Telegraph\Telegraph  chat(TelegraphChat|string $chat)
  * @method static \DefStudio\Telegraph\Telegraph  message(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  html(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  reply(int $messageId)

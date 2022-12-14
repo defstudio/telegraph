@@ -36,7 +36,7 @@ trait StoresFiles
         $filePath = $response->json('result.file_path');
 
         $url = Str::of($this->getFilesBaseUrl())
-            ->append($this->getBot()->token)
+            ->append($this->getBotToken())
             ->append('/', $filePath);
 
         $response = Http::get($url);
