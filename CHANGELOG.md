@@ -2,6 +2,23 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.26.0 - 2022-12-14
+
+### What's Changed
+
+- Bump decode-uri-component from 0.2.0 to 0.2.2 in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/283
+- Change caption of button by @ChillMouse in https://github.com/defstudio/telegraph/pull/287
+- Issue #268 implement editMessageMedia method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/277
+- [feat] login_url for keyboards by @MarioGattolla in https://github.com/defstudio/telegraph/pull/291
+- [docs] added suggestion on contact verification by @ChillMouse in https://github.com/defstudio/telegraph/pull/286
+- [fix] chat_ids greater than 2147483647 in 32 bit systems by @evrard-c in https://github.com/defstudio/telegraph/pull/288
+
+### New Contributors
+
+- @ChillMouse made their first contribution in https://github.com/defstudio/telegraph/pull/287
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.24.4...v1.26.0
+
 ## v1.25.0 - 2022-12-07
 
 ### What's Changed
