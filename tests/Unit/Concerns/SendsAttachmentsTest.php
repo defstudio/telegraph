@@ -161,6 +161,12 @@ it('can send a photo', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can send an animation', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->animation(Storage::path('gif.gif')))
+        ->toMatchTelegramSnapshot();
+});
+
+
 it('requires a chat to send a photo', function () {
     TelegraphFacade::photo(Storage::path('photo.jpg'));
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
@@ -322,5 +328,12 @@ it('can edit a media messages with a document', function () {
     $document_path = 'www.documentUrl.com';
 
     expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->document($document_path))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can edit a media messages with an animation', function () {
+    $animation_path = 'www.animationUrl.com';
+
+    expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->animation($animation_path))
         ->toMatchTelegramSnapshot();
 });

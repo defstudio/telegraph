@@ -131,6 +131,7 @@ Starts a `Telegraph` call to edit a media messages with a new media content
 
 $telegraphChat->editMedia($messageId)->photo($path)->send();
 $telegraphChat->editMedia($messageId)->document($path)->send();
+$telegraphChat->editMedia($messageId)->animation($path)->send();
 ```
 
 ### `replaceKeyboard()`
@@ -517,4 +518,13 @@ An animated emoji attachment that will display a random value can be sent throug
 ```php
 /** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 $telegraphChat->dice()->send();
+```
+
+### `animation`
+
+An animation attachment can be sent through Telegraph `->animation()` method:
+
+```php
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+$telegraphChat->animation()->send();
 ```

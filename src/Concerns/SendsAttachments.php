@@ -97,6 +97,20 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function animation(string $path, string $filename = null): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_ANIMATION;
+
+        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+
+
+        $this->attachAnimation($telegraph, $path, $filename);
+
+        return $telegraph;
+    }
+
     public function document(string $path, string $filename = null): self
     {
         $telegraph = clone $this;
@@ -239,6 +253,23 @@ trait SendsAttachments
             $telegraph->files->put('photo', new Attachment($path, $filename));
         } else {
             $telegraph->data['photo'] = $path;
+            $telegraph->data['caption'] ??= '';
+        }
+    }
+
+    protected function attachAnimation(self $telegraph, string $path, ?string $filename): void
+    {
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_ANIMATION_SIZE_IN_MB) {
+                throw FileException::documentSizeExceeded($size);
+            }
+
+            $telegraph->files->put('animation', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['animation'] = $path;
+            $telegraph->data['duration'] ??= '';
+            $telegraph->data['width'] ??= '';
+            $telegraph->data['height'] ??= '';
             $telegraph->data['caption'] ??= '';
         }
     }

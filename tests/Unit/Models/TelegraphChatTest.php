@@ -174,6 +174,41 @@ it('can send a photo from file_id', function () {
     ]);
 });
 
+it('can send an animation', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->animation(Storage::path('gif.gif'))->markdown('test')->send();
+
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+        'animation' => new Attachment(Storage::path('gif.gif'), 'gif.gif'),
+    ]);
+});
+
+it('can send a animation from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->animation('https://test.dev/gif.gif')->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+        'animation' => 'https://test.dev/gif.gif',
+    ]);
+});
+
+it('can send a animation from file_id', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $uuid = Str::uuid();
+
+    $chat->animation($uuid)->markdown('test')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+        'animation' => $uuid,
+    ]);
+});
+
 it('can send a voice', function () {
     Telegraph::fake();
     $chat = make_chat();
@@ -237,6 +272,15 @@ it('can edit a media messages with a document', function () {
     $chat->editMedia(42)->document('www.newMediaUrl.com')->send();
 
     TelegraphEditMediaFake::assertSentEditMedia('document', 'www.newMediaUrl.com');
+});
+
+it('can edit a media messages with an animation', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editMedia(42)->animation('www.newMediaUrl.com')->send();
+
+    TelegraphEditMediaFake::assertSentEditMedia('animation', 'www.newMediaUrl.com');
 });
 
 it('can delete a message', function () {

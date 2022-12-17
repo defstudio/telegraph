@@ -24,9 +24,22 @@ Telegraph::photo($telegramFileId)->send();
 <alert type="alert">Sent Photos can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
 
 
+### Animations
+
+Animations can be sent through Telegraph `->animation()` method:
+
+```php
+Telegraph::animation(Storage::path('gif.gif'))->send();
+Telegraph::animation('https://my-repository/gif.gif')->send();
+Telegraph::animation($telegramFileId)->send();
+```
+
+<alert type="alert">Sent Animations can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
+
+
 ### Vocal Messages
 
-Photos can be sent through Telegraph `->voice()` method:
+Vocals can be sent through Telegraph `->voice()` method:
 
 ```php
 Telegraph::voice(Storage::path('voice.ogg'))->send();
@@ -46,6 +59,7 @@ Telegraph::document($telegramFileId)->send();
 ```
 
 <alert type="alert">Sent Documents can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
+
 
 ### Location
 

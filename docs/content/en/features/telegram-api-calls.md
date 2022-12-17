@@ -145,6 +145,7 @@ edits a media messages with a new media content
 ```php
 Telegraph::editMedia($messageId)->photo($path)->send();
 Telegraph::editMedia($messageId)->document($path)->send();
+Telegraph::editMedia($messageId)->animation($path)->send();
 ```
 
 ## getWebhookDebugInfo

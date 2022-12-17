@@ -38,6 +38,7 @@ class Telegraph
     use InteractWithUsers;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
+    public const MAX_ANIMATION_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
     public const MAX_PHOTO_HEIGHT_WIDTH_TOTAL = 10000;
     public const MAX_PHOTO_HEIGHT_WIDTH_RATIO = 20;
@@ -72,6 +73,7 @@ class Telegraph
     public const ENDPOINT_EDIT_CAPTION = 'editMessageCaption';
     public const ENDPOINT_EDIT_MEDIA = 'editMessageMedia';
     public const ENDPOINT_SEND_LOCATION = 'sendLocation';
+    public const ENDPOINT_SEND_ANIMATION = 'sendAnimation';
     public const ENDPOINT_SEND_VOICE = 'sendVoice';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
