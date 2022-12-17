@@ -40,6 +40,7 @@ trait InteractsWithTelegram
             $request
         );
 
+        /** @phpstan-ignore-next-line  */
         return $request->post($this->getApiUrl(), $this->prepareData());
     }
 

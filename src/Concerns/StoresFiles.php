@@ -7,6 +7,7 @@ namespace DefStudio\Telegraph\Concerns;
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Telegraph;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -39,6 +40,7 @@ trait StoresFiles
             ->append($this->getBot()->token)
             ->append('/', $filePath);
 
+        /** @var Response $response */
         $response = Http::get($url);
 
         if ($response->failed()) {
