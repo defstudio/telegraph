@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.27.0 - 2022-12-17
+
+### What's Changed
+
+- [feat] sendAnimation method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/295
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.26.2...v1.26.3
+
 ## v1.26.2 - 2022-12-14
 
 **Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.26.1...v1.26.2
