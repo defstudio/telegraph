@@ -59,7 +59,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_EDIT_MEDIA;
 
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['message_id'] = $messageId;
 
         return TelegraphEditMediaPayload::makeFrom($telegraph);
@@ -72,7 +72,7 @@ trait SendsAttachments
         $telegraph->endpoint = self::ENDPOINT_SEND_LOCATION;
         $telegraph->data['latitude'] = $latitude;
         $telegraph->data['longitude'] = $longitude;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
     }
@@ -83,7 +83,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_VOICE;
 
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         if (File::exists($path)) {
             $telegraph->files->put('voice', new Attachment($path, $filename));
@@ -117,7 +117,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_DOCUMENT;
 
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
 
         $this->attachDocument($telegraph, $path, $filename);
@@ -172,7 +172,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_PHOTO;
 
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         $this->attachPhoto($telegraph, $path, $filename);
 
@@ -223,7 +223,7 @@ trait SendsAttachments
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_DICE;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         if ($emoji !== null) {
             $telegraph->data['emoji'] = $emoji;

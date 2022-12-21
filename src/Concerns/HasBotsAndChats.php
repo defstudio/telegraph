@@ -26,43 +26,43 @@ use Illuminate\Support\Carbon;
  */
 trait HasBotsAndChats
 {
-    protected TelegraphBot|null $bot;
+    protected TelegraphBot|string|null $bot;
 
-    protected TelegraphChat|null $chat;
+    protected TelegraphChat|string|null $chat;
 
-    public function bot(TelegraphBot $bot): Telegraph
+    public function bot(TelegraphBot|string $bot): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->bot = $bot;
 
-        if (empty($telegraph->chat)) {
+        if (empty($telegraph->chat) && $bot instanceof TelegraphBot) {
             $telegraph->chat = rescue(fn () => $telegraph->bot->chats->sole(), report: false); //@phpstan-ignore-line
         }
 
         return $telegraph;
     }
 
-    public function chat(TelegraphChat $chat): Telegraph
+    public function chat(TelegraphChat|string $chat): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->chat = $chat;
 
-        if (empty($telegraph->bot)) {
-            $telegraph->bot = $telegraph->chat->bot;
+        if (empty($telegraph->bot) && $chat instanceof TelegraphChat) {
+            $telegraph->bot = $chat->bot;
         }
 
         return $telegraph;
     }
 
-    protected function getBotIfAvailable(): TelegraphBot|null
+    protected function getBotIfAvailable(): TelegraphBot|string|null
     {
         $telegraph = clone $this;
 
         if (empty($telegraph->bot)) {
-            /** @var TelegraphBot $bot */
-            $bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole(), null, false);
+            /** @var TelegraphBot|string $bot */
+            $bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole(), config('telegraph.bot_token'), false);
 
             $telegraph->bot = $bot;
         }
@@ -70,22 +70,35 @@ trait HasBotsAndChats
         return $telegraph->bot;
     }
 
-    protected function getBot(): TelegraphBot
+    protected function getBot(): TelegraphBot|string
     {
-        $telegraph = clone $this;
-
-        return $telegraph->getBotIfAvailable() ?? throw TelegraphException::missingBot();
+        return $this->getBotIfAvailable() ?? throw TelegraphException::missingBot();
     }
 
-    protected function getChatIfAvailable(): TelegraphChat|null
+    protected function getBotToken(): string
+    {
+        $bot = $this->getBot();
+
+        if ($bot instanceof TelegraphBot) {
+            return $bot->token;
+        }
+
+        return $bot;
+    }
+
+    protected function getChatIfAvailable(): TelegraphChat|string|null
     {
         $telegraph = clone $this;
 
         if (empty($telegraph->chat)) {
-            /** @var TelegraphChat $chat */
-            $chat = rescue(fn () => $telegraph->getBotIfAvailable()?->chats()->sole(), null, false);
+            $bot = $telegraph->getBotIfAvailable();
 
-            $telegraph->chat = $chat;
+            if ($bot instanceof TelegraphBot) {
+                /** @var TelegraphChat|string $chat */
+                $chat = rescue(fn () => $bot->chats()->sole(), config('telegraph.chat_id'), false);
+
+                $telegraph->chat = $chat;
+            }
         }
 
         if (empty($telegraph->chat)) {
@@ -98,11 +111,20 @@ trait HasBotsAndChats
         return $telegraph->chat;
     }
 
-    protected function getChat(): TelegraphChat
+    protected function getChat(): TelegraphChat|string
     {
-        $telegraph = clone $this;
+        return $this->getChatIfAvailable() ?? throw TelegraphException::missingChat();
+    }
 
-        return $telegraph->getChatIfAvailable() ?? throw TelegraphException::missingChat();
+    protected function getChatId(): string
+    {
+        $chat = $this->getChat();
+
+        if ($chat instanceof TelegraphChat) {
+            return $chat->chat_id;
+        }
+
+        return $chat;
     }
 
     public function leaveChat(): Telegraph
@@ -110,7 +132,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_LEAVE_CHAT;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
     }
@@ -180,7 +202,7 @@ trait HasBotsAndChats
         in_array($action, ChatActions::available_actions()) || throw TelegraphException::invalidChatAction($action);
 
         $telegraph->endpoint = self::ENDPOINT_SEND_CHAT_ACTION;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['action'] = $action;
 
         return $telegraph;
@@ -194,7 +216,7 @@ trait HasBotsAndChats
         strlen($title) < 256 || throw ChatSettingsException::titleMaxLengthExceeded();
 
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_TITLE;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['title'] = $title;
 
         return $telegraph;
@@ -207,7 +229,7 @@ trait HasBotsAndChats
         strlen($description) < 256 || throw ChatSettingsException::descriptionMaxLengthExceeded();
 
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_DESCRIPTION;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['description'] = $description;
 
         return $telegraph;
@@ -218,7 +240,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_PHOTO;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         File::exists($path) || throw FileException::fileNotFound('photo', $path);
 
@@ -247,7 +269,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_DELETE_CHAT_PHOTO;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
     }
@@ -257,7 +279,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_GET_CHAT_INFO;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
     }
@@ -276,7 +298,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_EXPORT_CHAT_INVITE_LINK;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
     }
@@ -286,7 +308,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_CREATE_CHAT_INVITE_LINK;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
     }
@@ -332,7 +354,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_EDIT_CHAT_INVITE_LINK;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['invite_link'] = $link;
 
         return $telegraph;
@@ -343,7 +365,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_REVOKE_CHAT_INVITE_LINK;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['invite_link'] = $link;
 
         return $telegraph;
@@ -354,7 +376,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_GET_CHAT_MEMBER_COUNT;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
     }
@@ -364,7 +386,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_GET_CHAT_MEMBER;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
 
         return $telegraph;
@@ -378,7 +400,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_PERMISSIONS;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         $permissions = collect($permissions)
             ->mapWithKeys(
@@ -397,7 +419,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_BAN_CHAT_MEMBER;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
 
         return $telegraph;
@@ -426,7 +448,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_UNBAN_CHAT_MEMBER;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
         $telegraph->data['only_if_banned'] = true;
 
@@ -441,7 +463,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_RESTRICT_CHAT_MEMBER;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
 
         /** @var array<string, bool> $permissions */
@@ -466,7 +488,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_PROMOTE_CHAT_MEMBER;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
 
         /** @var array<string, bool> $permissions */
@@ -489,7 +511,7 @@ trait HasBotsAndChats
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_PROMOTE_CHAT_MEMBER;
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
 
         $permissions = collect(ChatAdminPermissions::available_permissions())
