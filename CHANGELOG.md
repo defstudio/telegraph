@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.28.0 - 2022-12-21
+
+### What's Changed
+
+- [feat] Model-less mode by @fabio-ivona in https://github.com/defstudio/telegraph/pull/294
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.27.0...v1.28.0
+
 ## v1.27.0 - 2022-12-17
 
 ### What's Changed
