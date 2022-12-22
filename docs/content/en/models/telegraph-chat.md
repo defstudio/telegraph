@@ -132,6 +132,7 @@ Starts a `Telegraph` call to edit a media messages with a new media content
 $telegraphChat->editMedia($messageId)->photo($path)->send();
 $telegraphChat->editMedia($messageId)->document($path)->send();
 $telegraphChat->editMedia($messageId)->animation($path)->send();
+$telegraphChat->editMedia($messageId)->video($path)->send();
 ```
 
 ### `replaceKeyboard()`
@@ -527,4 +528,13 @@ An animation attachment can be sent through Telegraph `->animation()` method:
 ```php
 /** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 $telegraphChat->animation()->send();
+```
+
+### `video`
+
+A video attachment can be sent through Telegraph `->video()` method:
+
+```php
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+$telegraphChat->video()->send();
 ```
