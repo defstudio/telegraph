@@ -103,10 +103,24 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_ANIMATION;
 
-        $telegraph->data['chat_id'] = $telegraph->getChat()->chat_id;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
 
 
         $this->attachAnimation($telegraph, $path, $filename);
+
+        return $telegraph;
+    }
+
+    public function video(string $path, string $filename = null): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_VIDEO;
+
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+
+        $this->attachVideo($telegraph, $path, $filename);
 
         return $telegraph;
     }
@@ -271,6 +285,30 @@ trait SendsAttachments
             $telegraph->data['width'] ??= '';
             $telegraph->data['height'] ??= '';
             $telegraph->data['caption'] ??= '';
+        }
+    }
+
+    protected function attachVideo(self $telegraph, string $path, ?string $filename): void
+    {
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_VIDEO_SIZE_IN_MB) {
+                throw FileException::documentSizeExceeded($size);
+            }
+
+            $telegraph->files->put('video', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['video'] = $path;
+            $telegraph->data['duration'] ??= '';
+            $telegraph->data['width'] ??= '';
+            $telegraph->data['height'] ??= '';
+            $telegraph->data['thumb'] ??= '';
+            $telegraph->data['caption'] ??= '';
+            $telegraph->data['parse_mode'] ??= '';
+            $telegraph->data['supports_streaming'] ??= 'false';
+            $telegraph->data['disable_notification'] ??= 'false';
+            $telegraph->data['protect_content'] ??= 'false';
+            $telegraph->data['reply_to_message_id'] ??= '';
+            $telegraph->data['allow_sending_without_reply'] ??= 'false';
         }
     }
 

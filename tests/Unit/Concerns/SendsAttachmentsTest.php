@@ -166,6 +166,11 @@ it('can send an animation', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can send aa video', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->video(Storage::path('video.mp4')))
+        ->toMatchTelegramSnapshot();
+});
+
 
 it('requires a chat to send a photo', function () {
     TelegraphFacade::photo(Storage::path('photo.jpg'));
@@ -335,5 +340,12 @@ it('can edit a media messages with an animation', function () {
     $animation_path = 'www.animationUrl.com';
 
     expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->animation($animation_path))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can edit a media messages with a video', function () {
+    $video_path = 'www.videoUrl.com';
+
+    expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->video($video_path))
         ->toMatchTelegramSnapshot();
 });

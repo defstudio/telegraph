@@ -39,6 +39,7 @@ class Telegraph
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_ANIMATION_SIZE_IN_MB = 50;
+    public const MAX_VIDEO_SIZE_IN_MB = 50;
     public const MAX_PHOTO_SIZE_IN_MB = 10;
     public const MAX_PHOTO_HEIGHT_WIDTH_TOTAL = 10000;
     public const MAX_PHOTO_HEIGHT_WIDTH_RATIO = 20;
@@ -78,6 +79,7 @@ class Telegraph
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
     public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
+    public const ENDPOINT_SEND_VIDEO = 'sendVideo';
     public const ENDPOINT_GET_FILE = 'getFile';
     public const ENDPOINT_ANSWER_INLINE_QUERY = 'answerInlineQuery';
     public const ENDPOINT_SET_CHAT_TITLE = 'setChatTitle';

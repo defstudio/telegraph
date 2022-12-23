@@ -37,6 +37,19 @@ Telegraph::animation($telegramFileId)->send();
 <alert type="alert">Sent Animations can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
 
 
+### Video
+
+Videos can be sent through Telegraph `->video()` method:
+
+```php
+Telegraph::video(Storage::path('video.mp4'))->send();
+Telegraph::video('https://my-repository/video.mp4')->send();
+Telegraph::video($telegramFileId)->send();
+```
+
+<alert type="alert">Sent Videos can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
+
+
 ### Vocal Messages
 
 Vocals can be sent through Telegraph `->voice()` method:
