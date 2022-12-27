@@ -206,6 +206,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->voice($path, $filename);
     }
 
+    public function contact(string $phoneNumber, string $firstName,  string $lastName = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->contact($phoneNumber, $firstName, $lastName);
+    }
+
     public function setBaseUrl(string|null $url): Telegraph
     {
         return TelegraphFacade::chat($this)->setBaseUrl($url);

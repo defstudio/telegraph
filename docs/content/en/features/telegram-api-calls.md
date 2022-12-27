@@ -165,6 +165,16 @@ sends a location attachment
 Telegraph::location(12.345, -54.321)->send();
 ```
 
+### Contact
+
+sens a contact attachment
+
+```php
+Telegraph::contact('3331122111', 'firstName', 'lastName')->send();
+```
+
+Last name is an optional parameter.
+
 ## markdown
 
 compose a new telegram message (parsed as markdown)

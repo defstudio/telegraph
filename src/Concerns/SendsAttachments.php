@@ -77,6 +77,19 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function contact(string $phoneNumber, string $firstName, string $lastName = null): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_CONTACT  ;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['phone_number'] = $phoneNumber;
+        $telegraph->data['first_name'] = $firstName;
+        $telegraph->data['last_name'] = $lastName ?: '';
+
+        return $telegraph;
+    }
+
     public function voice(string $path, string $filename = null): self
     {
         $telegraph = clone $this;

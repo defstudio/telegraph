@@ -156,6 +156,11 @@ it('can send a location message', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can send a contact', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->contact('3331122333', 'testFirstName', 'testLastName'))
+        ->toMatchTelegramSnapshot();
+});
+
 it('can send a photo', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg')))
         ->toMatchTelegramSnapshot();

@@ -82,6 +82,16 @@ A location attachment can be sent through Telegraph `->location()` method:
 Telegraph::location(12.345, -54.321)->send();
 ```
 
+### Contact
+
+A contact attachment can be sent through Telegraph `->contact()` method:
+
+```php
+Telegraph::contact('3331122111', 'firstName', 'lastName')->send();
+```
+
+Last name is an optional parameter. 
+
 ### Dice
 
 An animated emoji attachment that will display a random value can be sent through Telegraph `->dice()` method:
