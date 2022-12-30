@@ -9,12 +9,10 @@
 namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
 use DefStudio\Telegraph\Concerns\FakesRequests;
-use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Telegraph;
-use Illuminate\Support\Arr;
 use PHPUnit\Framework\Assert;
 
 class TelegraphFake extends Telegraph
@@ -42,6 +40,7 @@ class TelegraphFake extends Telegraph
     public function animation(string $path, string $filename = null): AnimationPayload
     {
         app()->bind(AnimationPayload::class, AnimationPayloadFake::class);
+
         return parent::animation($path, $filename);
     }
 

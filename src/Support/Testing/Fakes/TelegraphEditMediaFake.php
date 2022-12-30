@@ -30,6 +30,7 @@ class TelegraphEditMediaFake extends TelegraphEditMediaPayload
     public function animation(string $path, string $filename = null): AnimationPayload
     {
         app()->bind(AnimationPayload::class, AnimationPayloadFake::class);
+
         return parent::animation($path, $filename);
     }
 

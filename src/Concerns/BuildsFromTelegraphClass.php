@@ -2,7 +2,6 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
-use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake;
 use DefStudio\Telegraph\Telegraph;
 use ReflectionClass;
 
