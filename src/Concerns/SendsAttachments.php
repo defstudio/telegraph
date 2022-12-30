@@ -8,6 +8,7 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Exceptions\FileException;
+use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphEditMediaPayload;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\File;
@@ -97,7 +98,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function animation(string $path, string $filename = null): self
+    public function animation(string $path, string $filename = null): AnimationPayload
     {
         $telegraph = clone $this;
 
@@ -108,7 +109,7 @@ trait SendsAttachments
 
         $this->attachAnimation($telegraph, $path, $filename);
 
-        return $telegraph;
+        return AnimationPayload::makeFrom($telegraph);
     }
 
     public function video(string $path, string $filename = null): self

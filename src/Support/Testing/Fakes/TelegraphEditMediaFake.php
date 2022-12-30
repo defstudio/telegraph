@@ -10,6 +10,7 @@ namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
 use DefStudio\Telegraph\Concerns\FakesRequests;
 
+use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphEditMediaPayload;
 use DefStudio\Telegraph\Telegraph;
 
@@ -24,6 +25,12 @@ class TelegraphEditMediaFake extends TelegraphEditMediaPayload
     {
         parent::__construct();
         $this->replies = $replies;
+    }
+
+    public function animation(string $path, string $filename = null): AnimationPayload
+    {
+        app()->bind(AnimationPayload::class, AnimationPayloadFake::class);
+        return parent::animation($path, $filename);
     }
 
     public static function assertSentEditMedia(string $type, string $media): void

@@ -10,6 +10,7 @@ namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
 use DefStudio\Telegraph\Concerns\FakesRequests;
 use DefStudio\Telegraph\DTO\Attachment;
+use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Telegraph;
@@ -38,6 +39,12 @@ class TelegraphFake extends Telegraph
         return $fake;
     }
 
+    public function animation(string $path, string $filename = null): AnimationPayload
+    {
+        app()->bind(AnimationPayload::class, AnimationPayloadFake::class);
+        return parent::animation($path, $filename);
+    }
+
     public function poll(string $question): TelegraphPollPayload
     {
         $fake = new TelegraphPollFake($this->replies);
@@ -57,46 +64,6 @@ class TelegraphFake extends Telegraph
         $fake->data['type'] = 'quiz';
 
         return $fake;
-    }
-
-    /**
-     * @param array<string, Attachment> $expectedFiles
-     */
-    public function assertSentFiles(string $endpoint, array $expectedFiles = []): void
-    {
-        $foundMessages = collect(self::$sentMessages);
-
-        $foundMessages = $foundMessages
-            ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
-            ->filter(function (array $message) use ($expectedFiles): bool {
-                foreach ($expectedFiles as $key => $expectedFile) {
-                    /** @var array<string, Attachment> $sentFiles */
-                    $sentFiles = $message['files'];
-
-                    if (!Arr::has($sentFiles, $key)) {
-                        return false;
-                    }
-
-                    if ($expectedFile->filename() !== $sentFiles[$key]->filename()) {
-                        return false;
-                    }
-
-                    if ($expectedFile->contents() !== $sentFiles[$key]->contents()) {
-                        return false;
-                    }
-                }
-
-                return true;
-            });
-
-
-        if ($foundMessages == null) {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
-        } else {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given files (sent %d requests so far)", $endpoint, count(self::$sentMessages));
-        }
-
-        Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
     }
 
     public function assertStoredFile(string $fileId): void

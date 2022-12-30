@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake;
 use DefStudio\Telegraph\Telegraph;
 use ReflectionClass;
 
@@ -9,7 +10,7 @@ trait BuildsFromTelegraphClass
 {
     public static function makeFrom(Telegraph $telegraph): self
     {
-        $newInstance = new self();
+        $newInstance = app(self::class);
 
         $reflection = new ReflectionClass($telegraph);
         $properties = $reflection->getProperties();
@@ -19,6 +20,9 @@ trait BuildsFromTelegraphClass
             $property->setAccessible(true);
 
             if ($property->isInitialized($telegraph)) {
+                if ($property->isStatic()) {
+                    continue;
+                }
                 $newInstance->$propertyName = $property->getValue($telegraph);
             }
         }

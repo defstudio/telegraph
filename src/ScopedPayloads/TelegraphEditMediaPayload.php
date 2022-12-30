@@ -5,8 +5,9 @@
 namespace DefStudio\Telegraph\ScopedPayloads;
 
 use DefStudio\Telegraph\Concerns\BuildsFromTelegraphClass;
+use DefStudio\Telegraph\Telegraph;
 
-class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
+class TelegraphEditMediaPayload extends Telegraph
 {
     use BuildsFromTelegraphClass;
 
@@ -48,7 +49,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
         return $telegraph;
     }
 
-    public function animation(string $path, string $filename = null): self
+    public function animation(string $path, string $filename = null): AnimationPayload
     {
         $telegraph = clone $this;
 
@@ -64,7 +65,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
 
         $telegraph->data['media'] = json_encode($data);
 
-        return $telegraph;
+        return AnimationPayload::makeFrom($telegraph);
     }
 
     public function video(string $path, string $filename = null): self

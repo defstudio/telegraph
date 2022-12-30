@@ -5,6 +5,7 @@
 namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\Contracts\Downloadable;
+use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Telegraph;
 use GuzzleHttp\Psr7\BufferStream;
 use Illuminate\Foundation\Bus\PendingDispatch;
@@ -292,6 +293,46 @@ trait FakesRequests
             $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
         } else {
             $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+        }
+
+        Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
+    }
+
+    /**
+     * @param array<string, Attachment> $expectedFiles
+     */
+    public static function assertSentFiles(string $endpoint, array $expectedFiles = []): void
+    {
+        $foundMessages = collect(self::$sentMessages);
+
+        $foundMessages = $foundMessages
+            ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
+            ->filter(function (array $message) use ($expectedFiles): bool {
+                foreach ($expectedFiles as $key => $expectedFile) {
+                    /** @var array<string, Attachment> $sentFiles */
+                    $sentFiles = $message['files'];
+
+                    if (!Arr::has($sentFiles, $key)) {
+                        return false;
+                    }
+
+                    if ($expectedFile->filename() !== $sentFiles[$key]->filename()) {
+                        return false;
+                    }
+
+                    if ($expectedFile->contents() !== $sentFiles[$key]->contents()) {
+                        return false;
+                    }
+                }
+
+                return true;
+            });
+
+
+        if ($foundMessages == null) {
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+        } else {
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given files (sent %d requests so far)", $endpoint, count(self::$sentMessages));
         }
 
         Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);

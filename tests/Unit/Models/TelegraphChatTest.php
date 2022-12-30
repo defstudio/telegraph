@@ -10,6 +10,7 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Support\Testing\Fakes\AnimationPayloadFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphEditMediaFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphPollFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphQuizFake;
@@ -180,7 +181,7 @@ it('can send an animation', function () {
 
     $chat->animation(Storage::path('gif.gif'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+    AnimationPayloadFake::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => new Attachment(Storage::path('gif.gif'), 'gif.gif'),
     ]);
 });
@@ -191,7 +192,7 @@ it('can send a animation from remote url', function () {
 
     $chat->animation('https://test.dev/gif.gif')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+    AnimationPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => 'https://test.dev/gif.gif',
     ]);
 });
@@ -204,7 +205,7 @@ it('can send a animation from file_id', function () {
 
     $chat->animation($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+    AnimationPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => $uuid,
     ]);
 });
@@ -315,7 +316,12 @@ it('can edit a media messages with an animation', function () {
 
     $chat->editMedia(42)->animation('www.newMediaUrl.com')->send();
 
-    TelegraphEditMediaFake::assertSentEditMedia('animation', 'www.newMediaUrl.com');
+    AnimationPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_MEDIA, [
+        "media" => json_encode([
+            'type' => 'animation',
+            'media' => 'www.newMediaUrl.com',
+        ]),
+    ]);
 });
 
 it('can edit a media messages with a video', function () {
