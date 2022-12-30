@@ -86,6 +86,7 @@ trait SendsAttachments
         $telegraph->data['phone_number'] = $phoneNumber;
         $telegraph->data['first_name'] = $firstName;
         $telegraph->data['last_name'] = $lastName ?: '';
+        $telegraph->data['vcard'] ??= '';
 
         return $telegraph;
     }
