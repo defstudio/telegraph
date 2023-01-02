@@ -121,7 +121,7 @@ trait SendsAttachments
 
         $this->attachAnimation($telegraph, $path, $filename);
 
-       return AnimationPayload::makeFrom($telegraph);
+        return AnimationPayload::makeFrom($telegraph);
     }
 
     public function video(string $path, string $filename = null): self
