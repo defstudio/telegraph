@@ -30,7 +30,7 @@ contains incoming data (a message or a callback query)
 - `->keyboard()` (optional) an instance of [`DefStudio\Telegraph\Keyboard\Keyboard`](feature/keyboards) holding the message inline keyboard
 - `->replyToMessage()` (optional) an instance of the original [`DefStudio\Telegraph\DTO\Message`](webhooks/dto#defstudio-telegraph-dto-message) that the current message is replying 
 - `->photos()` (optional) a collection of [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained image resolutions
-
+- `->animation()` (optional) an instance of [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-animation) holding data about the contained animation
 - `->audio()` (optional) an instance of [`DefStudio\Telegraph\DTO\Audio`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained audio
 - `->document()` (optional) an instance of [`DefStudio\Telegraph\DTO\Document`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained document
 - `->video()` (optional) an instance of [`DefStudio\Telegraph\DTO\Video`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained video
@@ -68,6 +68,17 @@ contains incoming data (a message or a callback query)
 - `->filename()` (optional) audio file name
 - `->mimeType()` (optional) audio MIME type
 - `->filesize()` (optional) audio file size in Bytes
+- `->thumbnail()` (optional) an instance of the [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) that holds data about the thumbnail
+
+## `DefStudio\Telegraph\DTO\Animation`
+
+- `->id()` file ID
+- `->width()` animation width
+- `->height()` animation height
+- `->duration()` animation duration
+- `->filename()` (optional) animation file name
+- `->mimeType()` (optional) animation MIME type
+- `->filesize()` (optional) animation file size in Bytes
 - `->thumbnail()` (optional) an instance of the [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) that holds data about the thumbnail
 
 ## `DefStudio\Telegraph\DTO\Document`
