@@ -185,6 +185,18 @@ it('can send an animation', function () {
     ]);
 });
 
+it('can send a contact', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->contact('3331122333', 'testFirstName')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CONTACT, [
+        'phone_number' => '3331122333',
+        'first_name' => 'testFirstName',
+    ], false);
+});
+
 it('can send a animation from remote url', function () {
     Telegraph::fake();
     $chat = make_chat();
