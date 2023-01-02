@@ -77,7 +77,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function contact(string $phoneNumber, string $firstName, string $lastName = null): self
+    public function contact(string $phoneNumber, string $firstName): self
     {
         $telegraph = clone $this;
 
@@ -85,8 +85,6 @@ trait SendsAttachments
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['phone_number'] = $phoneNumber;
         $telegraph->data['first_name'] = $firstName;
-        $telegraph->data['last_name'] = $lastName ?: '';
-        $telegraph->data['vcard'] ??= '';
 
         return $telegraph;
     }

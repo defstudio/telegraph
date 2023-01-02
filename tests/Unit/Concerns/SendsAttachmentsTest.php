@@ -157,7 +157,7 @@ it('can send a location message', function () {
 });
 
 it('can send a contact', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->contact('3331122333', 'testFirstName', 'testLastName'))
+    expect(fn (Telegraph $telegraph) => $telegraph->contact('3331122333', 'testFirstName'))
         ->toMatchTelegramSnapshot();
 });
 

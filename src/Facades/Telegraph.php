@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  animation(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  voice(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  location(float $latitude, float $longitude)
- * @method static \DefStudio\Telegraph\Telegraph  contact(string $phoneNumber, string $firstName, string $lastName = null)
+ * @method static \DefStudio\Telegraph\Telegraph  contact(string $phoneNumber, string $firstName)
  * @method static \DefStudio\Telegraph\Telegraph  video(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  dice()
  * @method static \DefStudio\Telegraph\Telegraph  botUpdates()

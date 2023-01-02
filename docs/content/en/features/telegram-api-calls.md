@@ -170,10 +170,8 @@ Telegraph::location(12.345, -54.321)->send();
 sens a contact attachment
 
 ```php
-Telegraph::contact('3331122111', 'firstName', 'lastName')->send();
+Telegraph::contact('3331122111', 'firstName')->send();
 ```
-
-Last name is an optional parameter.
 
 ## markdown
 
