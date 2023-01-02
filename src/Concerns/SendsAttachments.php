@@ -119,10 +119,9 @@ trait SendsAttachments
 
         $telegraph->data['chat_id'] = $telegraph->getChatId();
 
-
         $this->attachAnimation($telegraph, $path, $filename);
 
-        return AnimationPayload::makeFrom($telegraph);
+       return AnimationPayload::makeFrom($telegraph);
     }
 
     public function video(string $path, string $filename = null): self
@@ -149,15 +148,6 @@ trait SendsAttachments
 
 
         $this->attachDocument($telegraph, $path, $filename);
-
-        return $telegraph;
-    }
-
-    public function withoutContentTypeDetection(): self
-    {
-        $telegraph = clone $this;
-
-        $telegraph->data['disable_content_type_detection'] = 1;
 
         return $telegraph;
     }
@@ -295,10 +285,6 @@ trait SendsAttachments
             $telegraph->files->put('animation', new Attachment($path, $filename));
         } else {
             $telegraph->data['animation'] = $path;
-            $telegraph->data['duration'] ??= '';
-            $telegraph->data['width'] ??= '';
-            $telegraph->data['height'] ??= '';
-            $telegraph->data['caption'] ??= '';
         }
     }
 

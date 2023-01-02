@@ -5,7 +5,7 @@ namespace DefStudio\Telegraph\ScopedPayloads;
 use DefStudio\Telegraph\Concerns\BuildsFromTelegraphClass;
 use DefStudio\Telegraph\Telegraph;
 
-class AnimationPayload extends Telegraph
+class VideoPayload extends Telegraph
 {
     use BuildsFromTelegraphClass;
 
@@ -59,6 +59,15 @@ class AnimationPayload extends Telegraph
         $telegraph = clone $this;
 
         $telegraph->data['has_spoiler'] = true;
+
+        return $telegraph;
+    }
+
+    public function streamable(): static
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['supports_streaming'] = true;
 
         return $telegraph;
     }

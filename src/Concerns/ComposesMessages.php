@@ -94,6 +94,24 @@ trait ComposesMessages
         return $telegraph;
     }
 
+    public function thread(int $messageId): static
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['message_thread_id'] = $messageId;
+
+        return $telegraph;
+    }
+
+    public function withoutReply(): static
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['allow_sending_without_reply'] = true;
+
+        return $telegraph;
+    }
+
     public function withoutPreview(): Telegraph
     {
         $telegraph = clone $this;

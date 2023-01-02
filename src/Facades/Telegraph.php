@@ -6,6 +6,7 @@ use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake;
@@ -39,7 +40,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  answerInlineQuery(string $inlineQueryID, array $results)
  * @method static \DefStudio\Telegraph\Telegraph  document(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  photo(string $path, string $filename = null)
- * @method static \DefStudio\Telegraph\Telegraph  animation(string $path, string $filename = null)
+ * @method static AnimationPayload  animation(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  voice(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  location(float $latitude, float $longitude)
  * @method static \DefStudio\Telegraph\Telegraph  contact(string $phoneNumber, string $firstName)
