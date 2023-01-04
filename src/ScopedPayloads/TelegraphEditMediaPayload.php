@@ -11,7 +11,7 @@ class TelegraphEditMediaPayload extends Telegraph
 {
     use BuildsFromTelegraphClass;
 
-    public function photo(string $path, string $filename = null): self
+    public function photo(string $path, string $filename = null): PhotoPayload
     {
         $telegraph = clone $this;
 
@@ -27,10 +27,10 @@ class TelegraphEditMediaPayload extends Telegraph
 
         $telegraph->data['media'] = json_encode($data);
 
-        return $telegraph;
+        return PhotoPayload::makeFrom($telegraph);
     }
 
-    public function document(string $path, string $filename = null): self
+    public function document(string $path, string $filename = null): DocumentPayload
     {
         $telegraph = clone $this;
 
@@ -46,7 +46,7 @@ class TelegraphEditMediaPayload extends Telegraph
 
         $telegraph->data['media'] = json_encode($data);
 
-        return $telegraph;
+        return DocumentPayload::makeFrom($telegraph);
     }
 
     public function animation(string $path, string $filename = null): AnimationPayload
@@ -68,7 +68,7 @@ class TelegraphEditMediaPayload extends Telegraph
         return AnimationPayload::makeFrom($telegraph);
     }
 
-    public function video(string $path, string $filename = null): self
+    public function video(string $path, string $filename = null): VideoPayload
     {
         $telegraph = clone $this;
 
@@ -84,6 +84,6 @@ class TelegraphEditMediaPayload extends Telegraph
 
         $telegraph->data['media'] = json_encode($data);
 
-        return $telegraph;
+        return VideoPayload::makeFrom($telegraph);
     }
 }

@@ -9,15 +9,6 @@ class DocumentPayload extends Telegraph
 {
     use BuildsFromTelegraphClass;
 
-    public function thumb(string $thumb): static
-    {
-        $telegraph = clone $this;
-
-        $telegraph->data['thumb'] = $thumb;
-
-        return $telegraph;
-    }
-
     public function caption(string $caption): static
     {
         $telegraph = clone $this;

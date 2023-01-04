@@ -9,7 +9,14 @@ namespace DefStudio\Telegraph\Concerns;
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
+use DefStudio\Telegraph\ScopedPayloads\ContactPayload;
+use DefStudio\Telegraph\ScopedPayloads\DicePayload;
+use DefStudio\Telegraph\ScopedPayloads\DocumentPayload;
+use DefStudio\Telegraph\ScopedPayloads\LocationPayload;
+use DefStudio\Telegraph\ScopedPayloads\PhotoPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphEditMediaPayload;
+use DefStudio\Telegraph\ScopedPayloads\VideoPayload;
+use DefStudio\Telegraph\ScopedPayloads\VoicePayload;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -67,7 +74,7 @@ trait SendsAttachments
         return TelegraphEditMediaPayload::makeFrom($telegraph);
     }
 
-    public function location(float $latitude, float $longitude): self
+    public function location(float $latitude, float $longitude): LocationPayload
     {
         $telegraph = clone $this;
 
@@ -76,10 +83,10 @@ trait SendsAttachments
         $telegraph->data['longitude'] = $longitude;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
 
-        return $telegraph;
+        return LocationPayload::makeFrom($telegraph);
     }
 
-    public function contact(string $phoneNumber, string $firstName): self
+    public function contact(string $phoneNumber, string $firstName): ContactPayload
     {
         $telegraph = clone $this;
 
@@ -88,10 +95,10 @@ trait SendsAttachments
         $telegraph->data['phone_number'] = $phoneNumber;
         $telegraph->data['first_name'] = $firstName;
 
-        return $telegraph;
+        return ContactPayload::makeFrom($telegraph);
     }
 
-    public function voice(string $path, string $filename = null): self
+    public function voice(string $path, string $filename = null): VoicePayload
     {
         $telegraph = clone $this;
 
@@ -102,13 +109,12 @@ trait SendsAttachments
         if (File::exists($path)) {
             $telegraph->files->put('voice', new Attachment($path, $filename));
 
-            return $telegraph;
+            return VoicePayload::makeFrom($telegraph);
         }
 
         $telegraph->data['voice'] = $path;
-        $telegraph->data['caption'] ??= '';
 
-        return $telegraph;
+        return VoicePayload::makeFrom($telegraph);
     }
 
     public function animation(string $path, string $filename = null): AnimationPayload
@@ -124,7 +130,7 @@ trait SendsAttachments
        return AnimationPayload::makeFrom($telegraph);
     }
 
-    public function video(string $path, string $filename = null): self
+    public function video(string $path, string $filename = null): VideoPayload
     {
         $telegraph = clone $this;
 
@@ -135,10 +141,10 @@ trait SendsAttachments
 
         $this->attachVideo($telegraph, $path, $filename);
 
-        return $telegraph;
+        return VideoPayload::makeFrom($telegraph);
     }
 
-    public function document(string $path, string $filename = null): self
+    public function document(string $path, string $filename = null): DocumentPayload
     {
         $telegraph = clone $this;
 
@@ -149,7 +155,7 @@ trait SendsAttachments
 
         $this->attachDocument($telegraph, $path, $filename);
 
-        return $telegraph;
+        return DocumentPayload::makeFrom($telegraph);
     }
 
     public function thumbnail(string $path): self
@@ -184,7 +190,7 @@ trait SendsAttachments
         return $telegraph;
     }
 
-    public function photo(string $path, string $filename = null): self
+    public function photo(string $path, string $filename = null): PhotoPayload
     {
         $telegraph = clone $this;
 
@@ -194,7 +200,7 @@ trait SendsAttachments
 
         $this->attachPhoto($telegraph, $path, $filename);
 
-        return $telegraph;
+        return PhotoPayload::makeFrom($telegraph);
     }
 
     private function imageHeight(string $path): int
@@ -236,18 +242,14 @@ trait SendsAttachments
         return ceil($sizeInKBytes * 100) / 100;
     }
 
-    public function dice(string $emoji = null): self
+    public function dice(): DicePayload
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_DICE;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
 
-        if ($emoji !== null) {
-            $telegraph->data['emoji'] = $emoji;
-        }
-
-        return $telegraph;
+        return DicePayload::makeFrom($telegraph);
     }
 
     protected function attachPhoto(self $telegraph, string $path, ?string $filename): void
@@ -271,7 +273,6 @@ trait SendsAttachments
             $telegraph->files->put('photo', new Attachment($path, $filename));
         } else {
             $telegraph->data['photo'] = $path;
-            $telegraph->data['caption'] ??= '';
         }
     }
 
@@ -298,17 +299,6 @@ trait SendsAttachments
             $telegraph->files->put('video', new Attachment($path, $filename));
         } else {
             $telegraph->data['video'] = $path;
-            $telegraph->data['duration'] ??= '';
-            $telegraph->data['width'] ??= '';
-            $telegraph->data['height'] ??= '';
-            $telegraph->data['thumb'] ??= '';
-            $telegraph->data['caption'] ??= '';
-            $telegraph->data['parse_mode'] ??= '';
-            $telegraph->data['supports_streaming'] ??= 'false';
-            $telegraph->data['disable_notification'] ??= 'false';
-            $telegraph->data['protect_content'] ??= 'false';
-            $telegraph->data['reply_to_message_id'] ??= '';
-            $telegraph->data['allow_sending_without_reply'] ??= 'false';
         }
     }
 
@@ -322,7 +312,6 @@ trait SendsAttachments
             $telegraph->files->put('document', new Attachment($path, $filename));
         } else {
             $telegraph->data['document'] = $path;
-            $telegraph->data['caption'] ??= '';
         }
     }
 }

@@ -5,24 +5,24 @@ namespace DefStudio\Telegraph\ScopedPayloads;
 use DefStudio\Telegraph\Concerns\BuildsFromTelegraphClass;
 use DefStudio\Telegraph\Telegraph;
 
-class AudioPayload extends Telegraph
+class ContactPayload extends Telegraph
 {
     use BuildsFromTelegraphClass;
 
-    public function caption(string $caption): static
+    public function lastName(string $lastName): static
     {
         $telegraph = clone $this;
 
-        $telegraph->data['caption'] = $caption;
+        $telegraph->data['last_name'] = $lastName;
 
         return $telegraph;
     }
 
-    public function duration(int $duration): static
+    public function vcard(string $vcard): static
     {
         $telegraph = clone $this;
 
-        $telegraph->data['duration'] = $duration;
+        $telegraph->data['vcard'] = $vcard;
 
         return $telegraph;
     }

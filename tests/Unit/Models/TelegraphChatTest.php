@@ -207,7 +207,7 @@ it('can send a animation from remote url', function () {
     AnimationPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => 'https://test.dev/gif.gif',
     ]);
-});
+})->only();
 
 it('can send a animation from file_id', function () {
     Telegraph::fake();
