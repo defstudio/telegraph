@@ -3,9 +3,9 @@
 namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
 use DefStudio\Telegraph\Concerns\FakesRequests;
-use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
+use DefStudio\Telegraph\ScopedPayloads\VideoPayload;
 
-class AnimationPayloadFake extends AnimationPayload
+class VideoPayloadFake extends VideoPayload
 {
     use FakesRequests;
 
@@ -41,6 +41,15 @@ class AnimationPayloadFake extends AnimationPayload
         $telegraph = clone $this;
 
         $telegraph->data['caption'] = $caption;
+
+        return $telegraph;
+    }
+
+    public function streamable(): static
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['supports_streaming'] = true;
 
         return $telegraph;
     }

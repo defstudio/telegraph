@@ -94,6 +94,15 @@ trait ComposesMessages
         return $telegraph;
     }
 
+    public function spoiler(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['has_spoiler'] = true;
+
+        return $telegraph;
+    }
+
     public function thread(int $messageId): static
     {
         $telegraph = clone $this;
