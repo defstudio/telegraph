@@ -11,11 +11,15 @@ namespace DefStudio\Telegraph\Support\Testing\Fakes;
 use DefStudio\Telegraph\Concerns\FakesRequests;
 use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
 use DefStudio\Telegraph\ScopedPayloads\AudioPayload;
+use DefStudio\Telegraph\ScopedPayloads\ContactPayload;
+use DefStudio\Telegraph\ScopedPayloads\DicePayload;
 use DefStudio\Telegraph\ScopedPayloads\DocumentPayload;
+use DefStudio\Telegraph\ScopedPayloads\LocationPayload;
 use DefStudio\Telegraph\ScopedPayloads\PhotoPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\ScopedPayloads\VideoPayload;
+use DefStudio\Telegraph\ScopedPayloads\VoicePayload;
 use DefStudio\Telegraph\Telegraph;
 use PHPUnit\Framework\Assert;
 
@@ -52,7 +56,28 @@ class TelegraphFake extends Telegraph
     {
         app()->bind(AudioPayload::class, AudioPayloadFake::class);
 
-        return parent::animation($path, $filename);
+        return parent::audio($path, $filename);
+    }
+
+    public function contact(string $phoneNumber, string $firstName): ContactPayload
+    {
+        app()->bind(ContactPayload::class, ContactPayloadFake::class);
+
+        return parent::contact($phoneNumber, $firstName);
+    }
+
+    public function dice(): DicePayload
+    {
+        app()->bind(DicePayload::class, DicePayloadFake::class);
+
+        return parent::dice();
+    }
+
+    public function location(float $latitude, float $longitude): LocationPayload
+    {
+        app()->bind(LocationPayload::class, LocationPayloadFake::class);
+
+        return parent::location($latitude, $longitude);
     }
 
     public function photo(string $path, string $filename = null): PhotoPayload
@@ -74,6 +99,13 @@ class TelegraphFake extends Telegraph
         app()->bind(VideoPayload::class, VideoPayloadFake::class);
 
         return parent::video($path, $filename);
+    }
+
+    public function voice(string $path, string $filename = null): VoicePayload
+    {
+        app()->bind(VoicePayload::class, VoicePayloadFake::class);
+
+        return parent::voice($path, $filename);
     }
 
     public function poll(string $question): TelegraphPollPayload

@@ -9,6 +9,7 @@ namespace DefStudio\Telegraph\Concerns;
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\ScopedPayloads\AnimationPayload;
+use DefStudio\Telegraph\ScopedPayloads\AudioPayload;
 use DefStudio\Telegraph\ScopedPayloads\ContactPayload;
 use DefStudio\Telegraph\ScopedPayloads\DicePayload;
 use DefStudio\Telegraph\ScopedPayloads\DocumentPayload;
@@ -90,7 +91,7 @@ trait SendsAttachments
     {
         $telegraph = clone $this;
 
-        $telegraph->endpoint = self::ENDPOINT_SEND_CONTACT  ;
+        $telegraph->endpoint = self::ENDPOINT_SEND_CONTACT;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['phone_number'] = $phoneNumber;
         $telegraph->data['first_name'] = $firstName;
@@ -127,7 +128,7 @@ trait SendsAttachments
 
         $this->attachAnimation($telegraph, $path, $filename);
 
-       return AnimationPayload::makeFrom($telegraph);
+        return AnimationPayload::makeFrom($telegraph);
     }
 
     public function video(string $path, string $filename = null): VideoPayload
@@ -142,6 +143,19 @@ trait SendsAttachments
         $this->attachVideo($telegraph, $path, $filename);
 
         return VideoPayload::makeFrom($telegraph);
+    }
+
+    public function audio(string $path, string $filename = null): AudioPayload
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_AUDIO;
+
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        $this->attachAudio($telegraph, $path, $filename);
+
+        return AudioPayload::makeFrom($telegraph);
     }
 
     public function document(string $path, string $filename = null): DocumentPayload
@@ -302,7 +316,20 @@ trait SendsAttachments
         }
     }
 
-    protected function attachDocument(self $telegraph, string $path,  ?string $filename): void
+    protected function attachAudio(self $telegraph, string $path, ?string $filename): void
+    {
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_AUDIO_SIZE_IN_MB) {
+                throw FileException::documentSizeExceeded($size);
+            }
+
+            $telegraph->files->put('audio', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['audio'] = $path;
+        }
+    }
+
+    protected function attachDocument(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
             if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {

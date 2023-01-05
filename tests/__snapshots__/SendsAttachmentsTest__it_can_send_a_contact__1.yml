@@ -3,4 +3,8 @@ payload:
     chat_id: '-123456789'
     phone_number: '3331122333'
     first_name: testFirstName
+    last_name: lastName
+    vcard: vcard
+    performer: performer
+    title: title
 files: {  }

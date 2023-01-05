@@ -53,4 +53,13 @@ class VideoPayload extends Telegraph
 
         return $telegraph;
     }
+
+    public function spoiler(): static
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['has_spoiler'] = true;
+
+        return $telegraph;
+    }
 }

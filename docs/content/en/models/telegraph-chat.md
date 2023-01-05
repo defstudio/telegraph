@@ -538,3 +538,12 @@ A video attachment can be sent through Telegraph `->video()` method:
 /** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 $telegraphChat->video()->send();
 ```
+
+### `audio`
+
+An audio attachment can be sent through Telegraph `->audio()` method:
+
+```php
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+$telegraphChat->audio()->send();
+```

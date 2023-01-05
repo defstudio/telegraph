@@ -23,6 +23,18 @@ Telegraph::photo($telegramFileId)->send();
 
 <alert type="alert">Sent Photos can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
 
+### Audio
+
+Audio can be sent through Telegraph `->audio()` method:
+
+```php
+Telegraph::audio(Storage::path('audio.mp3'))->send();
+Telegraph::audio('https://my-repository/audio.mp3')->send();
+Telegraph::audio($telegramFileId)->send();
+```
+
+<alert type="alert">Sent Audio can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
+
 
 ### Animations
 
@@ -101,7 +113,7 @@ Telegraph::dice()->send();
 Different items can be used as "dice"
 
 ```php
-Telegraph::dice(\DefStudio\Telegraph\Enums\Emojis::SLOT_MACHINE)->send();
+Telegraph::dice()->emoji(\DefStudio\Telegraph\Enums\Emojis::SLOT_MACHINE)->send();
 ```
 
 ## Options

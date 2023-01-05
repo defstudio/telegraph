@@ -201,6 +201,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->video($path, $filename);
     }
 
+    public function audio(string $path, string $filename = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->audio($path, $filename);
+    }
+
     public function voice(string $path, string $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->voice($path, $filename);
@@ -305,9 +310,9 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->quiz($question);
     }
 
-    public function dice(string $emoji = null): Telegraph
+    public function dice(): Telegraph
     {
-        return TelegraphFacade::chat($this)->dice($emoji);
+        return TelegraphFacade::chat($this)->dice();
     }
 
     public function forwardMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph

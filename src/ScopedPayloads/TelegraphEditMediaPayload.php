@@ -86,4 +86,23 @@ class TelegraphEditMediaPayload extends Telegraph
 
         return VideoPayload::makeFrom($telegraph);
     }
+
+    public function audio(string $path, string $filename = null): AudioPayload
+    {
+        $telegraph = clone $this;
+
+        $this->attachAudio($telegraph, $path, $filename);
+
+        $data = [
+            'type' => 'audio',
+            'media' => $telegraph->files->has('audio')
+                ? "attach://audio"
+                : $telegraph->data['audio'],
+        ];
+
+
+        $telegraph->data['media'] = json_encode($data);
+
+        return AudioPayload::makeFrom($telegraph);
+    }
 }

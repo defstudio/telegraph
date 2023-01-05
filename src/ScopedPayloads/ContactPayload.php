@@ -27,7 +27,7 @@ class ContactPayload extends Telegraph
         return $telegraph;
     }
 
-    public function performer(int $performer): static
+    public function performer(string $performer): static
     {
         $telegraph = clone $this;
 
@@ -36,7 +36,7 @@ class ContactPayload extends Telegraph
         return $telegraph;
     }
 
-    public function title(int $title): static
+    public function title(string $title): static
     {
         $telegraph = clone $this;
 

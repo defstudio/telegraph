@@ -11,7 +11,9 @@ use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\Storage;
 
 it('can send a document', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt')))
+    expect(fn (Telegraph $telegraph) => $telegraph->document(Storage::path('test.txt'))
+        ->caption('caption')
+        ->withoutContentTypeDetection())
         ->toMatchTelegramSnapshot();
 });
 
@@ -21,7 +23,7 @@ it('can send a dice', function () {
 });
 
 it('can send a dice with different emojis', function (string $emoji) {
-    expect(fn (Telegraph $telegraph) => $telegraph->dice($emoji))
+    expect(fn (Telegraph $telegraph) => $telegraph->dice()->emoji($emoji))
         ->toMatchTelegramSnapshot();
 })->with([
     'DICE' => Emojis::DICE,
@@ -152,27 +154,56 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
 ]);
 
 it('can send a location message', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->location(12.345, -54.321))
+    expect(fn (Telegraph $telegraph) => $telegraph->location(12.345, -54.321)
+        ->horizontalAccuracy(10.5)
+        ->livePeriod(20)
+        ->heading(10)
+        ->proximityAlertRadius(2))
         ->toMatchTelegramSnapshot();
 });
 
 it('can send a contact', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->contact('3331122333', 'testFirstName'))
+    expect(fn (Telegraph $telegraph) => $telegraph->contact('3331122333', 'testFirstName')
+        ->lastName('lastName')
+        ->vcard('vcard')
+        ->performer('performer')
+        ->title('title'))
         ->toMatchTelegramSnapshot();
 });
 
 it('can send a photo', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg')))
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))
+        ->caption('caption')
+        ->spoiler())
         ->toMatchTelegramSnapshot();
 });
 
 it('can send an animation', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->animation(Storage::path('gif.gif')))
+    expect(fn (Telegraph $telegraph) => $telegraph->animation(Storage::path('gif.gif'))
+        ->duration(10)
+        ->width(15)
+        ->height(20)
+        ->spoiler())
         ->toMatchTelegramSnapshot();
 });
 
-it('can send aa video', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->video(Storage::path('video.mp4')))
+it('can send a video', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->video(Storage::path('video.mp4'))
+        ->duration(10)
+        ->width(200)
+        ->height(300)
+        ->caption('caption')
+        ->streamable()
+        ->spoiler())
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send an audio', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('audio.mp3'))
+        ->caption('test')
+        ->duration(10)
+        ->performer('performer')
+        ->title('title'))
         ->toMatchTelegramSnapshot();
 });
 
@@ -213,6 +244,21 @@ it('can send a photo protecting it from sharing', function () {
 
 it('can send a photo replying to a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->reply(1234))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a photo with spoiler', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->spoiler())
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a photo with thread_id', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->thread(1234))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can send a photo without reply', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->withoutReply())
         ->toMatchTelegramSnapshot();
 });
 
@@ -257,7 +303,9 @@ test('photos are validated', function (string $path, bool $valid, string $except
 ]);
 
 it('can send a voice', function () {
-    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg')))
+    expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))
+        ->caption('caption')
+        ->duration(10))
         ->toMatchTelegramSnapshot();
 });
 
@@ -352,5 +400,12 @@ it('can edit a media messages with a video', function () {
     $video_path = 'www.videoUrl.com';
 
     expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->video($video_path))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can edit a media messages with an audio', function () {
+    $audio_path = 'www.audioUrl.com';
+
+    expect(fn (Telegraph $telegraph) => $telegraph->editMedia(42)->audio($audio_path))
         ->toMatchTelegramSnapshot();
 });

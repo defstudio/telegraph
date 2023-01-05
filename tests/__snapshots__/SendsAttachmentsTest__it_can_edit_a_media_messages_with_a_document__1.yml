@@ -3,6 +3,5 @@ payload:
     chat_id: '-123456789'
     message_id: 42
     document: www.documentUrl.com
-    caption: ''
     media: '{"type":"document","media":"www.documentUrl.com"}'
 files: {  }

@@ -53,4 +53,13 @@ class VideoPayloadFake extends VideoPayload
 
         return $telegraph;
     }
+
+    public function spoiler(): static
+    {
+        $telegraph = clone $this;
+
+        $telegraph->data['has_spoiler'] = true;
+
+        return $telegraph;
+    }
 }

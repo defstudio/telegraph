@@ -59,6 +59,13 @@ class TelegraphEditMediaFake extends TelegraphEditMediaPayload
         return parent::video($path, $filename);
     }
 
+    public function audio(string $path, string $filename = null): AudioPayload
+    {
+        app()->bind(AudioPayload::class, AudioPayloadFake::class);
+
+        return parent::audio($path, $filename);
+    }
+
     public static function assertSentEditMedia(string $type, string $media): void
     {
         self::assertSentData(Telegraph::ENDPOINT_EDIT_MEDIA, [

@@ -11,9 +11,14 @@ use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Support\Testing\Fakes\AnimationPayloadFake;
-use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphEditMediaFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\AudioPayloadFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\ContactPayloadFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\DocumentPayloadFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\PhotoPayloadFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphPollFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphQuizFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\VideoPayloadFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\VoicePayloadFake;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
@@ -111,7 +116,7 @@ it('can send a document', function () {
 
     $chat->document(Storage::path('test.txt'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+    DocumentPayloadFake::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
         'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
     ]);
 });
@@ -122,7 +127,7 @@ it('can send a document from remote url', function () {
 
     $chat->document('https://test.dev/document.pdf')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+    DocumentPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
         'document' => 'https://test.dev/document.pdf',
     ]);
 });
@@ -135,7 +140,7 @@ it('can send a document from file_id', function () {
 
     $chat->document($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+    DocumentPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
         'document' => $uuid,
     ]);
 });
@@ -146,7 +151,7 @@ it('can send a photo', function () {
 
     $chat->photo(Storage::path('photo.jpg'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+    PhotoPayloadFake::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
         'photo' => new Attachment(Storage::path('photo.jpg'), 'photo.jpg'),
     ]);
 });
@@ -157,7 +162,7 @@ it('can send a photo from remote url', function () {
 
     $chat->photo('https://test.dev/photo.jpg')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+    PhotoPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
         'photo' => 'https://test.dev/photo.jpg',
     ]);
 });
@@ -170,9 +175,21 @@ it('can send a photo from file_id', function () {
 
     $chat->photo($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+    PhotoPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
         'photo' => $uuid,
     ]);
+});
+
+it('can send a contact', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->contact('3331122333', 'testFirstName')->send();
+
+    ContactPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CONTACT, [
+        'phone_number' => '3331122333',
+        'first_name' => 'testFirstName',
+    ], false);
 });
 
 it('can send an animation', function () {
@@ -184,18 +201,6 @@ it('can send an animation', function () {
     AnimationPayloadFake::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => new Attachment(Storage::path('gif.gif'), 'gif.gif'),
     ]);
-});
-
-it('can send a contact', function () {
-    Telegraph::fake();
-    $chat = make_chat();
-
-    $chat->contact('3331122333', 'testFirstName')->send();
-
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CONTACT, [
-        'phone_number' => '3331122333',
-        'first_name' => 'testFirstName',
-    ], false);
 });
 
 it('can send a animation from remote url', function () {
@@ -228,7 +233,7 @@ it('can send an video', function () {
 
     $chat->video(Storage::path('video.mp4'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    VideoPayloadFake::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => new Attachment(Storage::path('video.mp4'), 'video.mp4'),
     ]);
 });
@@ -239,7 +244,7 @@ it('can send a video from remote url', function () {
 
     $chat->video('https://test.dev/video.mp4')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    VideoPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => 'https://test.dev/video.mp4',
     ]);
 });
@@ -252,8 +257,43 @@ it('can send a video from file_id', function () {
 
     $chat->video($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    VideoPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => $uuid,
+    ]);
+});
+
+it('can send an audio', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->audio(Storage::path('audio.mp3'))->markdown('test')->send();
+
+    AudioPayloadFake::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+        'audio' => new Attachment(Storage::path('audio.mp3'), 'audio.mp3'),
+    ]);
+});
+
+it('can send a audio from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->audio('https://test.dev/audio.mp3')->markdown('test')->send();
+
+    AudioPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+        'audio' => 'https://test.dev/audio.mp3',
+    ]);
+});
+
+it('can send a audio from file_id', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $uuid = Str::uuid();
+
+    $chat->audio($uuid)->markdown('test')->send();
+
+    AudioPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+        'audio' => $uuid,
     ]);
 });
 
@@ -263,7 +303,7 @@ it('can send a voice', function () {
 
     $chat->voice(Storage::path('voice.ogg'), 'test')->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+    VoicePayloadFake::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
         'voice' => new Attachment(Storage::path('voice.ogg'), 'test'),
     ]);
 });
@@ -274,7 +314,7 @@ it('can send a voice from remote url', function () {
 
     $chat->voice('https://test.dev/voice.ogg')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+    VoicePayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
         'voice' => 'https://test.dev/voice.ogg',
     ]);
 });
@@ -287,7 +327,7 @@ it('can send a voice from file_id', function () {
 
     $chat->voice($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+    VoicePayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
         'voice' => $uuid,
     ]);
 });
@@ -310,7 +350,12 @@ it('can edit a media messages with a photo', function () {
 
     $chat->editMedia(42)->photo('www.newMediaUrl.com')->send();
 
-    TelegraphEditMediaFake::assertSentEditMedia('photo', 'www.newMediaUrl.com');
+    PhotoPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_MEDIA, [
+        "media" => json_encode([
+            'type' => 'photo',
+            'media' => 'www.newMediaUrl.com',
+        ]),
+    ]);
 });
 
 it('can edit a media messages with a document', function () {
@@ -319,7 +364,12 @@ it('can edit a media messages with a document', function () {
 
     $chat->editMedia(42)->document('www.newMediaUrl.com')->send();
 
-    TelegraphEditMediaFake::assertSentEditMedia('document', 'www.newMediaUrl.com');
+    DocumentPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_MEDIA, [
+        "media" => json_encode([
+            'type' => 'document',
+            'media' => 'www.newMediaUrl.com',
+        ]),
+    ]);
 });
 
 it('can edit a media messages with an animation', function () {
@@ -342,7 +392,26 @@ it('can edit a media messages with a video', function () {
 
     $chat->editMedia(42)->video('www.newMediaUrl.com')->send();
 
-    TelegraphEditMediaFake::assertSentEditMedia('video', 'www.newMediaUrl.com');
+    VideoPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_MEDIA, [
+        "media" => json_encode([
+            'type' => 'video',
+            'media' => 'www.newMediaUrl.com',
+        ]),
+    ]);
+});
+
+it('can edit a media messages with a audio', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editMedia(42)->audio('www.newMediaUrl.com')->send();
+
+    AudioPayloadFake::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_MEDIA, [
+        "media" => json_encode([
+            'type' => 'audio',
+            'media' => 'www.newMediaUrl.com',
+        ]),
+    ]);
 });
 
 it('can delete a message', function () {

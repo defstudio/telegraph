@@ -36,11 +36,11 @@ class AnimationPayload extends Telegraph
         return $telegraph;
     }
 
-    public function caption(string $caption): static
+    public function spoiler(): static
     {
         $telegraph = clone $this;
 
-        $telegraph->data['caption'] = $caption;
+        $telegraph->data['has_spoiler'] = true;
 
         return $telegraph;
     }
