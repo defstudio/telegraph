@@ -31,13 +31,12 @@ contains incoming data (a message or a callback query)
 - `->replyToMessage()` (optional) an instance of the original [`DefStudio\Telegraph\DTO\Message`](webhooks/dto#defstudio-telegraph-dto-message) that the current message is replying 
 - `->photos()` (optional) a collection of [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained image resolutions
 - `->animation()` (optional) an instance of [`DefStudio\Telegraph\DTO\Photo`](webhooks/dto#defstudio-telegraph-dto-animation) holding data about the contained animation
-- `->audio()` (optional) an instance of [`DefStudio\Telegraph\DTO\Audio`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained audio
-- `->document()` (optional) an instance of [`DefStudio\Telegraph\DTO\Document`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained document
-- `->video()` (optional) an instance of [`DefStudio\Telegraph\DTO\Video`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained video
-- `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained location
-- `->contact()` (optional) an instance of [`DefStudio\Telegraph\DTO\Contact`](webhooks/dto#defstudio-telegraph-dto-photo) holding data about the contained contact data
+- `->audio()` (optional) an instance of [`DefStudio\Telegraph\DTO\Audio`](webhooks/dto#defstudio-telegraph-dto-audio) holding data about the contained audio
+- `->document()` (optional) an instance of [`DefStudio\Telegraph\DTO\Document`](webhooks/dto#defstudio-telegraph-dto-document) holding data about the contained document
+- `->video()` (optional) an instance of [`DefStudio\Telegraph\DTO\Video`](webhooks/dto#defstudio-telegraph-dto-video) holding data about the contained video
+- `->location()` (optional) an instance of [`DefStudio\Telegraph\DTO\Location`](webhooks/dto#defstudio-telegraph-dto-location) holding data about the contained location
+- `->contact()` (optional) an instance of [`DefStudio\Telegraph\DTO\Contact`](webhooks/dto#defstudio-telegraph-dto-contact) holding data about the contained contact data
 - `->voice()` (optional) an instance of [`DefStudio\Telegraph\DTO\Voice`](webhooks/dto#defstudio-telegraph-dto-voice) holding data about the contained voical message
--
 - `->newChatMembers()` a collection of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding the list of users that joined the group/supergroup
 - `->leftChatMember()` (optional) an instance of [`DefStudio\Telegraph\DTO\User`](webhooks/dto#defstudio-telegraph-dto-user) holding data about the user that left the group/supergroup
 
