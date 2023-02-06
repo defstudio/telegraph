@@ -10,13 +10,24 @@ use Symfony\Component\Console\Command\Command;
 
 uses(LazilyRefreshDatabase::class);
 
-test('can set telegram webhook address if there is only one', function () {
+test('can unset a telegram webhook', function () {
     bot();
 
     Telegraph::fake();
 
     /** @phpstan-ignore-next-line */
     artisan('telegraph:unset-webhook')
+        ->expectsOutput("Webhook deleted")
+        ->assertExitCode(Command::SUCCESS);
+});
+
+test('can unset a telegram webhook and drop pending updates', function () {
+    bot();
+
+    Telegraph::fake();
+
+    /** @phpstan-ignore-next-line */
+    artisan('telegraph:unset-webhook --drop-pending-updates')
         ->expectsOutput("Webhook deleted")
         ->assertExitCode(Command::SUCCESS);
 });

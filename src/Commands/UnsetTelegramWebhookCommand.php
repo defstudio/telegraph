@@ -9,7 +9,7 @@ class UnsetTelegramWebhookCommand extends Command
 {
     public $signature = 'telegraph:unset-webhook
                             {bot? : the ID of the bot (if the system contain a single bot, it can be left empty)}
-                            {--drop-pending-updates: if set, upon webhook deletion, all pending updates will be discarded}';
+                            {--drop-pending-updates : if set, upon webhook deletion, all pending updates will be discarded}';
 
     public $description = 'Unregister the webhook in telegram bot configuration';
 
