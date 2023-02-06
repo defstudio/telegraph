@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.30.2 - 2023-02-06
+
+### What's Changed
+
+- fix keyboards by @fabio-ivona in https://github.com/defstudio/telegraph/pull/333
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.30.1...v1.30.2
+
 ## v1.30.1 - 2023-02-06
 
 ### What's Changed
