@@ -33,9 +33,7 @@ trait ManagesKeyboards
             $keyboard = Keyboard::fromArray($keyboard);
         }
 
-        $telegraph->data['reply_markup'] = [
-            'inline_keyboard' => $keyboard->toArray(),
-        ];
+        data_set($telegraph->data, 'reply_markup.inline_keyboard', $keyboard->toArray());
 
         return $telegraph;
     }
@@ -55,9 +53,11 @@ trait ManagesKeyboards
             $keyboard = ReplyKeyboard::fromArray($keyboard);
         }
 
-        $telegraph->data['reply_markup'] = [
-                'keyboard' => $keyboard->toArray(),
-            ] + $keyboard->options();
+        data_set($telegraph->data, 'reply_markup.keyboard', $keyboard->toArray());
+
+        foreach ($keyboard->options() as $option_key => $option_value) {
+            data_set($telegraph->data, "reply_markup.$option_key", $option_value);
+        }
 
         return $telegraph;
     }
