@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@nuxt/content-theme-docs": "0.10.1",
-    "nuxt": "^3.0.0"
+    "nuxt": "^2.15.2"
   },
   "devDependencies": {
     "@nuxtjs/google-analytics": "^2.4.0",
