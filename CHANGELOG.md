@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.28.1 - 2023-02-06
+
+### What's Changed
+
+- [feat] Implement SendVideo method + editMessageMedia(Video) by @MarioGattolla in https://github.com/defstudio/telegraph/pull/302
+- [docs] add Animation DTO in documentation by @MarioGattolla in https://github.com/defstudio/telegraph/pull/308
+- [feat] SendContact Method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/306
+- Bump json5, webpack and nuxt in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/311
+- #316 docs reference error by @MarioGattolla in https://github.com/defstudio/telegraph/pull/317
+- Bump http-cache-semantics from 4.1.0 to 4.1.1 in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/322
+- [fix] drop updates option missing in UnsetTelegramWebhookCommand by @fabio-ivona in https://github.com/defstudio/telegraph/pull/323
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.28.0...v1.28.1
+
 ## v1.28.0 - 2022-12-21
 
 ### What's Changed
