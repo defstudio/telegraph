@@ -514,8 +514,10 @@ trait HasBotsAndChats
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
 
+        /** @var array<string|bool> $permissions */
         $permissions = collect(ChatAdminPermissions::available_permissions())
-            ->mapWithKeys(fn ($value) => [$value => false]);
+            ->mapWithKeys(fn (string $value) => [$value => false])
+            ->toArray();
 
         foreach ($permissions as $permission => $enabled) {
             $telegraph->data[$permission] = $enabled;

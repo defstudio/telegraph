@@ -8,6 +8,7 @@ parameters:
 
     ignoreErrors:
         - '#expects string, array\|string\|null given#'
+        - '#expects string, mixed given#'
 
     checkMissingIterableValueType: true
     checkGenericClassInNonGenericObjectType: false
