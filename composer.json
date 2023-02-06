@@ -17,8 +17,8 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/contracts": "^8.37 || ^9.0",
-        "illuminate/http": "^8.37 || ^9.0",
+        "illuminate/contracts": "^8.37 | ^9.0 | ^10.0",
+        "illuminate/http": "^8.37 | ^9.0 | ^10.00",
         "spatie/laravel-package-tools": "^1.12.1"
     },
     "require-dev": {
@@ -26,9 +26,9 @@
         "defstudio/pest-plugin-laravel-expectations": "^v1.10.3",
         "friendsofphp/php-cs-fixer": "^v3.13.0",
         "guzzlehttp/guzzle": "^7.5.0",
-        "nunomaduro/collision": "^v5.11.0|^v6.3.1",
+        "nunomaduro/collision": "^v5.11.0 | ^v6.3.1",
         "nunomaduro/larastan": "^1.0.4",
-        "orchestra/testbench": "^v6.25.1|^v7.13.0",
+        "orchestra/testbench": "^v6.25.1 | ^v7.13.0",
         "pestphp/pest": "^v1.22.2",
         "pestphp/pest-plugin-laravel": "^v1.3.0",
         "pestphp/pest-plugin-mock": "^v1.0.3",
