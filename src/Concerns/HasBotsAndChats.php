@@ -243,6 +243,15 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function setChatMenuButton(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SET_CHAT_MENU_BUTTON;
+
+        return $telegraph;
+    }
+
     public function chatMenuButton(): Telegraph
     {
         $telegraph = clone $this;

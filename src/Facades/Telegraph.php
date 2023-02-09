@@ -66,6 +66,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  promoteChatMember(string $userId, array $permissions)
  * @method static \DefStudio\Telegraph\Telegraph  demoteChatMember(string $userId)
  * @method static \DefStudio\Telegraph\Telegraph  userProfilePhotos(string $userId)
+ * @method static \DefStudio\Telegraph\Telegraph  setChatMenuButton()
  * @method static \DefStudio\Telegraph\Telegraph  chatMenuButton()
  * @method static TelegraphPollPayload poll(string $question)
  * @method static TelegraphQuizPayload quiz(string $question)

@@ -340,6 +340,13 @@ it('can demote a chat member', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can set chat menu button', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->setChatMenuButton();
+    })->toMatchTelegramSnapshot();
+});
+
 it('can retrieve chat menu button', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
