@@ -130,6 +130,11 @@ class TelegraphBot extends Model implements Storable
         return TelegraphFacade::bot($this)->registerBotCommands($commands);
     }
 
+    public function getRegisteredCommands(): Telegraph
+    {
+        return TelegraphFacade::bot($this)->getRegisteredCommands();
+    }
+
     public function unregisterCommands(): Telegraph
     {
         return TelegraphFacade::bot($this)->unregisterBotCommands();

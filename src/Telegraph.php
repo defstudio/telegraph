@@ -18,6 +18,7 @@ use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\InteractWithUsers;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Concerns\SendsAttachments;
+use DefStudio\Telegraph\Concerns\InteractsWithCommands;
 use DefStudio\Telegraph\Concerns\StoresFiles;
 use DefStudio\Telegraph\DTO\Attachment;
 use Illuminate\Foundation\Bus\PendingDispatch;
@@ -36,6 +37,7 @@ class Telegraph
     use AnswersInlineQueries;
     use CreatesScopedPayloads;
     use InteractWithUsers;
+    use InteractsWithCommands;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_ANIMATION_SIZE_IN_MB = 50;
@@ -59,6 +61,7 @@ class Telegraph
     public const ENDPOINT_GET_BOT_UPDATES = 'getUpdates';
     public const ENDPOINT_GET_BOT_INFO = 'getMe';
     public const ENDPOINT_REGISTER_BOT_COMMANDS = 'setMyCommands';
+    public const ENDPOINT_GET_REGISTERED_BOT_COMMANDS = 'getMyCommands';
     public const ENDPOINT_UNREGISTER_BOT_COMMANDS = 'deleteMyCommands';
     public const ENDPOINT_SET_WEBHOOK = 'setWebhook';
     public const ENDPOINT_UNSET_WEBHOOK = 'deleteWebhook';

@@ -75,6 +75,19 @@ it('can register commands', function () {
     );
 });
 
+it('can get registered commands', function () {
+    Telegraph::fake();
+
+    $bot = make_bot();
+
+    $bot->getRegisteredCommands()->send();
+
+    Telegraph::assertSentData(
+        \DefStudio\Telegraph\Telegraph::ENDPOINT_GET_REGISTERED_BOT_COMMANDS,
+        []
+    );
+});
+
 it('can unregister commands', function () {
     Telegraph::fake();
 

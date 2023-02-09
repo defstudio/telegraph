@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  registerWebhook()
  * @method static \DefStudio\Telegraph\Telegraph  unregisterWebhook(bool $dropPendingUpdates = false)
  * @method static \DefStudio\Telegraph\Telegraph  registerBotCommands(array $commands)
+ * @method static \DefStudio\Telegraph\Telegraph  getRegisteredCommands()
  * @method static \DefStudio\Telegraph\Telegraph  unregisterBotCommands()
  * @method static \DefStudio\Telegraph\Telegraph  getWebhookDebugInfo()
  * @method static \DefStudio\Telegraph\Telegraph  replyWebhook(string $callbackQueryId, string $message)
