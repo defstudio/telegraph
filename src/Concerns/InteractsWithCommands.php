@@ -5,8 +5,8 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
-use DefStudio\Telegraph\Telegraph;
 use DefStudio\Telegraph\Exceptions\BotCommandException;
+use DefStudio\Telegraph\Telegraph;
 
 /**
  * @mixin Telegraph
