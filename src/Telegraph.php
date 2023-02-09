@@ -61,7 +61,7 @@ class Telegraph
     public const ENDPOINT_GET_BOT_UPDATES = 'getUpdates';
     public const ENDPOINT_GET_BOT_INFO = 'getMe';
     public const ENDPOINT_REGISTER_BOT_COMMANDS = 'setMyCommands';
-    public const ENDPOINT_GET_BOT_COMMANDS = 'getMyCommands';
+    public const ENDPOINT_GET_REGISTERED_BOT_COMMANDS = 'getMyCommands';
     public const ENDPOINT_UNREGISTER_BOT_COMMANDS = 'deleteMyCommands';
     public const ENDPOINT_SET_WEBHOOK = 'setWebhook';
     public const ENDPOINT_UNSET_WEBHOOK = 'deleteWebhook';
