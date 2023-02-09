@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.31.0 - 2023-02-09
+
+### What's Changed
+
+- implement `getMyCommands` method by @faissaloux in https://github.com/defstudio/telegraph/pull/334
+
+### New Contributors
+
+- @faissaloux made their first contribution in https://github.com/defstudio/telegraph/pull/334
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.30.2...v1.31.0
+
 ## v1.30.2 - 2023-02-06
 
 ### What's Changed
