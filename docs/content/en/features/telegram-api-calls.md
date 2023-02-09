@@ -224,6 +224,15 @@ Telegraph::registerBotCommands([
 ])->send();
 ```
 
+## getRegisteredCommands
+
+retrieve bot's registered commands.
+
+```php
+$response = Telegraph::getRegisteredCommands()->send();
+$response->json('result')
+```
+
 ## registerWebhook
 
 register a webhook for the active bot
