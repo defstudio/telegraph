@@ -346,6 +346,15 @@ title: my telegram group
 ...
 */
 ```
+
+## setChatMenuButton
+
+set menu button
+
+```php
+Telegraph::setChatMenuButton()->send();
+```
+
 ## chatMenuButton
 
 retrieves a bot current menu button info
