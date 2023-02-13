@@ -16,6 +16,7 @@ use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use DefStudio\Telegraph\Support\Validator;
 use DefStudio\Telegraph\Telegraph;
 use File;
 use Illuminate\Support\Carbon;
@@ -243,11 +244,15 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function setChatMenuButton(): Telegraph
+    public function setChatMenuButton(array $data): Telegraph
     {
+        $data = Validator::validateMenuButtonParameters($data);
+
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_MENU_BUTTON;
+
+        $telegraph->data['menu_button'] = json_encode($data);
 
         return $telegraph;
     }

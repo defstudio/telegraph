@@ -9,6 +9,7 @@ use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Enums\ChatAdminPermissions;
 use DefStudio\Telegraph\Enums\ChatPermissions;
 use DefStudio\Telegraph\Exceptions\ChatSettingsException;
+use DefStudio\Telegraph\Exceptions\ArgumentException;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Facades\Telegraph;
 
@@ -343,7 +344,18 @@ it('can demote a chat member', function () {
 it('can set chat menu button', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
-            ->setChatMenuButton();
+            ->setChatMenuButton([
+                "type" => "commands"
+            ]);
+    })->toMatchTelegramSnapshot();
+
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->setChatMenuButton([
+                "type" => "web_app",
+                "text" => "VISIT",
+                "url" => "https://www.telegram.org",
+            ]);
     })->toMatchTelegramSnapshot();
 });
 
