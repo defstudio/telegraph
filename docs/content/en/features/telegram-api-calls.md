@@ -350,9 +350,22 @@ title: my telegram group
 ## setChatMenuButton
 
 set menu button
+> **Note**
+> supported types: commands, web_app, default.
 
 ```php
-Telegraph::setChatMenuButton()->send();
+Telegraph::setChatMenuButton([
+        "type" => "commands",
+    ])->send();
+```
+> **Note**
+> web_app type requires text and url.
+```php
+Telegraph::setChatMenuButton([
+        "type" => "web_app",
+        "text" => "VISIT",
+        "url" => "https://www.telegram.org",
+    ])->send();
 ```
 
 ## chatMenuButton
