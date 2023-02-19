@@ -12,6 +12,7 @@ use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Telegraph;
@@ -313,5 +314,15 @@ class TelegraphChat extends Model implements Storable
     public function forwardMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->forwardMessage($fromChat, $messageId);
+    }
+
+    public function menuButton(): Telegraph
+    {
+        return TelegraphFacade::chat($this)->chatMenuButton();
+    }
+
+    public function setMenuButton(): SetChatMenuButtonPayload
+    {
+        return TelegraphFacade::chat($this)->setChatMenuButton();
     }
 }

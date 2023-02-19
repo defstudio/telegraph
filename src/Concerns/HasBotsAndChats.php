@@ -16,6 +16,7 @@ use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\Telegraph;
 use File;
 use Illuminate\Support\Carbon;
@@ -241,6 +242,15 @@ trait HasBotsAndChats
         $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         return $telegraph;
+    }
+
+    public function setChatMenuButton(): SetChatMenuButtonPayload
+    {
+        $telegraph = clone $this;
+        $telegraph->endpoint = self::ENDPOINT_SET_CHAT_MENU_BUTTON;
+        $telegraph->data['chat_id'] = $this->getChatId();
+
+        return SetChatMenuButtonPayload::makeFrom($telegraph);
     }
 
     public function chatMenuButton(): Telegraph

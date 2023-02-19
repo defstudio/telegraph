@@ -10,6 +10,7 @@ namespace DefStudio\Telegraph\Support\Testing\Fakes;
 
 use DefStudio\Telegraph\Concerns\FakesRequests;
 use DefStudio\Telegraph\DTO\Attachment;
+use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Telegraph;
@@ -44,6 +45,15 @@ class TelegraphFake extends Telegraph
         $fake->endpoint = self::ENDPOINT_SEND_POLL;
         $fake->data['options'] = [];
         $fake->data['question'] = $question;
+
+        return $fake;
+    }
+
+    public function setChatMenuButton(): SetChatMenuButtonPayload
+    {
+        $fake = new TelegraphSetChatMenuButtonFake($this->replies);
+        $fake->endpoint = self::ENDPOINT_SET_CHAT_MENU_BUTTON;
+        $fake->data = $this->data;
 
         return $fake;
     }

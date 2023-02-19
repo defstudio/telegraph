@@ -346,6 +346,17 @@ title: my telegram group
 ...
 */
 ```
+
+## setChatMenuButton
+
+Set menu button. For detailed info, see [docs](https://core.telegram.org/bots/api#menubutton)
+
+```php
+Telegraph::setChatMenuButton()->default()->send(); //restore default 
+Telegraph::setChatMenuButton()->commands()->send(); //show bot commands in menu button 
+Telegraph::setChatMenuButton()->webApp("Web App", "https://my-web.app")->send(); //show start web app button 
+```
+
 ## chatMenuButton
 
 retrieves a bot current menu button info
