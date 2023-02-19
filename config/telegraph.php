@@ -24,7 +24,7 @@ return [
     'webhook_handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
 
     /*
-     * Sets a custom domain when registering a webhook. This will allow a loca telegram bot api server
+     * Sets a custom domain when registering a webhook. This will allow a local telegram bot api server
      * to reach the webhook. Disabled by default
      *
      * For reference, see https://core.telegram.org/bots/api#using-a-local-bot-api-server
