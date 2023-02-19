@@ -230,7 +230,7 @@ retrieve bot's registered commands.
 
 ```php
 $response = Telegraph::getRegisteredCommands()->send();
-$response->json('result')
+$response->json('result');
 ```
 
 ## registerWebhook
