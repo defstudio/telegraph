@@ -538,3 +538,23 @@ A video attachment can be sent through Telegraph `->video()` method:
 /** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 $telegraphChat->video()->send();
 ```
+
+### `menuButton`
+
+Retrieves chat menu button
+
+```php
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+$button = $telegraphChat->menuButton()->send();
+```
+
+### `setMenuButton`
+
+set chat menu button
+
+```php
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+$telegraphChat->setMenuButton()->default()->send(); //restore default 
+$telegraphChat->setMenuButton()->commands()->send(); //show bot commands in menu button 
+$telegraphChat->setMenuButton()->webApp("Web App", "https://my-web.app")->send(); //show start web app button 
+```

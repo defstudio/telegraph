@@ -349,23 +349,12 @@ title: my telegram group
 
 ## setChatMenuButton
 
-set menu button
-> **Note**
-> supported types: commands, web_app, default.
+Set menu button. For detailed info, see [docs](https://core.telegram.org/bots/api#menubutton)
 
 ```php
-Telegraph::setChatMenuButton([
-        "type" => "commands",
-    ])->send();
-```
-> **Note**
-> web_app type requires text and url.
-```php
-Telegraph::setChatMenuButton([
-        "type" => "web_app",
-        "text" => "VISIT",
-        "url" => "https://www.telegram.org",
-    ])->send();
+Telegraph::setChatMenuButton()->default()->send(); //restore default 
+Telegraph::setChatMenuButton()->commands()->send(); //show bot commands in menu button 
+Telegraph::setChatMenuButton()->webApp("Web App", "https://my-web.app")->send(); //show start web app button 
 ```
 
 ## chatMenuButton

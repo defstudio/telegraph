@@ -13,6 +13,7 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphEditMediaFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphPollFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphQuizFake;
+use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphSetChatMenuButtonFake;
 use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
@@ -607,5 +608,46 @@ it('can forward a message', function () {
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_FORWARD_MESSAGE, [
         'from_chat_id' => $chat->chat_id,
         'message_id' => 123,
+    ]);
+});
+
+it('can retrieve current chat menu button', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->menuButton()->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MENU_BUTTON);
+});
+
+it('can restore default menu button', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->setMenuButton()->default()->send();
+
+    TelegraphSetChatMenuButtonFake::assertChangedMenuButton('default');
+});
+
+it('can set commands menu button', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->setMenuButton()->commands()->send();
+
+    TelegraphSetChatMenuButtonFake::assertChangedMenuButton('commands');
+});
+
+it('can set web app menu button', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->setMenuButton()->webApp("VISIT", "https://my-web.app")->send();
+
+    TelegraphSetChatMenuButtonFake::assertChangedMenuButton('web_app', [
+        'text' => "VISIT",
+        'web_app' => [
+            'url' => "https://my-web.app",
+        ],
     ]);
 });

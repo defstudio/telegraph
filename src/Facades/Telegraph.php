@@ -6,6 +6,7 @@ use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphFake;
@@ -66,8 +67,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  promoteChatMember(string $userId, array $permissions)
  * @method static \DefStudio\Telegraph\Telegraph  demoteChatMember(string $userId)
  * @method static \DefStudio\Telegraph\Telegraph  userProfilePhotos(string $userId)
- * @method static \DefStudio\Telegraph\Telegraph  setChatMenuButton()
  * @method static \DefStudio\Telegraph\Telegraph  chatMenuButton()
+ * @method static SetChatMenuButtonPayload  setChatMenuButton()
  * @method static TelegraphPollPayload poll(string $question)
  * @method static TelegraphQuizPayload quiz(string $question)
  * @method static string store(Downloadable $attachment, string $path, string $filename = null)
