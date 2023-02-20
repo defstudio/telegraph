@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.32.0 - 2023-02-20
+
+### What's Changed
+
+- Add missing semicolon by @faissaloux in https://github.com/defstudio/telegraph/pull/336
+- implement `setChatMenuButton` method by @faissaloux in https://github.com/defstudio/telegraph/pull/335
+- Fix typo in telegraph.php by @beeyev in https://github.com/defstudio/telegraph/pull/347
+
+### New Contributors
+
+- @beeyev made their first contribution in https://github.com/defstudio/telegraph/pull/347
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.31.0...v1.32.0
+
 ## v1.31.0 - 2023-02-09
 
 ### What's Changed
