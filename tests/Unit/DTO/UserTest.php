@@ -12,6 +12,7 @@ it('export all properties to array', function () {
         'first_name' => 'a',
         'last_name' => 'b',
         'username' => 'c',
+        'language_code' => 'd',
     ]);
 
     $array = $dto->toArray();
