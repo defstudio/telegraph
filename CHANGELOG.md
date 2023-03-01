@@ -2,6 +2,19 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.33.0 - 2023-03-01
+
+### What's Changed
+
+- Fix typo in telegraph.php by @idvlab in https://github.com/defstudio/telegraph/pull/350
+- Added user parameter: "language_code" by @andrey-helldar in https://github.com/defstudio/telegraph/pull/348
+
+### New Contributors
+
+- @idvlab made their first contribution in https://github.com/defstudio/telegraph/pull/350
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.32.0...v1.33.0
+
 ## v1.32.0 - 2023-02-20
 
 ### What's Changed
