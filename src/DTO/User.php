@@ -17,13 +17,14 @@ class User implements Arrayable, Storable
     private string $firstName;
     private string $lastName;
     private string $username;
+    private string $languageCode;
 
     private function __construct()
     {
     }
 
     /**
-     * @param array{id:int, is_bot:bool, first_name?:string, last_name?:string, username?:string} $data
+     * @param array{id:int, is_bot:bool, first_name?:string, last_name?:string, username?:string, language_code?:string} $data
      */
     public static function fromArray(array $data): User
     {
@@ -35,6 +36,7 @@ class User implements Arrayable, Storable
         $user->firstName = $data['first_name'] ?? '';
         $user->lastName = $data['last_name'] ?? '';
         $user->username = $data['username'] ?? '';
+        $user->languageCode = $data['language_code'] ?? '';
 
         return $user;
     }
@@ -69,6 +71,11 @@ class User implements Arrayable, Storable
         return $this->username;
     }
 
+    public function languageCode(): string
+    {
+        return $this->languageCode;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -77,6 +84,7 @@ class User implements Arrayable, Storable
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'username' => $this->username,
+            'language_code' => $this->languageCode,
         ]);
     }
 }

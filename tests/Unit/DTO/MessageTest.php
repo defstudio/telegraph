@@ -19,6 +19,7 @@ it('export all properties to array', function () {
             'first_name' => 'a',
             'last_name' => 'b',
             'username' => 'c',
+            'language_code' => 'd',
         ],
         'forward_from' => [
             'id' => 1,
