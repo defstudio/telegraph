@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.33.1 - 2023-03-07
+
+### What's Changed
+
+- [fix] reply to commands in webhook handler by @fabio-ivona in https://github.com/defstudio/telegraph/pull/354
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.33.0...v1.33.1
+
 ## v1.33.0 - 2023-03-01
 
 ### What's Changed
