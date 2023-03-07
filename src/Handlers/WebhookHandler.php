@@ -202,7 +202,13 @@ abstract class WebhookHandler
 
     protected function reply(string $message, bool $showAlert = false): void
     {
-        $this->bot->replyWebhook($this->callbackQueryId, $message, $showAlert)->send();
+        if (isset($this->callbackQueryId)) {
+            $this->bot->replyWebhook($this->callbackQueryId, $message, $showAlert)->send();
+
+            return;
+        }
+
+        $this->chat->message($message)->send();
     }
 
     public function chatid(): void
