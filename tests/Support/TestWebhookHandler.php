@@ -63,6 +63,11 @@ class TestWebhookHandler extends WebhookHandler
         $this->chat->html("Hello!!")->send();
     }
 
+    public function reply_to_command(): void
+    {
+        $this->reply('foo');
+    }
+
     private function private_action(): void
     {
     }
