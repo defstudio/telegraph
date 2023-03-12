@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.33.2 - 2023-03-12
+
+### What's Changed
+
+- Chat Commands Start With Slash (/) by @moayedlaravel in https://github.com/defstudio/telegraph/pull/357
+
+### New Contributors
+
+- @moayedlaravel made their first contribution in https://github.com/defstudio/telegraph/pull/357
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.33.1...v1.33.2
+
 ## v1.33.1 - 2023-03-07
 
 ### What's Changed
