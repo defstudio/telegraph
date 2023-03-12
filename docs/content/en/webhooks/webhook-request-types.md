@@ -51,10 +51,10 @@ class CustomWebhookHandler extends WebhookHandler
 
 ## Chat Commands
 
-Telegraph bots can receive commands from chats where they are registered. A command is a telegram message has a _backslash_ (`\`) char followed by a descriptive word:
+Telegraph bots can receive commands from chats where they are registered. A command is a telegram message has a _slash_ (`/`) char followed by a descriptive word:
 
 ```
-\hi Fabio
+/hi Fabio
 ```
 
 what the command will trigger is up to the developer, but a webhook will react to it if it has a public method named as the command:
@@ -88,7 +88,7 @@ class CustomWebhookHandler extends WebhookHandler
 {
     public function hi()
     {
-        $text = $this->message->text(); //\hi Fabio
+        $text = $this->message->text(); // /hi Fabio
     }
 }
 ```
