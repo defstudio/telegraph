@@ -12,6 +12,8 @@ class Keyboard implements Arrayable
     /** @var Collection<array-key, Button> */
     protected Collection $buttons;
 
+    protected bool $rtl = false;
+
     public function __construct()
     {
         /* @phpstan-ignore-next-line  */
@@ -31,6 +33,13 @@ class Keyboard implements Arrayable
         if ($condition) {
             return $callback($this);
         }
+
+        return $this;
+    }
+
+    public function rightToLeft(bool $condition = true): Keyboard
+    {
+        $this->rtl = $condition;
 
         return $this;
     }
@@ -222,6 +231,6 @@ class Keyboard implements Arrayable
 
         $keyboard[] = $row;
 
-        return $keyboard;
+        return $this->rtl ? array_map('array_reverse', $keyboard) : $keyboard;
     }
 }
