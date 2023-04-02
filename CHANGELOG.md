@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.34.0 - 2023-04-02
+
+### What's Changed
+
+- [feat] RTL option in Keyboard & ReplyKeyboard by @sadegh19b in https://github.com/defstudio/telegraph/pull/364
+
+### New Contributors
+
+- @sadegh19b made their first contribution in https://github.com/defstudio/telegraph/pull/364
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.33.2...v1.34.0
+
 ## v1.33.2 - 2023-03-12
 
 ### What's Changed
