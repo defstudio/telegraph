@@ -13,6 +13,7 @@ class ReplyKeyboard implements Arrayable
     /** @var Collection<array-key, ReplyButton> */
     protected Collection $buttons;
 
+    protected bool $rtl = false;
     protected bool $resize = false;
     protected bool $oneTime = false;
     protected bool $selective = false;
@@ -37,6 +38,13 @@ class ReplyKeyboard implements Arrayable
         if ($condition) {
             return $callback($this);
         }
+
+        return $this;
+    }
+
+    public function rightToLeft(bool $condition = true): self
+    {
+        $this->rtl = $condition;
 
         return $this;
     }
@@ -265,7 +273,7 @@ class ReplyKeyboard implements Arrayable
 
         $keyboard[] = $row;
 
-        return $keyboard;
+        return $this->rtl ? array_map('array_reverse', $keyboard) : $keyboard;
     }
 
     /**

@@ -186,3 +186,28 @@ it('can handle conditional closures', function () {
         ],
     ]);
 });
+
+it('can right to left layout for buttons', function () {
+    $keyboard = Keyboard::make()
+        ->row([
+            Button::make('foo')->url('bar'),
+            Button::make('baz')->action('quuz'),
+        ])
+        ->row([
+            Button::make('baz')->action('quuz'),
+            Button::make('foo')->url('bar'),
+        ]);
+
+    $keyboard->rightToLeft();
+
+    expect($keyboard->toArray())->toMatchArray([
+        [
+            ['text' => 'baz', 'callback_data' => 'action:quuz'],
+            ['text' => 'foo', 'url' => 'bar'],
+        ],
+        [
+            ['text' => 'foo', 'url' => 'bar'],
+            ['text' => 'baz', 'callback_data' => 'action:quuz'],
+        ],
+    ]);
+});

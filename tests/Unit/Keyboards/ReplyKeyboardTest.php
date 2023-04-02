@@ -167,3 +167,30 @@ it('can handle conditional closures', function () {
         ],
     ]);
 });
+
+it('can right to left layout for buttons', function () {
+    $keyboard = ReplyKeyboard::make()
+        ->row([
+            ReplyButton::make('quzz')->requestLocation(),
+            ReplyButton::make('baz')->requestPoll(),
+            ReplyButton::make('foo'),
+        ])
+        ->row([
+            ReplyButton::make('foo'),
+            ReplyButton::make('baz')->requestLocation(),
+        ]);
+
+    $keyboard->rightToLeft();
+
+    expect($keyboard->toArray())->toMatchArray([
+        [
+            ['text' => 'foo'],
+            ['text' => 'baz', 'request_poll' => ['type' => 'regular']],
+            ['text' => 'quzz', 'request_location' => true],
+        ],
+        [
+            ['text' => 'baz', 'request_location' => true],
+            ['text' => 'foo'],
+        ],
+    ]);
+});

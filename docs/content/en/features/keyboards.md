@@ -199,3 +199,22 @@ Keyboard::make()
     ->button('Dismiss')->action('dismiss')->param('id', '42')->width(0.5)
     ->when($userCanDelete, fn(Keyboard $keyboard) => $keyboard->button('Delete')->action('delete')->param('id', '42')->width(0.5))
 ```
+
+## Right to left layout
+
+A `rightToLeft` method allows to change buttons layout from left-to-right to right-to-left (RTL).
+
+```php
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
+
+$keyboard = Keyboard::make()
+    ->row([
+        Button::make('Delete')->action('delete')->param('id', '42'),
+        Button::make('Dismiss')->action('dismiss')->param('id', '42'),
+    ])
+    ->row([
+        Button::make('open')->url('https://test.it'),
+    ])
+    ->rightToLeft();
+```
