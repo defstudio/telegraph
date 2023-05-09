@@ -94,6 +94,11 @@ class TelegraphChat extends Model implements Storable
         return $reply->json('result');
     }
 
+    public function with_data(string $key, mixed $value): Telegraph
+    {
+        return TelegraphFacade::chat($this)->with_data($key, $value);
+    }
+
     public function message(string $message): Telegraph
     {
         return TelegraphFacade::chat($this)->message($message);

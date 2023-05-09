@@ -160,4 +160,13 @@ class Telegraph
 
         return $this;
     }
+
+    public function with_data(string $key, mixed $value): static
+    {
+        $telegraph = clone $this;
+
+        data_set($telegraph->data, $key, $value);
+
+        return $telegraph;
+    }
 }
