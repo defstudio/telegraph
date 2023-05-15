@@ -656,7 +656,7 @@ it('can edit Telegraph data before sending a media ', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-    $chat->with_data('caption', 'test')->video('test.url')->send();
+    $chat->withData('caption', 'test')->video('test.url')->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => 'test.url',
@@ -668,7 +668,7 @@ it('can edit Telegraph data after sending a media ', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-    $chat->video('test.url')->with_data('caption', 'test')->send();
+    $chat->video('test.url')->withData('caption', 'test')->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => 'test.url',

@@ -161,7 +161,7 @@ class Telegraph
         return $this;
     }
 
-    public function with_data(string $key, mixed $value): static
+    public function withData(string $key, mixed $value): static
     {
         $telegraph = clone $this;
 

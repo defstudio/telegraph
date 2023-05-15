@@ -64,11 +64,11 @@ $telegraphChat->info(); /* 42 */
 
 ## Optional parameters
 
-Attachments methods only supports required parameters, optional parameters can be sent through Telegraph `->with_data()` method:
+Attachments methods only supports required parameters, optional parameters can be sent through Telegraph `->withData()` method:
 
 ```php
-$telegraphChat->message('hi')->with_data('caption', 'test')->send();
-$telegraphChat->with_data('caption', 'test')->message('hi')->send();
+$telegraphChat->message('hi')->withData('caption', 'test')->send();
+$telegraphChat->withData('caption', 'test')->message('hi')->send();
 ```
 
 ### `message()`

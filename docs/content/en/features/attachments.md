@@ -11,11 +11,11 @@ Telegraph supports different types of attachments both from local files, remote 
 
 ## Optional parameters
 
-Attachments methods only supports required parameters, optional parameters can be sent through Telegraph `->with_data()` method:
+Attachments methods only supports required parameters, optional parameters can be sent through Telegraph `->withData()` method:
 
 ```php
-Telegraph::message('hi')->with_data('caption', 'test')->send();
-Telegraph::with_data('caption', 'test')->message('hi')->send();
+Telegraph::message('hi')->withData('caption', 'test')->send();
+Telegraph::withData('caption', 'test')->message('hi')->send();
 ```
 
 ## Attachment types
