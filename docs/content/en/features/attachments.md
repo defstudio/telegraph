@@ -9,6 +9,15 @@ position: 36
 
 Telegraph supports different types of attachments both from local files, remote urls and existing files on Telegram servers (using their file_id)
 
+## Optional parameters
+
+Attachments methods only supports required parameters, optional parameters can be sent through Telegraph `->withData()` method:
+
+```php
+Telegraph::message('hi')->withData('caption', 'test')->send();
+Telegraph::withData('caption', 'test')->message('hi')->send();
+```
+
 ## Attachment types
 
 ### Photos

@@ -549,3 +549,12 @@ print a `dd()` of the current api call status for testing purposes
 ```php
 Telegraph::message('test')->dd();
 ```
+
+
+## withData
+
+set custom Telegraph data attribute
+
+```php
+Telegraph::withData('key', 'value');
+```

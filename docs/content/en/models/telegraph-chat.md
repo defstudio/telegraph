@@ -62,6 +62,15 @@ Retrieves the chat member count from telegram
 $telegraphChat->info(); /* 42 */
 ```
 
+## Optional parameters
+
+Attachments methods only supports required parameters, optional parameters can be sent through Telegraph `->withData()` method:
+
+```php
+$telegraphChat->message('hi')->withData('caption', 'test')->send();
+$telegraphChat->withData('caption', 'test')->message('hi')->send();
+```
+
 ### `message()`
 
 Starts a `Telegraph` call to send a message
