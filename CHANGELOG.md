@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.35 - 2023-05-15
+
+### What's Changed
+
+- withData() method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/369
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.34.0...v1.35
+
 ## v1.34.0 - 2023-04-02
 
 ### What's Changed
