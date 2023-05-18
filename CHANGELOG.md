@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.36.0 - 2023-05-18
+
+### What's Changed
+
+- TelegramUpdate new optional parameter (edited_message) by @MarioGattolla in https://github.com/defstudio/telegraph/pull/375
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.35.1...v1.36.0
+
 ## v1.35.1 - 2023-05-15
 
 ### What's Changed
