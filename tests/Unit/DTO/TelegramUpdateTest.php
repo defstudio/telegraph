@@ -13,6 +13,11 @@ it('export all properties to array', function () {
             'date' => now()->timestamp,
             'text' => 'f',
         ],
+        'edited_message' => [
+            'message_id' => 2,
+            'date' => now()->timestamp,
+            'text' => 'f',
+        ],
         'channel_post' => [
             'message_id' => 4,
             'date' => now()->timestamp,

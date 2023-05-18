@@ -24,6 +24,7 @@ class TelegramUpdate implements Arrayable
      * @param array{
      *     update_id:int,
      *     message?:array<string, mixed>,
+     *     edited_message?:array<string, mixed>,
      *     channel_post?:array<string, mixed>,
      *     callback_query?:array<string, mixed>,
      *     my_chat_member?:array<string, mixed>,
@@ -39,6 +40,11 @@ class TelegramUpdate implements Arrayable
         if (isset($data['message'])) {
             /* @phpstan-ignore-next-line */
             $update->message = Message::fromArray($data['message']);
+        }
+
+        if (isset($data['edited_message'])) {
+            /* @phpstan-ignore-next-line */
+            $update->message = Message::fromArray($data['edited_message']);
         }
 
         if (isset($data['channel_post'])) {

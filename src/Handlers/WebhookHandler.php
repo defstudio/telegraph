@@ -230,6 +230,14 @@ abstract class WebhookHandler
             return;
         }
 
+        if ($this->request->has('edited_message')) {
+            /* @phpstan-ignore-next-line */
+            $this->message = Message::fromArray($this->request->input('edited_message'));
+            $this->handleMessage();
+
+            return;
+        }
+
         if ($this->request->has('channel_post')) {
             /* @phpstan-ignore-next-line */
             $this->message = Message::fromArray($this->request->input('channel_post'));
