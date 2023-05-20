@@ -58,13 +58,18 @@ abstract class WebhookHandler
         $action = $this->callbackQuery?->data()->get('action') ?? '';
 
         if (!$this->canHandle($action)) {
-            report(TelegramWebhookException::invalidAction($action));
-            $this->reply(__('telegraph::errors.invalid_action'));
+            $this->handleUnknownCallbackQuery($action);
 
             return;
         }
 
         $this->$action();
+    }
+
+    protected function handleUnknownCallbackQuery(string $action): void
+    {
+        report(TelegramWebhookException::invalidAction($action));
+        $this->reply(__('telegraph::errors.invalid_action'));
     }
 
     private function handleCommand(Stringable $text): void
