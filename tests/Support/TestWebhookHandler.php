@@ -17,9 +17,9 @@ use Illuminate\Support\Stringable;
 class TestWebhookHandler extends WebhookHandler
 {
     public static bool $handleUnknownCommands = false;
-
     public static int $calls_count = 0;
     public static array $extracted_data = [];
+    private static bool $handleUnknownCallbackQueries = false;
 
     public static function reset()
     {
@@ -113,6 +113,15 @@ class TestWebhookHandler extends WebhookHandler
         }
 
         $this->chat->html("I can't understand your command: $text")->send();
+    }
+
+    protected function handleUnknownCallbackQuery(string $action): void
+    {
+        if (!self::$handleUnknownCallbackQueries) {
+            parent::handleUnknownCallbackQuery($action);
+        }
+
+        $this->chat->html("I can't understand your callback query action: $action")->send();
     }
 
     protected function handleChatMessage(Stringable $text): void
