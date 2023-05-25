@@ -19,7 +19,7 @@ class TestWebhookHandler extends WebhookHandler
     public static bool $handleUnknownCommands = false;
     public static int $calls_count = 0;
     public static array $extracted_data = [];
-    private static bool $handleUnknownCallbackQueries = false;
+    public static bool $handleUnknownCallbackQueries = false;
 
     public static function reset()
     {

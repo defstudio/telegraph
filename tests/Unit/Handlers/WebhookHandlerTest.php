@@ -168,6 +168,19 @@ it('can handle an unknown command', function () {
     TestWebhookHandler::$handleUnknownCommands = false;
 });
 
+it('can handle an unknown callback query', function () {
+    TestWebhookHandler::$handleUnknownCallbackQueries = true;
+
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_request('foo'), $bot);
+
+    Facade::assertSent("I can't understand your callback query: foo");
+
+    TestWebhookHandler::$handleUnknownCommands = false;
+});
+
 it('can handle a command with bot reference', function () {
     $bot = bot();
     Facade::fake();
