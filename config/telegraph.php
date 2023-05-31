@@ -117,4 +117,12 @@ return [
             ],
         ],
     ],
+
+    'answer_inline_query' => [
+        /**
+         * Telegram cache time in seconds for answer inline query
+         * @see https://core.telegram.org/bots/api#answerinlinequery
+         */
+        'cache_time' => (int) env('TELEGRAPH_ANSWER_INLINE_QUERY_CACHE_TIME', 300),
+    ],
 ];

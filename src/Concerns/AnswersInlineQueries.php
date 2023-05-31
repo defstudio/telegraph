@@ -23,6 +23,7 @@ trait AnswersInlineQueries
         $telegraph->endpoint = self::ENDPOINT_ANSWER_INLINE_QUERY;
         $telegraph->data = [
             'inline_query_id' => $inlineQueryID,
+            'cache_time' => config('telegraph.answer_inline_query.cache_time', 300),
             'results' => collect($results)->map(fn (InlineQueryResult $result) => $result->toArray())->toArray(),
         ];
 
