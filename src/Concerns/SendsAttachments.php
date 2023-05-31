@@ -137,6 +137,20 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function audio(string $path, string $filename = null): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_AUDIO;
+
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+
+        $this->attachAudio($telegraph, $path, $filename);
+
+        return $telegraph;
+    }
+
     public function document(string $path, string $filename = null): self
     {
         $telegraph = clone $this;
@@ -317,6 +331,27 @@ trait SendsAttachments
             $telegraph->data['caption'] ??= '';
             $telegraph->data['parse_mode'] ??= '';
             $telegraph->data['supports_streaming'] ??= 'false';
+            $telegraph->data['disable_notification'] ??= 'false';
+            $telegraph->data['protect_content'] ??= 'false';
+            $telegraph->data['reply_to_message_id'] ??= '';
+            $telegraph->data['allow_sending_without_reply'] ??= 'false';
+        }
+    }
+
+    protected function attachAudio(self $telegraph, string $path, ?string $filename): void
+    {
+        if (File::exists($path)) {
+            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_AUDIO_SIZE_IN_MB) {
+                throw FileException::documentSizeExceeded($size);
+            }
+
+            $telegraph->files->put('audio', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['audio'] = $path;
+            $telegraph->data['duration'] ??= '';
+            $telegraph->data['thumb'] ??= '';
+            $telegraph->data['caption'] ??= '';
+            $telegraph->data['parse_mode'] ??= '';
             $telegraph->data['disable_notification'] ??= 'false';
             $telegraph->data['protect_content'] ??= 'false';
             $telegraph->data['reply_to_message_id'] ??= '';

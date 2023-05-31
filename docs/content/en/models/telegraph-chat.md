@@ -142,6 +142,7 @@ $telegraphChat->editMedia($messageId)->photo($path)->send();
 $telegraphChat->editMedia($messageId)->document($path)->send();
 $telegraphChat->editMedia($messageId)->animation($path)->send();
 $telegraphChat->editMedia($messageId)->video($path)->send();
+$telegraphChat->editMedia($messageId)->audio($path)->send();
 ```
 
 ### `replaceKeyboard()`
@@ -546,6 +547,15 @@ A video attachment can be sent through Telegraph `->video()` method:
 ```php
 /** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 $telegraphChat->video()->send();
+```
+
+### `audio`
+
+An audio attachment can be sent through Telegraph `->audio()` method:
+
+```php
+/** @var DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
+$telegraphChat->audio()->send();
 ```
 
 ### `menuButton`

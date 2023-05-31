@@ -59,6 +59,19 @@ Telegraph::video($telegramFileId)->send();
 <alert type="alert">Sent Videos can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
 
 
+### Audio
+
+Audios (required .MP3 or .M4A format) can be sent through Telegraph `->audio()` method:
+
+```php
+Telegraph::audio(Storage::path('audio.mp3'))->send();
+Telegraph::audio('https://my-repository/audio.mp3')->send();
+Telegraph::audio($telegramFileId)->send();
+```
+
+<alert type="alert">Sent Audios can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
+
+
 ### Vocal Messages
 
 Vocals can be sent through Telegraph `->voice()` method:
