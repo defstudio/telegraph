@@ -61,7 +61,7 @@ Telegraph::video($telegramFileId)->send();
 
 ### Audio
 
-Audios (required .MP3 or .M4A format) can be sent through Telegraph `->audio()` method:
+Audio (.MP3 or .M4A format) can be sent through Telegraph `->audio()` method:
 
 ```php
 Telegraph::audio(Storage::path('audio.mp3'))->send();
