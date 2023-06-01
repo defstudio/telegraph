@@ -69,7 +69,7 @@ Telegraph::audio('https://my-repository/audio.mp3')->send();
 Telegraph::audio($telegramFileId)->send();
 ```
 
-<alert type="alert">Sent Audios can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
+<alert type="alert">Sent Audio messages can be edited with the [editMedia](features/telegram-api-calls#editMedia) call</alert>
 
 
 ### Vocal Messages
