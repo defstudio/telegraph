@@ -1,0 +1,15 @@
+url: 'https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/editMessageMedia'
+payload:
+    chat_id: '-123456789'
+    message_id: 42
+    audio: www.audioUrl.com
+    duration: ''
+    thumb: ''
+    caption: ''
+    parse_mode: ''
+    disable_notification: 'false'
+    protect_content: 'false'
+    reply_to_message_id: ''
+    allow_sending_without_reply: 'false'
+    media: '{"type":"audio","media":"www.audioUrl.com"}'
+files: {  }

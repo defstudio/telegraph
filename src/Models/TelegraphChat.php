@@ -207,6 +207,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->video($path, $filename);
     }
 
+    public function audio(string $path, string $filename = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->audio($path, $filename);
+    }
+
     public function voice(string $path, string $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->voice($path, $filename);
