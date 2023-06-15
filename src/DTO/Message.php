@@ -21,7 +21,7 @@ class Message implements Arrayable
 
     private string $text;
     /** Can be string or json string. if json then convert it to array */
-    private mixed $webAppData;
+    private mixed $webAppData = null;
     private bool $protected = false;
 
     private ?User $from = null;
@@ -168,9 +168,9 @@ class Message implements Arrayable
             $message->leftChatMember = User::fromArray($data['left_chat_member']);
         }
 
-        if (isset($data['web_app_data'])) {
+        if (isset($data['web_app_data']['data'])) {
             $webAppData = json_decode($data['web_app_data']['data'], true);
-
+            
             if(!$webAppData) {
                 $webAppData = $data['web_app_data']['data'];
             }
