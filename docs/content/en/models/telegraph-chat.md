@@ -502,7 +502,7 @@ $telegraphChat->poll("What's your favourite programming language?")
     ->option('php')
     ->option('typescript')
     ->option('rust')
-    ->allowMultipeAnswers()
+    ->allowMultipleAnswers()
     ->validUntil(now()->addMinutes(5))
     ->send();
 ```
