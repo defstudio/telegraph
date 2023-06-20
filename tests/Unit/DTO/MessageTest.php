@@ -248,8 +248,8 @@ it('export all properties to array', function () {
         ],
         'web_app_data' => [
             "button" => "CustomButton",
-            "data" => "Data"
-        ]
+            "data" => "Data",
+        ],
     ]);
 
     $array = $dto->toArray();
@@ -260,14 +260,14 @@ it('export all properties to array', function () {
     }
 });
 
-it("extract web_app_data of string type", function(){
+it("extract web_app_data of string type", function () {
     $dto = Message::fromArray([
         'message_id' => 2,
         'date' => now()->timestamp,
         'web_app_data' => [
             "button" => "SendString",
-            "data" => "Data"
-        ]
+            "data" => "Data",
+        ],
     ]);
     $webAppData = $dto->webAppData();
 
@@ -275,7 +275,7 @@ it("extract web_app_data of string type", function(){
 });
 
 
-it("extract web_app_data of json type", function(){
+it("extract web_app_data of json type", function () {
     $dto = Message::fromArray([
         'message_id' => 2,
         'date' => now()->timestamp,
@@ -288,8 +288,8 @@ it("extract web_app_data of json type", function(){
                 {
                   "a" : "b"
                 }
-              ]'
-        ]
+              ]',
+        ],
     ]);
     $webAppData = $dto->webAppData();
 
@@ -298,7 +298,7 @@ it("extract web_app_data of json type", function(){
         1,
         "string",
         [
-          "a" =>  "b"
-        ]
+          "a" => "b",
+        ],
       ]);
 });
