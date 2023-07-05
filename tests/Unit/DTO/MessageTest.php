@@ -246,6 +246,10 @@ it('export all properties to array', function () {
                 'first_name' => 'Bob',
             ],
         ],
+        'web_app_data' => [
+            "button" => "CustomButton",
+            "data" => "Data",
+        ],
     ]);
 
     $array = $dto->toArray();
@@ -254,4 +258,47 @@ it('export all properties to array', function () {
     foreach ($reflection->getProperties() as $property) {
         expect($array)->toHaveKey(Str::of($property->name)->snake());
     }
+});
+
+it("extract web_app_data of string type", function () {
+    $dto = Message::fromArray([
+        'message_id' => 2,
+        'date' => now()->timestamp,
+        'web_app_data' => [
+            "button" => "SendString",
+            "data" => "Data",
+        ],
+    ]);
+    $webAppData = $dto->webAppData();
+
+    expect($webAppData)->toBe("Data");
+});
+
+
+it("extract web_app_data of json type", function () {
+    $dto = Message::fromArray([
+        'message_id' => 2,
+        'date' => now()->timestamp,
+        'web_app_data' => [
+            "button" => "SendJson",
+            "data" => '[
+                false,
+                1,
+                "string",
+                {
+                  "a" : "b"
+                }
+              ]',
+        ],
+    ]);
+    $webAppData = $dto->webAppData();
+
+    expect($webAppData)->toBe([
+        false,
+        1,
+        "string",
+        [
+          "a" => "b",
+        ],
+      ]);
 });

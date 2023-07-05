@@ -2,6 +2,21 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.37.0 - 2023-06-20
+
+### What's Changed
+
+- #185 [Feat] sendAudio method + [Feat] editMedia->audio() method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/380
+- Update telegraph-chat.md by @pou in https://github.com/defstudio/telegraph/pull/389
+- access to web_app_date in message by @sepgg in https://github.com/defstudio/telegraph/pull/388
+
+### New Contributors
+
+- @pou made their first contribution in https://github.com/defstudio/telegraph/pull/389
+- @sepgg made their first contribution in https://github.com/defstudio/telegraph/pull/388
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.36.0...v1.37.0
+
 ## v1.36.0 - 2023-05-18
 
 ### What's Changed
