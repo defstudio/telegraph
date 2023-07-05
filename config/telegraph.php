@@ -117,4 +117,9 @@ return [
             ],
         ],
     ],
+
+    'payments' => [
+        'token' => env('TELEGRAPH_PAYMENTS_TOKEN', ''),
+        'currency' => env('TELEGRAPH_PAYMENTS_CURRENCY', 'EUR'),
+    ],
 ];

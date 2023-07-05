@@ -12,6 +12,7 @@ use DefStudio\Telegraph\Concerns\AnswersInlineQueries;
 use DefStudio\Telegraph\Concerns\CallTraitsMethods;
 use DefStudio\Telegraph\Concerns\ComposesMessages;
 use DefStudio\Telegraph\Concerns\CreatesScopedPayloads;
+use DefStudio\Telegraph\Concerns\HandlesPayments;
 use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithCommands;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
@@ -38,6 +39,7 @@ class Telegraph
     use CreatesScopedPayloads;
     use InteractWithUsers;
     use InteractsWithCommands;
+    use HandlesPayments;
 
     public const MAX_DOCUMENT_SIZE_IN_MB = 50;
     public const MAX_ANIMATION_SIZE_IN_MB = 50;

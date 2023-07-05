@@ -83,6 +83,19 @@ it('export all properties to array', function () {
                 'is_anonymous' => false,
             ],
         ],
+        'pre_checkout_query' => [
+            'id' => 1,
+            'currency' => 'EUR',
+            'total_amount' => '10000',
+            'invoice_payload' => '{}',
+            'from' => [
+                'id' => 1,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+            ],
+        ],
     ]);
 
     $array = $dto->toArray();

@@ -246,6 +246,13 @@ it('export all properties to array', function () {
                 'first_name' => 'Bob',
             ],
         ],
+        'successful_payment' => [
+            'currency' => 'EUR',
+            'total_amount' => '10000',
+            'invoice_payload' => '{}',
+            'telegram_payment_charge_id' => '111',
+            'provider_payment_charge_id' => '222',
+        ],
     ]);
 
     $array = $dto->toArray();

@@ -12,6 +12,8 @@ use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\DTO\PreCheckoutQuery;
+use DefStudio\Telegraph\DTO\SuccessfulPayment;
 use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -36,6 +38,7 @@ abstract class WebhookHandler
     protected Request $request;
     protected Message|null $message = null;
     protected CallbackQuery|null $callbackQuery = null;
+    protected PreCheckoutQuery|null $preCheckoutQuery = null;
 
     protected Collection $data;
 
@@ -110,7 +113,6 @@ abstract class WebhookHandler
             return;
         }
 
-
         if ($this->message?->newChatMembers()->isNotEmpty()) {
             foreach ($this->message->newChatMembers() as $member) {
                 $this->handleChatMemberJoined($member);
@@ -121,6 +123,12 @@ abstract class WebhookHandler
 
         if ($this->message?->leftChatMember() !== null) {
             $this->handleChatMemberLeft($this->message->leftChatMember());
+
+            return;
+        }
+
+        if (($payment = $this->message?->successfulPayment()) !== null) {
+            $this->handleSuccessfulPayment($payment);
 
             return;
         }
@@ -148,7 +156,7 @@ abstract class WebhookHandler
 
     protected function extractCallbackQueryData(): void
     {
-        $this->setupChat();
+        $this->setupChat($this->extractChat());
 
         assert($this->callbackQuery !== null);
 
@@ -164,7 +172,7 @@ abstract class WebhookHandler
 
     protected function extractMessageData(): void
     {
-        $this->setupChat();
+        $this->setupChat($this->extractChat());
 
         assert($this->message !== null);
 
@@ -183,6 +191,11 @@ abstract class WebhookHandler
     protected function handleChatMemberLeft(User $member): void
     {
         // .. do nothing
+    }
+
+    protected function handleSuccessfulPayment(SuccessfulPayment $payment): void
+    {
+        //
     }
 
     protected function handleChatMessage(Stringable $text): void
@@ -246,7 +259,6 @@ abstract class WebhookHandler
             return;
         }
 
-
         if ($this->request->has('callback_query')) {
             /* @phpstan-ignore-next-line */
             $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
@@ -257,6 +269,12 @@ abstract class WebhookHandler
             /* @phpstan-ignore-next-line */
             $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
         }
+
+        if ($this->request->has('pre_checkout_query')) {
+            /* @phpstan-ignore-next-line */
+            $this->preCheckoutQuery = PreCheckoutQuery::fromArray($this->request->input('pre_checkout_query'));
+            $this->handlePreCheckoutQuery();
+        }
     }
 
     protected function handleInlineQuery(InlineQuery $inlineQuery): void
@@ -264,10 +282,25 @@ abstract class WebhookHandler
         // .. do nothing
     }
 
-    protected function setupChat(): void
+    protected function handlePreCheckoutQuery(): void
     {
-        $telegramChat = $this->message?->chat() ?? $this->callbackQuery?->message()?->chat();
+        $this->setupChat($this->extractChat());
 
+        assert($this->preCheckoutQuery !== null);
+        $this->chat->answerPreCheckoutQuery($this->preCheckoutQuery)->send();
+    }
+
+    protected function extractChat(): ?Chat
+    {
+        $user = $this->preCheckoutQuery?->from;
+
+        return $user !== null
+            ? Chat::fromUser($user)
+            : $this->message?->chat() ?? $this->callbackQuery?->message()?->chat();
+    }
+
+    protected function setupChat(?Chat $telegramChat): void
+    {
         assert($telegramChat !== null);
 
         /** @var TelegraphChat $chat */

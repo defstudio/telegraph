@@ -33,6 +33,7 @@ class Message implements Arrayable
     /** @var Collection<array-key, User> */
     private Collection $newChatMembers;
     private ?User $leftChatMember = null;
+    private ?SuccessfulPayment $successfulPayment = null;
 
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
@@ -72,6 +73,7 @@ class Message implements Arrayable
      *     contact?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
+     *     successful_payment?: array<string, mixed>,
      *  } $data
      */
     public static function fromArray(array $data): Message
@@ -159,10 +161,14 @@ class Message implements Arrayable
         /* @phpstan-ignore-next-line */
         $message->newChatMembers = collect($data['new_chat_members'] ?? [])->map(fn (array $userData) => User::fromArray($userData));
 
-
         if (isset($data['left_chat_member'])) {
             /* @phpstan-ignore-next-line */
             $message->leftChatMember = User::fromArray($data['left_chat_member']);
+        }
+
+        if (isset($data['successful_payment'])) {
+            /* @phpstan-ignore-next-line */
+            $message->successfulPayment = SuccessfulPayment::fromArray($data['successful_payment']);
         }
 
         return $message;
@@ -274,6 +280,11 @@ class Message implements Arrayable
         return $this->leftChatMember;
     }
 
+    public function successfulPayment(): ?SuccessfulPayment
+    {
+        return $this->successfulPayment;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -297,6 +308,7 @@ class Message implements Arrayable
             'voice' => $this->voice?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
+            'successful_payment' => $this->successfulPayment?->toArray(),
         ]);
     }
 }

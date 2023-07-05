@@ -34,6 +34,7 @@ trait StoresFiles
             throw FileException::failedToRetreiveFileInfo($fileId);
         }
 
+        /** @var string $filePath */
         $filePath = $response->json('result.file_path');
 
         $url = Str::of($this->getFilesBaseUrl())

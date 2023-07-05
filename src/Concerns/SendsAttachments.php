@@ -234,6 +234,7 @@ trait SendsAttachments
      */
     private function imageDimensions(string $path): array
     {
+        /** @var int[] $sizes */
         $sizes = getimagesize($path);
 
         if (!$sizes) {

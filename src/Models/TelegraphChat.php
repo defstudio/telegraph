@@ -9,6 +9,9 @@ namespace DefStudio\Telegraph\Models;
 use DefStudio\Telegraph\Concerns\HasStorage;
 use DefStudio\Telegraph\Contracts\Storable;
 use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
+use DefStudio\Telegraph\DTO\AnswerPreCheckoutQuery;
+use DefStudio\Telegraph\DTO\Invoice;
+use DefStudio\Telegraph\DTO\PreCheckoutQuery;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -20,6 +23,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
+use Opis\Closure\SerializableClosure;
 
 /**
  * DefStudio\Telegraph\Models\TelegraphChat
@@ -334,5 +338,49 @@ class TelegraphChat extends Model implements Storable
     public function setMenuButton(): SetChatMenuButtonPayload
     {
         return TelegraphFacade::chat($this)->setChatMenuButton();
+    }
+
+    /**
+     * @throws \DefStudio\Telegraph\Exceptions\StorageException
+     */
+    public function invoice(Invoice $invoice, ?\Closure $handler = null): Telegraph
+    {
+        if ($handler !== null) {
+            $wrapper = new SerializableClosure($handler);
+            $serialized = serialize($wrapper);
+            $this->storage()->set('invoice_handler', $serialized);
+        }
+
+        return TelegraphFacade::chat($this)->invoice($invoice);
+    }
+
+    /**
+     * @throws \DefStudio\Telegraph\Exceptions\StorageException
+     */
+    public function answerPreCheckoutQuery(PreCheckoutQuery $query): Telegraph
+    {
+        $handler = $this->storage()->get('invoice_handler');
+        if ($handler !== null) {
+            /** @var SerializableClosure $unserialized */
+            $unserialized = unserialize($handler);
+
+            $handler = $unserialized->getClosure();
+        }
+
+        $this->storage()->forget('invoice_handler');
+
+        /** @var Telegraph $telegraph */
+        $telegraph = TelegraphFacade::bot($this->bot);
+
+        $answer = new AnswerPreCheckoutQuery();
+        $answer->preCheckoutQueryId = $query->id;
+
+        if (!is_callable($handler)) {
+            return $telegraph->successPreCheckoutQuery($answer);
+        }
+
+        return $handler($query)
+            ? $telegraph->successPreCheckoutQuery($answer)
+            : $telegraph->errorPreCheckoutQuery($answer);
     }
 }
