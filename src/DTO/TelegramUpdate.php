@@ -15,6 +15,7 @@ class TelegramUpdate implements Arrayable
     private ?CallbackQuery $callbackQuery = null;
     private ?ChatMemberUpdate $botChatStatusChange = null;
     private ?InlineQuery $inlineQuery = null;
+    private ?PreCheckoutQuery $preCheckoutQuery = null;
 
     private function __construct()
     {
@@ -28,7 +29,8 @@ class TelegramUpdate implements Arrayable
      *     channel_post?:array<string, mixed>,
      *     callback_query?:array<string, mixed>,
      *     my_chat_member?:array<string, mixed>,
-     *     inline_query?:array<string, mixed>
+     *     inline_query?:array<string, mixed>,
+     *     pre_checkout_query?:array<string, mixed>
      * } $data
      */
     public static function fromArray(array $data): TelegramUpdate
@@ -67,6 +69,11 @@ class TelegramUpdate implements Arrayable
             $update->inlineQuery = InlineQuery::fromArray($data['inline_query']);
         }
 
+        if (isset($data['pre_checkout_query'])) {
+            /* @phpstan-ignore-next-line */
+            $update->preCheckoutQuery = PreCheckoutQuery::fromArray($data['pre_checkout_query']);
+        }
+
         return $update;
     }
 
@@ -95,6 +102,11 @@ class TelegramUpdate implements Arrayable
         return $this->inlineQuery;
     }
 
+    public function preCheckoutQuery(): ?PreCheckoutQuery
+    {
+        return $this->preCheckoutQuery;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -103,6 +115,7 @@ class TelegramUpdate implements Arrayable
             'callback_query' => $this->callbackQuery?->toArray(),
             'bot_chat_status_change' => $this->botChatStatusChange?->toArray(),
             'inline_query' => $this->inlineQuery?->toArray(),
+            'pre_checkout_query' => $this->preCheckoutQuery?->toArray(),
         ]);
     }
 }
