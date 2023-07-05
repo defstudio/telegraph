@@ -20,6 +20,8 @@ class Message implements Arrayable
     private ?CarbonInterface $editDate = null;
 
     private string $text;
+    /** Can be string or json string. if json then convert it to array */
+    private mixed $webAppData = null;
     private bool $protected = false;
 
     private ?User $from = null;
@@ -73,6 +75,7 @@ class Message implements Arrayable
      *     contact?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
+     *     web_app_data?: string,
      *     successful_payment?: array<string, mixed>,
      *  } $data
      */
@@ -164,6 +167,16 @@ class Message implements Arrayable
         if (isset($data['left_chat_member'])) {
             /* @phpstan-ignore-next-line */
             $message->leftChatMember = User::fromArray($data['left_chat_member']);
+        }
+
+        if (isset($data['web_app_data']['data'])) {
+            $webAppData = json_decode($data['web_app_data']['data'], true);
+
+            if(!$webAppData) {
+                $webAppData = $data['web_app_data']['data'];
+            }
+
+            $message->webAppData = $webAppData;
         }
 
         if (isset($data['successful_payment'])) {
@@ -280,6 +293,11 @@ class Message implements Arrayable
         return $this->leftChatMember;
     }
 
+    public function webAppData(): mixed
+    {
+        return $this->webAppData;
+    }
+
     public function successfulPayment(): ?SuccessfulPayment
     {
         return $this->successfulPayment;
@@ -308,6 +326,7 @@ class Message implements Arrayable
             'voice' => $this->voice?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
+            'web_app_data' => $this->webAppData,
             'successful_payment' => $this->successfulPayment?->toArray(),
         ]);
     }
