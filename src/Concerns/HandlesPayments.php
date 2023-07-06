@@ -15,9 +15,6 @@ use DefStudio\Telegraph\Telegraph;
  */
 trait HandlesPayments
 {
-    public const ENDPOINT_INVOICE = 'sendInvoice';
-    public const ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY = 'answerPreCheckoutQuery';
-
     public function invoice(Invoice $invoice): self
     {
         $telegraph = clone $this;

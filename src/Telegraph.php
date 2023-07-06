@@ -113,7 +113,8 @@ class Telegraph
     public const ENDPOINT_SET_CHAT_MENU_BUTTON = 'setChatMenuButton';
     public const ENDPOINT_GET_CHAT_MENU_BUTTON = 'getChatMenuButton';
     public const ENDPOINT_DICE = 'sendDice';
-
+    public const ENDPOINT_INVOICE = 'sendInvoice';
+    public const ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY = 'answerPreCheckoutQuery';
 
     /** @var array<string, mixed> */
     protected array $data = [];
