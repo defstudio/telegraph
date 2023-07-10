@@ -20,7 +20,7 @@
         "illuminate/contracts": "^8.37 | ^9.0 | ^10.0",
         "illuminate/http": "^8.37 | ^9.0 | ^10.00",
         "illuminate/support": "^8.37 | ^9.0 | ^10.0",
-        "opis/closure": "^3.6",
+        "laravel/serializable-closure": "^1.3",
         "spatie/laravel-package-tools": "^1.12.1"
     },
     "require-dev": {
