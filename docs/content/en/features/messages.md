@@ -51,6 +51,24 @@ Forces the user to reply to the message. For more information see [the official 
 $chat->message("ok!")->forceReply(placeholder: 'Enter your reply...')->send();
 ```
 
+### forwardMessage
+
+
+Use this method to forward messages of any kind.
+
+```php
+$chat->forwardMessage($fromChat,$messageId)->send();
+
+```
+### copyMessage
+
+ Use this method to copy messages of any kind.
+ The method is analogous to the method forwardMessage, but the copied message doesn't have a link to the original message.
+
+```php
+$chat->copyMessage($fromChat,$messageId)->send();
+```
+
 ### protected
 
 Protects message contents from forwarding and saving
