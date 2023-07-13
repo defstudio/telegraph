@@ -655,6 +655,17 @@ it('can forward a message', function () {
         'message_id' => 123,
     ]);
 });
+it('can copy a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->copyMessage($chat, 123)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_COPY_MESSAGE, [
+        'from_chat_id' => $chat->chat_id,
+        'message_id' => 123,
+    ]);
+});
 
 it('can retrieve current chat menu button', function () {
     Telegraph::fake();
