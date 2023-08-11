@@ -18,6 +18,7 @@ use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -43,7 +44,7 @@ class TelegraphBot extends Model implements Storable
         'name',
     ];
 
-    protected static function newFactory(): TelegraphBotFactory
+    protected static function newFactory(): Factory
     {
         return TelegraphBotFactory::new();
     }
