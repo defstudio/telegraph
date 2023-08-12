@@ -2,6 +2,12 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.38.1 - 2023-08-12
+
+Fix docs
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.0...v1.38.1
+
 ## v1.38.0 - 2023-08-12
 
 ### What's Changed
