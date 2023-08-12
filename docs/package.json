@@ -1,22 +1,15 @@
 {
-  "name": "telegraph-docs",
+  "name": "docs",
   "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
-    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
+    "generate": "nuxt generate"
   },
   "dependencies": {
-    "@nuxt/content-theme-docs": "0.10.1",
-    "nuxt": "^2.17.1"
-  },
-  "devDependencies": {
-    "push-dir": "^0.4.1",
-    "postcss": "^8.1",
-    "postcss-loader": "^4.0.3",
-    "@nuxtjs/tailwindcss": "^5.3.5"
+    "@nuxt/content-theme-docs": "^0.11.0",
+    "nuxt": "^2.15.8"
   }
 }
