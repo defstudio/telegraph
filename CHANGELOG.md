@@ -2,6 +2,21 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.38.0 - 2023-08-12
+
+### What's Changed
+
+- [feat] add copyMessage by @semer-11 in https://github.com/defstudio/telegraph/pull/393
+- [feat] add ability to write a custom Factory by @ahr1384 in https://github.com/defstudio/telegraph/pull/400
+- [lang] Added Spanish translations by @Tievodj in https://github.com/defstudio/telegraph/pull/396
+
+### New Contributors
+
+- @Tievodj made their first contribution in https://github.com/defstudio/telegraph/pull/396
+- @semer-11 made their first contribution in https://github.com/defstudio/telegraph/pull/393
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.37.0...v1.38.0
+
 ## v1.37.0 - 2023-06-20
 
 ### What's Changed
