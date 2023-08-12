@@ -101,6 +101,10 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Fabio Ivona](https://github.com/defstudio)
 - [Andrea Marco Sartori](https://github.com/cerbero90) for his cool ideas
 - [Alberto Pieripolli](https://github.com/trippo) who had the great Pest badge idea
+
+- [Tievo](https://github.com/Tievodj) Spanish translations
+- [Andrey Helldar](https://github.com/andrey-helldar) Russian translations
+
 - [All Contributors](../../contributors)
 
 ## License
