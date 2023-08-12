@@ -74,7 +74,7 @@ class Message implements Arrayable
      *     contact?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
-     *     web_app_data?: string
+     *     web_app_data?: array<string, mixed>,
      *  } $data
      */
     public static function fromArray(array $data): Message

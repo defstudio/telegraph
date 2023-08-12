@@ -240,7 +240,7 @@ trait SendsAttachments
             return [0, 0];
         }
 
-        return $sizes;
+        return [$sizes[0], $sizes[1]];
     }
 
     private function fileSizeInMb(string $path): float
