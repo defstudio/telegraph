@@ -16,6 +16,7 @@
   "devDependencies": {
     "push-dir": "^0.4.1",
     "postcss": "^8.1",
-    "postcss-loader": "^4.0.3"
+    "postcss-loader": "^4.0.3",
+    "@nuxtjs/tailwindcss": "^6.8.0"
   }
 }
