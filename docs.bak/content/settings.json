@@ -1,10 +1,10 @@
 {
-    "title": "Telegraph",
-    "url": "https://defstudio.github.io/telegraph",
-    "logo": {
-        "light": "/logo-light.svg",
-        "dark": "/logo-dark.svg"
-    },
-    "github": "defstudio/telegraph",
-    "twitter": "@FabioIvona"
+  "title": "Telegraph Documentation",
+  "url": "https://defstudio.github.io/telegraph",
+  "logo": {
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg"
+  },
+  "github": "defstudio/telegraph",
+  "twitter": "@FabioIvona"
 }
