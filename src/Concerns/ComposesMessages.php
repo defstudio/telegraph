@@ -179,4 +179,20 @@ trait ComposesMessages
 
         return $telegraph;
     }
+
+    public function copyMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
+    {
+        $fromChatId = is_int($fromChat) ? $fromChat : $fromChat->chat_id;
+
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_COPY_MESSAGE;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChatId(),
+            'message_id' => $messageId,
+            'from_chat_id' => $fromChatId,
+        ];
+
+        return $telegraph;
+    }
 }
