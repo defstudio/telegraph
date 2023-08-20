@@ -59,7 +59,7 @@ Retrieves the chat member count from telegram
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 
-$telegraphChat->info(); /* 42 */
+$telegraphChat->memberCount(); /* 42 */
 ```
 
 ## Optional parameters
