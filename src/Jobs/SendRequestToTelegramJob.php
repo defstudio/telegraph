@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph\Jobs;
 
+use DefStudio\Telegraph\Client\TelegraphResponse;
 use DefStudio\Telegraph\DTO\Attachment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -21,7 +22,7 @@ class SendRequestToTelegramJob implements ShouldQueue
      * @param array<string, mixed> $data
      * @param Collection<string, Attachment> $files
      */
-    public function __construct(public string $url, public array $data, public Collection $files)
+    public function __construct(public string $url, public array $data, public Collection $files, public $callback=null)
     {
     }
 
@@ -42,6 +43,11 @@ class SendRequestToTelegramJob implements ShouldQueue
             $request
         );
 
-        $request->post($this->url, $this->data);
+        $response=$request->post($this->url, $this->data);
+        if(is_callable($this->callback)){
+            $response=TelegraphResponse::fromResponse($response);
+            call_user_func($this->callback, $response);
+        }
+
     }
 }

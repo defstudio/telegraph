@@ -70,9 +70,9 @@ trait InteractsWithTelegram
         return $data;
     }
 
-    protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
+    protected function dispatchRequestToTelegram(string $queue = null, $callback=null): PendingDispatch
     {
-        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files)->onQueue($queue);
+        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files, $callback)->onQueue($queue);
     }
 
     public function setBaseUrl(string|null $url): Telegraph
