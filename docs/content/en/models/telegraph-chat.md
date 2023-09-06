@@ -6,7 +6,7 @@ fullscreen: false
 position: 41
 ---
 
-Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphChat` model or using a custom Chat model.
+Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegraphChat` model or using a custom Chat model.
 
 ## Custom Chat Model
 
