@@ -219,7 +219,7 @@ it('can retrieve chat member count', function () {
 
 it('can retrieve a chat member', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        return $telegraph->chat(make_chat())->chatMember(123456);
+        return $telegraph->chat(make_chat())->chatMember('123456');
     })->toMatchTelegramSnapshot();
 });
 
