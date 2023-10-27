@@ -63,6 +63,22 @@ it('can handle a registered action', function () {
     expect(TestWebhookHandler::$calls_count)->toBe(1);
 });
 
+it('can handle a registered action with parameters', function () {
+    Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
+    $bot = make_bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_request('param_injection'), $bot);
+
+    Facade::assertSent("Foo is [not set]");
+
+    app(TestWebhookHandler::class)->handle(webhook_request('param_injection;foo:bar'), $bot);
+
+    Facade::assertSent("Foo is [bar]");
+});
+
 it('rejects unregistered actions', function () {
     Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
     Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
