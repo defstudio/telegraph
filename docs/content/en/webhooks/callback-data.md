@@ -18,12 +18,12 @@ and will be handled by a public `action_name` method inside a custom [webhook ha
 *Telegraph* implements some useful methods to interact with the received callback query:
 
 
-Data can be retrieved from the payload using `->get()` method:
+Data can be retrieved from the payload by arguments of the function or using `->get()` method:
 
 ```php
 class CustomWebhookHandler extends WebhookHandler
 {
-    public function dismiss(){
+    public function dismiss(string $key2){ //bar
         //...
         
         $key1 = $this->data->get('key1'); //foo
