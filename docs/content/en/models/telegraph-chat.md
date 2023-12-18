@@ -295,6 +295,19 @@ $telegraphChat->setBaseUrl('https://my-secret-server.dev')->message('secret mess
 ```
 
 
+## `thread()`
+
+sets message thread (topic) of the forum (for forum supergroups only)
+
+```php
+use DefStudio\Telegraph\Models\TelegraphChat;
+
+/** @var TelegraphChat $telegraphChat */
+
+$telegraphChat->thread(1)->message('Topic 1')->send();
+```
+
+
 ## `setTitle()`
 
 sets chat title
