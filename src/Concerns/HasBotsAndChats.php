@@ -56,6 +56,11 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function thread(int $thread): Telegraph
+    {
+        return $this->withData('message_thread_id', $thread);
+    }
+
     protected function getBotIfAvailable(): TelegraphBot|string|null
     {
         $telegraph = clone $this;
