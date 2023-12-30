@@ -56,7 +56,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function thread(int $thread): Telegraph
+    public function onThread(int $thread): Telegraph
     {
         return $this->withData('message_thread_id', $thread);
     }
