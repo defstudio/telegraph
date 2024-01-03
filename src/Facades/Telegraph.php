@@ -103,6 +103,15 @@ class Telegraph extends Facade
         return $fake;
     }
 
+    public static function getFacadeRoot()
+    {
+        $instance = parent::getFacadeRoot();
+        if ($instance instanceof TelegraphFake) {
+            $instance->prepareForNewRequest();
+        }
+        return $instance;
+    }
+
     protected static function getFacadeAccessor(): string
     {
         return 'telegraph';

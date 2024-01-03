@@ -3,6 +3,7 @@
 use DefStudio\Telegraph\Concerns\HasStorage;
 use DefStudio\Telegraph\Contracts\Storable;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use DefStudio\Telegraph\Tests\Unit\Storage\TestStorable;
 use Illuminate\Support\Str;
 
 beforeEach(function () {
@@ -10,14 +11,7 @@ beforeEach(function () {
 });
 
 it('can store and retrieve data', function (string $key, mixed $value) {
-    $class = new class () implements Storable {
-        use HasStorage;
-
-        public function storageKey(): string
-        {
-            return 'foo';
-        }
-    };
+    $class = new TestStorable();
 
     $class->storage('file')->set($key, $value);
 
@@ -43,14 +37,7 @@ it('can store and retrieve data', function (string $key, mixed $value) {
 ]);
 
 it('can store and retrieve a model', function () {
-    $class = new class () implements Storable {
-        use HasStorage;
-
-        public function storageKey(): string
-        {
-            return 'foo';
-        }
-    };
+    $class = new TestStorable();
 
     $model = TelegraphChat::factory()->create();
 
@@ -75,14 +62,7 @@ it('can store and retrieve a model', function () {
 });
 
 it('can store and retrieve a nested model', function () {
-    $class = new class () implements Storable {
-        use HasStorage;
-
-        public function storageKey(): string
-        {
-            return 'foo';
-        }
-    };
+    $class = new TestStorable();
 
     $models = TelegraphChat::factory()->count(4)->create();
 

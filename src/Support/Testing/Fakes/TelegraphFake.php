@@ -15,6 +15,7 @@ use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\Assert;
 
 class TelegraphFake extends Telegraph
@@ -28,6 +29,10 @@ class TelegraphFake extends Telegraph
     {
         parent::__construct();
         $this->replies = $replies;
+    }
+
+    public function prepareForNewRequest(): void {
+        $this->files = new Collection();
     }
 
     public function editMedia(int $messageId): TelegraphEditMediaFake
