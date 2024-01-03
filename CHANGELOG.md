@@ -2,6 +2,25 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.38.2 - 2024-01-03
+
+### What's Changed
+
+* fix typo in telegraph-chat model doc by @SimuraEpona in https://github.com/defstudio/telegraph/pull/402
+* Update telegraph-chat.md by @lucidlemon in https://github.com/defstudio/telegraph/pull/408
+* Bump browserify-sign from 4.2.1 to 4.2.2 in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/426
+* Added Arabic translations by @moayedalhagy in https://github.com/defstudio/telegraph/pull/425
+* PHP 8.3 Support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/442
+* Fix telegraph fake attached files not clearing between fake requests (ISSUE-432) by @varemel in https://github.com/defstudio/telegraph/pull/433
+
+### New Contributors
+
+* @SimuraEpona made their first contribution in https://github.com/defstudio/telegraph/pull/402
+* @lucidlemon made their first contribution in https://github.com/defstudio/telegraph/pull/408
+* @varemel made their first contribution in https://github.com/defstudio/telegraph/pull/433
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.1...v1.38.2
+
 ## v1.38.1 - 2023-08-12
 
 Fix docs
