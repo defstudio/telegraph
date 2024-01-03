@@ -31,7 +31,8 @@ class TelegraphFake extends Telegraph
         $this->replies = $replies;
     }
 
-    public function prepareForNewRequest(): void {
+    public function prepareForNewRequest(): void
+    {
         $this->files = new Collection();
     }
 

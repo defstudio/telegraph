@@ -109,6 +109,7 @@ class Telegraph extends Facade
         if ($instance instanceof TelegraphFake) {
             $instance->prepareForNewRequest();
         }
+
         return $instance;
     }
 
