@@ -2,7 +2,7 @@
 title: 'TelegraphBot'
 description: ''
 category: 'Models'
-fullscreen: false 
+fullscreen: false
 position: 40
 ---
 
@@ -21,7 +21,7 @@ use DefStudio\Telegraph\Models\TelegraphBot as BaseModel;
 
 class Bot extends BaseModel
 {
-    
+
 }
 ```
 

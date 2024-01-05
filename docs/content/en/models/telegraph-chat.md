@@ -2,11 +2,11 @@
 title: 'TelegraphChat'
 description: ''
 category: 'Models'
-fullscreen: false 
+fullscreen: false
 position: 41
 ---
 
-Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegraphChat` model or using a custom Chat model.
+Chat informations are stored in database inside a `telegraph_chats` table and can be retrieved using `DefStudio\Telegraph\Models\TelegaphChat` model or using a custom Chat model.
 
 ## Custom Chat Model
 
@@ -21,7 +21,7 @@ use DefStudio\Telegraph\Models\TelegraphChat as BaseModel;
 
 class Chat extends BaseModel
 {
-    
+
 }
 ```
 
@@ -59,7 +59,7 @@ Retrieves the chat member count from telegram
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
 
-$telegraphChat->memberCount(); /* 42 */
+$telegraphChat->info(); /* 42 */
 ```
 
 ## Optional parameters

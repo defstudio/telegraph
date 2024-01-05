@@ -3,7 +3,7 @@ title: 'Telegraph Entities Storage'
 menuTitle: 'Entities Storage'
 description: ''
 category: 'Storage'
-fullscreen: false 
+fullscreen: false
 position: 70
 ---
 
@@ -16,7 +16,7 @@ Telegraph implements, by default, contextual storage for Bots, Chats and User DT
 ```php
 class MyCustomClass implements \DefStudio\Telegraph\Contracts\Storable{
     use \DefStudio\Telegraph\Concerns\HasStorage;
-    
+
     public function storageKey(): string|int
     {
         return "MyCustomClass instance unique ID";
@@ -26,7 +26,7 @@ class MyCustomClass implements \DefStudio\Telegraph\Contracts\Storable{
 
 ### Bot Storage
 
-[TelegraphBots](models/telegraph-bot) data storage is available through its `->storage()` method  
+[TelegraphBots](models/telegraph-bot) data storage is available through its `->storage()` method
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphBot $telegraphBot */
@@ -39,7 +39,7 @@ $telegraphBot->forget('last_chat') //stored data is deleted
 
 ### Chat Storage
 
-[TelegraphChats](models/telegraph-chat) data storage is available through its `->storage()` method  
+[TelegraphChats](models/telegraph-chat) data storage is available through its `->storage()` method
 
 ```php
 /** @var \DefStudio\Telegraph\Models\TelegraphChat $telegraphChat */
@@ -52,7 +52,7 @@ $lastMessage->forget('last_message') //stored data is deleted
 
 ### User DTO Storage
 
-[User DTO](webhooks/dto#defstudio-telegraph-dto-user) data storage is available through its `->storage()` method  
+[User DTO](webhooks/dto#defstudio-telegraph-dto-user) data storage is available through its `->storage()` method
 
 ```php
 /** @var \App\Models\User $user */
@@ -66,7 +66,7 @@ $userId->forget('laravel_user_id') //stored data is deleted
 
 ## Using different Storage drivers
 
-Depending on the application needs, multiple drivers can be [configured](installation#configuration) and used. 
+Depending on the application needs, multiple drivers can be [configured](installation#configuration) and used.
 
 ### Default driver
 
@@ -77,7 +77,7 @@ A default storage driver can be set in `telegraph.storage.default` config and it
 
 return [
     // ...
-    
+
     'storage' => [
         'default' => 'file'
     ]
@@ -97,7 +97,7 @@ A file storage driver saves data in json files inside the disk/folder defined in
 
 return [
     // ...
-    
+
     'storage' => [
         'stores' => [
             'file' => [
@@ -127,7 +127,7 @@ A cache storage driver saves data using Laravel Cache system following Telegraph
 
 return [
     // ...
-    
+
     'storage' => [
         'stores' => [
             'cache' => [

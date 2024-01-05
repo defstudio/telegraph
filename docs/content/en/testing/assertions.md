@@ -69,7 +69,7 @@ Telegraph::assertSentEditMedia('mediaType', Storage::path('photo.jpg'));
 
 ## assertStoredFile
 
-asserts that the given incoming file was stored 
+asserts that the given incoming file was stored
 
 ```php
 Telegraph::assertStoredFile($fileId);
