@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.38.3 - 2024-01-06
+
+### What's Changed
+
+* Update composer.json to use Larastan Org by @arnebr in https://github.com/defstudio/telegraph/pull/446
+* Fix documentation WSOD by @jorisdrenth in https://github.com/defstudio/telegraph/pull/454
+
+### New Contributors
+
+* @arnebr made their first contribution in https://github.com/defstudio/telegraph/pull/446
+* @jorisdrenth made their first contribution in https://github.com/defstudio/telegraph/pull/454
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.2...v1.38.3
+
 ## v1.38.2 - 2024-01-03
 
 ### What's Changed
