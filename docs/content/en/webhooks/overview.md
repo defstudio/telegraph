@@ -3,7 +3,7 @@ title: 'Webhooks Overview'
 menuTitle: 'Overview'
 description: ''
 category: 'Webhooks'
-fullscreen: false 
+fullscreen: false
 position: 60
 ---
 
@@ -60,7 +60,7 @@ Callback queries, commands and messages handling from unknown chats can be enabl
      * if enabled, allows messages and commands from unregistered chats
      */
     'allow_messages_from_unknown_chats' => true,
-    
+
      /*
      * if enabled, store unknown chats as new TelegraphChat models
      */
