@@ -2,7 +2,8 @@ export default defineAppConfig({
   docus: {
     title: 'Telegraph',
     description: 'Telegram bots made easy',
-    image: '/static/logo-dark.png',
+      url: '/telegraph',
+    image: '/logo-dark.png',
     socials: {
       twitter: 'FabioIvona',
       github: 'defstudio/telegraph',
