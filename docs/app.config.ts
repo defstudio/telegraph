@@ -10,7 +10,7 @@ export default defineAppConfig({
     },
     layout: 'docs',
     aside: {
-      level: 1,
+      level: 0,
       collapsed: false,
       exclude: []
     },
