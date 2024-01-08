@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.38.4 - 2024-01-08
+
+### What's Changed
+
+* Add missing images to documentation by @jorisdrenth in https://github.com/defstudio/telegraph/pull/455
+* Dutch translations by @jorisdrenth in https://github.com/defstudio/telegraph/pull/457
+* Upgrade documentation to Nuxt 3 + Docus by @jorisdrenth in https://github.com/defstudio/telegraph/pull/459
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.3...v1.38.4
+
 ## v1.38.3 - 2024-01-06
 
 ### What's Changed
