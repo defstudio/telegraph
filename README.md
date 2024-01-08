@@ -102,13 +102,15 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Andrea Marco Sartori](https://github.com/cerbero90) for his cool ideas
 - [Alberto Pieripolli](https://github.com/trippo) Pest badge
 - [Joris Drenth](https://github.com/jorisdrenth) Docs fix and upgrade
-
-- [Tievo](https://github.com/Tievodj) Spanish translations
-- [Andrey Helldar](https://github.com/andrey-helldar) Russian translations
-- [Joris Drenth](https://github.com/jorisdrenth) Dutch translations
-- [Moayed Alhagy](https://github.com/moayedalhagy) Arabic translations
-
 - [All Contributors](../../contributors)
+
+## Translators
+
+- [Tievo](https://github.com/Tievodj) Spanish
+- [Andrey Helldar](https://github.com/andrey-helldar) Russian
+- [Joris Drenth](https://github.com/jorisdrenth) Dutch
+- [Moayed Alhagy](https://github.com/moayedalhagy) Arabic
+
 
 ## License
 
