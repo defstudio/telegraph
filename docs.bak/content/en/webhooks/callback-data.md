@@ -33,4 +33,23 @@ class CustomWebhookHandler extends WebhookHandler
 }
 ```
 
+## Dependency Injection in callback methods
+
+As callback methods are called using Laravel's Container, additional dependencies can be obtained from it:
+
+```php
+class CustomWebhookHandler extends WebhookHandler
+{
+    public function dismiss(UsersRepository $users){
+        //...
+        
+        $userId = $this->data->get('user_id');
+        
+        $user = $users->get($userId);
+        
+        //...
+    }
+}
+```
+
 
