@@ -171,7 +171,7 @@ class Message implements Arrayable
         if (isset($data['web_app_data']['data'])) {
             $webAppData = json_decode($data['web_app_data']['data'], true);
 
-            if(!$webAppData) {
+            if (!$webAppData) {
                 $webAppData = $data['web_app_data']['data'];
             }
 

@@ -9,6 +9,7 @@ namespace DefStudio\Telegraph\Models;
 use DefStudio\Telegraph\Concerns\HasStorage;
 use DefStudio\Telegraph\Contracts\Storable;
 use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
+use DefStudio\Telegraph\DTO\ChatMember;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -93,6 +94,22 @@ class TelegraphChat extends Model implements Storable
 
         /* @phpstan-ignore-next-line */
         return $reply->json('result');
+    }
+
+    public function memberInfo(string $user_id): null|ChatMember
+    {
+        $reply = TelegraphFacade::chat($this)->chatMember($user_id)->send();
+
+        if ($reply->telegraphError()) {
+            throw TelegraphException::failedToRetrieveChatInfo();
+        }
+
+        if (!$reply->json('result')) {
+            return null;
+        }
+
+        /* @phpstan-ignore-next-line */
+        return ChatMember::fromArray($reply->json('result'));
     }
 
     public function withData(string $key, mixed $value): Telegraph

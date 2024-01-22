@@ -483,6 +483,15 @@ it('can retrieve its member count', function () {
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MEMBER_COUNT);
 });
 
+it('can retrieve its member info', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->memberInfo(123456);
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MEMBER);
+});
+
 it('can generate a primary invite link', function () {
     Telegraph::fake();
     $chat = make_chat();
