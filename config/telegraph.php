@@ -24,6 +24,12 @@ return [
     'webhook_handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
 
     /*
+     * Sets the webhook URL that will be exposed by the server,
+     * this can be customized or entirely disabled (by setting it to NULL)
+     */
+    'webhook_url' => '/telegraph/{token}/webhook',
+
+    /*
      * Sets a custom domain when registering a webhook. This will allow a local telegram bot api server
      * to reach the webhook. Disabled by default
      *
