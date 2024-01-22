@@ -53,7 +53,7 @@ final class FileException extends Exception
     {
         $relativeRatio = $ratio < $maxRatio ? 1 / $ratio : $ratio;
 
-        return new self(sprintf("Ratio of height and width (%d) exceeds max allowed height of %d",  $relativeRatio, $maxRatio));
+        return new self(sprintf("Ratio of height and width (%f) exceeds max allowed ratio of %f",  $relativeRatio, $maxRatio));
     }
 
     public static function failedToRetreiveFileInfo(string $fileId): FileException
