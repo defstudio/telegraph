@@ -2,6 +2,17 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.39.0 - 2024-01-22
+
+### What's Changed
+
+* [chore] Automatic dependencies resolution for callback action method by @fabio-ivona in https://github.com/defstudio/telegraph/pull/475
+* [feat] Custom Attachment Limits by @fabio-ivona in https://github.com/defstudio/telegraph/pull/476
+* [feat] memberInfo() method + docs by @MarioGattolla in https://github.com/defstudio/telegraph/pull/424
+* [feat] custom webhooks url by @fabio-ivona in https://github.com/defstudio/telegraph/pull/477
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.7...v1.39.0
+
 ## v1.38.7 - 2024-01-08
 
 **Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.6...v1.38.7
