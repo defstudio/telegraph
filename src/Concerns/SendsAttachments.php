@@ -81,7 +81,7 @@ trait SendsAttachments
     {
         $telegraph = clone $this;
 
-        $telegraph->endpoint = self::ENDPOINT_SEND_CONTACT  ;
+        $telegraph->endpoint = self::ENDPOINT_SEND_CONTACT;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['phone_number'] = $phoneNumber;
         $telegraph->data['first_name'] = $firstName;
@@ -179,20 +179,36 @@ trait SendsAttachments
         $telegraph = clone $this;
 
         if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInKb($path)) > Telegraph::MAX_THUMBNAIL_SIZE_IN_KB) {
-                throw FileException::thumbnailSizeExceeded($size);
+            $maxSizeKb = config('telegraph.attachments.thumbnail.max_size_kb', 200);
+
+            assert(is_float($maxSizeKb));
+
+            if (($size = $telegraph->fileSizeInKb($path)) > $maxSizeKb) {
+                throw FileException::thumbnailSizeExceeded($size, $maxSizeKb);
             }
 
-            if (($height = $telegraph->imageHeight($path)) > Telegraph::MAX_THUMBNAIL_HEIGHT) {
-                throw FileException::thumbnailHeightExceeded($height);
+            $maxHeight = config('telegraph.attachments.thumbnail.max_height_px', 320);
+
+            assert(is_integer($maxHeight));
+
+            if (($height = $telegraph->imageHeight($path)) > $maxHeight) {
+                throw FileException::thumbnailHeightExceeded($height, $maxHeight);
             }
 
-            if (($width = $telegraph->imageWidth($path)) > Telegraph::MAX_THUMBNAIL_WIDTH) {
-                throw FileException::thumbnailWidthExceeded($width);
+            $maxWidth = config('telegraph.attachments.thumbnail.max_width_px', 320);
+
+            assert(is_integer($maxWidth));
+
+            if (($width = $telegraph->imageWidth($path)) > $maxWidth) {
+                throw FileException::thumbnailWidthExceeded($width, $maxWidth);
             }
 
-            if (!Str::of($ext = File::extension($path))->lower()->is('jpg')) {
-                throw FileException::invalidThumbnailExtension($ext);
+            $allowedExt = config('telegraph.attachments.thumbnail.allowed_ext', ['jpg']);
+
+            assert(is_array($allowedExt));
+
+            if (!Str::of($ext = File::extension($path))->lower()->is($allowedExt)) {
+                throw FileException::invalidThumbnailExtension($ext, $allowedExt);
             }
 
             $telegraph->files->put('thumb', new Attachment($path));
@@ -275,19 +291,32 @@ trait SendsAttachments
     protected function attachPhoto(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
-                throw FileException::photoSizeExceeded($size);
+
+            $maxSizeInMb = config('telegraph.attachments.photo.max_size_mb', 10);
+
+            assert(is_float($maxSizeInMb));
+
+            if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeInMb) {
+                throw FileException::photoSizeExceeded($size, $maxSizeInMb);
             }
 
             $height = $telegraph->imageHeight($path);
             $width = $telegraph->imageWidth($path);
 
-            if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
-                throw FileException::invalidPhotoSize($totalLength);
+            $heightWidthSumPx = config('telegraph.attachments.photo.height_width_sum_px', 10000);
+
+            assert(is_integer($heightWidthSumPx));
+
+            if (($totalLength = $height + $width) > $heightWidthSumPx) {
+                throw FileException::invalidPhotoSize($totalLength, $heightWidthSumPx);
             }
 
-            if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
-                throw FileException::invalidPhotoRatio($ratio);
+            $maxRatio = config('telegraph.attachments.photo.max_ratio', 20);
+
+            assert(is_float($maxRatio));
+
+            if (($ratio = $height / $width) > $maxRatio || $ratio < (1 / $maxRatio)) {
+                throw FileException::invalidPhotoRatio($ratio, $maxRatio);
             }
 
             $telegraph->files->put('photo', new Attachment($path, $filename));
@@ -300,8 +329,12 @@ trait SendsAttachments
     protected function attachAnimation(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_ANIMATION_SIZE_IN_MB) {
-                throw FileException::documentSizeExceeded($size);
+            $maxSizeMb = config('telegraph.attachments.animation.max_size_mb', 50);
+
+            assert(is_float($maxSizeMb));
+
+            if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
+                throw FileException::documentSizeExceeded($size, $maxSizeMb);
             }
 
             $telegraph->files->put('animation', new Attachment($path, $filename));
@@ -317,8 +350,12 @@ trait SendsAttachments
     protected function attachVideo(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_VIDEO_SIZE_IN_MB) {
-                throw FileException::documentSizeExceeded($size);
+            $maxSizeMb = config('telegraph.attachments.video.max_size_mb', 50);
+
+            assert(is_float($maxSizeMb));
+
+            if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
+                throw FileException::documentSizeExceeded($size, $maxSizeMb);
             }
 
             $telegraph->files->put('video', new Attachment($path, $filename));
@@ -341,8 +378,13 @@ trait SendsAttachments
     protected function attachAudio(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_AUDIO_SIZE_IN_MB) {
-                throw FileException::documentSizeExceeded($size);
+
+            $maxSizeMb = config('telegraph.attachments.audio.max_size_mb', 50);
+
+            assert(is_float($maxSizeMb));
+
+            if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
+                throw FileException::documentSizeExceeded($size, $maxSizeMb);
             }
 
             $telegraph->files->put('audio', new Attachment($path, $filename));
@@ -359,11 +401,16 @@ trait SendsAttachments
         }
     }
 
-    protected function attachDocument(self $telegraph, string $path,  ?string $filename): void
+    protected function attachDocument(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_DOCUMENT_SIZE_IN_MB) {
-                throw FileException::documentSizeExceeded($size);
+
+            $maxSizeMb = config('telegraph.attachments.document.max_size_mb', 50);
+
+            assert(is_float($maxSizeMb));
+
+            if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
+                throw FileException::documentSizeExceeded($size, $maxSizeMb);
             }
 
             $telegraph->files->put('document', new Attachment($path, $filename));
