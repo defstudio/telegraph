@@ -18,8 +18,8 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\Telegraph;
-use File;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 
 /**
  * @mixin Telegraph
@@ -204,19 +204,31 @@ trait HasBotsAndChats
 
         File::exists($path) || throw FileException::fileNotFound('photo', $path);
 
-        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
-            throw FileException::photoSizeExceeded($size);
+        $maxSizeInMb = config('telegraph.attachments.photo.max_size_mb', 10);
+
+        assert(is_float($maxSizeInMb));
+
+        if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeInMb) {
+            throw FileException::photoSizeExceeded($size, $maxSizeInMb);
         }
 
         $height = $telegraph->imageHeight($path);
         $width = $telegraph->imageWidth($path);
 
-        if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
-            throw FileException::invalidPhotoSize($totalLength);
+        $height_width_sum_px = config('telegraph.attachments.photo.height_width_sum_px', 10000);
+
+        assert(is_integer($height_width_sum_px));
+
+        if (($totalLength = $height + $width) > $height_width_sum_px) {
+            throw FileException::invalidPhotoSize($totalLength, $height_width_sum_px);
         }
 
-        if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
-            throw FileException::invalidPhotoRatio($ratio);
+        $maxRatio = config('telegraph.attachments.photo.max_ratio', 20);
+
+        assert(is_float($maxRatio));
+
+        if (($ratio = $height / $width) > $maxRatio || $ratio < (1 / $maxRatio)) {
+            throw FileException::invalidPhotoRatio($ratio, $maxRatio);
         }
 
         $telegraph->files->put('photo', new Attachment($path));
