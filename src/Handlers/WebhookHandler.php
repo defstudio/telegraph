@@ -19,6 +19,7 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
@@ -64,7 +65,8 @@ abstract class WebhookHandler
             return;
         }
 
-        $this->$action();
+        /** @phpstan-ignore-next-line  */
+        App::call([$this, $action], $this->data->toArray());
     }
 
     private function handleCommand(Stringable $text): void

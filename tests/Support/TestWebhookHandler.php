@@ -63,6 +63,11 @@ class TestWebhookHandler extends WebhookHandler
         $this->chat->html("Hello!!")->send();
     }
 
+    public function param_injection(string $foo = 'not set'): void
+    {
+        $this->chat->html("Foo is [$foo]")->send();
+    }
+
     public function reply_to_command(): void
     {
         $this->reply('foo');
