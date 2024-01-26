@@ -416,6 +416,13 @@ it('can set commands chat menu button', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can set commands bot menu button', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph
+            ->setChatMenuButton()->commands();
+    })->toMatchTelegramSnapshot();
+});
+
 it('can set web app chat menu button', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
