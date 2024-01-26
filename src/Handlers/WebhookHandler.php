@@ -25,6 +25,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Stringable;
 use ReflectionMethod;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 abstract class WebhookHandler
 {
@@ -65,7 +66,7 @@ abstract class WebhookHandler
             return;
         }
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         App::call([$this, $action], $this->data->toArray());
     }
 
@@ -220,44 +221,48 @@ abstract class WebhookHandler
 
     public function handle(Request $request, TelegraphBot $bot): void
     {
-        $this->bot = $bot;
+        try {
+            $this->bot = $bot;
 
-        $this->request = $request;
+            $this->request = $request;
 
-        if ($this->request->has('message')) {
-            /* @phpstan-ignore-next-line */
-            $this->message = Message::fromArray($this->request->input('message'));
-            $this->handleMessage();
+            if ($this->request->has('message')) {
+                /* @phpstan-ignore-next-line */
+                $this->message = Message::fromArray($this->request->input('message'));
+                $this->handleMessage();
 
-            return;
-        }
+                return;
+            }
 
-        if ($this->request->has('edited_message')) {
-            /* @phpstan-ignore-next-line */
-            $this->message = Message::fromArray($this->request->input('edited_message'));
-            $this->handleMessage();
+            if ($this->request->has('edited_message')) {
+                /* @phpstan-ignore-next-line */
+                $this->message = Message::fromArray($this->request->input('edited_message'));
+                $this->handleMessage();
 
-            return;
-        }
+                return;
+            }
 
-        if ($this->request->has('channel_post')) {
-            /* @phpstan-ignore-next-line */
-            $this->message = Message::fromArray($this->request->input('channel_post'));
-            $this->handleMessage();
+            if ($this->request->has('channel_post')) {
+                /* @phpstan-ignore-next-line */
+                $this->message = Message::fromArray($this->request->input('channel_post'));
+                $this->handleMessage();
 
-            return;
-        }
+                return;
+            }
 
 
-        if ($this->request->has('callback_query')) {
-            /* @phpstan-ignore-next-line */
-            $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
-            $this->handleCallbackQuery();
-        }
+            if ($this->request->has('callback_query')) {
+                /* @phpstan-ignore-next-line */
+                $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
+                $this->handleCallbackQuery();
+            }
 
-        if ($this->request->has('inline_query')) {
-            /* @phpstan-ignore-next-line */
-            $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
+            if ($this->request->has('inline_query')) {
+                /* @phpstan-ignore-next-line */
+                $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
+            }
+        } catch (Throwable $throwable) {
+            $this->onFailure($throwable);
         }
     }
 
@@ -299,5 +304,16 @@ abstract class WebhookHandler
             $this->callbackQuery != null => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
             default => false,
         };
+    }
+
+    protected function onFailure(Throwable $throwable): void
+    {
+        if ($throwable instanceof NotFoundHttpException) {
+            throw $throwable;
+        }
+
+        report($throwable);
+
+        $this->reply(__('telegraph::errors.webhook_error_occurred'));
     }
 }

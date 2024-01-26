@@ -354,3 +354,16 @@ it('can handle a member left', function () {
 
     Facade::assertSent("Bob just left");
 });
+
+it('does not crash on errors', function () {
+
+    $chat = chat();
+
+    Facade::fake();
+
+    app(TestWebhookHandler::class)
+        ->handle(webhook_request('trigger_failure'), $chat->bot)
+    ;
+
+    Facade::assertRepliedWebhook('Sorry, an error occurred');
+});
