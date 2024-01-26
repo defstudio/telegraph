@@ -2,6 +2,21 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.40.0 - 2024-01-26
+
+### What's Changed
+
+* Update 3.keyboards.md by @siarheipashkevich in https://github.com/defstudio/telegraph/pull/478
+* [feat] allows to change a bot's default menu button by @fabio-ivona in https://github.com/defstudio/telegraph/pull/484
+* [docs] documentation improvements by @fabio-ivona in https://github.com/defstudio/telegraph/pull/486
+* [fix] webhook exceptions handling
+
+### New Contributors
+
+* @siarheipashkevich made their first contribution in https://github.com/defstudio/telegraph/pull/478
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.39.0...v1.40.0
+
 ## v1.39.0 - 2024-01-22
 
 ### What's Changed
