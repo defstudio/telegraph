@@ -260,7 +260,11 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_MENU_BUTTON;
-        $telegraph->data['chat_id'] = $this->getChatId();
+
+        if ($this->getChatIfAvailable() !== null) {
+            $telegraph->data['chat_id'] = $this->getChatId();
+        }
+
 
         return SetChatMenuButtonPayload::makeFrom($telegraph);
     }
