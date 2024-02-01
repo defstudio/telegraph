@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.41.0 - 2024-02-01
+
+### What's Changed
+
+* [fix] add missing parse_mode in inline queries results by @fabio-ivona in https://github.com/defstudio/telegraph/pull/501
+* [fix] DTO lose false values by @fabio-ivona in https://github.com/defstudio/telegraph/pull/502
+* [feat] botUpdates timeout, offset and limit by @fabio-ivona in https://github.com/defstudio/telegraph/pull/503
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.40.2...v1.41.0
+
 ## v1.40.2 - 2024-02-01
 
 ### What's Changed
