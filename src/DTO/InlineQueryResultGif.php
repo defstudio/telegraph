@@ -90,7 +90,7 @@ class InlineQueryResultGif extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        return array_filter([
             'gif_url' => $this->url,
             'thumb_url' => $this->thumbUrl,
             'gif_width' => $this->width,
@@ -99,6 +99,6 @@ class InlineQueryResultGif extends InlineQueryResult
             'title' => $this->title,
             'caption' => $this->caption,
             'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),
-        ];
+        ], fn ($value) => $value !== null);
     }
 }

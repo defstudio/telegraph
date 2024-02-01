@@ -88,6 +88,6 @@ class ChatMember implements Arrayable
             'custom_title' => $this->custom_title,
             'is_member' => $this->is_member,
             'until_date' => $this->until_date,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

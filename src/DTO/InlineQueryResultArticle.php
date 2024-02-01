@@ -115,6 +115,6 @@ class InlineQueryResultArticle extends InlineQueryResult
             ];
         }
 
-        return $data;
+        return array_filter($data, fn ($value) => $value !== null);
     }
 }

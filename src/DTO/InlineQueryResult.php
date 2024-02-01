@@ -33,7 +33,7 @@ abstract class InlineQueryResult
      */
     public function toArray(): array
     {
-        $data = array_filter($this->data()) + [
+        $data = array_filter($this->data(), fn ($value) => $value !== null) + [
           'id' => $this->id,
           'type' => $this->type,
         ];

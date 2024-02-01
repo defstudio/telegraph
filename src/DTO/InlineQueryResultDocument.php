@@ -92,7 +92,7 @@ class InlineQueryResultDocument extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        return array_filter([
             'title' => $this->title,
             'caption' => $this->caption,
             'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),
@@ -102,6 +102,6 @@ class InlineQueryResultDocument extends InlineQueryResult
             'thumb_url' => $this->thumbUrl,
             'thumb_width' => $this->thumbWidth,
             'thumb_height' => $this->thumbHeight,
-        ];
+        ], fn ($value) => $value !== null);
     }
 }

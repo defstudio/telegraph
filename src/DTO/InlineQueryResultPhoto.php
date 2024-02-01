@@ -90,7 +90,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        return array_filter([
             'photo_url' => $this->url,
             'thumb_url' => $this->thumbUrl,
             'photo_width' => $this->width,
@@ -99,6 +99,6 @@ class InlineQueryResultPhoto extends InlineQueryResult
             'caption' => $this->caption,
             'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),
             'description' => $this->description,
-        ];
+        ], fn ($value) => $value !== null);
     }
 }

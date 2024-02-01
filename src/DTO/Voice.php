@@ -65,6 +65,6 @@ class Voice implements Arrayable, Downloadable
             'duration' => $this->duration,
             'mime_type' => $this->mimeType,
             'filesize' => $this->filesize,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

@@ -42,17 +42,6 @@ class ChatMemberUpdate implements Arrayable
         return $chatMemberUpdate;
     }
 
-    public function toArray(): array
-    {
-        return array_filter([
-           'chat' => $this->chat->toArray(),
-           'from' => $this->from->toArray(),
-           'date' => $this->date->toISOString(),
-           'previous' => $this->previous->toArray(),
-           'new' => $this->new->toArray(),
-        ]);
-    }
-
     public function date(): CarbonInterface
     {
         return $this->date;
@@ -76,5 +65,16 @@ class ChatMemberUpdate implements Arrayable
     public function new(): ChatMember
     {
         return $this->new;
+    }
+
+    public function toArray(): array
+    {
+        return array_filter([
+            'chat' => $this->chat->toArray(),
+            'from' => $this->from->toArray(),
+            'date' => $this->date->toISOString(),
+            'previous' => $this->previous->toArray(),
+            'new' => $this->new->toArray(),
+        ], fn ($value) => $value !== null);
     }
 }
