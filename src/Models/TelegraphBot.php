@@ -172,6 +172,8 @@ class TelegraphBot extends Model implements Storable
     }
 
     /**
+     * @param string[]|null $allowedUpdates
+     *
      * @return \Illuminate\Support\Collection<int, TelegramUpdate>
      */
     public function updates(int $timeout = null, int $offset = null, int $limit = null, array $allowedUpdates = null): \Illuminate\Support\Collection
