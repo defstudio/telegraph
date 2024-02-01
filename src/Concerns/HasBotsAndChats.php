@@ -146,11 +146,30 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function botUpdates(): Telegraph
+    /**
+     * @param string[]|null $allowedUpdates
+     */
+    public function botUpdates(int $timeout = null, int $offset = null, int $limit = null, array $allowedUpdates = null): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_GET_BOT_UPDATES;
+
+        if($offset !== null) {
+            $this->data['offset'] = $offset;
+        }
+
+        if($limit !== null) {
+            $this->data['limit'] = $limit;
+        }
+
+        if($timeout !== null) {
+            $this->data['timeout'] = $timeout;
+        }
+
+        if($allowedUpdates !== null) {
+            $this->data['allowed_updates'] = $allowedUpdates;
+        }
 
         return $telegraph;
     }
