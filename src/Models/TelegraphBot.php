@@ -174,9 +174,9 @@ class TelegraphBot extends Model implements Storable
     /**
      * @return \Illuminate\Support\Collection<int, TelegramUpdate>
      */
-    public function updates(): \Illuminate\Support\Collection
+    public function updates(int $timeout = null, int $offset = null, int $limit = null, array $allowedUpdates = null): \Illuminate\Support\Collection
     {
-        $reply = TelegraphFacade::bot($this)->botUpdates()->send();
+        $reply = TelegraphFacade::bot($this)->botUpdates($timeout, $offset, $limit, $allowedUpdates)->send();
 
         if ($reply->telegraphError()) {
             if (!$reply->successful()) {
