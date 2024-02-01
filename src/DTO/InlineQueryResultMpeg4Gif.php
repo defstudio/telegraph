@@ -83,6 +83,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
             'thumb_mime_type' => $this->thumbMimeType,
             'title' => $this->title,
             'caption' => $this->caption,
+            'parse_mode' => config('telegraph.default_parse_mode', 'html'),
         ];
     }
 }

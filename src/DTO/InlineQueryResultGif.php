@@ -74,6 +74,7 @@ class InlineQueryResultGif extends InlineQueryResult
             'gif_duration' => $this->duration,
             'title' => $this->title,
             'caption' => $this->caption,
+            'parse_mode' => config('telegraph.default_parse_mode', 'html'),
         ];
     }
 }

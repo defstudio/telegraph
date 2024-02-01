@@ -76,6 +76,7 @@ class InlineQueryResultVideo extends InlineQueryResult
             'thumb_url' => $this->thumbUrl,
             'title' => $this->title,
             'caption' => $this->caption,
+            'parse_mode' => config('telegraph.default_parse_mode', 'html'),
             'video_width' => $this->width,
             'video_height' => $this->height,
             'video_duration' => $this->duration,

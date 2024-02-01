@@ -11,6 +11,7 @@ class InlineQueryResultLocation extends InlineQueryResult
     protected string $title;
     protected float $latitude;
     protected float $longitude;
+    protected string|null $message = null;
     protected string|null $thumbUrl = null;
     protected int|null $livePeriod = null;
     protected int|null $heading = null;
@@ -19,13 +20,14 @@ class InlineQueryResultLocation extends InlineQueryResult
     protected int|null $thumbHeight = null;
     protected float|null $horizontalAccuracy = null;
 
-    public static function make(string $id, string $title, float $latitude, float $longitude): InlineQueryResultLocation
+    public static function make(string $id, string $title, float $latitude, float $longitude, string $message = null): InlineQueryResultLocation
     {
         $result = new InlineQueryResultLocation();
         $result->id = $id;
         $result->title = $title;
         $result->latitude = $latitude;
         $result->longitude = $longitude;
+        $result->message = $message;
 
         return $result;
     }
@@ -84,7 +86,7 @@ class InlineQueryResultLocation extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        $data = [
             'title' => $this->title,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
@@ -96,5 +98,14 @@ class InlineQueryResultLocation extends InlineQueryResult
             'thumb_height' => $this->thumbHeight,
             'horizontal_accuracy' => $this->horizontalAccuracy,
         ];
+
+        if($this->message !== null){
+            $data['input_message_content'] = [
+                'message_text' => $this->message,
+                'parse_mode' => config('telegraph.default_parse_mode', 'html'),
+            ];
+        }
+
+        return $data;
     }
 }

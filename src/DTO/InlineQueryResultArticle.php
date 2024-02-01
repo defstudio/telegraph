@@ -9,7 +9,7 @@ class InlineQueryResultArticle extends InlineQueryResult
     protected string $type = 'article';
     protected string $id;
     protected string $title;
-    protected string $message;
+    protected string|null $message = null;
     protected string|null $url = null;
     protected string|null $description = null;
     protected string|null $thumbUrl = null;
@@ -17,7 +17,7 @@ class InlineQueryResultArticle extends InlineQueryResult
     protected int|null $thumbHeight = null;
     protected bool|null $hideUrl = null;
 
-    public static function make(string $id, string $title, string $message): InlineQueryResultArticle
+    public static function make(string $id, string $title, string $message = null): InlineQueryResultArticle
     {
         $result = new InlineQueryResultArticle();
         $result->id = $id;
@@ -74,12 +74,8 @@ class InlineQueryResultArticle extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        $data = [
             'title' => $this->title,
-            'input_message_content' => [
-                'message_text' => $this->message,
-                'parse_mode' => config('telegraph.default_parse_mode', 'html'),
-            ],
             'url' => $this->url,
             'hide_url' => $this->hideUrl,
             'description' => $this->description,
@@ -87,5 +83,14 @@ class InlineQueryResultArticle extends InlineQueryResult
             'thumb_width' => $this->thumbWidth,
             'thumb_height' => $this->thumbHeight,
         ];
+
+        if($this->message !== null){
+            $data['input_message_content'] = [
+                'message_text' => $this->message,
+                'parse_mode' => config('telegraph.default_parse_mode', 'html'),
+            ];
+        }
+
+        return $data;
     }
 }

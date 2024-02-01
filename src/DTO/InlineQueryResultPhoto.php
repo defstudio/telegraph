@@ -73,6 +73,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
             'photo_height' => $this->height,
             'title' => $this->title,
             'caption' => $this->caption,
+            'parse_mode' => config('telegraph.default_parse_mode', 'html'),
             'description' => $this->description,
         ];
     }

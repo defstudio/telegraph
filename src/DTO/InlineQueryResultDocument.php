@@ -71,6 +71,7 @@ class InlineQueryResultDocument extends InlineQueryResult
         return [
             'title' => $this->title,
             'caption' => $this->caption,
+            'parse_mode' => config('telegraph.default_parse_mode', 'html'),
             'document_url' => $this->url,
             'mime_type' => $this->mimeType,
             'description' => $this->description,

@@ -46,6 +46,7 @@ class InlineQueryResultVoice extends InlineQueryResult
             'voice_url' => $this->url,
             'title' => $this->title,
             'caption' => $this->caption,
+            'parse_mode' => config('telegraph.default_parse_mode', 'html'),
             'voice_duration' => $this->duration,
         ];
     }

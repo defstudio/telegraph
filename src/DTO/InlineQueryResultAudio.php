@@ -54,6 +54,7 @@ class InlineQueryResultAudio extends InlineQueryResult
             'audio_url' => $this->url,
             'title' => $this->title,
             'caption' => $this->caption,
+            'parse_mode' => config('telegraph.default_parse_mode', 'html'),
             'performer' => $this->performer,
             'audio_duration' => $this->duration,
         ];
