@@ -17,6 +17,7 @@ it('can export to array', function () {
         'thumb_url' => 'testThumbUrl',
         'title' => 'testTitle',
         'caption' => 'testCaption',
+        'parse_mode' => 'html',
         'video_width' => 400,
         'video_height' => 200,
         'video_duration' => 10,

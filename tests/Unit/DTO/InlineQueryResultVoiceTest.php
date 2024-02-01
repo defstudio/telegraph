@@ -12,6 +12,7 @@ it('can export to array', function () {
         'voice_url' => 'testVoiceUrl',
         'title' => 'testTitle',
         'caption' => 'testCaption',
+        'parse_mode' => 'html',
         'voice_duration' => 10,
         'id' => "a45",
         'type' => "voice",

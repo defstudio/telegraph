@@ -21,6 +21,7 @@ it('can export to array', function () {
         'thumb_mime_type' => 'testThumbMimeType',
         'title' => 'testTitle',
         'caption' => 'testCaption',
+        'parse_mode' => 'html',
         'id' => "a45",
         'type' => "mpeg4_gif",
     ]);

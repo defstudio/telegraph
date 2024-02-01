@@ -253,6 +253,7 @@ it('can handle an inlineQuery', function () {
                 "gif_duration" => 200,
                 "title" => "bar",
                 "caption" => "foo",
+                'parse_mode' => 'html',
                 "id" => "99",
                 "type" => "gif",
                 "reply_markup" => [
@@ -274,6 +275,7 @@ it('can handle an inlineQuery', function () {
                 "gif_duration" => 1200,
                 "title" => "quz",
                 "caption" => "baz",
+                'parse_mode' => 'html',
                 "id" => "98",
                 "type" => "gif",
                 "reply_markup" => [
