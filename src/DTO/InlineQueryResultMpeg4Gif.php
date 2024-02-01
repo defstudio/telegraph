@@ -98,7 +98,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        return array_filter([
             'mpeg4_url' => $this->mpeg4Url,
             'mpeg4_width' => $this->mpeg4Width,
             'mpeg4_height' => $this->mpeg4Height,
@@ -108,6 +108,6 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
             'title' => $this->title,
             'caption' => $this->caption,
             'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),
-        ];
+        ], fn ($value) => $value !== null);
     }
 }

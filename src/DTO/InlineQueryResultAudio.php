@@ -74,13 +74,13 @@ class InlineQueryResultAudio extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        return array_filter([
             'audio_url' => $this->url,
             'title' => $this->title,
             'caption' => $this->caption,
             'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),
             'performer' => $this->performer,
             'audio_duration' => $this->duration,
-        ];
+        ], fn ($value) => $value !== null);
     }
 }

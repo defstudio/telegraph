@@ -316,6 +316,6 @@ class Message implements Arrayable
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

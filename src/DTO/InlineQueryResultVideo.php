@@ -94,7 +94,7 @@ class InlineQueryResultVideo extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        return array_filter([
             'video_url' => $this->url,
             'mime_type' => $this->mimeType,
             'thumb_url' => $this->thumbUrl,
@@ -105,6 +105,6 @@ class InlineQueryResultVideo extends InlineQueryResult
             'video_height' => $this->height,
             'video_duration' => $this->duration,
             'description' => $this->description,
-        ];
+        ], fn ($value) => $value !== null);
     }
 }

@@ -81,6 +81,6 @@ class CallbackQuery implements Arrayable
             'from' => $this->from->toArray(),
             'message' => $this->message?->toArray(),
             'data' => $this->data->toArray(),
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

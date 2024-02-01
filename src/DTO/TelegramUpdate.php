@@ -103,6 +103,6 @@ class TelegramUpdate implements Arrayable
             'callback_query' => $this->callbackQuery?->toArray(),
             'bot_chat_status_change' => $this->botChatStatusChange?->toArray(),
             'inline_query' => $this->inlineQuery?->toArray(),
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

@@ -92,6 +92,6 @@ class Audio implements Arrayable, Downloadable
             'mime_type' => $this->mimeType,
             'filesize' => $this->filesize,
             'thumbnail' => $this->thumbnail?->toArray(),
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

@@ -85,6 +85,6 @@ class User implements Arrayable, Storable
             'last_name' => $this->lastName,
             'username' => $this->username,
             'language_code' => $this->languageCode,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

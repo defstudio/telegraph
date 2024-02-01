@@ -87,6 +87,6 @@ class InlineQuery implements Arrayable
             'offset' => $this->offset,
             'chat_type' => $this->chatType,
             'location' => $this->location,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }
