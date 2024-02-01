@@ -18,6 +18,7 @@ it('can export to array', function () {
         'photo_height' => 400,
         'title' => 'foo',
         'caption' => 'bar',
+        'parse_mode' => 'html',
         'description' => 'baz',
         'id' => "a45",
         'type' => "photo",

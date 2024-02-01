@@ -36,7 +36,7 @@ trait ComposesMessages
             $telegraph->setMessageText($message);
         }
 
-        $telegraph->data['parse_mode'] = 'html';
+        $telegraph->data['parse_mode'] = Telegraph::PARSE_HTML;
 
         return $telegraph;
     }
@@ -49,7 +49,7 @@ trait ComposesMessages
             $telegraph->setMessageText($message);
         }
 
-        $telegraph->data['parse_mode'] = 'markdown';
+        $telegraph->data['parse_mode'] = Telegraph::PARSE_MARKDOWN;
 
         return $telegraph;
     }
@@ -62,7 +62,7 @@ trait ComposesMessages
             $telegraph->setMessageText($message);
         }
 
-        $telegraph->data['parse_mode'] = 'MarkdownV2';
+        $telegraph->data['parse_mode'] = Telegraph::PARSE_MARKDOWNV2;
 
         return $telegraph;
     }
