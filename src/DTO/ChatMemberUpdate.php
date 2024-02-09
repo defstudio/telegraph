@@ -22,7 +22,7 @@ class ChatMemberUpdate implements Arrayable
     }
 
     /**
-     * @param array{date:integer, chat:array<string, mixed>, from:array<string, mixed>, old_chat_member:array<string, mixed>, new_chat_member:array<string, mixed>} $data
+     * @param array{date:int, chat:array<string, mixed>, from:array<string, mixed>, old_chat_member:array<string, mixed>, new_chat_member:array<string, mixed>} $data
      */
     public static function fromArray(array $data): ChatMemberUpdate
     {
