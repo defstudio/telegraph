@@ -70,7 +70,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @return array{id: integer, type: string, title?: string, description?: string, username?: string, first_name?: string, last_name?: string, photo?: array<string, mixed>, pinned_message?: array<string, mixed>, permissions?: array<string, mixed>, bio?: string, has_private_forwards?: true, has_restricted_voice_and_video_messages?: true, join_to_send_messages?: true, join_by_request?: true, has_protected_content?: true, invite_link?: string, sticker_set_name?: string, sticker_set_name?: true, linked_chat_id?: integer, slow_mode_delay?: integer, location?: array<string, mixed>, message_auto_delete_time?: integer}
+     * @return array{id: int, type: string, title?: string, description?: string, username?: string, first_name?: string, last_name?: string, photo?: array<string, mixed>, pinned_message?: array<string, mixed>, permissions?: array<string, mixed>, bio?: string, has_private_forwards?: true, has_restricted_voice_and_video_messages?: true, join_to_send_messages?: true, join_by_request?: true, has_protected_content?: true, invite_link?: string, sticker_set_name?: string, sticker_set_name?: true, linked_chat_id?: int, slow_mode_delay?: int, location?: array<string, mixed>, message_auto_delete_time?: int}
      */
     public function info(): array
     {

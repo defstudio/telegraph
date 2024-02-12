@@ -142,7 +142,7 @@ class TelegraphBot extends Model implements Storable
     }
 
     /**
-     * @return array{id: integer, is_bot: bool, first_name: string, username: string, can_join_groups: bool, can_read_all_group_messages: bool, support_inline_queries: bool}
+     * @return array{id: int, is_bot: bool, first_name: string, username: string, can_join_groups: bool, can_read_all_group_messages: bool, support_inline_queries: bool}
      */
     public function info(): array
     {
