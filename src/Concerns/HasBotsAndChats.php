@@ -156,19 +156,19 @@ trait HasBotsAndChats
         $telegraph->endpoint = self::ENDPOINT_GET_BOT_UPDATES;
 
         if($offset !== null) {
-            $this->data['offset'] = $offset;
+            $telegraph->data['offset'] = $offset;
         }
 
         if($limit !== null) {
-            $this->data['limit'] = $limit;
+            $telegraph->data['limit'] = $limit;
         }
 
         if($timeout !== null) {
-            $this->data['timeout'] = $timeout;
+            $telegraph->data['timeout'] = $timeout;
         }
 
         if($allowedUpdates !== null) {
-            $this->data['allowed_updates'] = $allowedUpdates;
+            $telegraph->data['allowed_updates'] = $allowedUpdates;
         }
 
         return $telegraph;
