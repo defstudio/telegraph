@@ -396,6 +396,17 @@ it('can delete a message', function () {
     ], false);
 });
 
+it('can delete messages', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->deleteMessages([23, 42])->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_MESSAGES, [
+        'message_ids' => [23, 42],
+    ]);
+});
+
 it('can pin a message', function () {
     Telegraph::fake();
     $chat = make_chat();

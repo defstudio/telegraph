@@ -42,6 +42,11 @@ it('can delete a message', function () {
         ->toMatchTelegramSnapshot();
 });
 
+it('can delete messages', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->deleteMessages([123456, 654321, 11111]))
+        ->toMatchTelegramSnapshot();
+});
+
 it('can pin a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->pinMessage(123456))
         ->toMatchTelegramSnapshot();
