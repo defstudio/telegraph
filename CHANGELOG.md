@@ -2,6 +2,19 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.41.1 - 2024-02-14
+
+### What's Changed
+
+* Added Ukrainian translations by @RivGames in https://github.com/defstudio/telegraph/pull/513
+* fix #518 long polling not working by @fabio-ivona in https://github.com/defstudio/telegraph/pull/519
+
+### New Contributors
+
+* @RivGames made their first contribution in https://github.com/defstudio/telegraph/pull/513
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.41.0...v1.41.1
+
 ## v1.41.0 - 2024-02-01
 
 ### What's Changed
