@@ -181,7 +181,7 @@ trait SendsAttachments
         if (File::exists($path)) {
             $maxSizeKb = config('telegraph.attachments.thumbnail.max_size_kb', 200);
 
-            assert(is_numeric($maxSizeKb));
+            assert(is_float($maxSizeKb));
 
             if (($size = $telegraph->fileSizeInKb($path)) > $maxSizeKb) {
                 throw FileException::thumbnailSizeExceeded($size, $maxSizeKb);
@@ -294,7 +294,7 @@ trait SendsAttachments
 
             $maxSizeInMb = config('telegraph.attachments.photo.max_size_mb', 10);
 
-            assert(is_numeric($maxSizeInMb));
+            assert(is_float($maxSizeInMb));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeInMb) {
                 throw FileException::photoSizeExceeded($size, $maxSizeInMb);
@@ -313,7 +313,7 @@ trait SendsAttachments
 
             $maxRatio = config('telegraph.attachments.photo.max_ratio', 20);
 
-            assert(is_numeric($maxRatio));
+            assert(is_float($maxRatio));
 
             if (($ratio = $height / $width) > $maxRatio || $ratio < (1 / $maxRatio)) {
                 throw FileException::invalidPhotoRatio($ratio, $maxRatio);
@@ -331,7 +331,7 @@ trait SendsAttachments
         if (File::exists($path)) {
             $maxSizeMb = config('telegraph.attachments.animation.max_size_mb', 50);
 
-            assert(is_numeric($maxSizeMb));
+            assert(is_float($maxSizeMb));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
                 throw FileException::documentSizeExceeded($size, $maxSizeMb);
@@ -352,7 +352,7 @@ trait SendsAttachments
         if (File::exists($path)) {
             $maxSizeMb = config('telegraph.attachments.video.max_size_mb', 50);
 
-            assert(is_numeric($maxSizeMb));
+            assert(is_float($maxSizeMb));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
                 throw FileException::documentSizeExceeded($size, $maxSizeMb);
@@ -381,7 +381,7 @@ trait SendsAttachments
 
             $maxSizeMb = config('telegraph.attachments.audio.max_size_mb', 50);
 
-            assert(is_numeric($maxSizeMb));
+            assert(is_float($maxSizeMb));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
                 throw FileException::documentSizeExceeded($size, $maxSizeMb);
@@ -407,7 +407,7 @@ trait SendsAttachments
 
             $maxSizeMb = config('telegraph.attachments.document.max_size_mb', 50);
 
-            assert(is_numeric($maxSizeMb));
+            assert(is_float($maxSizeMb));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
                 throw FileException::documentSizeExceeded($size, $maxSizeMb);
