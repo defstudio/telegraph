@@ -1,5 +1,7 @@
 <?php
 
+/** @noinspection DuplicatedCode */
+
 /** @noinspection PhpUnnecessaryLocalVariableInspection */
 
 /** @noinspection PhpUnhandledExceptionInspection */

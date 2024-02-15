@@ -117,6 +117,15 @@ test('documents are validated', function (string $path, bool $valid, string $exc
             'telegraph.attachments.document.max_size_mb' => 50.01,
         ],
     ],
+    'integer custom size' => [
+        'file' => 'invalid_document_size.txt',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.document.max_size_mb' => 51,
+        ],
+    ],
     'invalid custom size' => [
         'file' => 'valid_document.txt',
         'valid' => false,
