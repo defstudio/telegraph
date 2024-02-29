@@ -39,18 +39,6 @@ class Telegraph
     use InteractWithUsers;
     use InteractsWithCommands;
 
-    public const MAX_DOCUMENT_SIZE_IN_MB = 50;
-    public const MAX_ANIMATION_SIZE_IN_MB = 50;
-    public const MAX_VIDEO_SIZE_IN_MB = 50;
-    public const MAX_AUDIO_SIZE_IN_MB = 50;
-    public const MAX_PHOTO_SIZE_IN_MB = 10;
-    public const MAX_PHOTO_HEIGHT_WIDTH_TOTAL = 10000;
-    public const MAX_PHOTO_HEIGHT_WIDTH_RATIO = 20;
-    public const MAX_THUMBNAIL_SIZE_IN_KB = 200;
-    public const MAX_THUMBNAIL_HEIGHT = 320;
-    public const MAX_THUMBNAIL_WIDTH = 320;
-    public const ALLOWED_THUMBNAIL_TYPES = ['jpg'];
-
 
     public const PARSE_HTML = 'html';
     public const PARSE_MARKDOWN = 'markdown';

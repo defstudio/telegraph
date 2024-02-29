@@ -14,6 +14,7 @@ it('can export to array', function () {
     )->toBe([
         'title' => 'testTitle',
         'caption' => 'testCaption',
+        'parse_mode' => 'html',
         'document_url' => 'testDocumentUrl',
         'mime_type' => 'testMimeType',
         'description' => 'testDescription',

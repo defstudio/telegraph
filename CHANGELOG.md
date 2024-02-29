@@ -2,6 +2,135 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.41.2 - 2024-02-15
+
+### What's Changed
+
+* [Fix] breaking change on minor version by @fabio-ivona in https://github.com/defstudio/telegraph/pull/521
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.41.1...v1.41.2
+
+## v1.41.1 - 2024-02-14
+
+### What's Changed
+
+* Added Ukrainian translations by @RivGames in https://github.com/defstudio/telegraph/pull/513
+* fix #518 long polling not working by @fabio-ivona in https://github.com/defstudio/telegraph/pull/519
+
+### New Contributors
+
+* @RivGames made their first contribution in https://github.com/defstudio/telegraph/pull/513
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.41.0...v1.41.1
+
+## v1.41.0 - 2024-02-01
+
+### What's Changed
+
+* [fix] add missing parse_mode in inline queries results by @fabio-ivona in https://github.com/defstudio/telegraph/pull/501
+* [fix] DTO lose false values by @fabio-ivona in https://github.com/defstudio/telegraph/pull/502
+* [feat] botUpdates timeout, offset and limit by @fabio-ivona in https://github.com/defstudio/telegraph/pull/503
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.40.2...v1.41.0
+
+## v1.40.2 - 2024-02-01
+
+### What's Changed
+
+* docs fixes by @siarheipashkevich in https://github.com/defstudio/telegraph/pull/495
+* docs deploy fix by @fabio-ivona
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.40.1...v1.40.2
+
+## v1.40.1 - 2024-01-26
+
+### What's Changed
+
+* documentation review by @siarheipashkevich in https://github.com/defstudio/telegraph/pull/494
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.40.0...v1.40.1
+
+## v1.40.0 - 2024-01-26
+
+### What's Changed
+
+* Update 3.keyboards.md by @siarheipashkevich in https://github.com/defstudio/telegraph/pull/478
+* [feat] allows to change a bot's default menu button by @fabio-ivona in https://github.com/defstudio/telegraph/pull/484
+* [docs] documentation improvements by @fabio-ivona in https://github.com/defstudio/telegraph/pull/486
+* [fix] webhook exceptions handling
+
+### New Contributors
+
+* @siarheipashkevich made their first contribution in https://github.com/defstudio/telegraph/pull/478
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.39.0...v1.40.0
+
+## v1.39.0 - 2024-01-22
+
+### What's Changed
+
+* [chore] Automatic dependencies resolution for callback action method by @fabio-ivona in https://github.com/defstudio/telegraph/pull/475
+* [feat] Custom Attachment Limits by @fabio-ivona in https://github.com/defstudio/telegraph/pull/476
+* [feat] memberInfo() method + docs by @MarioGattolla in https://github.com/defstudio/telegraph/pull/424
+* [feat] custom webhooks url by @fabio-ivona in https://github.com/defstudio/telegraph/pull/477
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.7...v1.39.0
+
+## v1.38.7 - 2024-01-08
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.6...v1.38.7
+
+## v1.38.6 - 2024-01-08
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.5...v1.38.6
+
+## v1.38.5 - 2024-01-08
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.4...v1.38.5
+
+## v1.38.4 - 2024-01-08
+
+### What's Changed
+
+* Add missing images to documentation by @jorisdrenth in https://github.com/defstudio/telegraph/pull/455
+* Dutch translations by @jorisdrenth in https://github.com/defstudio/telegraph/pull/457
+* Upgrade documentation to Nuxt 3 + Docus by @jorisdrenth in https://github.com/defstudio/telegraph/pull/459
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.3...v1.38.4
+
+## v1.38.3 - 2024-01-06
+
+### What's Changed
+
+* Update composer.json to use Larastan Org by @arnebr in https://github.com/defstudio/telegraph/pull/446
+* Fix documentation WSOD by @jorisdrenth in https://github.com/defstudio/telegraph/pull/454
+
+### New Contributors
+
+* @arnebr made their first contribution in https://github.com/defstudio/telegraph/pull/446
+* @jorisdrenth made their first contribution in https://github.com/defstudio/telegraph/pull/454
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.2...v1.38.3
+
+## v1.38.2 - 2024-01-03
+
+### What's Changed
+
+* fix typo in telegraph-chat model doc by @SimuraEpona in https://github.com/defstudio/telegraph/pull/402
+* Update telegraph-chat.md by @lucidlemon in https://github.com/defstudio/telegraph/pull/408
+* Bump browserify-sign from 4.2.1 to 4.2.2 in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/426
+* Added Arabic translations by @moayedalhagy in https://github.com/defstudio/telegraph/pull/425
+* PHP 8.3 Support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/442
+* Fix telegraph fake attached files not clearing between fake requests (ISSUE-432) by @varemel in https://github.com/defstudio/telegraph/pull/433
+
+### New Contributors
+
+* @SimuraEpona made their first contribution in https://github.com/defstudio/telegraph/pull/402
+* @lucidlemon made their first contribution in https://github.com/defstudio/telegraph/pull/408
+* @varemel made their first contribution in https://github.com/defstudio/telegraph/pull/433
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.38.1...v1.38.2
+
 ## v1.38.1 - 2023-08-12
 
 Fix docs

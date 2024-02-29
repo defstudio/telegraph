@@ -10,7 +10,7 @@ class GetTelegramWebhookDebugInfoCommand extends Command
     public $signature = 'telegraph:debug-webhook
                             {bot? : the ID of the bot (if the system contain a single bot, it can be left empty)}';
 
-    public $description = 'get webhook debug infro from telegram bot';
+    public $description = 'Get webhook debug info from telegram bot';
 
     public function handle(): int
     {

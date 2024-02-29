@@ -18,13 +18,16 @@ class ChatMember implements Arrayable
     private string $status;
     private User $user;
     private bool $isAnonymous;
+    private string $custom_title;
+    private bool $is_member;
+    private ?int $until_date;
 
     private function __construct()
     {
     }
 
     /**
-     * @param array{status:string, user:array<string, mixed>, is_anonymous?:bool} $data
+     * @param array{status:string, user:array<string, mixed>, is_anonymous?:bool, custom_title?:string, is_member?:bool, until_date?:int} $data
      */
     public static function fromArray(array $data): ChatMember
     {
@@ -36,6 +39,12 @@ class ChatMember implements Arrayable
         $member->user = User::fromArray($data['user']);
 
         $member->isAnonymous = $data['is_anonymous'] ?? false;
+
+        $member->custom_title = $data['custom_title'] ?? '';
+
+        $member->is_member = $data['is_member'] ?? false;
+
+        $member->until_date = $data['until_date'] ?? null;
 
         return $member;
     }
@@ -55,12 +64,30 @@ class ChatMember implements Arrayable
         return $this->isAnonymous;
     }
 
+    public function custom_title(): string
+    {
+        return $this->custom_title;
+    }
+
+    public function is_member(): bool
+    {
+        return $this->is_member;
+    }
+
+    public function until_date(): ?int
+    {
+        return $this->until_date;
+    }
+
     public function toArray(): array
     {
         return array_filter([
             'status' => $this->status,
             'user' => $this->user->toArray(),
             'is_anonymous' => $this->isAnonymous,
-        ]);
+            'custom_title' => $this->custom_title,
+            'is_member' => $this->is_member,
+            'until_date' => $this->until_date,
+        ], fn ($value) => $value !== null);
     }
 }

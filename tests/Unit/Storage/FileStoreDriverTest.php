@@ -1,7 +1,5 @@
 <?php
 
-use DefStudio\Telegraph\Concerns\HasStorage;
-use DefStudio\Telegraph\Contracts\Storable;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Tests\Unit\Storage\TestStorable;
 use Illuminate\Support\Str;

@@ -22,7 +22,7 @@ class ChatMemberUpdate implements Arrayable
     }
 
     /**
-     * @param array{date:integer, chat:array<string, mixed>, from:array<string, mixed>, old_chat_member:array<string, mixed>, new_chat_member:array<string, mixed>} $data
+     * @param array{date:int, chat:array<string, mixed>, from:array<string, mixed>, old_chat_member:array<string, mixed>, new_chat_member:array<string, mixed>} $data
      */
     public static function fromArray(array $data): ChatMemberUpdate
     {
@@ -40,17 +40,6 @@ class ChatMemberUpdate implements Arrayable
         $chatMemberUpdate->new = ChatMember::fromArray($data['new_chat_member']);
 
         return $chatMemberUpdate;
-    }
-
-    public function toArray(): array
-    {
-        return array_filter([
-           'chat' => $this->chat->toArray(),
-           'from' => $this->from->toArray(),
-           'date' => $this->date->toISOString(),
-           'previous' => $this->previous->toArray(),
-           'new' => $this->new->toArray(),
-        ]);
     }
 
     public function date(): CarbonInterface
@@ -76,5 +65,16 @@ class ChatMemberUpdate implements Arrayable
     public function new(): ChatMember
     {
         return $this->new;
+    }
+
+    public function toArray(): array
+    {
+        return array_filter([
+            'chat' => $this->chat->toArray(),
+            'from' => $this->from->toArray(),
+            'date' => $this->date->toISOString(),
+            'previous' => $this->previous->toArray(),
+            'new' => $this->new->toArray(),
+        ], fn ($value) => $value !== null);
     }
 }

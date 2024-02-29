@@ -24,6 +24,12 @@ return [
     'webhook_handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
 
     /*
+     * Sets the webhook URL that will be exposed by the server,
+     * this can be customized or entirely disabled (by setting it to NULL)
+     */
+    'webhook_url' => '/telegraph/{token}/webhook',
+
+    /*
      * Sets a custom domain when registering a webhook. This will allow a local telegram bot api server
      * to reach the webhook. Disabled by default
      *
@@ -115,6 +121,37 @@ return [
                  */
                 'key_prefix' => 'tgph',
             ],
+        ],
+    ],
+
+    /**
+     * Attachment validation rules, Telegram bot API defaults are set
+     * can be changed to match higher limits when using a local bot
+     * API server (ref. https://core.telegram.org/bots/api#using-a-local-bot-api-server)
+     */
+    'attachments' => [
+        'thumbnail' => [
+            'max_size_kb' => 200,
+            'max_height_px' => 320,
+            'max_width_px' => 320,
+            'allowed_ext' => ['jpg'],
+        ],
+        'photo' => [
+            'max_size_mb' => 10,
+            'max_ratio' => 20,
+            'height_width_sum_px' => 10000,
+        ],
+        'animation' => [
+            'max_size_mb' => 50,
+        ],
+        'video' => [
+            'max_size_mb' => 50,
+        ],
+        'audio' => [
+            'max_size_mb' => 50,
+        ],
+        'document' => [
+            'max_size_mb' => 50,
         ],
     ],
 ];

@@ -65,6 +65,6 @@ class Contact implements Arrayable
             'last_name' => $this->last_name,
             'user_id' => $this->user_id,
             'vcard' => $this->vcard,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

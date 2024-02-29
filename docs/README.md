@@ -5,7 +5,7 @@
 Install dependencies:
 
 ```bash
-npm run install
+npm install
 ```
 
 ## Development
@@ -22,6 +22,6 @@ This will create the `dist/` directory for publishing to static hosting:
 npm run generate
 ```
 
-To preview the static generated app, run `npm run start`
+To preview the static generated app, run `npm run preview`
 
-For detailed explanation on how things work, checkout [nuxt/content](https://content.nuxtjs.org) and [@nuxt/content theme docs](https://content.nuxtjs.org/themes-docs).
+For detailed explanation on how things work, checkout [nuxt/content](https://content.nuxtjs.org) and [@nuxt-themes/docus](https://docus.dev).

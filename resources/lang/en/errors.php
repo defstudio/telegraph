@@ -18,4 +18,5 @@ return [
     'failed_to_get_log_from_telegram' => 'Failed to get log from Telegram server',
     'failed_to_register_webhook' => 'Failed to register webhook',
     'failed_to_unregister_webhook' => 'Failed to unregister webhook',
+    'webhook_error_occurred' => 'Sorry, an error occurred',
 ];

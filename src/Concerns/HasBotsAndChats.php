@@ -18,8 +18,8 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\Telegraph;
-use File;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\File;
 
 /**
  * @mixin Telegraph
@@ -146,11 +146,30 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function botUpdates(): Telegraph
+    /**
+     * @param string[]|null $allowedUpdates
+     */
+    public function botUpdates(int $timeout = null, int $offset = null, int $limit = null, array $allowedUpdates = null): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_GET_BOT_UPDATES;
+
+        if($offset !== null) {
+            $telegraph->data['offset'] = $offset;
+        }
+
+        if($limit !== null) {
+            $telegraph->data['limit'] = $limit;
+        }
+
+        if($timeout !== null) {
+            $telegraph->data['timeout'] = $timeout;
+        }
+
+        if($allowedUpdates !== null) {
+            $telegraph->data['allowed_updates'] = $allowedUpdates;
+        }
 
         return $telegraph;
     }
@@ -204,19 +223,31 @@ trait HasBotsAndChats
 
         File::exists($path) || throw FileException::fileNotFound('photo', $path);
 
-        if (($size = $telegraph->fileSizeInMb($path)) > Telegraph::MAX_PHOTO_SIZE_IN_MB) {
-            throw FileException::photoSizeExceeded($size);
+        $maxSizeInMb = config('telegraph.attachments.photo.max_size_mb', 10);
+
+        assert(is_float($maxSizeInMb));
+
+        if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeInMb) {
+            throw FileException::photoSizeExceeded($size, $maxSizeInMb);
         }
 
         $height = $telegraph->imageHeight($path);
         $width = $telegraph->imageWidth($path);
 
-        if (($totalLength = $height + $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL) {
-            throw FileException::invalidPhotoSize($totalLength);
+        $height_width_sum_px = config('telegraph.attachments.photo.height_width_sum_px', 10000);
+
+        assert(is_integer($height_width_sum_px));
+
+        if (($totalLength = $height + $width) > $height_width_sum_px) {
+            throw FileException::invalidPhotoSize($totalLength, $height_width_sum_px);
         }
 
-        if (($ratio = $height / $width) > Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO || $ratio < (1 / Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO)) {
-            throw FileException::invalidPhotoRatio($ratio);
+        $maxRatio = config('telegraph.attachments.photo.max_ratio', 20);
+
+        assert(is_float($maxRatio));
+
+        if (($ratio = $height / $width) > $maxRatio || $ratio < (1 / $maxRatio)) {
+            throw FileException::invalidPhotoRatio($ratio, $maxRatio);
         }
 
         $telegraph->files->put('photo', new Attachment($path));
@@ -248,7 +279,11 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_MENU_BUTTON;
-        $telegraph->data['chat_id'] = $this->getChatId();
+
+        if ($this->getChatIfAvailable() !== null) {
+            $telegraph->data['chat_id'] = $this->getChatId();
+        }
+
 
         return SetChatMenuButtonPayload::makeFrom($telegraph);
     }

@@ -171,7 +171,7 @@ class Message implements Arrayable
         if (isset($data['web_app_data']['data'])) {
             $webAppData = json_decode($data['web_app_data']['data'], true);
 
-            if(!$webAppData) {
+            if (!$webAppData) {
                 $webAppData = $data['web_app_data']['data'];
             }
 
@@ -316,6 +316,6 @@ class Message implements Arrayable
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }

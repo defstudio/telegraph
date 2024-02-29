@@ -19,6 +19,7 @@ it('can export to array', function () {
         'gif_duration' => 300,
         'title' => 'foo',
         'caption' => 'bar',
+        'parse_mode' => 'html',
         'id' => "a45",
         'type' => "gif",
     ]);

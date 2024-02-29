@@ -14,16 +14,16 @@ it('can export to array', function () {
             ->toArray()
     )->toBe([
         'title' => 'testTitle',
-        'input_message_content' => [
-            'message_text' => 'testMessage',
-            'parse_mode' => 'html',
-        ],
         'url' => 'https://gif.dev',
         'hide_url' => true,
         'description' => 'testDescription',
         'thumb_url' => 'https://thumb.gif.dev',
         'thumb_width' => 400,
         'thumb_height' => 200,
+        'input_message_content' => [
+            'message_text' => 'testMessage',
+            'parse_mode' => 'html',
+        ],
         'id' => "a45",
         'type' => "article",
     ]);

@@ -8,6 +8,7 @@ use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 it('can send a document', function () {
@@ -83,7 +84,12 @@ it('can attach a keyboard to a document', function () {
     })->toMatchTelegramSnapshot();
 });
 
-test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
+test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+
+    foreach ($customConfigs as $key => $value) {
+        Config::set($key, $value);
+    }
+
     if ($valid) {
         expect(make_chat()->document(Storage::path($path)))
             ->toBeInstanceOf(Telegraph::class);
@@ -102,6 +108,33 @@ test('documents are validated', function (string $path, bool $valid, string $exc
         'exception' => FileException::class,
         'message' => 'Document size (50.010000 Mb) exceeds max allowed size of 50.000000 MB',
     ],
+    'valid custom size' => [
+        'file' => 'invalid_document_size.txt',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.document.max_size_mb' => 50.01,
+        ],
+    ],
+    'integer custom size' => [
+        'file' => 'invalid_document_size.txt',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.document.max_size_mb' => 51,
+        ],
+    ],
+    'invalid custom size' => [
+        'file' => 'valid_document.txt',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Document size (50.000000 Mb) exceeds max allowed size of 49.999990 MB',
+        'custom_configs' => [
+            'telegraph.attachments.document.max_size_mb' => 49.99999,
+        ],
+    ],
 ]);
 
 it('can attach a thumbnail', function () {
@@ -112,7 +145,11 @@ it('can attach a thumbnail', function () {
     })->toMatchTelegramSnapshot();
 });
 
-test('thumbnails are validated', function (string $thumbnailPath, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
+test('thumbnails are validated', function (string $thumbnailPath, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+    foreach ($customConfigs as $key => $value) {
+        Config::set($key, $value);
+    }
+
     if ($valid) {
         expect(make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
             ->toBeInstanceOf(Telegraph::class);
@@ -131,11 +168,47 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'exception' => FileException::class,
         'message' => 'Thumbnail size (201.000000 Kb) exceeds max allowed size of 200.000000 Kb',
     ],
+    'invalid custom size' => [
+        'file' => 'thumbnail.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Thumbnail size (12.550000 Kb) exceeds max allowed size of 12.540000 Kb',
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.max_size_kb' => 12.54,
+        ],
+    ],
+    'valid custom size' => [
+        'file' => 'invalid_thumbnail_size.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.max_size_kb' => 201,
+        ],
+    ],
     'invalid height' => [
         'file' => 'invalid_thumbnail_height.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Thumbnail height (321px) exceeds max allowed height of 320px',
+    ],
+    'invalid custom height' => [
+        'file' => 'thumbnail.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Thumbnail height (320px) exceeds max allowed height of 319px',
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.max_height_px' => 319,
+        ],
+    ],
+    'valid custom height' => [
+        'file' => 'invalid_thumbnail_height.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.max_height_px' => 321,
+        ],
     ],
     'invalid width' => [
         'file' => 'invalid_thumbnail_width.jpg',
@@ -143,11 +216,47 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'exception' => FileException::class,
         'message' => 'Thumbnail width (321px) exceeds max allowed width of 320px',
     ],
+    'invalid custom width' => [
+        'file' => 'thumbnail.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Thumbnail width (320px) exceeds max allowed width of 319px',
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.max_width_px' => 319,
+        ],
+    ],
+    'valid custom width' => [
+        'file' => 'invalid_thumbnail_width.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.max_width_px' => 321,
+        ],
+    ],
     'invalid ext' => [
         'file' => 'invalid_thumbnail_ext.png',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Invalid thumbnail extension (png). Only jpg are allowed',
+    ],
+    'valid custom ext' => [
+        'file' => 'invalid_thumbnail_ext.png',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.allowed_ext' => ['png'],
+        ],
+    ],
+    'invalid custom ext' => [
+        'file' => 'thumbnail.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Invalid thumbnail extension (jpg). Only png are allowed',
+        'custom_configs' => [
+            'telegraph.attachments.thumbnail.allowed_ext' => ['png'],
+        ],
     ],
 ]);
 
@@ -227,7 +336,12 @@ it('can attach a keyboard to a photo', function () {
     )->toMatchTelegramSnapshot();
 });
 
-test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
+test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+
+    foreach ($customConfigs as $key => $value) {
+        Config::set($key, $value);
+    }
+
     if ($valid) {
         expect(make_chat()->photo(Storage::path($path)))
             ->toBeInstanceOf(Telegraph::class);
@@ -246,17 +360,71 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'exception' => FileException::class,
         'message' => 'Photo size (10.340000 Mb) exceeds max allowed size of 10.000000 MB',
     ],
+    'valid custom weight' => [
+        'file' => 'invalid_photo_size.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_size_mb' => 10.34,
+        ],
+    ],
+    'invalid custom weight' => [
+        'file' => 'photo.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Photo size (0.030000 Mb) exceeds max allowed size of 0.010000 MB',
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_size_mb' => 0.01,
+        ],
+    ],
     'invalid ratio' => [
         'file' => 'invalid_photo_ratio_thin.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => "Ratio of height and width (22) exceeds max allowed height of 20",
+        'message' => "Ratio of height and width (22.222222) exceeds max allowed ratio of 20.000000",
+    ],
+    'valid custom ratio' => [
+        'file' => 'invalid_photo_ratio_thin.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_ratio' => 23,
+        ],
+    ],
+    'invalid custom ratio' => [
+        'file' => 'photo.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => "Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000",
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_ratio' => 0.99,
+        ],
     ],
     'invalid size' => [
         'file' => 'invalid_photo_ratio_huge.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo\'s sum of width and height (11000px) exceed allowed 10000px',
+    ],
+    'valid custom size' => [
+        'file' => 'invalid_photo_ratio_huge.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.photo.height_width_sum_px' => 11000,
+        ],
+    ],
+    'invalid custom size' => [
+        'file' => 'photo.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Photo\'s sum of width and height (800px) exceed allowed 799px',
+        'custom_configs' => [
+            'telegraph.attachments.photo.height_width_sum_px' => 799,
+        ],
     ],
 ]);
 

@@ -12,6 +12,7 @@ use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use Exception;
 use Illuminate\Support\Stringable;
 
 class TestWebhookHandler extends WebhookHandler
@@ -30,6 +31,11 @@ class TestWebhookHandler extends WebhookHandler
     public function test(): void
     {
         self::$calls_count++;
+    }
+
+    public function trigger_failure()
+    {
+        throw new Exception('foo');
     }
 
     public function send_reply(): void
@@ -61,6 +67,11 @@ class TestWebhookHandler extends WebhookHandler
             $this->chat->html("Hello!! your parameter is [$parameter]")->send();
         }
         $this->chat->html("Hello!!")->send();
+    }
+
+    public function param_injection(string $foo = 'not set'): void
+    {
+        $this->chat->html("Foo is [$foo]")->send();
     }
 
     public function reply_to_command(): void

@@ -12,6 +12,9 @@ use DefStudio\Telegraph\Exceptions\ChatSettingsException;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Facades\Telegraph;
 
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Storage;
+
 use function Spatie\PestPluginTestTime\testTime;
 use function Spatie\Snapshots\assertMatchesSnapshot;
 
@@ -104,7 +107,12 @@ it('can change chat photo', function () {
     })->toMatchTelegramSnapshot();
 });
 
-test('photo is validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
+test('photo is validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+
+    foreach ($customConfigs as $key => $value) {
+        Config::set($key, $value);
+    }
+
     if ($valid) {
         expect(make_chat()->setChatPhoto(Storage::path($path)))
             ->toBeInstanceOf(\DefStudio\Telegraph\Telegraph::class);
@@ -123,17 +131,71 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
         'exception' => FileException::class,
         'message' => 'Photo size (10.340000 Mb) exceeds max allowed size of 10.000000 MB',
     ],
+    'valid custom weight' => [
+        'file' => 'invalid_photo_size.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_size_mb' => 10.34,
+        ],
+    ],
+    'invalid custom weight' => [
+        'file' => 'photo.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Photo size (0.030000 Mb) exceeds max allowed size of 0.010000 MB',
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_size_mb' => 0.01,
+        ],
+    ],
     'invalid ratio' => [
         'file' => 'invalid_photo_ratio_thin.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => "Ratio of height and width (22) exceeds max allowed height of 20",
+        'message' => "Ratio of height and width (22.222222) exceeds max allowed ratio of 20.000000",
+    ],
+    'valid custom ratio' => [
+        'file' => 'invalid_photo_ratio_thin.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_ratio' => 23,
+        ],
+    ],
+    'invalid custom ratio' => [
+        'file' => 'photo.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => "Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000",
+        'custom_configs' => [
+            'telegraph.attachments.photo.max_ratio' => 0.99,
+        ],
     ],
     'invalid size' => [
         'file' => 'invalid_photo_ratio_huge.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo\'s sum of width and height (11000px) exceed allowed 10000px',
+    ],
+    'valid custom size' => [
+        'file' => 'invalid_photo_ratio_huge.jpg',
+        'valid' => true,
+        'exception' => null,
+        'message' => null,
+        'custom_configs' => [
+            'telegraph.attachments.photo.height_width_sum_px' => 11000,
+        ],
+    ],
+    'invalid custom size' => [
+        'file' => 'photo.jpg',
+        'valid' => false,
+        'exception' => FileException::class,
+        'message' => 'Photo\'s sum of width and height (800px) exceed allowed 799px',
+        'custom_configs' => [
+            'telegraph.attachments.photo.height_width_sum_px' => 799,
+        ],
     ],
 ]);
 
@@ -157,7 +219,7 @@ it('can retrieve chat member count', function () {
 
 it('can retrieve a chat member', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        return $telegraph->chat(make_chat())->chatMember(123456);
+        return $telegraph->chat(make_chat())->chatMember('123456');
     })->toMatchTelegramSnapshot();
 });
 
@@ -350,6 +412,13 @@ it('can restore default chat menu button', function () {
 it('can set commands chat menu button', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
+            ->setChatMenuButton()->commands();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can set commands bot menu button', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph
             ->setChatMenuButton()->commands();
     })->toMatchTelegramSnapshot();
 });

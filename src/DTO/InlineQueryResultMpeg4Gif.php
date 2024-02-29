@@ -4,6 +4,8 @@
 
 namespace DefStudio\Telegraph\DTO;
 
+use DefStudio\Telegraph\Telegraph;
+
 class InlineQueryResultMpeg4Gif extends InlineQueryResult
 {
     protected string $type = 'mpeg4_gif';
@@ -16,6 +18,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
     protected string|null $thumbMimeType = null;
     protected string|null $title = null;
     protected string|null $caption = null;
+    protected string|null $parseMode = null;
 
     public static function make(string $id, string $mpeg4Url, string $thumbUrl): InlineQueryResultMpeg4Gif
     {
@@ -27,44 +30,65 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
         return $result;
     }
 
-    public function mpeg4Width(int|null $mpeg4Width): InlineQueryResultMpeg4Gif
+    public function mpeg4Width(int|null $mpeg4Width): static
     {
         $this->mpeg4Width = $mpeg4Width;
 
         return $this;
     }
 
-    public function mpeg4Height(int|null $mpeg4Height): InlineQueryResultMpeg4Gif
+    public function mpeg4Height(int|null $mpeg4Height): static
     {
         $this->mpeg4Height = $mpeg4Height;
 
         return $this;
     }
 
-    public function mpeg4Duration(int|null $mpeg4Duration): InlineQueryResultMpeg4Gif
+    public function mpeg4Duration(int|null $mpeg4Duration): static
     {
         $this->mpeg4Duration = $mpeg4Duration;
 
         return $this;
     }
 
-    public function thumbMimeType(string|null $thumbMimeType): InlineQueryResultMpeg4Gif
+    public function thumbMimeType(string|null $thumbMimeType): static
     {
         $this->thumbMimeType = $thumbMimeType;
 
         return $this;
     }
 
-    public function title(string|null $title): InlineQueryResultMpeg4Gif
+    public function title(string|null $title): static
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function caption(string|null $caption): InlineQueryResultMpeg4Gif
+    public function caption(string|null $caption): static
     {
         $this->caption = $caption;
+
+        return $this;
+    }
+
+    public function html(): static
+    {
+        $this->parseMode = Telegraph::PARSE_HTML;
+
+        return $this;
+    }
+
+    public function markdown(): static
+    {
+        $this->parseMode = Telegraph::PARSE_MARKDOWN;
+
+        return $this;
+    }
+
+    public function markdownV2(): static
+    {
+        $this->parseMode = Telegraph::PARSE_MARKDOWNV2;
 
         return $this;
     }
@@ -74,7 +98,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
      */
     public function data(): array
     {
-        return [
+        return array_filter([
             'mpeg4_url' => $this->mpeg4Url,
             'mpeg4_width' => $this->mpeg4Width,
             'mpeg4_height' => $this->mpeg4Height,
@@ -83,6 +107,7 @@ class InlineQueryResultMpeg4Gif extends InlineQueryResult
             'thumb_mime_type' => $this->thumbMimeType,
             'title' => $this->title,
             'caption' => $this->caption,
-        ];
+            'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),
+        ], fn ($value) => $value !== null);
     }
 }

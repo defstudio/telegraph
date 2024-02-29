@@ -13,6 +13,7 @@ it('can export to array', function () {
         'audio_url' => 'testAudioUrl',
         'title' => 'testTitle',
         'caption' => 'testCaption',
+        'parse_mode' => 'html',
         'performer' => 'testPerformer',
         'audio_duration' => 10,
         'id' => "a45",

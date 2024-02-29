@@ -2,34 +2,36 @@
 
 namespace DefStudio\Telegraph\Exceptions;
 
-use DefStudio\Telegraph\Telegraph;
 use Exception;
 
 final class FileException extends Exception
 {
-    public static function documentSizeExceeded(float $sizeInMb): FileException
+    public static function documentSizeExceeded(float $sizeMb, float $maxSizeMb): FileException
     {
-        return new self(sprintf("Document size (%f Mb) exceeds max allowed size of %f MB",  $sizeInMb, Telegraph::MAX_DOCUMENT_SIZE_IN_MB));
+        return new self(sprintf("Document size (%f Mb) exceeds max allowed size of %f MB",  $sizeMb, $maxSizeMb));
     }
 
-    public static function thumbnailSizeExceeded(float $sizeInkb): FileException
+    public static function thumbnailSizeExceeded(float $sizeKb, float $maxSizeKb): FileException
     {
-        return new self(sprintf("Thumbnail size (%f Kb) exceeds max allowed size of %f Kb",  $sizeInkb, Telegraph::MAX_THUMBNAIL_SIZE_IN_KB));
+        return new self(sprintf("Thumbnail size (%f Kb) exceeds max allowed size of %f Kb",  $sizeKb, $maxSizeKb));
     }
 
-    public static function thumbnailHeightExceeded(int $height): FileException
+    public static function thumbnailHeightExceeded(int $height, int $maxHeigth): FileException
     {
-        return new self(sprintf("Thumbnail height (%dpx) exceeds max allowed height of %dpx",  $height, Telegraph::MAX_THUMBNAIL_HEIGHT));
+        return new self(sprintf("Thumbnail height (%dpx) exceeds max allowed height of %dpx",  $height, $maxHeigth));
     }
 
-    public static function thumbnailWidthExceeded(int $width): FileException
+    public static function thumbnailWidthExceeded(int $width, int $maxWidth): FileException
     {
-        return new self(sprintf("Thumbnail width (%dpx) exceeds max allowed width of %dpx",  $width, Telegraph::MAX_THUMBNAIL_WIDTH));
+        return new self(sprintf("Thumbnail width (%dpx) exceeds max allowed width of %dpx",  $width, $maxWidth));
     }
 
-    public static function invalidThumbnailExtension(string $ext): FileException
+    /**
+     * @param string[] $allowedExt
+     */
+    public static function invalidThumbnailExtension(string $ext, array $allowedExt): FileException
     {
-        return new self(sprintf("Invalid thumbnail extension (%s). Only %s are allowed",  $ext, collect(Telegraph::ALLOWED_THUMBNAIL_TYPES)->join(', ', ' and ')));
+        return new self(sprintf("Invalid thumbnail extension (%s). Only %s are allowed",  $ext, collect($allowedExt)->join(', ', ' and ')));
     }
 
     public static function fileNotFound(string $fileType, string $path): FileException
@@ -37,21 +39,21 @@ final class FileException extends Exception
         return new self("$fileType [$path] not found");
     }
 
-    public static function photoSizeExceeded(float $sizeInMb): FileException
+    public static function photoSizeExceeded(float $sizeMb, float $maxSizeMb): FileException
     {
-        return new self(sprintf("Photo size (%f Mb) exceeds max allowed size of %f MB",  $sizeInMb, Telegraph::MAX_PHOTO_SIZE_IN_MB));
+        return new self(sprintf("Photo size (%f Mb) exceeds max allowed size of %f MB",  $sizeMb, $maxSizeMb));
     }
 
-    public static function invalidPhotoSize(int $totalLength): FileException
+    public static function invalidPhotoSize(int $totalLength, int $maxTotalLength): FileException
     {
-        return new self(sprintf("Photo's sum of width and height (%dpx) exceed allowed %dpx",  $totalLength, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_TOTAL));
+        return new self(sprintf("Photo's sum of width and height (%dpx) exceed allowed %dpx",  $totalLength, $maxTotalLength));
     }
 
-    public static function invalidPhotoRatio(float $ratio): FileException
+    public static function invalidPhotoRatio(float $ratio, float $maxRatio): FileException
     {
-        $relativeRatio = $ratio < Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO ? 1 / $ratio : $ratio;
+        $relativeRatio = $ratio < $maxRatio ? 1 / $ratio : $ratio;
 
-        return new self(sprintf("Ratio of height and width (%d) exceeds max allowed height of %d",  $relativeRatio, Telegraph::MAX_PHOTO_HEIGHT_WIDTH_RATIO));
+        return new self(sprintf("Ratio of height and width (%f) exceeds max allowed ratio of %f",  $relativeRatio, $maxRatio));
     }
 
     public static function failedToRetreiveFileInfo(string $fileId): FileException

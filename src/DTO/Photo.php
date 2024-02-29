@@ -63,6 +63,6 @@ class Photo implements Arrayable, Downloadable
             'width' => $this->width,
             'height' => $this->height,
             'filesize' => $this->filesize,
-        ]);
+        ], fn ($value) => $value !== null);
     }
 }
