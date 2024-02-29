@@ -126,6 +126,22 @@ trait ComposesMessages
         return $telegraph;
     }
 
+    /**
+     * @param array<int> $messageIds
+     */
+    public function deleteMessages(array $messageIds): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_DELETE_MESSAGES;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChatId(),
+            'message_ids' => $messageIds,
+        ];
+
+        return $telegraph;
+    }
+
     public function pinMessage(int $messageId): Telegraph
     {
         $telegraph = clone $this;
