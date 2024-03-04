@@ -31,6 +31,11 @@ return [
         'handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
 
         /*
+         * Middleware to be applied to the webhook route
+         */
+        'middleware' => [],
+
+        /*
          * Sets a custom domain when registering a webhook. This will allow a local telegram bot api server
          * to reach the webhook. Disabled by default
          *
@@ -39,16 +44,16 @@ return [
         // 'domain' => 'http://my.custom.domain',
 
         /*
-         * If enabled, Telegraph dumps received
-         * webhook messages to logs
-         */
-        'debug' => false,
-
-        /*
          * If enabled, unknown webhook commands are
          * reported as exception in application logs
          */
         'report_unknown_commands' => true,
+
+        /*
+         * If enabled, Telegraph dumps received
+         * webhook messages to logs
+         */
+        'debug' => false,
     ],
 
 
