@@ -53,7 +53,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[]}>> $arrayKeyboard
+     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[], switch_inline_query?: string, switch_inline_query_current_chat?: string}>> $arrayKeyboard
      *
      * @return Keyboard
      */
