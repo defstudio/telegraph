@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 if ($webhookUrl = config('telegraph.webhook.url', config('telegraph.webhook_url', '/telegraph/{token}/webhook'))) {
 
     Route::post($webhookUrl, [WebhookController::class, 'handle'])
-        ->middleware()
+        ->middleware(config('telegraph.webhook.middleware', []))
         ->name('telegraph.webhook');
 
 }
