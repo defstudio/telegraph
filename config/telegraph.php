@@ -15,39 +15,42 @@ return [
      */
     'default_parse_mode' => Telegraph::PARSE_HTML,
 
-    /*
-     * Sets the handler to be used when Telegraph
-     * receives a new webhook call.
-     *
-     * For reference, see https://defstudio.github.io/telegraph/webhooks/overview
-     */
-    'webhook_handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
+    'webhook' => [
+        /*
+         * Sets the webhook URL that will be exposed by the server,
+         * this can be customized or entirely disabled (by setting it to NULL)
+         */
+        'url' => '/telegraph/{token}/webhook',
 
-    /*
-     * Sets the webhook URL that will be exposed by the server,
-     * this can be customized or entirely disabled (by setting it to NULL)
-     */
-    'webhook_url' => '/telegraph/{token}/webhook',
+        /*
+         * Sets the handler to be used when Telegraph
+         * receives a new webhook call.
+         *
+         * For reference, see https://defstudio.github.io/telegraph/webhooks/overview
+         */
+        'handler' => DefStudio\Telegraph\Handlers\EmptyWebhookHandler::class,
 
-    /*
-     * Sets a custom domain when registering a webhook. This will allow a local telegram bot api server
-     * to reach the webhook. Disabled by default
-     *
-     * For reference, see https://core.telegram.org/bots/api#using-a-local-bot-api-server
-     */
-    // 'custom_webhook_domain' => 'http://my.custom.domain',
+        /*
+         * Sets a custom domain when registering a webhook. This will allow a local telegram bot api server
+         * to reach the webhook. Disabled by default
+         *
+         * For reference, see https://core.telegram.org/bots/api#using-a-local-bot-api-server
+         */
+        // 'domain' => 'http://my.custom.domain',
 
-    /*
-     * If enabled, Telegraph dumps received
-     * webhook messages to logs
-     */
-    'debug_mode' => false,
+        /*
+         * If enabled, Telegraph dumps received
+         * webhook messages to logs
+         */
+        'debug' => false,
 
-    /*
-     * If enabled, unknown webhook commands are
-     * reported as exception in application logs
-     */
-    'report_unknown_webhook_commands' => true,
+        /*
+         * If enabled, unknown webhook commands are
+         * reported as exception in application logs
+         */
+        'report_unknown_commands' => true,
+    ],
+
 
     'security' => [
         /*
