@@ -83,7 +83,7 @@ function register_webhook_handler(string $handler = TestWebhookHandler::class): 
     if ($handler == TestWebhookHandler::class) {
         TestWebhookHandler::reset();
     }
-    config()->set('telegraph.webhook_handler', $handler);
+    config()->set('telegraph.webhook.handler', $handler);
 }
 
 function webhook_message($handler = TestWebhookHandler::class, array $message = null): Request

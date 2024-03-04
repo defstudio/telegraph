@@ -20,7 +20,7 @@ class WebhookController
         $bot = $botModel::fromToken($token);
 
         /** @var class-string $handler */
-        $handler = config('telegraph.webhook_handler');
+        $handler = config('telegraph.webhook.handler', config('telegraph.webhook_handler'));
 
         /** @var WebhookHandler $handler */
         $handler = app($handler);
