@@ -22,6 +22,7 @@ class KeyboardButtonProxy extends Keyboard
     public function __construct(Keyboard $proxyed, Button $button)
     {
         parent::__construct();
+        $this->rtl = $proxyed->rtl;
         $this->button = $button;
         $this->buttons = $proxyed->buttons;
     }
