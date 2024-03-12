@@ -24,6 +24,11 @@ class ReplyKeyboardButtonProxy extends ReplyKeyboard
     public function __construct(ReplyKeyboard $proxyed, ReplyButton $button)
     {
         parent::__construct();
+        $this->rtl = $proxyed->rtl;
+        $this->resize = $proxyed->resize;
+        $this->oneTime = $proxyed->oneTime;
+        $this->selective = $proxyed->selective;
+        $this->inputPlaceholder = $proxyed->inputPlaceholder;
         $this->button = $button;
         $this->buttons = $proxyed->buttons;
     }
