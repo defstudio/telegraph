@@ -1,6 +1,0 @@
-url: 'https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/sendDocument'
-payload:
-    chat_id: '-123456789'
-    reply_markup: '{"inline_keyboard":[[{"text":"def:studio","url":"https:\/\/defstudio.it"}]]}'
-files:
-    document: { contents: "Hello!\n", filename: test.txt }

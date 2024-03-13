@@ -12,8 +12,6 @@ use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Str;
 
-use function Spatie\Snapshots\assertMatchesSnapshot;
-
 uses(LazilyRefreshDatabase::class);
 
 test('name is set to ID if missing', function () {
@@ -28,14 +26,14 @@ it('can retrieve its telegram info', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    assertMatchesSnapshot($bot->info());
+    expect($bot->info())->toMatchSnapshot();
 });
 
 it('can retrieve its url', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    assertMatchesSnapshot($bot->url());
+    expect($bot->url())->toMatchSnapshot();
 });
 
 it('can register its webhook', function () {
@@ -124,7 +122,7 @@ it('can poll for updates', function () {
 
     $bot = make_bot();
 
-    assertMatchesSnapshot($bot->updates()->toArray());
+    expect($bot->updates()->toArray())->toMatchSnapshot();
 });
 
 it('throws an exception if poll failed', function () {

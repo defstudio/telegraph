@@ -195,3 +195,15 @@ expect()->extend('toMatchTelegramSnapshot', function () {
 
     expect($telegraph->toArray())->toMatchSnapshot();
 });
+
+expect()->extend('toMatchUtf8TelegramSnapshot', function () {
+    /** @var Closure(Telegraph): Telegraph $configurationClosure */
+    $configurationClosure = $this->value;
+
+    /** @var Telegraph $telegraph */
+    $telegraph = app(Telegraph::class)->chat(make_chat());
+
+    $telegraph = $configurationClosure($telegraph);
+
+    expect(json_encode(mb_convert_encoding($telegraph->toArray(), 'UTF-8', 'UTF-8')))->toMatchSnapshot();
+});

@@ -1,8 +1,0 @@
-url: 'https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/sendPoll'
-payload:
-    chat_id: '-123456789'
-    type: quiz
-    options: [bar, baz]
-    question: 'foo?'
-    close_date: 1601682625
-files: {  }

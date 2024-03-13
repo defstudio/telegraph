@@ -142,7 +142,7 @@ it('can attach a thumbnail', function () {
         return $telegraph
             ->document(Storage::path('test.txt'))
             ->thumbnail(Storage::path('thumbnail.jpg'));
-    })->toMatchTelegramSnapshot();
+    })->toMatchUtf8TelegramSnapshot();
 });
 
 test('thumbnails are validated', function (string $thumbnailPath, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
@@ -272,22 +272,22 @@ it('can send a contact', function () {
 
 it('can send a photo', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send an animation', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->animation(Storage::path('gif.gif')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a video', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->video(Storage::path('video.mp4')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send an audio', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('audio.mp3')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('requires a chat to send a photo', function () {
@@ -296,44 +296,44 @@ it('requires a chat to send a photo', function () {
 
 it('can attach a photo while writing a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->markdown('look at **this** file!')->photo(Storage::path('photo.jpg')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a photo with markdown caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->markdown('look at **this** photo!'))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a photo with markdownV2 caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->markdownV2('look at **this** photo!'))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a photo with html caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->html('look at <b>this</b> photo!'))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a photo without notification', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->silent())
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a photo protecting it from sharing', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->protected())
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a photo replying to a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))->reply(1234))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a keyboard to a photo', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph->photo(Storage::path('photo.jpg'))
             ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'))
-    )->toMatchTelegramSnapshot();
+    )->toMatchUtf8TelegramSnapshot();
 });
 
 test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
@@ -430,7 +430,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
 
 it('can send a voice', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('requires a chat to send a voice', function () {
@@ -439,44 +439,44 @@ it('requires a chat to send a voice', function () {
 
 it('can attach a voice while writing a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->markdown('listen **this** one')->voice(Storage::path('voice.ogg')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a voice with markdown caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdown('listen **this** one'))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a voice with markdownV2 caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->markdownV2('listen **this** one'))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a voice with html caption', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->html('listen <b>this</b> one!'))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a voice without notification', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->silent())
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a voice protecting it from sharing', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->protected())
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a voice replying to a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))->reply(1234))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can attach a keyboard to a voice', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph->voice(Storage::path('voice.ogg'))
             ->keyboard(fn (Keyboard $keyboard) => $keyboard->button('def:studio')->url('https://defstudio.it'))
-    )->toMatchTelegramSnapshot();
+    )->toMatchUtf8TelegramSnapshot();
 });
 
 test('voices are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {

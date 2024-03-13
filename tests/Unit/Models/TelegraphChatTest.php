@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Str;
 
-use function Spatie\Snapshots\assertMatchesSnapshot;
-
 test('name is set to ID if missing', function () {
     $bot = TelegraphBot::create([
         'token' => Str::uuid(),
@@ -44,7 +42,7 @@ it('can send an html message', function () {
 
     $telegraph = $chat->html('foo');
 
-    assertMatchesSnapshot($telegraph->toArray());
+    expect($telegraph->toArray())->toMatchSnapshot();
 });
 
 it('can send a markdown message', function () {
@@ -52,7 +50,7 @@ it('can send a markdown message', function () {
 
     $telegraph = $chat->markdown('foo');
 
-    assertMatchesSnapshot($telegraph->toArray());
+    expect($telegraph->toArray())->toMatchSnapshot();
 });
 
 it('can send a markdownV2 message', function () {
@@ -60,7 +58,7 @@ it('can send a markdownV2 message', function () {
 
     $telegraph = $chat->markdownV2('foo');
 
-    assertMatchesSnapshot($telegraph->toArray());
+    expect($telegraph->toArray())->toMatchSnapshot();
 });
 
 it('can replace a keyboard', function () {
@@ -482,7 +480,7 @@ it('can retrieve its telegram info', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-    assertMatchesSnapshot($chat->info());
+    expect($chat->info())->toMatchSnapshot();
 });
 
 it('can retrieve its member count', function () {
