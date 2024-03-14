@@ -2,6 +2,22 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.42.0 - 2024-03-14
+
+### What's Changed
+
+* [chore] Laravel 11 support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/520
+* Fix missing switch_inline_query fields in Keyboard::fromArray() method (ISSUE-533) by @varemel in https://github.com/defstudio/telegraph/pull/541
+* add 'delete messages' method by @pou in https://github.com/defstudio/telegraph/pull/511
+* Wehbook middleware by @fabio-ivona in https://github.com/defstudio/telegraph/pull/544
+* #549 add properties assignments in KeyboardButtonProxy and ReplyKeyboardButtonProxy constructors by @oakymax in https://github.com/defstudio/telegraph/pull/550
+
+### New Contributors
+
+* @oakymax made their first contribution in https://github.com/defstudio/telegraph/pull/550
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.41.2...v1.42.0
+
 ## v1.41.2 - 2024-02-15
 
 ### What's Changed
