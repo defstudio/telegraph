@@ -5,10 +5,13 @@ namespace DefStudio\Telegraph\Tests;
 use DefStudio\Telegraph\TelegraphServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -27,19 +30,16 @@ class TestCase extends Orchestra
 
     public function getEnvironmentSetUp($app): void
     {
-        $this->databaseSetup($app['config']);
         $this->filesystemSetup($app['config']);
+
+        $app['config']->set('database.default', 'testing');
+
     }
 
-    protected function databaseSetup($config): void
+    protected function defineDatabaseMigrations(): void
     {
-        $config->set('database.default', 'testing');
-
-        $migration = include __DIR__ . '/../database/migrations/create_telegraph_bots_table.php.stub';
-        $migration->up();
-
-        $migration = include __DIR__ . '/../database/migrations/create_telegraph_chats_table.php.stub';
-        $migration->up();
+        ;
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
     protected function filesystemSetup($config): void

@@ -1,7 +1,0 @@
-url: 'https://api.telegram.org/bot3f3814e1-5836-3d77-904e-60f64b15df36/sendMessage'
-payload:
-    text: foobar
-    chat_id: '-123456789'
-    parse_mode: html
-    reply_markup: { remove_keyboard: true, selective: true }
-files: {  }

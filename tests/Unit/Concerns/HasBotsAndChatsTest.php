@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
 use function Spatie\PestPluginTestTime\testTime;
-use function Spatie\Snapshots\assertMatchesSnapshot;
 
 it('can customize the destination bot', function () {
     withfakeUrl();
@@ -56,13 +55,13 @@ it('can retrieve bot info', function () {
     $bot = make_bot();
 
     $response = Telegraph::bot($bot)->botInfo()->send();
-    assertMatchesSnapshot($response->json('result'));
+    expect($response->json('result'))->toMatchSnapshot();
 });
 
 it('can retrieve bot info from its token', function () {
     Telegraph::fake();
     $response = Telegraph::bot("3f3814e1-5836-3d77-904e-60f64b15df36")->botInfo()->send();
-    assertMatchesSnapshot($response->json('result'));
+    expect($response->json('result'))->toMatchSnapshot();
 });
 
 it('can leave a chat', function () {
@@ -104,7 +103,7 @@ test('chat description cannot overflow 255 chars', function () {
 it('can change chat photo', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->setChatPhoto(Storage::path('photo.jpg'));
-    })->toMatchTelegramSnapshot();
+    })->toMatchUtf8TelegramSnapshot();
 });
 
 test('photo is validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {

@@ -65,8 +65,8 @@ it('can unpin al messages', function () {
 it('can edit a message', function (callable $setupClosure) {
     expect($setupClosure)->toMatchTelegramSnapshot();
 })->with([
-    'edit before text' => fn () => fn (Telegraph $telegraph) => $telegraph->edit(123456)->markdown('new text'),
-    'edit after text' => fn () => fn (Telegraph $telegraph) => $telegraph->markdown('new text')->edit(123456),
+    'edit before text' => fn (Telegraph $telegraph) => $telegraph->edit(123456)->markdown('new text'),
+    'edit after text' => fn (Telegraph $telegraph) => $telegraph->markdown('new text')->edit(123456),
 ]);
 
 it('can forward a message', function () {

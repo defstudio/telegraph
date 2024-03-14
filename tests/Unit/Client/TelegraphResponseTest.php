@@ -3,8 +3,6 @@
 
 use DefStudio\Telegraph\Facades\Telegraph;
 
-use function Spatie\Snapshots\assertMatchesJsonSnapshot;
-
 $fake_response_data = [
     "ok" => true,
     "result" => [
@@ -27,7 +25,8 @@ it('wraps original response', function () use ($fake_response_data) {
 
     $response = Telegraph::bot($bot)->message('foo')->send();
 
-    assertMatchesJsonSnapshot($response->body());
+    expect($response->body())->toMatchSnapshot();
+
     expect($response->json('ok'))->toBeTrue();
 });
 

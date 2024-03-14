@@ -8,13 +8,11 @@ use DefStudio\Telegraph\DTO\Photo;
 use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Support\Facades\Storage;
 
-use function Spatie\Snapshots\assertMatchesSnapshot;
-
 beforeEach(fn () => sandbox_bot());
 
 it('can return bot info', function () {
     $response = Telegraph::botInfo()->send();
-    assertMatchesSnapshot($response->json('result'));
+    expect($response->json('result'))->toMatchSnapshot();
 })->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
 
 it('can store chat files', function () {
