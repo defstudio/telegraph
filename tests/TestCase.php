@@ -6,9 +6,7 @@ use DefStudio\Telegraph\TelegraphServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Orchestra\Testbench\Attributes\WithMigration;
 use Orchestra\Testbench\TestCase as Orchestra;
-use function Orchestra\Testbench\workbench_path;
 
 class TestCase extends Orchestra
 {
@@ -39,7 +37,8 @@ class TestCase extends Orchestra
     }
 
     protected function defineDatabaseMigrations(): void
-    {;
+    {
+        ;
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
     }
 
