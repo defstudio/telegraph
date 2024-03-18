@@ -18,4 +18,9 @@ return new class () extends Migration {
             $table->unique(['chat_id', 'telegraph_bot_id']);
         });
     }
+
+    public function down(): void
+    {
+        Schema::dropIfExists('telegraph_chats');
+    }
 };
