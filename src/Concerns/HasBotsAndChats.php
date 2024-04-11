@@ -37,7 +37,9 @@ trait HasBotsAndChats
         $telegraph->bot = $bot;
 
         if (empty($telegraph->chat) && $bot instanceof TelegraphBot) {
-            $telegraph->chat = rescue(fn () => $telegraph->bot->chats->sole(), report: false); //@phpstan-ignore-line
+            if ($telegraph->bot->chats()->count() === 1) {
+                $telegraph->chat = $telegraph->bot->chats()->first();
+            }
         }
 
         return $telegraph;
@@ -155,19 +157,19 @@ trait HasBotsAndChats
 
         $telegraph->endpoint = self::ENDPOINT_GET_BOT_UPDATES;
 
-        if($offset !== null) {
+        if ($offset !== null) {
             $telegraph->data['offset'] = $offset;
         }
 
-        if($limit !== null) {
+        if ($limit !== null) {
             $telegraph->data['limit'] = $limit;
         }
 
-        if($timeout !== null) {
+        if ($timeout !== null) {
             $telegraph->data['timeout'] = $timeout;
         }
 
-        if($allowedUpdates !== null) {
+        if ($allowedUpdates !== null) {
             $telegraph->data['allowed_updates'] = $allowedUpdates;
         }
 
