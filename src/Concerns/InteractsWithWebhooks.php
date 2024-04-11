@@ -14,7 +14,7 @@ trait InteractsWithWebhooks
 {
     private function getWebhookUrl(): string
     {
-        $customWebhookUrl = config('telegraph.webhook.domain', config('telegraph.custom_webhook_domain'));
+        $customWebhookUrl = config('telegraph.custom_webhook_domain', config('telegraph.webhook.domain'));
 
         if ($customWebhookUrl === null) {
             $url = route('telegraph.webhook', $this->getBot());
