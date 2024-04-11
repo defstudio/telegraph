@@ -90,18 +90,12 @@ trait HasBotsAndChats
             $bot = $telegraph->getBotIfAvailable();
 
             if ($bot instanceof TelegraphBot) {
-                if ($bot->relationLoaded('chats')) {
-                    $telegraph->chat = rescue(fn () => $bot->chats->sole(), report: false);
-                } elseif ($bot->chats()->count() === 1) {
-                    $telegraph->chat = $bot->chats()->first();
-                }
+                $telegraph->chat = rescue(fn () => $bot->chats()->sole(), report: false);
             }
         }
 
         if (empty($telegraph->chat)) {
-            if (TelegraphChat::count() === 1) {
-                $telegraph->chat = TelegraphChat::first();
-            }
+            $telegraph->chat = rescue(fn () => TelegraphChat::query()->sole(), report: false);
         }
 
         return $telegraph->chat ?? null;
