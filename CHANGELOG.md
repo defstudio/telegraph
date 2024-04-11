@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.43.1 - 2024-04-11
+
+### What's Changed
+
+* teletraph chat retrieve optimization by @fabio-ivona in https://github.com/defstudio/telegraph/pull/571
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.43.0...v1.43.1
+
 ## v1.42.1 - 2024-04-11
 
 ### What's Changed
