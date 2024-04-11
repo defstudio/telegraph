@@ -2,6 +2,24 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.42.1 - 2024-04-11
+
+### What's Changed
+
+* Add "down" for rollback in "create_telegraph_bots_table" by @Alice088 in https://github.com/defstudio/telegraph/pull/557
+* Add "down" for rollback in "create_telegraph_chats_table" by @Alice088 in https://github.com/defstudio/telegraph/pull/556
+* added portuguese language by @rjmo in https://github.com/defstudio/telegraph/pull/564
+* Bump vite and nuxt in /docs by @dependabot in https://github.com/defstudio/telegraph/pull/565
+* Fix #568 by @fabio-ivona in https://github.com/defstudio/telegraph/pull/569
+* Fix breaking change in minor release by @fabio-ivona in https://github.com/defstudio/telegraph/pull/570
+
+### New Contributors
+
+* @Alice088 made their first contribution in https://github.com/defstudio/telegraph/pull/557
+* @rjmo made their first contribution in https://github.com/defstudio/telegraph/pull/564
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.42.0...v1.43.0
+
 ## v1.42.0 - 2024-03-14
 
 ### What's Changed
