@@ -52,7 +52,7 @@ abstract class WebhookHandler
     {
         $this->extractCallbackQueryData();
 
-        if (config('telegraph.webhook.debug', config('telegraph.debug_mode'))) {
+        if (config('telegraph.debug_mode', config('telegraph.webhook.debug'))) {
             Log::debug('Telegraph webhook callback', $this->data->toArray());
         }
 
@@ -89,7 +89,7 @@ abstract class WebhookHandler
         if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
             $command = (string) $text->after('/')->before(' ')->before('@');
 
-            if (config('telegraph.webhook.report_unknown_commands', config('telegraph.report_unknown_webhook_commands', true))) {
+            if (config('telegraph.report_unknown_webhook_commands', config('telegraph.webhook.report_unknown_commands', true))) {
                 report(TelegramWebhookException::invalidCommand($command));
             }
 
@@ -101,7 +101,7 @@ abstract class WebhookHandler
     {
         $this->extractMessageData();
 
-        if (config('telegraph.webhook.debug', config('telegraph.debug_mode'))) {
+        if (config('telegraph.debug_mode', config('telegraph.webhook.debug'))) {
             Log::debug('Telegraph webhook message', $this->data->toArray());
         }
 
