@@ -37,8 +37,8 @@ trait HasBotsAndChats
         $telegraph->bot = $bot;
 
         if (empty($telegraph->chat) && $bot instanceof TelegraphBot) {
-            if ($telegraph->bot->chats()->count() === 1) {
-                $telegraph->chat = $telegraph->bot->chats()->first();
+            if ($bot->chats()->count() === 1) {
+                $telegraph->chat = $bot->chats()->first();
             }
         }
 
