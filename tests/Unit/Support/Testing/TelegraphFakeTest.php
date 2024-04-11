@@ -12,7 +12,7 @@ it('can return a custom response', function () {
 
     $bot = make_bot();
 
-    $response = Telegraph::bot($bot)->message('foo')->send();
+    $response = Telegraph::chat($bot->chats->first())->message('foo')->send();
 
     expect($response->json('result'))->toBe('oooook');
 });
@@ -21,7 +21,7 @@ it('asserts a message is sent', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->message('foo')->send();
+    Telegraph::chat($bot->chats->first())->message('foo')->send();
 
     Telegraph::assertSent('foo');
 });
@@ -30,7 +30,7 @@ it('fails if the given message is not sent', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->message('foo')->send();
+    Telegraph::chat($bot->chats->first())->message('foo')->send();
 
     Telegraph::assertSent('bar');
 })->throws(ExpectationFailedException::class, 'Failed to assert that a request was sent to [sendMessage] endpoint with the given data (sent 1 requests so far)');
@@ -40,7 +40,7 @@ it('asserts a partial message is sent', function () {
 
     Telegraph::fake();
 
-    Telegraph::bot($bot)->message('foo bar baz')->send();
+    Telegraph::chat($bot->chats->first())->message('foo bar baz')->send();
 
     Telegraph::assertSent('baz', exact: false);
 });
@@ -50,7 +50,7 @@ it('fails if exact message sent check is found partially', function () {
     $bot = make_bot();
 
 
-    Telegraph::bot($bot)->message('foo bar baz')->send();
+    Telegraph::chat($bot->chats->first())->message('foo bar baz')->send();
 
     Telegraph::assertSent('baz');
 })->throws(ExpectationFailedException::class, 'Failed to assert that a request was sent to [sendMessage] endpoint with the given data (sent 1 requests so far)');
@@ -65,7 +65,7 @@ it('fails if an unexpected message is sent', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->message('foo bar baz')->send();
+    Telegraph::chat($bot->chats->first())->message('foo bar baz')->send();
 
     Telegraph::assertNothingSent();
 })->throws(ExpectationFailedException::class, 'Failed to assert that no request were sent (sent 1 requests so far)');
@@ -74,8 +74,8 @@ it('asserts data was sent', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->message('foo bar baz')->send();
-    Telegraph::bot($bot)->deleteKeyboard(42)->send();
+    Telegraph::chat($bot->chats->first())->message('foo bar baz')->send();
+    Telegraph::chat($bot->chats->first())->deleteKeyboard(42)->send();
 
     Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, ['text' => 'foo bar baz']);
     Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_REPLACE_KEYBOARD, [
@@ -95,7 +95,7 @@ it('fails if the expected data differs from the sent one', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->message('foo bar baz')->send();
+    Telegraph::chat($bot->chats->first())->message('foo bar baz')->send();
 
     Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, ['text' => 'foo bar']);
 })->throws(ExpectationFailedException::class, 'Failed to assert that a request was sent to [sendMessage] endpoint with the given data (sent 1 requests so far)');
@@ -106,7 +106,7 @@ it('asserts a webhook has been registered', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->registerWebhook()->send();
+    Telegraph::chat($bot->chats->first())->registerWebhook()->send();
 
     Telegraph::assertRegisteredWebhook();
 });
@@ -115,7 +115,7 @@ it('asserts a webhook has been unregistered', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->unregisterWebhook()->send();
+    Telegraph::chat($bot->chats->first())->unregisterWebhook()->send();
 
     Telegraph::assertUnregisteredWebhook();
 });
@@ -130,7 +130,7 @@ it('asserts webhook debug info have been requested', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->getWebhookDebugInfo()->send();
+    Telegraph::chat($bot->chats->first())->getWebhookDebugInfo()->send();
 
     Telegraph::assertRequestedWebhookDebugInfo();
 });
@@ -145,7 +145,7 @@ it('asserts a webhook reply has been sent', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->replyWebhook(44, 'hello')->send();
+    Telegraph::chat($bot->chats->first())->replyWebhook(44, 'hello')->send();
 
     Telegraph::assertRepliedWebhook('hello');
 });
@@ -154,7 +154,7 @@ it('asserts a webhook reply has been sent as alert', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->replyWebhook(44, 'hello', true)->send();
+    Telegraph::chat($bot->chats->first())->replyWebhook(44, 'hello', true)->send();
 
     Telegraph::assertRepliedWebhookIsAlert();
 });
@@ -163,7 +163,7 @@ it('fails if the wrong webhook reply has been sent', function () {
     Telegraph::fake();
     $bot = make_bot();
 
-    Telegraph::bot($bot)->replyWebhook(44, 'hello')->send();
+    Telegraph::chat($bot->chats->first())->replyWebhook(44, 'hello')->send();
 
     Telegraph::assertRepliedWebhook('foo');
 })->throws(ExpectationFailedException::class, 'Failed to assert that a request was sent to [answerCallbackQuery] endpoint with the given data (sent 1 requests so far)');

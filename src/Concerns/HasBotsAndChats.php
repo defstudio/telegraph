@@ -36,14 +36,6 @@ trait HasBotsAndChats
 
         $telegraph->bot = $bot;
 
-        if (empty($telegraph->chat) && $bot instanceof TelegraphBot) {
-            if ($bot->relationLoaded('chats')) {
-                $telegraph->chat = rescue(fn () => $bot->chats->sole(), report: false);
-            } elseif ($bot->chats()->count() === 1) {
-                $telegraph->chat = $bot->chats()->first();
-            }
-        }
-
         return $telegraph;
     }
 
@@ -98,21 +90,15 @@ trait HasBotsAndChats
             $bot = $telegraph->getBotIfAvailable();
 
             if ($bot instanceof TelegraphBot) {
-                /** @var TelegraphChat|string $chat */
-                $chat = rescue(fn () => $bot->chats()->sole(), config('telegraph.chat_id'), false);
-
-                $telegraph->chat = $chat;
+                $telegraph->chat = rescue(fn () => $bot->chats()->sole(), report: false);
             }
         }
 
         if (empty($telegraph->chat)) {
-            /** @var TelegraphChat $chat */
-            $chat = rescue(fn () => TelegraphChat::query()->sole(), null, false);
-
-            $telegraph->chat = $chat;
+            $telegraph->chat = rescue(fn () => TelegraphChat::query()->sole(), report: false);
         }
 
-        return $telegraph->chat;
+        return $telegraph->chat ?? null;
     }
 
     protected function getChat(): TelegraphChat|string

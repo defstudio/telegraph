@@ -54,7 +54,10 @@ function bot(string $token = '3f3814e1-5836-3d77-904e-60f64b15df36', string $cha
 function make_bot(): TelegraphBot
 {
     $bot = TelegraphBot::factory(['token' => '3f3814e1-5836-3d77-904e-60f64b15df36'])->make();
-    $bot->setRelation('chats', Collection::make([TelegraphChat::factory(['chat_id' => '-123456789'])->make()]));
+
+    $chat = TelegraphChat::factory(['chat_id' => '-123456789'])->make();
+
+    $bot->setRelation('chats', Collection::make([$chat]));
 
     return $bot;
 }
