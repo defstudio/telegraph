@@ -2,6 +2,10 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.43.2 - 2024-04-12
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.43.1...v1.43.2
+
 ## v1.43.1 - 2024-04-11
 
 ### What's Changed
