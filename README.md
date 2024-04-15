@@ -49,7 +49,7 @@ php artisan vendor:publish --tag="telegraph-translations"
 
 ## Usage & Documentation
 
-After a new bot is created and added to a chat/group/channel (as described [in our documentation](https://defstudio.github.io/telegraph/quickstart/new-bot)),
+After a new bot is created and added to a chat/group/channel (as described [in our documentation](https://docs.defstudio.dev/telegraph/quickstart/new-bot)),
 the `Telegraph` facade can be used to easily send messages and interact with it:
 
 ```php
@@ -58,7 +58,7 @@ Telegraph::message('this is great')->send();
 
 An extensive documentation is available at
 
-https://defstudio.github.io/telegraph
+https://docs.defstudio.dev
 
 ## Testing
 
