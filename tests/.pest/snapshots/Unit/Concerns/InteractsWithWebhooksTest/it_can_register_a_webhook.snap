@@ -1,7 +1,7 @@
 {
     "url": "https:\/\/api.telegram.org\/bot3f3814e1-5836-3d77-904e-60f64b15df36\/setWebhook",
     "payload": {
-        "url": "https:\/\/testbot.defstudio.dev\/telegraph\/3f3814e1-5836-3d77-904e-60f64b15df36\/webhook"
+        "url": "https:\/\/testbot.defstudio.it\/telegraph\/3f3814e1-5836-3d77-904e-60f64b15df36\/webhook"
     },
     "files": []
 }
