@@ -1,9 +1,0 @@
-{
-    "url": "https:\/\/api.telegram.org\/bot3f3814e1-5836-3d77-904e-60f64b15df36\/unbanChatMember",
-    "payload": {
-        "chat_id": "-123456789",
-        "user_id": "123456",
-        "only_if_banned": true
-    },
-    "files": []
-}

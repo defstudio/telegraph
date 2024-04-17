@@ -1,9 +1,0 @@
-{
-    "chatId": null,
-    "messageId": 123456,
-    "callbackQueryId": 159753,
-    "originalKeyboard": {},
-    "data": {
-        "action": "test"
-    }
-}
