@@ -6,7 +6,7 @@
 <a href="https://github.com/defstudio/telegraph/actions?query=workflow%3Aphpstan+branch%3Amain" target="_blank"><img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/github/actions/workflow/status/defstudio/telegraph/phpstan.yml?branch=main&label=phpstan&cacheSeconds=3600" alt="Static Analysis"></a>
 <a href="https://packagist.org/packages/defstudio/telegraph" target="_blank"><img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/dt/defstudio/telegraph.svg?style=flat&cacheSeconds=3600" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/defstudio/telegraph" target="_blank"><img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" src="https://img.shields.io/packagist/l/defstudio/telegraph?style=flat&cacheSeconds=3600" alt="License"></a>
-<a href="https://twitter.com/FabioIvona?ref_src=twsrc%5Etfw"><img alt="Twitter Follow" src="https://img.shields.io/twitter/follow/FabioIvona?label=Follow&style=social"></a>
+<a href="https://twitter.com/FabioIvona?ref_src=twsrc%5Etfw" target="_blank"><img style="display: inline-block; margin-top: 0.5em; margin-bottom: 0.5em" alt="Twitter Follow" src="https://img.shields.io/twitter/follow/FabioIvona?label=Follow&style=social"></a>
 
 ---
 
