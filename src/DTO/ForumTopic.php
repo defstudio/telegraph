@@ -12,7 +12,7 @@ class ForumTopic implements Arrayable
     /**
      * @param array{name: string, icon_color: int} $data
      */
-    public static function fromArray(array $data, $id): ForumTopic
+    public static function fromArray(array $data): ForumTopic
     {
         $topic = new self();
 
