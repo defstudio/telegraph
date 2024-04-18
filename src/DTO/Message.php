@@ -91,7 +91,10 @@ class Message implements Arrayable
         $message = new self();
 
         $message->id = $data['message_id'];
-        $message->threadId = $data['message_thread_id'];
+
+        if(isset($data['message_thread_id'])) {
+            $message->threadId = $data['message_thread_id'];
+        }
 
         if(isset($data['message_thread_id'])) {
             $message->threadId = $data['message_thread_id'];
