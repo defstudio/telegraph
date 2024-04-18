@@ -127,6 +127,24 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function createForumTopic(string $name, int $iconColor = null, int $iconCustomEmojiId = null): Telegraph
+    {
+        $telegraph = clone $this;
+        $telegraph->endpoint = self::ENDPOINT_CREATE_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['name'] = $name;
+
+        if ($iconColor !== null) {
+            $telegraph->data['icon_color'] = $iconColor;
+        }
+
+        if ($iconCustomEmojiId !== null) {
+            $telegraph->data['icon_custom_emoji_id'] = $iconCustomEmojiId;
+        }
+
+        return $telegraph;
+    }
+
     public function botInfo(): Telegraph
     {
         $telegraph = clone $this;
