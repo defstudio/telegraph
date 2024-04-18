@@ -384,6 +384,7 @@ class TelegraphChat extends Model implements Storable
     {
         return TelegraphFacade::chat($this)->createForumTopic($name, $iconColor, $iconCustomEmojiId);
     }
+
     public function copyMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->copyMessage($fromChat, $messageId);

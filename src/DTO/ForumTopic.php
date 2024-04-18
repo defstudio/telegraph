@@ -35,8 +35,8 @@ class ForumTopic implements Arrayable
     public function toArray(): array
     {
         return array_filter([
-            'name'       => $this->name,
+            'name' => $this->name,
             'icon_color' => $this->iconColor,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }
