@@ -136,6 +136,7 @@ class TelegraphChat extends Model implements Storable
     {
         return TelegraphFacade::chat($this)->sendToForumTopic($threadId);
     }
+
     public function markdown(string $message): Telegraph
     {
         return TelegraphFacade::chat($this)->markdown($message);
