@@ -81,6 +81,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 ## Credits
 
 - [Fabio Ivona](https://github.com/defstudio)
+- [def:studio team](https://github.com/defstudio)
 - [Andrea Marco Sartori](https://github.com/cerbero90) for his cool ideas
 - [Alberto Pieripolli](https://github.com/trippo) Pest badge
 - [Joris Drenth](https://github.com/jorisdrenth) Docs fix and upgrade
@@ -92,6 +93,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Andrey Helldar](https://github.com/andrey-helldar) Russian
 - [Joris Drenth](https://github.com/jorisdrenth) Dutch
 - [Moayed Alhagy](https://github.com/moayedalhagy) Arabic
+- [Rafael](https://github.com/rjmo) Portuguese
 
 
 ## License
