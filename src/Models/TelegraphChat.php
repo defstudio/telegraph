@@ -10,6 +10,7 @@ use DefStudio\Telegraph\Concerns\HasStorage;
 use DefStudio\Telegraph\Contracts\Storable;
 use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\DTO\ChatMember;
+use DefStudio\Telegraph\DTO\Invoice;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -365,5 +366,10 @@ class TelegraphChat extends Model implements Storable
     public function copyMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->copyMessage($fromChat, $messageId);
+    }
+
+    public function invoice(Invoice $invoice): Telegraph
+    {
+        return TelegraphFacade::chat($this)->invoice($invoice);
     }
 }

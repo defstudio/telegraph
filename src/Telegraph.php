@@ -17,6 +17,7 @@ use DefStudio\Telegraph\Concerns\InteractsWithCommands;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\InteractWithUsers;
+use DefStudio\Telegraph\Concerns\InteractWithPayment;
 use DefStudio\Telegraph\Concerns\ManagesKeyboards;
 use DefStudio\Telegraph\Concerns\SendsAttachments;
 use DefStudio\Telegraph\Concerns\StoresFiles;
@@ -28,6 +29,7 @@ class Telegraph
 {
     use CallTraitsMethods;
     use InteractsWithTelegram;
+    use InteractWithPayment;
     use HasBotsAndChats;
     use ComposesMessages;
     use ManagesKeyboards;
@@ -101,6 +103,7 @@ class Telegraph
     public const ENDPOINT_SET_CHAT_MENU_BUTTON = 'setChatMenuButton';
     public const ENDPOINT_GET_CHAT_MENU_BUTTON = 'getChatMenuButton';
     public const ENDPOINT_DICE = 'sendDice';
+    public const ENDPOINT_SEND_INVOICE = 'sendInvoice';
 
 
     /** @var array<string, mixed> */
