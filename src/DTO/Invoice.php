@@ -2,12 +2,18 @@
 
 declare(strict_types=1);
 
+/** @noinspection PhpDocSignatureIsNotCompleteInspection */
+
 namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Arr;
+use DefStudio\Telegraph\Contracts\ShouldCreatesFromArray;
 
-class Invoice implements Arrayable
+/**
+ * @link https://core.telegram.org/bots/api#payments
+ */
+class Invoice implements Arrayable, ShouldCreatesFromArray
 {
     private string $title;
 
@@ -43,12 +49,12 @@ class Invoice implements Arrayable
     {
         $invoice = new static();
 
-        $invoice->title = Arr::get($data, 'title');
-        $invoice->description = Arr::get($data, 'description');
-        $invoice->payload = Arr::get($data, 'payload');
-        $invoice->providerToken = Arr::get($data, 'provider_token');
-        $invoice->currency = Arr::get($data, 'currency');
-        $invoice->prices = Arr::get($data, 'prices');
+        $invoice->title = Arr::get($data, 'title', '');
+        $invoice->description = Arr::get($data, 'description', '');
+        $invoice->payload = Arr::get($data, 'payload', '');
+        $invoice->providerToken = Arr::get($data, 'provider_token', '');
+        $invoice->currency = Arr::get($data, 'currency', '');
+        $invoice->prices = Arr::get($data, 'prices', ['label' => '', 'amount' => 0]);
 
         return $invoice;
     }
