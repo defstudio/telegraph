@@ -162,4 +162,9 @@ return [
             'max_size_mb' => 50,
         ],
     ],
+    /**
+     * Timeout in seconds when sending and receiving files from telegram
+     */
+    'file_transfer_timeout' => 30,
+
 ];
