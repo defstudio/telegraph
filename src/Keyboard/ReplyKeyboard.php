@@ -7,9 +7,12 @@ namespace DefStudio\Telegraph\Keyboard;
 use DefStudio\Telegraph\Proxies\ReplyKeyboardButtonProxy;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Conditionable;
 
 class ReplyKeyboard implements Arrayable
 {
+    use Conditionable;
+
     /** @var Collection<array-key, ReplyButton> */
     protected Collection $buttons;
 
@@ -28,18 +31,6 @@ class ReplyKeyboard implements Arrayable
     public static function make(): self
     {
         return new self();
-    }
-
-    /**
-     * @param callable(ReplyKeyboard $keyboard): ReplyKeyboard $callback
-     */
-    public function when(bool $condition, callable $callback): self
-    {
-        if ($condition) {
-            return $callback($this);
-        }
-
-        return $this;
     }
 
     public function rightToLeft(bool $condition = true): self
