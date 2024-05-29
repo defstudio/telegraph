@@ -42,6 +42,7 @@ class SendRequestToTelegramJob implements ShouldQueue
             $request
         );
 
-        $request->post($this->url, $this->data);
+        /** @phpstan-ignore-next-line  */
+        $request->timeout(config('telegraph.default_http_timeout', 30))->post($this->url, $this->data);
     }
 }

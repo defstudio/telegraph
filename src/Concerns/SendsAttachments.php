@@ -398,7 +398,6 @@ trait SendsAttachments
     protected function attachDocument(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-
             /* @phpstan-ignore-next-line  */
             $maxSizeMb = floatval(config('telegraph.attachments.document.max_size_mb', 50));
 

@@ -108,7 +108,7 @@ class InlineQueryResultArticle extends InlineQueryResult
             'thumb_height' => $this->thumbHeight,
         ];
 
-        if($this->message !== null) {
+        if ($this->message !== null) {
             $data['input_message_content'] = [
                 'message_text' => $this->message,
                 'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),

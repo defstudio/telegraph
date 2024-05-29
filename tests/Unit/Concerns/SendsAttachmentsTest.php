@@ -85,7 +85,6 @@ it('can attach a keyboard to a document', function () {
 });
 
 test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
-
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -337,7 +336,6 @@ it('can attach a keyboard to a photo', function () {
 });
 
 test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
-
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }

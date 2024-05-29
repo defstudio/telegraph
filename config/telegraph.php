@@ -56,6 +56,11 @@ return [
         'debug' => false,
     ],
 
+    /*
+     * Sets HTTP request default timeout
+     * default value: 30 seconds
+     */
+    'default_http_timeout' => 30,
 
     'security' => [
         /*

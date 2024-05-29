@@ -33,7 +33,6 @@ class TestCase extends Orchestra
         $this->filesystemSetup($app['config']);
 
         $app['config']->set('database.default', 'testing');
-
     }
 
     protected function defineDatabaseMigrations(): void

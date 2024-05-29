@@ -107,7 +107,6 @@ it('can change chat photo', function () {
 });
 
 test('photo is validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
-
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
