@@ -20,6 +20,7 @@ use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @mixin Telegraph
@@ -241,6 +242,18 @@ trait HasBotsAndChats
         }
 
         $telegraph->files->put('photo', new Attachment($path));
+
+        return $telegraph;
+    }
+
+    public function setMessageReaction(string $messageId, array $reaction): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SET_MESSAGE_REACTION;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['message_id'] = $messageId;
+        $telegraph->data['reaction'] = $reaction;
 
         return $telegraph;
     }

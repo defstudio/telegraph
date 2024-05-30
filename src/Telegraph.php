@@ -80,6 +80,7 @@ class Telegraph
     public const ENDPOINT_SET_CHAT_TITLE = 'setChatTitle';
     public const ENDPOINT_SET_CHAT_DESCRIPTION = 'setChatDescription';
     public const ENDPOINT_SET_CHAT_PHOTO = 'setChatPhoto';
+    public const ENDPOINT_SET_MESSAGE_REACTION = 'setMessageReaction';
     public const ENDPOINT_DELETE_CHAT_PHOTO = 'deleteChatPhoto';
     public const ENDPOINT_EXPORT_CHAT_INVITE_LINK = 'exportChatInviteLink';
     public const ENDPOINT_CREATE_CHAT_INVITE_LINK = 'createChatInviteLink';
