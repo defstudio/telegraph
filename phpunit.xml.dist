@@ -1,35 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-    backupGlobals="false"
-    backupStaticAttributes="false"
-    bootstrap="vendor/autoload.php"
-    colors="true"
-    convertErrorsToExceptions="true"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
-    processIsolation="false"
-    stopOnFailure="false"
-    executionOrder="random"
-    failOnWarning="true"
-    failOnRisky="true"
-    failOnEmptyTestSuite="true"
-    beStrictAboutOutputDuringTests="true"
-    verbose="true"
->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" backupGlobals="false" bootstrap="vendor/autoload.php" colors="true" processIsolation="false" stopOnFailure="false" executionOrder="random" failOnWarning="true" failOnRisky="true" failOnEmptyTestSuite="true" beStrictAboutOutputDuringTests="true" cacheDirectory=".phpunit.cache" backupStaticProperties="false">
     <testsuites>
         <testsuite name="DefStudio Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
     <coverage>
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-        <exclude>
-            <directory>./src/Exceptions</directory>
-        </exclude>
         <report>
             <html outputDirectory="build/coverage"/>
             <text outputFile="build/coverage.txt"/>
@@ -43,4 +19,12 @@
         <server name="SANDOBOX_TELEGRAM_BOT_TOKEN" value=":fake_bot_token:"/>
         <server name="SANDBOX_TELEGRAM_CHAT_ID" value=""/>
     </php>
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+        <exclude>
+            <directory>./src/Exceptions</directory>
+        </exclude>
+    </source>
 </phpunit>
