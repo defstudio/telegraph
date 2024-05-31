@@ -277,7 +277,7 @@ abstract class WebhookHandler
         if (isset($this->message)){
             $telegramChat = $this->message?->chat() ?? $this->callbackQuery?->message()?->chat();
         } else {
-            $telegramChat = $this->callbackQuery?->message()?->chat();;
+            $telegramChat = $this->callbackQuery?->message()?->chat();
         }
 
         assert($telegramChat !== null);
