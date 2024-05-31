@@ -5,8 +5,8 @@ namespace DefStudio\Telegraph\Keyboard;
 use DefStudio\Telegraph\Proxies\KeyboardButtonProxy;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Traits\Conditionable;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\Conditionable;
 
 class Keyboard implements Arrayable
 {
