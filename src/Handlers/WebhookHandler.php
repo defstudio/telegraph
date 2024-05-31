@@ -274,7 +274,7 @@ abstract class WebhookHandler
     protected function setupChat(): void
     {
 
-        if (isset($this->message)){
+        if (isset($this->message)) {
             $telegramChat = $this->message->chat();
         } else {
             $telegramChat = $this->callbackQuery?->message()?->chat();
