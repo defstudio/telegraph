@@ -192,6 +192,7 @@ trait FakesRequests
                                 'last_name' => 'Smith',
                                 'username' => 'john_smith',
                                 'language_code' => 'en',
+                                'is_premium' => false,
                             ],
                             'chat' => [
                                 'id' => 987654,

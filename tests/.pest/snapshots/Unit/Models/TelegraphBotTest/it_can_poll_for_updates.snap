@@ -12,7 +12,8 @@
                 "first_name": "John",
                 "last_name": "Smith",
                 "username": "john_smith",
-                "language_code": "en"
+                "language_code": "en",
+                "is_premium": false
             },
             "chat": {
                 "id": "987654",
@@ -36,7 +37,8 @@
                 "first_name": "Test Bot",
                 "last_name": "",
                 "username": "test_bot",
-                "language_code": ""
+                "language_code": "",
+                "is_premium": false
             },
             "chat": {
                 "id": "-987455499",
