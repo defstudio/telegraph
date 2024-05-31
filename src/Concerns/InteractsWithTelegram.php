@@ -41,7 +41,7 @@ trait InteractsWithTelegram
         );
 
         /** @phpstan-ignore-next-line  */
-        return $request->timeout(config('telegraph.default_http_timeout', 30))->post($this->getApiUrl(), $this->prepareData());
+        return $request->timeout(config('telegraph.http_timeout', 30))->post($this->getApiUrl(), $this->prepareData());
     }
 
     /**
