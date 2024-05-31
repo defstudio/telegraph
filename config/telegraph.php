@@ -57,7 +57,7 @@ return [
     ],
 
     /*
-     * Sets HTTP request timeout
+     * Sets HTTP request timeout when interacting with Telegram servers
      */
     'http_timeout' => 30,
 
