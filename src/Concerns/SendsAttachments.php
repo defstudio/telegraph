@@ -235,7 +235,7 @@ trait SendsAttachments
 
         return $telegraph;
     }
-
+    
     private function imageHeight(string $path): int
     {
         return $this->imageDimensions($path)[1];
@@ -289,6 +289,18 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function sticker(string $path, string $filename = null): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_STICKER;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        $this->attachSticker($telegraph, $path, $filename);
+
+        return $telegraph;
+    }
+    
     protected function attachPhoto(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
@@ -409,6 +421,23 @@ trait SendsAttachments
         } else {
             $telegraph->data['document'] = $path;
             $telegraph->data['caption'] ??= '';
+        }
+    }
+
+    protected function attachSticker(self $telegraph, string $path, ?string $filename): void
+    {
+        if (File::exists($path)) {
+            /* @phpstan-ignore-next-line  */
+            $maxSizeMb = floatval(config('telegraph.attachments.sticker.max_size_mb', 50));
+
+            if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
+                throw FileException::documentSizeExceeded($size, $maxSizeMb);
+            }
+
+            $telegraph->files->put('sticker', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['sticker'] = $path;
+            $telegraph->data['emoji'] ??= '';
         }
     }
 }
