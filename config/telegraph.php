@@ -165,5 +165,8 @@ return [
         'document' => [
             'max_size_mb' => 50,
         ],
+        'sticker' => [
+            'max_size_mb' => 50,
+        ],
     ],
 ];
