@@ -235,7 +235,7 @@ trait SendsAttachments
 
         return $telegraph;
     }
-    
+
     private function imageHeight(string $path): int
     {
         return $this->imageDimensions($path)[1];
