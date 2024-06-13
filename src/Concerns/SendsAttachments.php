@@ -300,7 +300,7 @@ trait SendsAttachments
 
         return $telegraph;
     }
-    
+
     protected function attachPhoto(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
