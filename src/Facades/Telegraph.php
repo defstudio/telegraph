@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  video(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  audio(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  dice()
+ * @method static \DefStudio\Telegraph\Telegraph  mediaGroup(string $path, array $media)
  * @method static \DefStudio\Telegraph\Telegraph  botUpdates()
  * @method static \DefStudio\Telegraph\Telegraph  botInfo()
  * @method static \DefStudio\Telegraph\Telegraph  setBaseUrl(string|null $url)
