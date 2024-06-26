@@ -117,6 +117,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->withData($key, $value);
     }
 
+    public function thread(string $thread_id): Telegraph
+    {
+        return TelegraphFacade::chat($this)->thread($thread_id);
+    }
+
     public function message(string $message): Telegraph
     {
         return TelegraphFacade::chat($this)->message($message);

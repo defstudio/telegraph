@@ -749,3 +749,27 @@ it('can edit Telegraph data after sending a media ', function () {
         'caption' => 'test',
     ]);
 });
+
+it('can send a message to a specific Thread after', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->message('foo')->thread(5)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'message_thread_id' => 5,
+    ]);
+});
+
+it('can send a message to a specific Thread before', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->thread(5)->message('foo')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'message_thread_id' => 5,
+    ]);
+});
