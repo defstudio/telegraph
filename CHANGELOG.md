@@ -2,6 +2,50 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.46.6 - 2024-06-07
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.46.5...v1.46.6
+
+## v1.46.5 - 2024-06-07
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.46.4...v1.46.5
+
+## v1.46.4 - 2024-06-07
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.46.3...v1.46.4
+
+## v1.46.3 - 2024-06-07
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.46.2...v1.46.3
+
+## v1.46.2 - 2024-06-07
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.45.2...v1.46.2
+
+## v1.45.2 - 2024-06-07
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.45.1...v1.45.2
+
+## v1.45.1 - 2024-05-31
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.45.0...v1.45.1
+
+## v1.45.0 - 2024-05-31
+
+### What's Changed
+
+* #586 fix documentation error by @MarioGattolla in https://github.com/defstudio/telegraph/pull/596
+* #591 implemented HTTP request timeout config value by @MarioGattolla in https://github.com/defstudio/telegraph/pull/595
+* feat: replace when functions with Laravel Conditionable by @ah-rahimi in https://github.com/defstudio/telegraph/pull/594
+* feat: add isPremium to DTO User by @ah-rahimi in https://github.com/defstudio/telegraph/pull/593
+* [fix] message not set up before retrieving Chat by @tobya in https://github.com/defstudio/telegraph/pull/584
+
+### New Contributors
+
+* @tobya made their first contribution in https://github.com/defstudio/telegraph/pull/584
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.44.4...v1.45.0
+
 ## v1.44.4 - 2024-04-26
 
 **Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.44.3...v1.44.4

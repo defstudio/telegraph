@@ -56,6 +56,10 @@ return [
         'debug' => false,
     ],
 
+    /*
+     * Sets HTTP request timeout when interacting with Telegram servers
+     */
+    'http_timeout' => 30,
 
     'security' => [
         /*

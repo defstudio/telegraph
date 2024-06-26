@@ -23,6 +23,7 @@ use DefStudio\Telegraph\Concerns\StoresFiles;
 use DefStudio\Telegraph\DTO\Attachment;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Traits\Conditionable;
 
 class Telegraph
 {
@@ -38,6 +39,7 @@ class Telegraph
     use CreatesScopedPayloads;
     use InteractWithUsers;
     use InteractsWithCommands;
+    use Conditionable;
 
 
     public const PARSE_HTML = 'html';
@@ -113,18 +115,6 @@ class Telegraph
     public function __construct()
     {
         $this->files = Collection::empty();
-    }
-
-    /**
-     * @param callable(Telegraph $keyboard): Telegraph $callback
-     */
-    public function when(bool $condition, callable $callback): Telegraph
-    {
-        if ($condition) {
-            return $callback($this);
-        }
-
-        return $this;
     }
 
     public function send(): TelegraphResponse
