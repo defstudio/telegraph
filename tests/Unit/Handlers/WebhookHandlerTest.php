@@ -358,7 +358,6 @@ it('can handle a member left', function () {
 });
 
 it('does not crash on errors', function () {
-
     $chat = chat();
 
     Facade::fake();

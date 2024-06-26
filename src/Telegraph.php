@@ -69,6 +69,7 @@ class Telegraph
     public const ENDPOINT_SEND_LOCATION = 'sendLocation';
     public const ENDPOINT_SEND_ANIMATION = 'sendAnimation';
     public const ENDPOINT_SEND_VOICE = 'sendVoice';
+    public const ENDPOINT_SEND_MEDIA_GROUP = 'sendMediaGroup';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
     public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
