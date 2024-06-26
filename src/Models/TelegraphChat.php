@@ -228,6 +228,14 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->photo($path, $filename);
     }
 
+    /**
+     * @param array<int|string, array<mixed>> $media
+     */
+    public function mediaGroup(array $media): Telegraph
+    {
+        return TelegraphFacade::chat($this)->mediaGroup($media);
+    }
+
     public function animation(string $path, string $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->animation($path, $filename);

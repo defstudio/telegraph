@@ -750,6 +750,35 @@ it('can edit Telegraph data after sending a media ', function () {
     ]);
 });
 
+it('can send a mediaGroup from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->mediaGroup([
+        [
+            'type' => 'photo',
+            'media' => 'https://test.dev/photo.jpg',
+        ],
+        [
+            'type' => 'photo',
+            'media' => 'https://test.dev/photo.jpg',
+        ],
+    ])->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_MEDIA_GROUP, [
+        'media' => [
+            [
+                'type' => 'photo',
+                'media' => 'https://test.dev/photo.jpg',
+            ],
+            [
+                'type' => 'photo',
+                'media' => 'https://test.dev/photo.jpg',
+            ],
+        ],
+    ]);
+});
+
 it('can send a message to a specific Thread after', function () {
     Telegraph::fake();
     $chat = make_chat();
