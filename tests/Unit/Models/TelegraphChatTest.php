@@ -783,7 +783,7 @@ it('can send a message to a specific Thread after', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-    $chat->message('foo')->thread(5)->send();
+    $chat->message('foo')->inThread(5)->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
         'text' => 'foo',
@@ -795,7 +795,7 @@ it('can send a message to a specific Thread before', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-    $chat->thread(5)->message('foo')->send();
+    $chat->inThread(5)->message('foo')->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
         'text' => 'foo',
