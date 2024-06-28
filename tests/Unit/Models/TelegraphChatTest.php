@@ -291,6 +291,42 @@ it('can send an audio from file_id', function () {
     ]);
 });
 
+it('can send a sticker', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->sticker(Storage::path('sticker.tgs'))->send();
+
+    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
+        'sticker' => new Attachment(Storage::path('sticker.tgs'), 'sticker.tgs'),
+    ]);
+});
+
+it('can send a sticker from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->sticker('https://test.dev/sticker.tgs')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
+        'sticker' => 'https://test.dev/sticker.tgs',
+    ]);
+});
+
+it('can send a sticker from file_id', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $uuid = Str::uuid();
+
+    $chat->sticker($uuid)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
+        'sticker' => $uuid,
+    ]);
+});
+
+
 it('can send a voice', function () {
     Telegraph::fake();
     $chat = make_chat();
