@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.48.0 - 2024-06-28
+
+### What's Changed
+
+* #386-implemented-thread-method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/600
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.47.0...v1.48.0
+
 ## v1.47.0 - 2024-06-26
 
 ### What's Changed
