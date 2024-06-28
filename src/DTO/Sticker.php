@@ -5,17 +5,16 @@ namespace DefStudio\Telegraph\DTO;
 use DefStudio\Telegraph\Contracts\Downloadable;
 use Illuminate\Contracts\Support\Arrayable;
 
-class Video implements Arrayable, Downloadable
+class Sticker implements Arrayable, Downloadable
 {
     private string $id;
+    private string $type;
     private int $width;
     private int $height;
-    private int $duration;
-
-    private ?string $filename = null;
-    private ?string $mimeType = null;
+    private bool $isAnimated = false;
+    private bool $isVideo = false;
+    private ?string $emoji = null ;
     private ?int $filesize = null;
-
     private ?Photo $thumbnail = null;
 
     private function __construct()
@@ -27,31 +26,33 @@ class Video implements Arrayable, Downloadable
      *     file_id: string,
      *     width: int,
      *     height: int,
-     *     duration: int,
-     *     file_name?: string,
-     *     mime_type?: string,
+     *     type: string,
+     *     is_animated: bool,
+     *     is_video: bool,
      *     file_size?: int,
+     *     emoji?: string,
      *     thumb?: array<string, mixed>,
      * } $data
      */
-    public static function fromArray(array $data): Video
+    public static function fromArray(array $data): Sticker
     {
-        $video = new self();
+        $sticker = new self();
 
-        $video->id = $data['file_id'];
-        $video->width = $data['width'];
-        $video->height = $data['height'];
-        $video->duration = $data['duration'];
-        $video->filename = $data['file_name'] ?? null;
-        $video->mimeType = $data['mime_type'] ?? null;
-        $video->filesize = $data['file_size'] ?? null;
+        $sticker->id = $data['file_id'];
+        $sticker->width = $data['width'];
+        $sticker->height = $data['height'];
+        $sticker->type = $data['type'];
+        $sticker->isAnimated = $data['is_animated'];
+        $sticker->isVideo = $data['is_video'];
+        $sticker->emoji = $data['emoji'] ?? null;
+        $sticker->filesize = $data['file_size'] ?? null;
 
         if (isset($data['thumb'])) {
-            /* @phpstan-ignore-next-line  */
-            $video->thumbnail = Photo::fromArray($data['thumb']);
+            /* @phpstan-ignore-next-line */
+            $sticker->thumbnail = Photo::fromArray($data['thumb']);
         }
 
-        return $video;
+        return $sticker;
     }
 
     public function id(): string
@@ -69,19 +70,24 @@ class Video implements Arrayable, Downloadable
         return $this->height;
     }
 
-    public function duration(): int
+    public function type(): string
     {
-        return $this->duration;
+        return $this->type;
     }
 
-    public function filename(): ?string
+    public function isAnimated(): bool
     {
-        return $this->filename;
+        return $this->isAnimated;
     }
 
-    public function mimeType(): ?string
+    public function isVideo(): bool
     {
-        return $this->mimeType;
+        return $this->isVideo;
+    }
+
+    public function emoji(): ?string
+    {
+        return $this->emoji;
     }
 
     public function filesize(): ?int
@@ -100,10 +106,11 @@ class Video implements Arrayable, Downloadable
             'id' => $this->id,
             'width' => $this->width,
             'height' => $this->height,
-            'duration' => $this->duration,
-            'filename' => $this->filename,
-            'mime_type' => $this->mimeType,
+            'type' => $this->type,
+            'is_animated' => $this->isAnimated,
+            'is_video' => $this->isVideo,
             'filesize' => $this->filesize,
+            'emoji' => $this->emoji,
             'thumbnail' => $this->thumbnail?->toArray(),
         ], fn ($value) => $value !== null);
     }
