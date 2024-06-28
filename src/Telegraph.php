@@ -152,4 +152,13 @@ class Telegraph
 
         return $telegraph;
     }
+
+    public function inThread(string $thread_id): static
+    {
+        $telegraph = clone $this;
+
+        data_set($telegraph->data, 'message_thread_id', $thread_id);
+
+        return $telegraph;
+    }
 }

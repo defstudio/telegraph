@@ -778,3 +778,27 @@ it('can send a mediaGroup from remote url', function () {
         ],
     ]);
 });
+
+it('can send a message to a specific Thread after', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->message('foo')->inThread(5)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'message_thread_id' => 5,
+    ]);
+});
+
+it('can send a message to a specific Thread before', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->inThread(5)->message('foo')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'message_thread_id' => 5,
+    ]);
+});
