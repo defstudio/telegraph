@@ -104,6 +104,7 @@ class Telegraph
     public const ENDPOINT_SET_CHAT_MENU_BUTTON = 'setChatMenuButton';
     public const ENDPOINT_GET_CHAT_MENU_BUTTON = 'getChatMenuButton';
     public const ENDPOINT_DICE = 'sendDice';
+    public const ENDPOINT_SEND_STICKER = 'sendSticker';
 
 
     /** @var array<string, mixed> */
