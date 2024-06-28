@@ -35,12 +35,12 @@ it('can send a dice with different emojis', function (string $emoji) {
 
 it('can send a sticker with own .tgs file', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->sticker(Storage::path('sticker.tgs')))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 });
 
 it('can send a sticker with telegram sticker set file_id', function (string $file_id) {
     expect(fn (Telegraph $telegraph) => $telegraph->sticker($file_id))
-        ->toMatchTelegramSnapshot();
+        ->toMatchUtf8TelegramSnapshot();
 })->with([
     'hourglass' => 'CAACAgEAAxkBAAEr3Y1mZFR5Gf4X5m0CLLNUbpzwuPhcFQACLQIAAqcjIUQ9QDDJ7YO0tjUE',
 ]);
