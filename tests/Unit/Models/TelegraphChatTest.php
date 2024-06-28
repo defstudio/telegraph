@@ -785,3 +785,56 @@ it('can edit Telegraph data after sending a media ', function () {
         'caption' => 'test',
     ]);
 });
+
+it('can send a mediaGroup from remote url', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->mediaGroup([
+        [
+            'type' => 'photo',
+            'media' => 'https://test.dev/photo.jpg',
+        ],
+        [
+            'type' => 'photo',
+            'media' => 'https://test.dev/photo.jpg',
+        ],
+    ])->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_MEDIA_GROUP, [
+        'media' => [
+            [
+                'type' => 'photo',
+                'media' => 'https://test.dev/photo.jpg',
+            ],
+            [
+                'type' => 'photo',
+                'media' => 'https://test.dev/photo.jpg',
+            ],
+        ],
+    ]);
+});
+
+it('can send a message to a specific Thread after', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->message('foo')->inThread(5)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'message_thread_id' => 5,
+    ]);
+});
+
+it('can send a message to a specific Thread before', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->inThread(5)->message('foo')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'message_thread_id' => 5,
+    ]);
+});

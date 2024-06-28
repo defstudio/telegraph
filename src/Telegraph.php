@@ -71,6 +71,7 @@ class Telegraph
     public const ENDPOINT_SEND_LOCATION = 'sendLocation';
     public const ENDPOINT_SEND_ANIMATION = 'sendAnimation';
     public const ENDPOINT_SEND_VOICE = 'sendVoice';
+    public const ENDPOINT_SEND_MEDIA_GROUP = 'sendMediaGroup';
     public const ENDPOINT_SEND_CHAT_ACTION = 'sendChatAction';
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
     public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
@@ -149,6 +150,15 @@ class Telegraph
         $telegraph = clone $this;
 
         data_set($telegraph->data, $key, $value);
+
+        return $telegraph;
+    }
+
+    public function inThread(string $thread_id): static
+    {
+        $telegraph = clone $this;
+
+        data_set($telegraph->data, 'message_thread_id', $thread_id);
 
         return $telegraph;
     }

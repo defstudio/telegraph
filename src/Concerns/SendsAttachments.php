@@ -181,7 +181,7 @@ trait SendsAttachments
         $telegraph = clone $this;
 
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeKb = floatval(config('telegraph.attachments.thumbnail.max_size_kb', 200));
 
             if (($size = $telegraph->fileSizeInKb($path)) > $maxSizeKb) {
@@ -232,6 +232,22 @@ trait SendsAttachments
         $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         $this->attachPhoto($telegraph, $path, $filename);
+
+        return $telegraph;
+    }
+
+    /**
+     * @param array<int|string, array<mixed>> $mediaInputs
+     */
+    public function mediaGroup(array $mediaInputs): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_MEDIA_GROUP;
+
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        $telegraph->data['media'] = $mediaInputs;
 
         return $telegraph;
     }
@@ -386,7 +402,7 @@ trait SendsAttachments
     protected function attachAudio(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeMb = floatval(config('telegraph.attachments.audio.max_size_mb', 50));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
@@ -410,7 +426,7 @@ trait SendsAttachments
     protected function attachDocument(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeMb = floatval(config('telegraph.attachments.document.max_size_mb', 50));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {

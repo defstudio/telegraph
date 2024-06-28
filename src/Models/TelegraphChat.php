@@ -117,6 +117,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->withData($key, $value);
     }
 
+    public function inThread(string $thread_id): Telegraph
+    {
+        return TelegraphFacade::chat($this)->inThread($thread_id);
+    }
+
     public function message(string $message): Telegraph
     {
         return TelegraphFacade::chat($this)->message($message);
@@ -221,6 +226,14 @@ class TelegraphChat extends Model implements Storable
     public function photo(string $path, string $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->photo($path, $filename);
+    }
+
+    /**
+     * @param array<int|string, array<mixed>> $media
+     */
+    public function mediaGroup(array $media): Telegraph
+    {
+        return TelegraphFacade::chat($this)->mediaGroup($media);
     }
 
     public function sticker(string $path, string $filename = null): Telegraph
