@@ -270,7 +270,7 @@ class TelegraphChat extends Model implements Storable
 
     public function setMessageReaction(string $message_id, array $reaction): Telegraph
     {
-        return TelegraphFacade::chat($this)->setMessageReaction( $message_id,  $reaction);
+        return TelegraphFacade::chat($this)->setMessageReaction($message_id,  $reaction);
     }
 
     public function deleteChatPhoto(): Telegraph

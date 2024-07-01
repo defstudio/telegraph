@@ -32,10 +32,10 @@ it('can store chat files', function () {
 
 it('test', function () {
     $t = \DefStudio\Telegraph\Models\TelegraphChat::query()->first();
-    /** @var  $t \DefStudio\Telegraph\Models\TelegraphChat */
+    /** @var $t \DefStudio\Telegraph\Models\TelegraphChat */
     $id = $t->message('ciao')->send()->telegraphMessageId();
 
     // $t->setMessageReaction($id,[['type' => 'custom_emoji','custom_emoji_id' => utf8_encode("U+1F601")]])->send()->dd();
 
-    $t->setMessageReaction($id,[['type' => 'emoji','emoji' => json_encode("U+1F601")]])->send()->dd();
+    $t->setMessageReaction($id, [['type' => 'emoji','emoji' => json_encode("U+1F601")]])->send()->dd();
 })->only();
