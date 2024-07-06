@@ -2,6 +2,19 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.48.1 - 2024-07-06
+
+### What's Changed
+
+* #602 implemented Sticker DTO by @MarioGattolla in https://github.com/defstudio/telegraph/pull/603
+* Implements sendSticker method by @ivankuraev in https://github.com/defstudio/telegraph/pull/598
+
+### New Contributors
+
+* @ivankuraev made their first contribution in https://github.com/defstudio/telegraph/pull/598
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.48.0...v1.48.1
+
 ## v1.48.0 - 2024-06-28
 
 ### What's Changed
