@@ -6,9 +6,9 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class WriteAccessAllowed implements Arrayable
 {
-    private bool $isRequest = false;
-    private ?string $webApp = null;
-    private bool $isAttachmentMenu = false;
+    private bool $fromRequest = false;
+    private ?string $webAppName = null;
+    private bool $fromAttachmentMenu = false;
 
     private function __construct()
     {
@@ -26,47 +26,47 @@ class WriteAccessAllowed implements Arrayable
         $writeAccessAllowed = new self();
 
         if (isset($data['from_request'])) {
-            $writeAccessAllowed->isRequest = (bool) $data['from_request'];
+            $writeAccessAllowed->fromRequest = (bool) $data['from_request'];
         }
 
         if (isset($data['web_app_name'])) {
-            $writeAccessAllowed->webApp = $data['web_app_name'];
+            $writeAccessAllowed->webAppName = $data['web_app_name'];
         }
 
         if (isset($data['from_attachment_menu'])) {
-            $writeAccessAllowed->isAttachmentMenu = (bool) $data['from_attachment_menu'];
+            $writeAccessAllowed->fromAttachmentMenu = (bool) $data['from_attachment_menu'];
         }
 
         return $writeAccessAllowed;
     }
 
 
-    public function isRequest(): bool
+    public function fromRequest(): bool
     {
-        return $this->isRequest;
+        return $this->fromRequest;
     }
 
-    public function isWebApp(): bool
+    public function fromWebApp(): bool
     {
-        return $this->webApp !== null;
+        return $this->webAppName !== null;
     }
 
     public function webAppName(): ?string
     {
-        return $this->webApp;
+        return $this->webAppName;
     }
 
-    public function isAttachmentMenu(): bool
+    public function fromAttachmentMenu(): bool
     {
-        return $this->isAttachmentMenu;
+        return $this->fromAttachmentMenu;
     }
 
     public function toArray(): array
     {
         return array_filter([
-            'from_request' => $this->isRequest,
-            'web_app_name' => $this->webApp,
-            'from_attachment_menu' => $this->isAttachmentMenu,
+            'from_request' => $this->fromRequest,
+            'web_app_name' => $this->webAppName,
+            'from_attachment_menu' => $this->fromAttachmentMenu,
         ], fn ($value) => $value !== null);
     }
 }
