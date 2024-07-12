@@ -47,6 +47,8 @@ class Message implements Arrayable
     private ?Voice $voice = null;
     private ?Sticker $sticker = null;
 
+    private ?WriteAccessAllowed $writeAccessAllowed = null;
+
     private function __construct()
     {
         $this->photos = Collection::empty();
@@ -77,6 +79,7 @@ class Message implements Arrayable
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
+     *     write_access_allowed?: array<string, mixed>,
      *  } $data
      */
     public static function fromArray(array $data): Message
@@ -183,6 +186,11 @@ class Message implements Arrayable
             }
 
             $message->webAppData = $webAppData;
+        }
+
+        if (isset($data['write_access_allowed'])) {
+            /* @phpstan-ignore-next-line */
+            $message->writeAccessAllowed = WriteAccessAllowed::fromArray($data['write_access_allowed']);
         }
 
         return $message;
@@ -304,6 +312,11 @@ class Message implements Arrayable
         return $this->webAppData;
     }
 
+    public function writeAccessAllowed(): ?WriteAccessAllowed
+    {
+        return $this->writeAccessAllowed;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -329,6 +342,7 @@ class Message implements Arrayable
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
+            'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
         ], fn ($value) => $value !== null);
     }
 }
