@@ -61,6 +61,11 @@ class WriteAccessAllowed implements Arrayable
         return $this->fromAttachmentMenu;
     }
 
+    public function isAllowed(): bool
+    {
+        return $this->fromRequest() || $this->fromWebApp() || $this->fromAttachmentMenu();
+    }
+
     public function toArray(): array
     {
         return array_filter([
