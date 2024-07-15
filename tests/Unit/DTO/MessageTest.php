@@ -283,6 +283,11 @@ it('export all properties to array', function () {
             "button" => "CustomButton",
             "data" => "Data",
         ],
+        'write_access_allowed' => [
+            "from_request" => true,
+            "web_app_name" => "test",
+            "from_attachment_menu" => true,
+        ],
     ]);
 
     $array = $dto->toArray();
