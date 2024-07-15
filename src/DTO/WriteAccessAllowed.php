@@ -32,7 +32,6 @@ class WriteAccessAllowed implements Arrayable
         return $writeAccessAllowed;
     }
 
-
     public function fromRequest(): bool
     {
         return $this->fromRequest;
