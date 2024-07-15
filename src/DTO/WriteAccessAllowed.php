@@ -25,17 +25,9 @@ class WriteAccessAllowed implements Arrayable
     {
         $writeAccessAllowed = new self();
 
-        if (isset($data['from_request'])) {
-            $writeAccessAllowed->fromRequest = (bool) $data['from_request'];
-        }
-
-        if (isset($data['web_app_name'])) {
-            $writeAccessAllowed->webAppName = $data['web_app_name'];
-        }
-
-        if (isset($data['from_attachment_menu'])) {
-            $writeAccessAllowed->fromAttachmentMenu = (bool) $data['from_attachment_menu'];
-        }
+        $writeAccessAllowed->fromRequest = $data['from_request'] ?? false;
+        $writeAccessAllowed->webAppName = $data['web_app_name'] ?? null;
+        $writeAccessAllowed->fromAttachmentMenu = $data ['from_attachment_menu'] ?? false;
 
         return $writeAccessAllowed;
     }
