@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.49.0 - 2024-07-15
+
+### What's Changed
+
+* [feat] write access allowed field by @ah-rahimi in https://github.com/defstudio/telegraph/pull/605
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.48.1...v1.49.0
+
 ## v1.48.1 - 2024-07-06
 
 ### What's Changed
