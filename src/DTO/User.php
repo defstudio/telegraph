@@ -32,7 +32,7 @@ class User implements Arrayable, Storable
         $user = new self();
 
         $user->id = $data['id'];
-        $user->isBot = $data['is_bot'];
+        $user->isBot = $data['is_bot'] ?? false;
 
         $user->firstName = $data['first_name'] ?? '';
         $user->lastName = $data['last_name'] ?? '';
