@@ -14,10 +14,10 @@ class User implements Arrayable, Storable
 
     private int $id;
     private bool $isBot;
-    private ?string $firstName;
-    private ?string $lastName;
-    private ?string $username;
-    private ?string $languageCode;
+    private string $firstName;
+    private string $lastName;
+    private string $username;
+    private string $languageCode;
     private bool $isPremium;
 
     private function __construct()
@@ -34,10 +34,10 @@ class User implements Arrayable, Storable
         $user->id = $data['id'];
         $user->isBot = $data['is_bot'] ?? false;
 
-        $user->firstName = $data['first_name'] ?? null;
-        $user->lastName = $data['last_name'] ?? null;
-        $user->username = $data['username'] ?? null;
-        $user->languageCode = $data['language_code'] ?? null;
+        $user->firstName = $data['first_name'] ?? '';
+        $user->lastName = $data['last_name'] ?? '';
+        $user->username = $data['username'] ?? '';
+        $user->languageCode = $data['language_code'] ?? '';
         $user->isPremium = $data['is_premium'] ?? false;
 
         return $user;
@@ -58,22 +58,22 @@ class User implements Arrayable, Storable
         return $this->isBot;
     }
 
-    public function firstName(): ?string
+    public function firstName(): string
     {
         return $this->firstName;
     }
 
-    public function lastName(): ?string
+    public function lastName(): string
     {
         return $this->lastName;
     }
 
-    public function username(): ?string
+    public function username(): string
     {
         return $this->username;
     }
 
-    public function languageCode(): ?string
+    public function languageCode(): string
     {
         return $this->languageCode;
     }
