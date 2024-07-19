@@ -16,9 +16,9 @@ class WriteAccessAllowed implements Arrayable
 
     /**
      * @param array{
-     *     from_request: bool,
-     *     web_app_name: string,
-     *     from_attachment_menu: bool,
+     *     from_request?: bool,
+     *     web_app_name?: string,
+     *     from_attachment_menu?: bool,
      * } $data
      */
     public static function fromArray(array $data): WriteAccessAllowed
