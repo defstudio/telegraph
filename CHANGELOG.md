@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.49.4 - 2024-07-19
+
+### What's Changed
+
+* Fix UserDTO by @ah-rahimi in https://github.com/defstudio/telegraph/pull/608
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.49.3...v1.49.4
+
 ## v1.49.3 - 2024-07-16
 
 **Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.49.2...v1.49.3
