@@ -45,4 +45,3 @@ it('can send an invoice', function () {
         ->dump();
 
 })->only()->skip(fn () => empty(env('SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN')) || empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
-
