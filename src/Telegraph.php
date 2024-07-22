@@ -114,6 +114,9 @@ class Telegraph
     public const ENDPOINT_APPROVE_CHAT_JOIN_REQUEST = 'approveChatJoinRequest';
     public const ENDPOINT_DECLINE_CHAT_JOIN_REQUEST = 'declineChatJoinRequest';
 
+    public const ENDPOINT_SEND_INVOICE = 'sendInvoice';
+    public const ENDPOINT_CREATE_INVOICE_LINK = 'createInvoiceLink';
+
 
     /** @var array<string, mixed> */
     protected array $data = [];

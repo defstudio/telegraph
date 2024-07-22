@@ -28,11 +28,11 @@ class TestCase extends Orchestra
         ];
     }
 
-    public function getEnvironmentSetUp($app): void
+    public function defineEnvironment($app): void
     {
-        $this->filesystemSetup($app['config']);
-
         $app['config']->set('database.default', 'testing');
+
+        $this->filesystemSetup($app['config']);
     }
 
     protected function defineDatabaseMigrations(): void
