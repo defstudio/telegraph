@@ -1,14 +1,13 @@
-<?php /** @noinspection PhpUnhandledExceptionInspection */
+<?php
+
+/** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Payments;
 
 use DefStudio\Telegraph\Concerns\BuildsFromTelegraphClass;
-use DefStudio\Telegraph\DTO\Invoice;
 use DefStudio\Telegraph\Exceptions\InvoiceException;
-use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 
 class TelegraphInvoicePayload extends Telegraph
 {
