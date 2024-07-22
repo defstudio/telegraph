@@ -18,6 +18,7 @@
     <php>
         <server name="SANDOBOX_TELEGRAM_BOT_TOKEN" value=":fake_bot_token:"/>
         <server name="SANDBOX_TELEGRAM_CHAT_ID" value=""/>
+        <server name="SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN" value=""/>
     </php>
     <source>
         <include>

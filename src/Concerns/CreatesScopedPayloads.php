@@ -2,6 +2,7 @@
 
 namespace DefStudio\Telegraph\Concerns;
 
+use DefStudio\Telegraph\Payments\TelegraphInvoicePayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
 
@@ -19,5 +20,12 @@ trait CreatesScopedPayloads
         $quizPayload = TelegraphQuizPayload::makeFrom($this);
 
         return $quizPayload->quiz($question);
+    }
+
+    public function invoice(string $title): TelegraphInvoicePayload
+    {
+        $invoicePayload = TelegraphInvoicePayload::makeFrom($this);
+
+        return  $invoicePayload->invoice($title);
     }
 }
