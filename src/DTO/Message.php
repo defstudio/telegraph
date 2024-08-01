@@ -59,7 +59,7 @@ class Message implements Arrayable
     /**
      * @param array{
      *     message_id: int,
-     *     message_thread_id: int,
+     *     message_thread_id?: int,
      *     date: int,
      *     edit_date?: int,
      *     text?: string,
