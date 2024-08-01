@@ -41,15 +41,6 @@ trait ComposesMessages
         return $telegraph;
     }
 
-    public function sendToForumTopic(int $threadId): Telegraph
-    {
-        $telegraph = clone $this;
-
-        $telegraph->data['message_thread_id'] = $threadId;
-
-        return $telegraph;
-    }
-
     public function markdown(string $message = null): Telegraph
     {
         $telegraph = clone $this;
