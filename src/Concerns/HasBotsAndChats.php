@@ -12,6 +12,7 @@ use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Enums\ChatAdminPermissions;
 use DefStudio\Telegraph\Exceptions\ChatSettingsException;
+use DefStudio\Telegraph\Exceptions\ChatThreadException;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
@@ -127,7 +128,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function createForumTopic(string $name, int $iconColor = null, int $iconCustomEmojiId = null): Telegraph
+    public function createForumTopic(string $name, int $iconColor = null, string $iconCustomEmojiId = null): Telegraph
     {
         $telegraph = clone $this;
         $telegraph->endpoint = self::ENDPOINT_CREATE_FORUM_TOPIC;
@@ -140,6 +141,49 @@ trait HasBotsAndChats
 
         if ($iconCustomEmojiId !== null) {
             $telegraph->data['icon_custom_emoji_id'] = $iconCustomEmojiId;
+        }
+
+        return $telegraph;
+    }
+
+    public function editForumTopic(int $threadId = null, string $name = null, int $iconCustomEmojiId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if ($telegraph->data['message_thread_id'] === null and $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+
+        $telegraph->endpoint = self::ENDPOINT_EDIT_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
+        }
+
+        if ($name !== null) {
+            $telegraph->data['name'] = $name;
+        }
+
+        if ($iconCustomEmojiId !== null) {
+            $telegraph->data['icon_custom_emoji_id'] = $iconCustomEmojiId;
+        }
+
+        return $telegraph;
+    }
+
+    public function closeForumTopic(int $threadId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if ($telegraph->data['message_thread_id'] === null and $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+        $telegraph->endpoint = self::ENDPOINT_CLOSE_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
         }
 
         return $telegraph;

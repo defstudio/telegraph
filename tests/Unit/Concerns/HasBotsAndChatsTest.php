@@ -434,3 +434,10 @@ it('can retrieve chat menu button', function () {
             ->chatMenuButton();
     })->toMatchTelegramSnapshot();
 });
+
+it('can create forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->createForumTopic('test name', 7322096, 'emoji_id');
+    })->toMatchTelegramSnapshot();
+});

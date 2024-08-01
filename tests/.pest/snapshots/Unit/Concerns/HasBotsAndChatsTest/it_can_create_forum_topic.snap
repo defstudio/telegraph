@@ -1,0 +1,10 @@
+{
+    "url": "https:\/\/api.telegram.org\/bot3f3814e1-5836-3d77-904e-60f64b15df36\/createForumTopic",
+    "payload": {
+        "chat_id": "-123456789",
+        "name": "test name",
+        "icon_color": 7322096,
+        "icon_custom_emoji_id": "emoji_id"
+    },
+    "files": []
+}
