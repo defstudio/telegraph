@@ -385,12 +385,10 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->createForumTopic($name, $iconColor, $iconCustomEmojiId);
     }
 
-
     public function editForumTopic(int $threadId = null, string $name = null, string $iconCustomEmojiId = null): Telegraph
     {
         return TelegraphFacade::chat($this)->editForumTopic($threadId, $name, $iconCustomEmojiId);
     }
-
 
     public function closeForumTopic(int $threadId = null): Telegraph
     {
