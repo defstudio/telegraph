@@ -89,6 +89,8 @@ class Telegraph
     public const ENDPOINT_CREATE_FORUM_TOPIC = 'createForumTopic';
     public const ENDPOINT_EDIT_FORUM_TOPIC = 'editForumTopic';
     public const ENDPOINT_CLOSE_FORUM_TOPIC = 'closeForumTopic';
+    public const ENDPOINT_REOPEN_FORUM_TOPIC = 'reopenForumTopic';
+    public const ENDPOINT_DELETE_FORUM_TOPIC = 'deleteForumTopic';
     public const ENDPOINT_EDIT_CHAT_INVITE_LINK = 'editChatInviteLink';
     public const ENDPOINT_REVOKE_CHAT_INVITE_LINK = 'revokeChatInviteLink';
     public const ENDPOINT_LEAVE_CHAT = 'leaveChat';

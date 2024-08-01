@@ -471,3 +471,33 @@ it('can close forum topic with in thread', function () {
             ->closeForumTopic();
     })->toMatchTelegramSnapshot();
 });
+
+it('can reopen forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->reopenForumTopic(threadId: 123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can reopen forum topic with in thread', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->inThread(123456)
+            ->reopenForumTopic();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can delete forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->deleteForumTopic(threadId: 123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can delete forum topic with in thread', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->inThread(123456)
+            ->deleteForumTopic();
+    })->toMatchTelegramSnapshot();
+});

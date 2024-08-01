@@ -189,6 +189,40 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function reopenForumTopic(int $threadId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+        $telegraph->endpoint = self::ENDPOINT_REOPEN_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
+        }
+
+        return $telegraph;
+    }
+
+    public function deleteForumTopic(int $threadId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+        $telegraph->endpoint = self::ENDPOINT_DELETE_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
+        }
+
+        return $telegraph;
+    }
+
     public function botInfo(): Telegraph
     {
         $telegraph = clone $this;

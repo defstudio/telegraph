@@ -395,6 +395,16 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->closeForumTopic($threadId);
     }
 
+    public function reopenForumTopic(int $threadId = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->closeForumTopic($threadId);
+    }
+
+    public function deleteForumTopic(int $threadId = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->closeForumTopic($threadId);
+    }
+
     public function copyMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->copyMessage($fromChat, $messageId);
