@@ -146,11 +146,11 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function editForumTopic(int $threadId = null, string $name = null, int $iconCustomEmojiId = null): Telegraph
+    public function editForumTopic(int $threadId = null, string $name = null, string $iconCustomEmojiId = null): Telegraph
     {
         $telegraph = clone $this;
 
-        if ($telegraph->data['message_thread_id'] === null and $threadId === null) {
+        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
 
@@ -176,7 +176,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if ($telegraph->data['message_thread_id'] === null and $threadId === null) {
+        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
         $telegraph->endpoint = self::ENDPOINT_CLOSE_FORUM_TOPIC;

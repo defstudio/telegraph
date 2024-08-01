@@ -157,7 +157,7 @@ class Telegraph
         return $telegraph;
     }
 
-    public function inThread(string $thread_id): static
+    public function inThread(int $thread_id): static
     {
         $telegraph = clone $this;
 
