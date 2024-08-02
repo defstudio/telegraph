@@ -15,6 +15,7 @@ use Illuminate\Support\Collection;
 class Message implements Arrayable
 {
     private int $id;
+    private ?int $threadId = null;
 
     private CarbonInterface $date;
     private ?CarbonInterface $editDate = null;
@@ -57,6 +58,7 @@ class Message implements Arrayable
     /**
      * @param array{
      *     message_id: int,
+     *     message_thread_id?: int,
      *     date: int,
      *     edit_date?: int,
      *     text?: string,
@@ -87,6 +89,10 @@ class Message implements Arrayable
         $message = new self();
 
         $message->id = $data['message_id'];
+
+        if(isset($data['message_thread_id'])) {
+            $message->threadId = $data['message_thread_id'];
+        }
 
         $message->date = Carbon::createFromTimestamp($data['date']);
 
@@ -199,6 +205,11 @@ class Message implements Arrayable
     public function id(): int
     {
         return $this->id;
+    }
+
+    public function threadId(): ?int
+    {
+        return $this->threadId;
     }
 
     public function date(): CarbonInterface
@@ -321,6 +332,7 @@ class Message implements Arrayable
     {
         return array_filter([
             'id' => $this->id,
+            'thread_id' => $this->threadId,
             'date' => $this->date->toISOString(),
             'edit_date' => $this->editDate?->toISOString(),
             'text' => $this->text,

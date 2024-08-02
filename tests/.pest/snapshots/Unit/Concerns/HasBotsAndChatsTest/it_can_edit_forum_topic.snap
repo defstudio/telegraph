@@ -1,0 +1,10 @@
+{
+    "url": "https:\/\/api.telegram.org\/bot3f3814e1-5836-3d77-904e-60f64b15df36\/editForumTopic",
+    "payload": {
+        "chat_id": "-123456789",
+        "message_thread_id": 123456,
+        "name": "new test name",
+        "icon_custom_emoji_id": "emoji_id"
+    },
+    "files": []
+}
