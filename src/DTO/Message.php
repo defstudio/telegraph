@@ -94,10 +94,6 @@ class Message implements Arrayable
             $message->threadId = $data['message_thread_id'];
         }
 
-        if(isset($data['message_thread_id'])) {
-            $message->threadId = $data['message_thread_id'];
-        }
-
         $message->date = Carbon::createFromTimestamp($data['date']);
 
         if (isset($data['edit_date'])) {
