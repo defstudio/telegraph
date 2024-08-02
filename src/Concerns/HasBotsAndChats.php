@@ -519,4 +519,26 @@ trait HasBotsAndChats
 
         return $telegraph;
     }
+
+    public function approveChatJoinRequest(string $userId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_APPROVE_CHAT_JOIN_REQUEST;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['user_id'] = $userId;
+
+        return $telegraph;
+    }
+
+    public function declineChatJoinRequest(string $userId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_DECLINE_CHAT_JOIN_REQUEST;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['user_id'] = $userId;
+
+        return $telegraph;
+    }
 }
