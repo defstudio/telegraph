@@ -221,6 +221,12 @@ it('can retrieve a chat member', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can retrieve a chat administrators', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->chatAdministrators();
+    })->toMatchTelegramSnapshot();
+});
+
 it('can generate a chat primary invite link', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->generateChatPrimaryInviteLink();
