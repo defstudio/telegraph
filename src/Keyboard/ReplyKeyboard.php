@@ -17,6 +17,7 @@ class ReplyKeyboard implements Arrayable
     protected Collection $buttons;
 
     protected bool $rtl = false;
+    protected bool $isPersistent = false;
     protected bool $resize = false;
     protected bool $oneTime = false;
     protected bool $selective = false;
@@ -94,6 +95,15 @@ class ReplyKeyboard implements Arrayable
         }
 
         return $keyboard;
+    }
+
+    public function isPersistent(bool $isPersistent = true): self
+    {
+        $clone = $this->clone();
+
+        $clone->isPersistent = $isPersistent;
+
+        return $clone;
     }
 
     public function resize(bool $resize = true): self
@@ -273,10 +283,11 @@ class ReplyKeyboard implements Arrayable
     public function options(): array
     {
         return array_filter([
-             'resize_keyboard' => $this->resize,
-             'one_time_keyboard' => $this->oneTime,
-             'selective' => $this->selective,
-             'input_field_placeholder' => $this->inputPlaceholder,
-         ]);
+            'is_persistent' => $this->isPersistent,
+            'resize_keyboard' => $this->resize,
+            'one_time_keyboard' => $this->oneTime,
+            'selective' => $this->selective,
+            'input_field_placeholder' => $this->inputPlaceholder,
+        ]);
     }
 }
