@@ -332,6 +332,20 @@ it('can set chat permissions', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can approve a chat join request', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->approveChatJoinRequest(123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can decline a chat join request', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->declineChatJoinRequest(123456);
+    })->toMatchTelegramSnapshot();
+});
+
 it('can ban a chat member', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
