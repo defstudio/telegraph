@@ -150,7 +150,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
 
@@ -176,7 +176,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
         $telegraph->endpoint = self::ENDPOINT_CLOSE_FORUM_TOPIC;
@@ -193,7 +193,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
         $telegraph->endpoint = self::ENDPOINT_REOPEN_FORUM_TOPIC;
@@ -210,7 +210,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) and $threadId === null) {
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
         $telegraph->endpoint = self::ENDPOINT_DELETE_FORUM_TOPIC;
