@@ -29,13 +29,14 @@ trait InteractsWithWebhooks
         return $customWebhookUrl . route('telegraph.webhook', $this->getBot(), false);
     }
 
-    public function registerWebhook(): Telegraph
+    public function registerWebhook(bool $dropPendingUpdates = false): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SET_WEBHOOK;
         $telegraph->data = [
             'url' => $this->getWebhookUrl(),
+            'drop_pending_updates' => $dropPendingUpdates,
         ];
 
         return $telegraph;
