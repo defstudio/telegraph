@@ -2,6 +2,23 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.50.0 - 2024-08-26
+
+### What's Changed
+
+* [fix] UserDTO by @ah-rahimi in https://github.com/defstudio/telegraph/pull/619
+* [fix] exceptions in onFailure method by @fabio-ivona in https://github.com/defstudio/telegraph/pull/626
+* [feat] add is_persistent field in ReplyKeyboard by @ArtemYurov in https://github.com/defstudio/telegraph/pull/618
+* [feat] chatAdministrators call by @ivankuraev in https://github.com/defstudio/telegraph/pull/617
+* [feat] chat join request management by @HFUBlackRabbit in https://github.com/defstudio/telegraph/pull/615
+
+### New Contributors
+
+* @ArtemYurov made their first contribution in https://github.com/defstudio/telegraph/pull/618
+* @HFUBlackRabbit made their first contribution in https://github.com/defstudio/telegraph/pull/615
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.49.4...v1.50.0
+
 ## v1.49.4 - 2024-07-19
 
 ### What's Changed
