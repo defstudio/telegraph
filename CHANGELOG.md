@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.51.0 - 2024-08-26
+
+### What's Changed
+
+* [feat] forum methods by @YSRoot in https://github.com/defstudio/telegraph/pull/616
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.50.0...v1.51.0
+
 ## v1.50.0 - 2024-08-26
 
 ### What's Changed
