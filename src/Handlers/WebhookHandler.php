@@ -318,6 +318,6 @@ abstract class WebhookHandler
 
         report($throwable);
 
-        $this->reply(__('telegraph::errors.webhook_error_occurred'));
+        rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 }
