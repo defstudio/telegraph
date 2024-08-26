@@ -8,6 +8,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, int|array<string, mixed>>
+ */
 class TelegramUpdate implements Arrayable
 {
     private int $id;

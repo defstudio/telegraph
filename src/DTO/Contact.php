@@ -4,6 +4,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|int>
+ */
 class Contact implements Arrayable
 {
     private string $phone_number;

@@ -8,6 +8,9 @@ use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Carbon;
 
+/**
+ * @implements Arrayable<string, string|int|array<string, mixed>>
+ */
 class ChatMemberUpdate implements Arrayable
 {
     private CarbonInterface $date;

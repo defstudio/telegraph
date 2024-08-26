@@ -4,6 +4,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, float>
+ */
 class Location implements Arrayable
 {
     private float $latitude;

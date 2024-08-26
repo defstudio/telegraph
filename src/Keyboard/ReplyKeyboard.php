@@ -9,6 +9,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Conditionable;
 
+/**
+ * @implements Arrayable<string, array<array-key, array{text: string, request_contact?: bool, request_location?: bool, request_poll?: string[], web_app?: string[]}>>
+ */
 class ReplyKeyboard implements Arrayable
 {
     use Conditionable;
@@ -25,7 +28,7 @@ class ReplyKeyboard implements Arrayable
 
     public function __construct()
     {
-        /* @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line */
         $this->buttons = collect();
     }
 
@@ -216,7 +219,7 @@ class ReplyKeyboard implements Arrayable
     {
         $clone = $this->clone();
 
-        /* @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line */
         $clone->buttons = $clone->buttons->reject(fn (ReplyButton $button) => $button->label() == $label);
 
         return $clone;

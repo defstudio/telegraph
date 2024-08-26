@@ -8,6 +8,9 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Conditionable;
 
+/**
+ * @implements Arrayable<string, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[], switch_inline_query?: string, switch_inline_query_current_chat?: string}>>
+ */
 class Keyboard implements Arrayable
 {
     use Conditionable;

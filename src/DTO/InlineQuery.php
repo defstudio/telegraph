@@ -4,6 +4,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|null|array<string, mixed>>
+ */
 class InlineQuery implements Arrayable
 {
     private string $id;

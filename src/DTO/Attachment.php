@@ -6,6 +6,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
+/**
+ * @implements Arrayable<string, string>
+ */
 class Attachment implements Arrayable
 {
     public function __construct(

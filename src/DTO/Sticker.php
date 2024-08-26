@@ -5,6 +5,9 @@ namespace DefStudio\Telegraph\DTO;
 use DefStudio\Telegraph\Contracts\Downloadable;
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|int|bool|array<string, mixed>>
+ */
 class Sticker implements Arrayable, Downloadable
 {
     private string $id;

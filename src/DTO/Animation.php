@@ -5,6 +5,9 @@ namespace DefStudio\Telegraph\DTO;
 use DefStudio\Telegraph\Contracts\Downloadable;
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|int|array<string, mixed>>
+ */
 class Animation implements Arrayable, Downloadable
 {
     private string $id;
@@ -26,8 +29,8 @@ class Animation implements Arrayable, Downloadable
     /**
      * @param array{
      *     file_id: string,
-     *      width: int,
-     *      height: int,
+     *     width: int,
+     *     height: int,
      *     duration: int,
      *     file_name?: string,
      *     mime_type?: string,

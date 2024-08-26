@@ -4,6 +4,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|bool>
+ */
 class WriteAccessAllowed implements Arrayable
 {
     private bool $fromRequest = false;

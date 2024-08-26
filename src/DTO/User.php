@@ -8,6 +8,9 @@ use DefStudio\Telegraph\Concerns\HasStorage;
 use DefStudio\Telegraph\Contracts\Storable;
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|int|bool|array<string, mixed>>
+ */
 class User implements Arrayable, Storable
 {
     use HasStorage;

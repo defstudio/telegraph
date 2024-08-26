@@ -39,6 +39,9 @@ abstract class WebhookHandler
     protected Message|null $message = null;
     protected CallbackQuery|null $callbackQuery = null;
 
+    /**
+     * @var Collection<string, string>
+     */
     protected Collection $data;
 
     protected Keyboard $originalKeyboard;

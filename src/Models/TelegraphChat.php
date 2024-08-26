@@ -43,12 +43,15 @@ class TelegraphChat extends Model implements Storable
         'name',
     ];
 
+    /**
+     * @return TelegraphChatFactory
+     */
     protected static function newFactory(): Factory
     {
         return TelegraphChatFactory::new();
     }
 
-    public static function booted()
+    public static function booted(): void
     {
         self::created(function (TelegraphChat $chat) {
             if (empty($chat->name)) {
@@ -63,6 +66,9 @@ class TelegraphChat extends Model implements Storable
         return $this->id;
     }
 
+    /**
+     * @return BelongsTo<TelegraphBot, TelegraphChat>
+     */
     public function bot(): BelongsTo
     {
         /** @phpstan-ignore-next-line */

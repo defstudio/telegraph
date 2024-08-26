@@ -5,6 +5,9 @@ namespace DefStudio\Telegraph\Database\Factories;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends Factory<TelegraphBot>
+ */
 class TelegraphBotFactory extends Factory
 {
     protected $model = TelegraphBot::class;

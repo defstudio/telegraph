@@ -6,6 +6,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|int|bool|array<string, mixed>>
+ */
 class ChatMember implements Arrayable
 {
     public const STATUS_CREATOR = 'creator';

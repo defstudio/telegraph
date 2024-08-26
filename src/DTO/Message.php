@@ -12,6 +12,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
+/**
+ * @implements Arrayable<string, string|int|bool|array<string, mixed>>
+ */
 class Message implements Arrayable
 {
     private int $id;

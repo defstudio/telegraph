@@ -8,6 +8,9 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
+/**
+ * @implements Arrayable<string, string|int|array<string, mixed>>
+ */
 class CallbackQuery implements Arrayable
 {
     private int $id;
@@ -16,6 +19,9 @@ class CallbackQuery implements Arrayable
 
     private Message|null $message = null;
 
+    /**
+     * @var Collection<string, string>
+     */
     private Collection $data;
 
     private function __construct()
@@ -69,6 +75,9 @@ class CallbackQuery implements Arrayable
         return $this->message;
     }
 
+    /**
+     * @return Collection<string, string>
+     */
     public function data(): Collection
     {
         return $this->data;

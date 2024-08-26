@@ -6,6 +6,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string>
+ */
 class Chat implements Arrayable
 {
     public const TYPE_SENDER = 'sender';
