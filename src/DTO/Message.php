@@ -332,7 +332,7 @@ class Message implements Arrayable
     {
         return array_filter([
             'id' => $this->id,
-            'thread_id' => $this->threadId,
+            'message_thread_id' => $this->threadId,
             'date' => $this->date->toISOString(),
             'edit_date' => $this->editDate?->toISOString(),
             'text' => $this->text,
