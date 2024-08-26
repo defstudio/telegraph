@@ -107,6 +107,13 @@ it('can attach a selective reply keyboard', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can attach a persistent reply keyboard', function () {
+    expect(function (Telegraph $telegraph) {
+        return $telegraph->html('foobar')
+            ->replyKeyboard(fn (ReplyKeyboard $keyboard) => $keyboard->button('foo')->requestContact()->persistent());
+    })->toMatchTelegramSnapshot();
+});
+
 it('can force a reply', function () {
     expect(function (Telegraph $telegraph) {
         return $telegraph->message('foobar')->forceReply();
