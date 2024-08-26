@@ -360,7 +360,7 @@ class TelegraphChat extends Model implements Storable
     {
         return TelegraphFacade::chat($this)->approveChatJoinRequest($userId);
     }
-    
+
     public function declineInvite(string $userId): Telegraph
     {
         return TelegraphFacade::chat($this)->declineChatJoinRequest($userId);

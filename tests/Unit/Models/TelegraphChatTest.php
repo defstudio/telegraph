@@ -846,7 +846,7 @@ it('can accept chat join request', function () {
     $chat->acceptInvite(123456)->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_APPROVE_CHAT_JOIN_REQUEST, [
-        'user_id' => 123456
+        'user_id' => 123456,
     ], false);
 });
 
@@ -857,6 +857,6 @@ it('can decline chat join request', function () {
     $chat->declineInvite(123456)->send();
 
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DECLINE_CHAT_JOIN_REQUEST, [
-        'user_id' => 123456
+        'user_id' => 123456,
     ], false);
 });
