@@ -386,6 +386,16 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function chatAdministrators(): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_GET_CHAT_ADMINISTRATORS;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        return $telegraph;
+    }
+
     /**
      * @param array<int|string, string|bool> $permissions
      */
