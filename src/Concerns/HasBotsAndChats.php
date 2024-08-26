@@ -12,6 +12,7 @@ use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Enums\ChatAdminPermissions;
 use DefStudio\Telegraph\Exceptions\ChatSettingsException;
+use DefStudio\Telegraph\Exceptions\ChatThreadException;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Models\TelegraphBot;
@@ -123,6 +124,101 @@ trait HasBotsAndChats
 
         $telegraph->endpoint = self::ENDPOINT_LEAVE_CHAT;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        return $telegraph;
+    }
+
+    public function createForumTopic(string $name, int $iconColor = null, string $iconCustomEmojiId = null): Telegraph
+    {
+        $telegraph = clone $this;
+        $telegraph->endpoint = self::ENDPOINT_CREATE_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['name'] = $name;
+
+        if ($iconColor !== null) {
+            $telegraph->data['icon_color'] = $iconColor;
+        }
+
+        if ($iconCustomEmojiId !== null) {
+            $telegraph->data['icon_custom_emoji_id'] = $iconCustomEmojiId;
+        }
+
+        return $telegraph;
+    }
+
+    public function editForumTopic(int $threadId = null, string $name = null, string $iconCustomEmojiId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+
+        $telegraph->endpoint = self::ENDPOINT_EDIT_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
+        }
+
+        if ($name !== null) {
+            $telegraph->data['name'] = $name;
+        }
+
+        if ($iconCustomEmojiId !== null) {
+            $telegraph->data['icon_custom_emoji_id'] = $iconCustomEmojiId;
+        }
+
+        return $telegraph;
+    }
+
+    public function closeForumTopic(int $threadId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+        $telegraph->endpoint = self::ENDPOINT_CLOSE_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
+        }
+
+        return $telegraph;
+    }
+
+    public function reopenForumTopic(int $threadId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+        $telegraph->endpoint = self::ENDPOINT_REOPEN_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
+        }
+
+        return $telegraph;
+    }
+
+    public function deleteForumTopic(int $threadId = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+            throw ChatThreadException::emptyThreadId();
+        }
+        $telegraph->endpoint = self::ENDPOINT_DELETE_FORUM_TOPIC;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        if ($threadId !== null) {
+            $telegraph->data['message_thread_id'] = $threadId;
+        }
 
         return $telegraph;
     }

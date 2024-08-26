@@ -454,3 +454,70 @@ it('can retrieve chat menu button', function () {
             ->chatMenuButton();
     })->toMatchTelegramSnapshot();
 });
+
+it('can create forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->createForumTopic('test name', 7322096, 'emoji_id');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can edit forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->editForumTopic(threadId: 123456, name: 'new test name', iconCustomEmojiId: 'emoji_id');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can edit forum topic with in thread', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->inThread(123456)
+            ->editForumTopic(name: 'new test name', iconCustomEmojiId: 'emoji_id');
+    })->toMatchTelegramSnapshot();
+});
+
+it('can close forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->closeForumTopic(threadId: 123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can close forum topic with in thread', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->inThread(123456)
+            ->closeForumTopic();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can reopen forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->reopenForumTopic(threadId: 123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can reopen forum topic with in thread', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->inThread(123456)
+            ->reopenForumTopic();
+    })->toMatchTelegramSnapshot();
+});
+
+it('can delete forum topic', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->deleteForumTopic(threadId: 123456);
+    })->toMatchTelegramSnapshot();
+});
+
+it('can delete forum topic with in thread', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())
+            ->inThread(123456)
+            ->deleteForumTopic();
+    })->toMatchTelegramSnapshot();
+});

@@ -123,7 +123,7 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->withData($key, $value);
     }
 
-    public function inThread(string $thread_id): Telegraph
+    public function inThread(int $thread_id): Telegraph
     {
         return TelegraphFacade::chat($this)->inThread($thread_id);
     }
@@ -394,6 +394,31 @@ class TelegraphChat extends Model implements Storable
     public function setMenuButton(): SetChatMenuButtonPayload
     {
         return TelegraphFacade::chat($this)->setChatMenuButton();
+    }
+
+    public function createForumTopic(string $name, int $iconColor = null, string $iconCustomEmojiId = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->createForumTopic($name, $iconColor, $iconCustomEmojiId);
+    }
+
+    public function editForumTopic(int $threadId = null, string $name = null, string $iconCustomEmojiId = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->editForumTopic($threadId, $name, $iconCustomEmojiId);
+    }
+
+    public function closeForumTopic(int $threadId = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->closeForumTopic($threadId);
+    }
+
+    public function reopenForumTopic(int $threadId = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->reopenForumTopic($threadId);
+    }
+
+    public function deleteForumTopic(int $threadId = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->deleteForumTopic($threadId);
     }
 
     public function copyMessage(TelegraphChat|int $fromChat, int $messageId): Telegraph

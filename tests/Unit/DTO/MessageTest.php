@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 it('export all properties to array', function () {
     $dto = Message::fromArray([
         'message_id' => 2,
+        'message_thread_id' => 123456,
         'date' => now()->timestamp,
         'edit_date' => now()->timestamp,
         'text' => 'f',

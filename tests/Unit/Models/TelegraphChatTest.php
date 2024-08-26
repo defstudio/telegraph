@@ -472,6 +472,51 @@ it('can unpin all messages', function () {
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_ALL_MESSAGES);
 });
 
+it('can create a forum topic', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->createForumTopic('test name', 7322096, 'emoji_id')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_CREATE_FORUM_TOPIC);
+});
+
+it('can edit a forum topic', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->editForumTopic(123456, 'new test name', 'emoji_id')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_FORUM_TOPIC);
+});
+
+it('can close a forum topic', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->closeForumTopic(123456)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_CLOSE_FORUM_TOPIC);
+});
+
+it('can reopen a forum topic', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->reopenForumTopic(7322096)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REOPEN_FORUM_TOPIC);
+});
+
+it('can delete a forum topic', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->deleteForumTopic(7322096)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_FORUM_TOPIC);
+});
+
 it('can delete a chat photo', function () {
     Telegraph::fake();
     $chat = make_chat();
