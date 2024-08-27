@@ -37,8 +37,8 @@ trait InteractsWithWebhooks
         $telegraph->data = collect([
             'url' => $this->getWebhookUrl(),
             'drop_pending_updates' => $dropPendingUpdates,
-            'max_connections' => $maxConnections ?? config('telegraph.max_connections'),
-            'secret_token' => $secretToken ?? config('telegraph.secret_token'),
+            'max_connections' => $maxConnections ?? config('telegraph.webhook.max_connections'),
+            'secret_token' => $secretToken ?? config('telegraph.webhook.secret_token'),
         ])->filter()
             ->toArray();
 
