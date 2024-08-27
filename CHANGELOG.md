@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.52.0 - 2024-08-27
+
+### What's Changed
+
+* [feat] add settings to registerWebhook method by @fabio-ivona and @MarcusLestrange  in https://github.com/defstudio/telegraph/pull/634
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.51.0...v1.52.0
+
 ## v1.51.0 - 2024-08-26
 
 ### What's Changed
