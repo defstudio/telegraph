@@ -23,7 +23,7 @@ class TelegraphFake extends Telegraph
     use FakesRequests;
 
     /**
-     * @param array<string, array<mixed>> $replies
+     * @param array<string, array> $replies
      */
     public function __construct(array $replies = [])
     {
@@ -135,19 +135,19 @@ class TelegraphFake extends Telegraph
         Assert::assertEmpty(self::$sentMessages, sprintf("Failed to assert that no request were sent (sent %d requests so far)", count(self::$sentMessages)));
     }
 
-    public function assertRegisteredWebhook(): void
+    public function assertRegisteredWebhook(array $data = null, bool $exact = true): void
     {
-        $this->assertSentData(Telegraph::ENDPOINT_SET_WEBHOOK);
+        $this->assertSentData(Telegraph::ENDPOINT_SET_WEBHOOK, $data, $exact);
     }
 
-    public function assertUnregisteredWebhook(): void
+    public function assertUnregisteredWebhook(array $data = null, bool $exact = true): void
     {
-        $this->assertSentData(Telegraph::ENDPOINT_UNSET_WEBHOOK);
+        $this->assertSentData(Telegraph::ENDPOINT_UNSET_WEBHOOK, $data, $exact);
     }
 
-    public function assertRequestedWebhookDebugInfo(): void
+    public function assertRequestedWebhookDebugInfo(array $data = null, bool $exact = true): void
     {
-        $this->assertSentData(Telegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO);
+        $this->assertSentData(Telegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO, $data, $exact);
     }
 
     public function assertRepliedWebhook(string $message): void

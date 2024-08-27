@@ -22,6 +22,54 @@ test('can set telegram webhook address if there is only one', function () {
         ->assertExitCode(Command::SUCCESS);
 });
 
+test('can set telegram webhook dropping pending updates', function () {
+    withfakeUrl();
+    bot();
+
+    Telegraph::fake();
+
+    /** @phpstan-ignore-next-line */
+    artisan('telegraph:set-webhook', ['--drop-pending-updates' => true])
+        ->expectsOutput("Webhook updated")
+        ->assertExitCode(Command::SUCCESS);
+
+    Telegraph::assertRegisteredWebhook([
+        'drop_pending_updates' => true,
+    ], false);
+});
+
+test('can set telegram webhook settings its max connections', function () {
+    withfakeUrl();
+    bot();
+
+    Telegraph::fake();
+
+    /** @phpstan-ignore-next-line */
+    artisan('telegraph:set-webhook', ['--max-connections' => 99])
+        ->expectsOutput("Webhook updated")
+        ->assertExitCode(Command::SUCCESS);
+
+    Telegraph::assertRegisteredWebhook([
+        'max_connections' => 99,
+    ], false);
+});
+
+test('can set telegram webhook settings its secret token', function () {
+    withfakeUrl();
+    bot();
+
+    Telegraph::fake();
+
+    /** @phpstan-ignore-next-line */
+    artisan('telegraph:set-webhook', ['--secret' => 'foo'])
+        ->expectsOutput("Webhook updated")
+        ->assertExitCode(Command::SUCCESS);
+
+    Telegraph::assertRegisteredWebhook([
+        'secret_token' => 'foo',
+    ], false);
+});
+
 test('it requires bot id if there are more than one', function () {
     bots(2);
 

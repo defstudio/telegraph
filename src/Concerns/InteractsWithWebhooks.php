@@ -26,18 +26,21 @@ trait InteractsWithWebhooks
             return $url;
         }
 
-        return $customWebhookUrl . route('telegraph.webhook', $this->getBot(), false);
+        return $customWebhookUrl.route('telegraph.webhook', $this->getBot(), false);
     }
 
-    public function registerWebhook(bool $dropPendingUpdates = false): Telegraph
+    public function registerWebhook(bool $dropPendingUpdates = null, int $maxConnections = null, string $secretToken = null): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SET_WEBHOOK;
-        $telegraph->data = [
+        $telegraph->data = collect([
             'url' => $this->getWebhookUrl(),
             'drop_pending_updates' => $dropPendingUpdates,
-        ];
+            'max_connections' => $maxConnections ?? config('telegraph.max_connections'),
+            'secret_token' => $secretToken ?? config('telegraph.secret_token'),
+        ])->filter()
+            ->toArray();
 
         return $telegraph;
     }
