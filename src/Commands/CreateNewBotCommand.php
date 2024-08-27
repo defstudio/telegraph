@@ -4,10 +4,15 @@ namespace DefStudio\Telegraph\Commands;
 
 use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class CreateNewBotCommand extends Command
 {
-    public $signature = 'telegraph:new-bot';
+    public $signature = 'telegraph:new-bot
+                            {--drop-pending-updates : drops pending updates from telegram}
+                            {--max-connections=40 : maximum allowed simultaneous connections to the webhook (defaults to 40)}
+                            {--secret= : secret token to be sent in a X-Telegram-Bot-Api-Secret-Token header to verify the authenticity of the webhook}
+                        ';
 
     public $description = 'Create a new TelegraphBot';
 
@@ -48,9 +53,13 @@ class CreateNewBotCommand extends Command
         }
 
 
-
         if ($this->confirm(__('telegraph::commands.new_bot.ask_to_setup_webhook'))) {
-            $bot->registerWebhook()->send();
+            Artisan::call('telegraph:set-webhook', [
+                'bot' => $bot->id,
+                '--drop-pending-updates' => $this->option('drop-pending-updates'),
+                '--max-connections' => $this->option('max-connections'),
+                '--secret' => $this->option('secret'),
+            ]);
         }
 
         $this->info(__('telegraph::commands.new_bot.bot_created', ['bot_name' => $bot->name]));

@@ -101,9 +101,9 @@ class TelegraphBot extends Model implements Storable
         return $this->hasMany(config('telegraph.models.chat'), 'telegraph_bot_id');
     }
 
-    public function registerWebhook(): Telegraph
+    public function registerWebhook(bool $dropPendingUpdates = null, int $maxConnections = null, string $secretToken = null): Telegraph
     {
-        return TelegraphFacade::bot($this)->registerWebhook();
+        return TelegraphFacade::bot($this)->registerWebhook($dropPendingUpdates, $maxConnections, $secretToken);
     }
 
     public function unregisterWebhook(bool $dropPendingUpdates = false): Telegraph
