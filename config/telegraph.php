@@ -75,7 +75,7 @@ return [
     /*
      * Sets HTTP connection request timeout when interacting with Telegram servers
      */
-    'http_connection_timeout' => env('TELEGRAPH_HTTP_CONNECTION_TIMEOUT', 30),
+    'http_connection_timeout' => env('TELEGRAPH_HTTP_CONNECTION_TIMEOUT', 10),
 
     'security' => [
         /*
