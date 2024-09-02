@@ -7,7 +7,6 @@ use DefStudio\Telegraph\Exceptions\TelegramUpdatesException;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
-
 use DefStudio\Telegraph\Models\TelegraphBot;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Str;

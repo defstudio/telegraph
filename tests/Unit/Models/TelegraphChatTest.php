@@ -15,7 +15,6 @@ use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphPollFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphQuizFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphSetChatMenuButtonFake;
 use Illuminate\Support\Facades\Storage;
-
 use Illuminate\Support\Str;
 
 test('name is set to ID if missing', function () {
