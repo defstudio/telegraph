@@ -93,7 +93,7 @@ class Message implements Arrayable
 
         $message->id = $data['message_id'];
 
-        if(isset($data['message_thread_id'])) {
+        if (isset($data['message_thread_id'])) {
             $message->messageThreadId = $data['message_thread_id'];
         }
 
