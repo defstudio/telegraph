@@ -11,7 +11,6 @@ use DefStudio\Telegraph\Enums\ChatPermissions;
 use DefStudio\Telegraph\Exceptions\ChatSettingsException;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\Facades\Telegraph;
-
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 
