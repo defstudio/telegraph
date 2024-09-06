@@ -341,6 +341,18 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
+    public function setMessageReaction(string $messageId, array $reaction): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SET_MESSAGE_REACTION;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['message_id'] = $messageId;
+        $telegraph->data['reaction'] = $reaction;
+
+        return $telegraph;
+    }
+
     public function deleteChatPhoto(): Telegraph
     {
         $telegraph = clone $this;

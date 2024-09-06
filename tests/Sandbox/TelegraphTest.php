@@ -29,3 +29,13 @@ it('can store chat files', function () {
 
     expect(Storage::exists('images/bot/my_file.jpg'))->toBeTrue();
 })->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
+
+it('test', function () {
+    $t = \DefStudio\Telegraph\Models\TelegraphChat::query()->first();
+    /** @var $t \DefStudio\Telegraph\Models\TelegraphChat */
+    $id = $t->message('ciao')->send()->telegraphMessageId();
+
+    // $t->setMessageReaction($id,[['type' => 'custom_emoji','custom_emoji_id' => utf8_encode("U+1F601")]])->send()->dd();
+
+    $t->setMessageReaction($id, [['type' => 'emoji','emoji' => json_encode("U+1F601")]])->send()->dd();
+})->only();
