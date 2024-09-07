@@ -57,7 +57,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  setTitle(string $title)
  * @method static \DefStudio\Telegraph\Telegraph  setDescription(string $description)
  * @method static \DefStudio\Telegraph\Telegraph  setChatPhoto(string $path)
- * @method static \DefStudio\Telegraph\Telegraph  setMessageReaction(string $message_id, array $reaction)
+ * @method static \DefStudio\Telegraph\Telegraph  setMessageReaction(string $message_id, array $reaction, bool $isBig = false)
  * @method static \DefStudio\Telegraph\Telegraph  chatInfo()
  * @method static \DefStudio\Telegraph\Telegraph  generateChatPrimaryInviteLink()
  * @method static \DefStudio\Telegraph\Telegraph  createChatInviteLink()

@@ -341,7 +341,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function setMessageReaction(string $messageId, array $reaction): Telegraph
+    public function setMessageReaction(string $messageId, array $reaction, bool $isBig = false): Telegraph
     {
         $telegraph = clone $this;
 
@@ -349,6 +349,7 @@ trait HasBotsAndChats
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['message_id'] = $messageId;
         $telegraph->data['reaction'] = json_encode([$reaction]);
+        $telegraph->data['is_big'] = $isBig;
 
         return $telegraph;
     }
