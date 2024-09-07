@@ -904,3 +904,17 @@ it('can decline chat join request', function () {
         'user_id' => 123456,
     ], false);
 });
+
+it('can react on a message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+    $reaction = ['type' => 'emoji','emoji' => "👍"];
+
+    $chat->setMessageReaction(42, $reaction, false)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_MESSAGE_REACTION, [
+        'message_id' => 42,
+        'reaction' => json_encode([$reaction]),
+        'is_big' => false
+    ]);
+});
