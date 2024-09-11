@@ -95,6 +95,13 @@ it('can change chat description', function () {
     })->toMatchTelegramSnapshot();
 });
 
+it('can change a message reaction', function () {
+    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->setMessageReaction('100',['type' => 'emoji', 'emoji' => "👍"]);
+    })->toMatchTelegramSnapshot();
+});
+
+
 test('chat description cannot overflow 255 chars', function () {
     Telegraph::chat(make_chat())->setDescription(str_repeat('a', 256));
 })->throws(ChatSettingsException::class, "Telegram Chat description max length (255) exceeded");
