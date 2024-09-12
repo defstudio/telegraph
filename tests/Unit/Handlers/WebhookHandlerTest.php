@@ -213,7 +213,7 @@ it('can handle a command with parameters and bot reference', function () {
 });
 
 it('can handle a command with custom start char', function () {
-    Config::set('telegraph.commands.start_with', ['-', '=', '!', ' % ', 1]);
+    Config::set('telegraph.commands.start_with', ['-', '=', '!', ' % ', 1, ' : : ']);
 
     $bot = bot();
     Facade::fake();
@@ -224,6 +224,7 @@ it('can handle a command with custom start char', function () {
     app(TestWebhookHandler::class)->handle(webhook_command('!hello@bot foo bot !'), $bot);
     app(TestWebhookHandler::class)->handle(webhook_command('%hello@bot foo bot %'), $bot);
     app(TestWebhookHandler::class)->handle(webhook_command('1hello@bot foo bot 1'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('::hello@bot foo bot : :'), $bot);
 
     Facade::assertSent("Hello!! your parameter is [foo bot /]");
     Facade::assertSent("Hello!! your parameter is [foo bot -]");
@@ -231,6 +232,7 @@ it('can handle a command with custom start char', function () {
     Facade::assertSent("Hello!! your parameter is [foo bot !]");
     Facade::assertSent("Hello!! your parameter is [foo bot %]");
     Facade::assertSent("Hello!! your parameter is [foo bot 1]");
+    Facade::assertSent("Hello!! your parameter is [foo bot : :]");
 });
 
 it('cannot handle a command with custom start char', function () {

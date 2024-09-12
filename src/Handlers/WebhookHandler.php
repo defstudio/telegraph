@@ -337,7 +337,7 @@ abstract class WebhookHandler
     {
         return collect(config('telegraph.commands.start_with', []))
             ->push('/')
-            ->map(fn (mixed $value) => trim((string) $value))
+            ->map(fn (mixed $value) => Str::replace(' ', '', $value))
             ->unique();
     }
 }
