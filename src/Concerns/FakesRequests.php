@@ -293,7 +293,7 @@ trait FakesRequests
                 foreach ($data ?? [] as $key => $value) {
                     /** @var array<string, string> $data */
                     $messageData = $message['data'];
-                    if (! Arr::has($messageData, $key)) {
+                    if (!Arr::has($messageData, $key)) {
                         return false;
                     }
 
@@ -301,9 +301,8 @@ trait FakesRequests
                         if ($value != $messageData[$key]) {
                             return false;
                         }
-                    }
-                    else {
-                        if (! Str::of($messageData[$key])->contains($value)) {
+                    } else {
+                        if (!Str::of($messageData[$key])->contains($value)) {
                             return false;
                         }
                     }

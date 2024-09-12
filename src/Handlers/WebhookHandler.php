@@ -323,7 +323,7 @@ abstract class WebhookHandler
 
     protected function parseCommand(Stringable $text): array
     {
-        $command   = (string) $text->before('@')->before(' ');
+        $command = (string) $text->before('@')->before(' ');
         $parameter = (string) $text->after('@')->after(' ');
 
         $this->commandStartWith()->each(function (string $value) use (&$command) {
