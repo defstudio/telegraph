@@ -185,4 +185,16 @@ return [
             'max_size_mb' => 50,
         ],
     ],
+
+    /*
+     * Sets preferences for commands
+     */
+    'commands' => [
+        /*
+         * Defines a list of characters that are the identifier of a command sent to the chat.
+         *
+         * Default is `/`
+         */
+        'start_with' => ['/'],
+    ],
 ];

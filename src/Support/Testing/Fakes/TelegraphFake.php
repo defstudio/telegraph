@@ -130,6 +130,13 @@ class TelegraphFake extends Telegraph
         ], $exact);
     }
 
+    public function assertNotSent(string $message, bool $exact = true): void
+    {
+        $this->assertNotSentData(Telegraph::ENDPOINT_MESSAGE, [
+            'text' => $message,
+        ], $exact);
+    }
+
     public function assertNothingSent(): void
     {
         Assert::assertEmpty(self::$sentMessages, sprintf("Failed to assert that no request were sent (sent %d requests so far)", count(self::$sentMessages)));
