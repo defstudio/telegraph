@@ -349,11 +349,11 @@ abstract class WebhookHandler
 
     protected function createChat(Chat $telegramChat, TelegraphChat $chat): void
     {
-        $chat->name = $this->chatName($telegramChat);
+        $chat->name = $this->getChatName($telegramChat);
         $chat->save();
     }
 
-    protected function chatName(Chat $chat): string
+    protected function getChatName(Chat $chat): string
     {
         return Str::of("")
             ->append("[", $chat->type(), ']')
