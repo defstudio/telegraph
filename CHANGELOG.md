@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.53.0 - 2024-09-16
+
+### What's Changed
+
+* #635 implement config for connection request timeout by @MarioGattolla in https://github.com/defstudio/telegraph/pull/636
+* Added the ability to specify different prefixes for command definitions by @andrey-helldar in https://github.com/defstudio/telegraph/pull/643
+* Make protected methods by @andrey-helldar in https://github.com/defstudio/telegraph/pull/642
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.52.0...v1.53.0
+
 ## v1.52.0 - 2024-08-27
 
 ### What's Changed
