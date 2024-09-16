@@ -107,7 +107,7 @@ abstract class WebhookHandler
 
         $text = Str::of($this->message?->text() ?? '');
 
-        if ($text->startsWith($this->commandStartWith())) {
+        if ($text->startsWith($this->commandPrefixes())) {
             $this->handleCommand($text);
 
             return;
@@ -321,23 +321,32 @@ abstract class WebhookHandler
         rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
+    /**
+     * @return string[]
+     */
     protected function parseCommand(Stringable $text): array
     {
         $command = (string) $text->before('@')->before(' ');
         $parameter = (string) $text->after('@')->after(' ');
 
-        $this->commandStartWith()->each(function (string $value) use (&$command) {
-            $command = Str::after($command, $value);
+        $this->commandPrefixes()->each(function (string $value) use (&$command) {
+            $command = str($command)->after($value)->toString();
         });
 
         return [$command, $parameter];
     }
 
-    protected function commandStartWith(): Collection
+    /**
+     * @return Collection<int, string>
+     */
+    protected function commandPrefixes(): Collection
     {
-        return collect(config('telegraph.commands.start_with', []))
+        /** @var string[] $prefixes */
+        $prefixes = config('telegraph.commands.start_with', []);
+
+        return collect($prefixes)
             ->push('/')
-            ->map(fn (mixed $value) => Str::replace(' ', '', $value))
+            ->map(fn (string $prefix) => str($prefix)->trim()->toString())
             ->unique();
     }
 }

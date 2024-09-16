@@ -213,7 +213,7 @@ it('can handle a command with parameters and bot reference', function () {
 });
 
 it('can handle a command with custom start char', function () {
-    Config::set('telegraph.commands.start_with', ['-', '=', '!', ' % ', 1, ' : : ']);
+    Config::set('telegraph.commands.start_with', ['-', '=', '!', ' % ', 1, ' :: ']);
 
     $bot = bot();
     Facade::fake();
