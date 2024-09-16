@@ -51,7 +51,7 @@ abstract class WebhookHandler
         $this->originalKeyboard = Keyboard::make();
     }
 
-    private function handleCallbackQuery(): void
+    protected function handleCallbackQuery(): void
     {
         $this->extractCallbackQueryData();
 
@@ -73,7 +73,7 @@ abstract class WebhookHandler
         App::call([$this, $action], $this->data->toArray());
     }
 
-    private function handleCommand(Stringable $text): void
+    protected function handleCommand(Stringable $text): void
     {
         [$command, $parameter] = $this->parseCommand($text);
 
@@ -97,7 +97,7 @@ abstract class WebhookHandler
         }
     }
 
-    private function handleMessage(): void
+    protected function handleMessage(): void
     {
         $this->extractMessageData();
 
