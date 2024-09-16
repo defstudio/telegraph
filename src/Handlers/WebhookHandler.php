@@ -293,8 +293,7 @@ abstract class WebhookHandler
             }
 
             if (config('telegraph.security.store_unknown_chats_in_db', false)) {
-                $this->chat->name = $this->chatName($telegramChat);
-                $this->chat->save();
+                $this->createChat($telegramChat, $this->chat);
             }
         }
     }
@@ -346,6 +345,12 @@ abstract class WebhookHandler
             ->push('/')
             ->map(fn (string $prefix) => str($prefix)->trim()->toString())
             ->unique();
+    }
+
+    protected function createChat(Chat $telegramChat, TelegraphChat $chat): void
+    {
+        $chat->name = $this->chatName($telegramChat);
+        $chat->save();
     }
 
     protected function chatName(Chat $chat): string
