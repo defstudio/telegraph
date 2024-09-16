@@ -341,11 +341,11 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function setMessageReaction(string $messageId, array $reaction, bool $isBig = false): Telegraph
+    public function reactWithEmoji(string $messageId, array $reaction, bool $isBig = false): Telegraph
     {
         $telegraph = clone $this;
 
-        $telegraph->endpoint = self::ENDPOINT_SET_MESSAGE_REACTION;
+        $telegraph->endpoint = self::ENDPOINT_REACT_WITH_EMOJI;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['message_id'] = $messageId;
         $telegraph->data['reaction'] = json_encode([$reaction]);

@@ -97,7 +97,7 @@ it('can change chat description', function () {
 
 it('can change a message reaction', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        return $telegraph->chat(make_chat())->setMessageReaction('100',['type' => 'emoji', 'emoji' => "👍"]);
+        return $telegraph->chat(make_chat())->reactWithEmoji('100',['type' => 'emoji', 'emoji' => "👍"]);
     })->toMatchTelegramSnapshot();
 });
 
