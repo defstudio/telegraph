@@ -212,6 +212,49 @@ it('can handle a command with parameters and bot reference', function () {
     Facade::assertSent("Hello!! your parameter is [foo bot]");
 });
 
+it('can handle a command with custom start char', function () {
+    Config::set('telegraph.commands.start_with', ['-', '=', '!', ' % ', 1, ' : : ']);
+
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello@bot foo bot /'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('-hello@bot foo bot -'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('=hello@bot foo bot ='), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('!hello@bot foo bot !'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('%hello@bot foo bot %'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('1hello@bot foo bot 1'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('::hello@bot foo bot : :'), $bot);
+
+    Facade::assertSent("Hello!! your parameter is [foo bot /]");
+    Facade::assertSent("Hello!! your parameter is [foo bot -]");
+    Facade::assertSent("Hello!! your parameter is [foo bot =]");
+    Facade::assertSent("Hello!! your parameter is [foo bot !]");
+    Facade::assertSent("Hello!! your parameter is [foo bot %]");
+    Facade::assertSent("Hello!! your parameter is [foo bot 1]");
+    Facade::assertSent("Hello!! your parameter is [foo bot : :]");
+});
+
+it('cannot handle a command with custom start char', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello@bot foo bot /'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('-hello@bot foo bot -'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('=hello@bot foo bot ='), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('!hello@bot foo bot !'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('%hello@bot foo bot %'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('1hello@bot foo bot 1'), $bot);
+
+    Facade::assertSent("Hello!! your parameter is [foo bot /]");
+
+    Facade::assertNotSent("Hello!! your parameter is [foo bot -]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot =]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot !]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot %]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot 1]");
+});
+
 it('can change the inline keyboard', function () {
     Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
     Config::set('telegraph.security.allow_messages_from_unknown_chats', true);

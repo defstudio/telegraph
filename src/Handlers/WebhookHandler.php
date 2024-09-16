@@ -75,8 +75,7 @@ abstract class WebhookHandler
 
     private function handleCommand(Stringable $text): void
     {
-        $command = (string) $text->after('/')->before(' ')->before('@');
-        $parameter = (string) $text->after('@')->after(' ');
+        [$command, $parameter] = $this->parseCommand($text);
 
         if (!$this->canHandle($command)) {
             $this->handleUnknownCommand($text);
@@ -90,10 +89,8 @@ abstract class WebhookHandler
     protected function handleUnknownCommand(Stringable $text): void
     {
         if ($this->message?->chat()?->type() === Chat::TYPE_PRIVATE) {
-            $command = (string) $text->after('/')->before(' ')->before('@');
-
             if (config('telegraph.report_unknown_webhook_commands', config('telegraph.webhook.report_unknown_commands', true))) {
-                report(TelegramWebhookException::invalidCommand($command));
+                report(TelegramWebhookException::invalidCommand($this->parseCommand($text)[0]));
             }
 
             $this->chat->html(__('telegraph::errors.invalid_command'))->send();
@@ -110,7 +107,7 @@ abstract class WebhookHandler
 
         $text = Str::of($this->message?->text() ?? '');
 
-        if ($text->startsWith('/')) {
+        if ($text->startsWith($this->commandStartWith())) {
             $this->handleCommand($text);
 
             return;
@@ -322,5 +319,25 @@ abstract class WebhookHandler
         report($throwable);
 
         rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
+    }
+
+    protected function parseCommand(Stringable $text): array
+    {
+        $command = (string) $text->before('@')->before(' ');
+        $parameter = (string) $text->after('@')->after(' ');
+
+        $this->commandStartWith()->each(function (string $value) use (&$command) {
+            $command = Str::after($command, $value);
+        });
+
+        return [$command, $parameter];
+    }
+
+    protected function commandStartWith(): Collection
+    {
+        return collect(config('telegraph.commands.start_with', []))
+            ->push('/')
+            ->map(fn (mixed $value) => Str::replace(' ', '', $value))
+            ->unique();
     }
 }

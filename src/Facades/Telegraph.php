@@ -85,6 +85,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void  assertSentData(string $endpoint, array $data = null, bool $exact = true)
  * @method static void  assertSentFiles(string $endpoint, array $files = null)
  * @method static void  assertSent(string $message, bool $exact = true)
+ * @method static void  assertNotSent(string $message, bool $exact = true)
  * @method static void  assertNothingSent()
  * @method static void  assertRegisteredWebhook(array $data = null, bool $exact = true)
  * @method static void  assertUnregisteredWebhook(array $data = null, bool $exact = true)
