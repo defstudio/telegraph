@@ -12,6 +12,7 @@ use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\DTO\Reaction;
 use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -37,6 +38,7 @@ abstract class WebhookHandler
 
     protected Request $request;
     protected Message|null $message = null;
+    protected Reaction|null $reaction = null;
     protected CallbackQuery|null $callbackQuery = null;
 
     /**
@@ -131,6 +133,18 @@ abstract class WebhookHandler
         $this->handleChatMessage($text);
     }
 
+    protected function handleReaction(): void
+    {
+        $this->extractReactionData();
+
+        if (config('telegraph.debug_mode', config('telegraph.webhook.debug'))) {
+            Log::debug('Telegraph webhook message', $this->data->toArray());
+        }
+
+        /** @phpstan-ignore-next-line */
+        $this->handleChatReaction($this->reaction->newReactions(), $this->reaction->oldReactions());
+    }
+
     protected function canHandle(string $action): bool
     {
         if ($action === 'handle') {
@@ -178,6 +192,17 @@ abstract class WebhookHandler
         ]);
     }
 
+    protected function extractReactionData(): void
+    {
+        $this->setupChat();
+
+        assert($this->reaction !== null);
+
+        $this->messageId = $this->reaction->id();
+
+        $this->data = collect($this->reaction->newReactions());
+    }
+
     protected function handleChatMemberJoined(User $member): void
     {
         // .. do nothing
@@ -189,6 +214,11 @@ abstract class WebhookHandler
     }
 
     protected function handleChatMessage(Stringable $text): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleChatReaction(array $newReactions, array $oldReactions): void
     {
         // .. do nothing
     }
@@ -250,6 +280,14 @@ abstract class WebhookHandler
                 return;
             }
 
+            if ($this->request->has('message_reaction')) {
+                /* @phpstan-ignore-next-line */
+                $this->reaction = Reaction::fromArray($this->request->input('message_reaction'));
+                $this->handleReaction();
+
+                return;
+            }
+
 
             if ($this->request->has('callback_query')) {
                 /* @phpstan-ignore-next-line */
@@ -275,6 +313,8 @@ abstract class WebhookHandler
     {
         if (isset($this->message)) {
             $telegramChat = $this->message->chat();
+        } elseif (isset($this->reaction)) {
+            $telegramChat = $this->reaction->chat();
         } else {
             $telegramChat = $this->callbackQuery?->message()?->chat();
         }
