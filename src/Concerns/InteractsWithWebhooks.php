@@ -39,7 +39,7 @@ trait InteractsWithWebhooks
             'drop_pending_updates' => $dropPendingUpdates,
             'max_connections' => $maxConnections ?? config('telegraph.webhook.max_connections'),
             'secret_token' => $secretToken ?? config('telegraph.webhook.secret_token'),
-            'allowed_updates' => $allowedUpdates,
+            'allowed_updates' => $allowedUpdates ?? config('telegraph.webhook.allowed_updates'),
         ])->filter()
             ->toArray();
 
