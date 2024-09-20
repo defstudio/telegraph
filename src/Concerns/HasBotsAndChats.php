@@ -345,7 +345,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        $telegraph->endpoint = self::ENDPOINT_REACT_WITH_EMOJI;
+        $telegraph->endpoint = self::ENDPOINT_SET_MESSAGE_REACTION;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['message_id'] = $messageId;
         $telegraph->data['reaction'] = json_encode([$reaction]);

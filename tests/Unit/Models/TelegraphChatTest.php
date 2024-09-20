@@ -912,7 +912,7 @@ it('can react on a message', function () {
 
     $chat->reactWithEmoji(42, $reaction, false)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REACT_WITH_EMOJI, [
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_MESSAGE_REACTION, [
         'message_id' => 42,
         'reaction' => json_encode([$reaction]),
         'is_big' => false
