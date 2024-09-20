@@ -29,7 +29,7 @@ trait InteractsWithWebhooks
         return $customWebhookUrl.route('telegraph.webhook', $this->getBot(), false);
     }
 
-    public function registerWebhook(bool $dropPendingUpdates = null, int $maxConnections = null, string $secretToken = null): Telegraph
+    public function registerWebhook(bool $dropPendingUpdates = null, int $maxConnections = null, string $secretToken = null, array $allowedUpdates = null): Telegraph
     {
         $telegraph = clone $this;
 
@@ -39,6 +39,7 @@ trait InteractsWithWebhooks
             'drop_pending_updates' => $dropPendingUpdates,
             'max_connections' => $maxConnections ?? config('telegraph.webhook.max_connections'),
             'secret_token' => $secretToken ?? config('telegraph.webhook.secret_token'),
+            'allowed_updates' => $allowedUpdates,
         ])->filter()
             ->toArray();
 
