@@ -3,7 +3,7 @@
     "payload": {
         "chat_id": "-123456789",
         "message_id": 100,
-        "reaction": "[{\"type\":\"emoji\",\"emoji\":\"\\ud83d\\udc4d\"}]",
+        "reaction": "[{\"type\":\"custom_emoji\",\"emoji\":\"12312\"}]",
         "is_big": false
     },
     "files": []

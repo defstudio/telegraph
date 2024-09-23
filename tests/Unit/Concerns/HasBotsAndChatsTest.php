@@ -107,7 +107,6 @@ it('can change a message reaction with emoji', function () {
     })->toMatchTelegramSnapshot();
 });
 
-
 it('can change a message reaction with custom emoji', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->reactWithCustomEmoji(100, '12312');
