@@ -4,6 +4,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string>
+ */
 class Reaction implements Arrayable
 {
     private string $type;

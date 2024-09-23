@@ -341,7 +341,10 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function reactWithEmoji(string $messageId, array $reaction, bool $isBig = false): Telegraph
+    /**
+     * @param array<string, string> $reaction
+     */
+    public function setMessageReaction(int $messageId, array $reaction, bool $isBig = false): Telegraph
     {
         $telegraph = clone $this;
 
@@ -352,6 +355,16 @@ trait HasBotsAndChats
         $telegraph->data['is_big'] = $isBig;
 
         return $telegraph;
+    }
+
+    public function reactWithEmoji(int $messageId, string $emoji, bool $isBig = false): Telegraph
+    {
+        return $this->setMessageReaction($messageId, ['type' => 'emoji', 'emoji' => $emoji], $isBig);
+    }
+
+    public function reactWithCustomEmoji(int $messageId, string $customEmoji, bool $isBig = false): Telegraph
+    {
+        return $this->setMessageReaction($messageId, ['type' => 'custom_emoji', 'emoji' => $customEmoji], $isBig);
     }
 
     public function deleteChatPhoto(): Telegraph
