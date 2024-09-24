@@ -28,6 +28,8 @@ class Reaction implements Arrayable
 
     private CarbonInterface $date;
 
+    private function __construct() {}
+
     /**
      * @param array{
      *     message_id: int,
