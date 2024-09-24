@@ -20,11 +20,15 @@ class Reaction implements Arrayable
 
     private ?User $from = null;
 
-    /* @phpstan-ignore-next-line */
-    private array $oldReactions = [];
+    /**
+     * @var array<array<string, string>>
+     */
+    private array $oldReaction = [];
 
-    /* @phpstan-ignore-next-line */
-    private array $newReactions = [];
+    /**
+     * @var array<array<string, string>>
+     */
+    private array $newReaction = [];
 
     private CarbonInterface $date;
 
@@ -64,8 +68,8 @@ class Reaction implements Arrayable
 
         $reaction->date = Carbon::createFromTimestamp($data['date']);
 
-        $reaction->oldReactions = $data['old_reaction'];
-        $reaction->newReactions = $data['new_reaction'];
+        $reaction->oldReaction = $data['old_reaction'];
+        $reaction->newReaction = $data['new_reaction'];
 
         return $reaction;
     }
@@ -90,14 +94,20 @@ class Reaction implements Arrayable
         return $this->from;
     }
 
-    public function oldReactions(): array
+    /**
+     * @return array<array<string, string>>
+     */
+    public function oldReaction(): array
     {
-        return $this->oldReactions;
+        return $this->oldReaction;
     }
 
-    public function newReactions(): array
+    /**
+     * @return array<array<string, string>>
+     */
+    public function newReaction(): array
     {
-        return $this->newReactions;
+        return $this->newReaction;
     }
 
     public function date(): CarbonInterface
@@ -112,8 +122,8 @@ class Reaction implements Arrayable
             'chat' => $this->chat->toArray(),
             'actor_chat' => $this->actorChat?->toArray(),
             'from' => $this->from?->toArray(),
-            'old_reaction' => $this->oldReactions,
-            'new_reaction' => $this->newReactions,
+            'old_reaction' => $this->oldReaction,
+            'new_reaction' => $this->newReaction,
             'date' => $this->date->toISOString(),
         ], fn ($value) => $value !== null);
     }

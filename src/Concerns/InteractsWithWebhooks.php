@@ -29,6 +29,15 @@ trait InteractsWithWebhooks
         return $customWebhookUrl.route('telegraph.webhook', $this->getBot(), false);
     }
 
+    /**
+     * @param  bool|null  $dropPendingUpdates
+     * @param  int|null  $maxConnections
+     * @param  string|null  $secretToken
+     * @param  string[]|null  $allowedUpdates
+     *
+     * @throws \DefStudio\Telegraph\Exceptions\TelegramWebhookException
+     * @return \DefStudio\Telegraph\Telegraph
+     */
     public function registerWebhook(bool $dropPendingUpdates = null, int $maxConnections = null, string $secretToken = null, array $allowedUpdates = null): Telegraph
     {
         $telegraph = clone $this;

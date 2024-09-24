@@ -42,7 +42,7 @@ abstract class WebhookHandler
     protected CallbackQuery|null $callbackQuery = null;
 
     /**
-     * @var Collection<string, string>
+     * @var Collection(<string, string>|<int, <array<string, string>>>)
      */
     protected Collection $data;
 
@@ -142,7 +142,7 @@ abstract class WebhookHandler
         }
 
         /** @phpstan-ignore-next-line */
-        $this->handleChatReaction($this->reaction->newReactions(), $this->reaction->oldReactions());
+        $this->handleChatReaction($this->reaction->newReaction(), $this->reaction->oldReaction());
     }
 
     protected function canHandle(string $action): bool
@@ -200,7 +200,7 @@ abstract class WebhookHandler
 
         $this->messageId = $this->reaction->id();
 
-        $this->data = collect($this->reaction->newReactions());
+        $this->data = collect($this->reaction->newReaction());
     }
 
     protected function handleChatMemberJoined(User $member): void
@@ -218,6 +218,12 @@ abstract class WebhookHandler
         // .. do nothing
     }
 
+    /**
+     * @param  array<array<string, string>>  $newReactions
+     * @param  array<array<string, string>>  $oldReactions
+     *
+     * @return void
+     */
     protected function handleChatReaction(array $newReactions, array $oldReactions): void
     {
         // .. do nothing
@@ -341,7 +347,8 @@ abstract class WebhookHandler
     protected function allowUnknownChat(): bool
     {
         return (bool) match (true) {
-            $this->message !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
+            $this->message !== null,
+            $this->reaction !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
             $this->callbackQuery != null => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
             default => false,
         };

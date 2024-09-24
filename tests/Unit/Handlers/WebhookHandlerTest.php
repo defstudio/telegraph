@@ -400,6 +400,51 @@ it('can handle a member left', function () {
     Facade::assertSent("Bob just left");
 });
 
+it('can handle a message reaction', function () {
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_message_reaction(message: [
+        'chat' => [
+            'id' => 3,
+            'type' => 'a',
+            'title' => 'b',
+        ],
+        'actor_chat' => [
+            'id' => 3,
+            'type' => 'a',
+            'title' => 'b',
+        ],
+        'date' => 1727211008,
+        'user' => [
+            'id' => 1,
+            'is_bot' => false,
+            'first_name' => 'a',
+            'last_name' => 'b',
+            'username' => 'c',
+            'language_code' => 'd',
+            'is_premium' => false,
+        ],
+        'message_id' => 2,
+        'new_reaction' => [
+            [
+                'type' => 'emoji',
+                'emoji' => '👍',
+            ],
+        ],
+        'old_reaction' => [
+            [
+                'type' => 'emoji',
+                'emoji' => '🔥',
+            ],
+        ],
+    ]), $bot);
+
+    Facade::assertSent("New reaction is 👍:Old reaction is 🔥");
+});
+
 it('does not crash on errors', function () {
     $chat = chat();
 

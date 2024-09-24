@@ -106,6 +106,34 @@ function webhook_message($handler = TestWebhookHandler::class, array $message = 
     ]);
 }
 
+function webhook_message_reaction($handler = TestWebhookHandler::class, array $message = null): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'message_reaction' => $message ?? [
+                'chat' => [
+                    'id' => 3,
+                    'type' => 'a',
+                    'title' => 'b',
+                ],
+                'date' => 1727211008,
+                'user' => [
+                    'id' => 1,
+                    'first_name' => 'a',
+                ],
+                'message_id' => 2,
+                'new_reaction' => [
+                    [
+                        'type' => 'emoji',
+                        'emoji' => '👍',
+                    ],
+                ],
+                'old_reaction' => [],
+            ],
+    ]);
+}
+
 function webhook_request($action = 'invalid', $handler = TestWebhookHandler::class, int $chat_id = -123456789): Request
 {
     register_webhook_handler($handler);
