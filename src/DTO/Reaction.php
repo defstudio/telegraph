@@ -28,7 +28,9 @@ class Reaction implements Arrayable
 
     private CarbonInterface $date;
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * @param array{
