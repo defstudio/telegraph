@@ -5,6 +5,7 @@
 
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Telegraph;
+use DefStudio\Telegraph\Tests\Support\TestEntitiesWebhookHandler;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -431,18 +432,47 @@ it('can handle a message reaction', function () {
         'new_reaction' => [
             [
                 'type' => 'emoji',
-                'emoji' => '👍',
+                'emoji' => '??',
             ],
         ],
         'old_reaction' => [
             [
                 'type' => 'emoji',
-                'emoji' => '🔥',
+                'emoji' => '??',
             ],
         ],
     ]), $bot);
 
-    Facade::assertSent("New reaction is 👍:Old reaction is 🔥");
+    Facade::assertSent("New reaction is ??:Old reaction is ??");
+});
+
+it('can handle a message entities', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestEntitiesWebhookHandler::class)->handle(webhook_message(TestEntitiesWebhookHandler::class, [
+        'message_id' => 123456,
+        'chat' => [
+            'id' => -123456789,
+            'type' => 'group',
+            'title' => 'Test chat',
+        ],
+        'date' => 1646516736,
+        'text' => 'foo https://example.com bar',
+        'entities' => [
+            [
+                'type' => 'url',
+                'offset' => 4,
+                'length' => 19,
+                'url' => 'https://example.com',
+            ],
+        ],
+    ]), $bot);
+
+    Facade::assertSent(implode('. ', [
+        'URL from text: https://example.com',
+        'URL from entity: https://example.com',
+    ]));
 });
 
 it('does not crash on errors', function () {

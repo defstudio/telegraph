@@ -53,6 +53,9 @@ class Message implements Arrayable
 
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
+    /** @var Collection<Entity>|null */
+    private ?Collection $entities = null;
+
     private function __construct()
     {
         $this->photos = Collection::empty();
@@ -85,6 +88,7 @@ class Message implements Arrayable
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
      *     write_access_allowed?: array<string, mixed>,
+     *     entities?: array<object>
      *  } $data
      */
     public static function fromArray(array $data): Message
@@ -200,6 +204,11 @@ class Message implements Arrayable
         if (isset($data['write_access_allowed'])) {
             /* @phpstan-ignore-next-line */
             $message->writeAccessAllowed = WriteAccessAllowed::fromArray($data['write_access_allowed']);
+        }
+
+        if (isset($data['entities'])) {
+            /* @phpstan-ignore-next-line */
+            $message->entities = collect($data['entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }
 
         return $message;
@@ -331,6 +340,11 @@ class Message implements Arrayable
         return $this->writeAccessAllowed;
     }
 
+    public function entities(): ?Collection
+    {
+        return $this->entities;
+    }
+
     public function toArray(): array
     {
         return array_filter([
@@ -358,6 +372,7 @@ class Message implements Arrayable
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
+            'entities' => $this->entities?->toArray(),
         ], fn ($value) => $value !== null);
     }
 }
