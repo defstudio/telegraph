@@ -289,6 +289,14 @@ it('export all properties to array', function () {
             "web_app_name" => "test",
             "from_attachment_menu" => true,
         ],
+        'entities' => [
+            [
+                'type' => 'url',
+                'offset' => 4,
+                'length' => 19,
+                'url' => 'https://example.com',
+            ],
+        ],
     ]);
 
     $array = $dto->toArray();

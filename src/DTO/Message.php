@@ -206,7 +206,7 @@ class Message implements Arrayable
             $message->writeAccessAllowed = WriteAccessAllowed::fromArray($data['write_access_allowed']);
         }
 
-        if (isset($data['entities'])) {
+        if (isset($data['entities']) && $data['entities']) {
             /* @phpstan-ignore-next-line */
             $message->entities = collect($data['entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }

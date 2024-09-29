@@ -21,7 +21,14 @@
                 "title": "john_smith"
             },
             "photos": [],
-            "new_chat_members": []
+            "new_chat_members": [],
+            "entities": [
+                {
+                    "type": "bot_command",
+                    "offset": 0,
+                    "length": 6
+                }
+            ]
         }
     },
     {
