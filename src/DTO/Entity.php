@@ -22,6 +22,10 @@ class Entity implements Arrayable
 
     private ?string $customEmojiId = null;
 
+    private function __construct()
+    {
+    }
+
     public static function fromArray(array $data): Entity
     {
         $entity = new self();
