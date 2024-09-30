@@ -432,18 +432,18 @@ it('can handle a message reaction', function () {
         'new_reaction' => [
             [
                 'type' => 'emoji',
-                'emoji' => '??',
+                'emoji' => '👍',
             ],
         ],
         'old_reaction' => [
             [
                 'type' => 'emoji',
-                'emoji' => '??',
+                'emoji' => '🔥',
             ],
         ],
     ]), $bot);
 
-    Facade::assertSent("New reaction is ??:Old reaction is ??");
+    Facade::assertSent("New reaction is 👍:Old reaction is 🔥");
 });
 
 it('can handle a message entities', function () {

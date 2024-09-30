@@ -6,6 +6,9 @@ namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * @implements Arrayable<string, string|int|array<string, mixed>>
+ */
 class Entity implements Arrayable
 {
     private string $type;
@@ -26,6 +29,19 @@ class Entity implements Arrayable
     {
     }
 
+    /**
+     * @param array{
+     *     type: string,
+     *     offset: int,
+     *     length: int,
+     *     url?: string,
+     *     user?: array<string, mixed>,
+     *     language?: string,
+     *     custom_emoji_id?: string
+     * } $data
+     *
+     * @return \DefStudio\Telegraph\DTO\Entity
+     */
     public static function fromArray(array $data): Entity
     {
         $entity = new self();
@@ -39,6 +55,7 @@ class Entity implements Arrayable
         }
 
         if (isset($data['user'])) {
+            /* @phpstan-ignore-next-line */
             $entity->user = User::fromArray($data['user']);
         }
 
