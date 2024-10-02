@@ -140,4 +140,12 @@ class TestWebhookHandler extends WebhookHandler
     {
         $this->chat->html("{$member->firstName()} just left")->send();
     }
+
+    protected function handleChatReaction(array $newReactions, array $oldReactions): void
+    {
+        $this->chat->html(implode(':', [
+            'New reaction is ' . $newReactions[0]['emoji'],
+            'Old reaction is ' . $oldReactions[0]['emoji'],
+        ]))->send();
+    }
 }

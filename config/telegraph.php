@@ -60,6 +60,16 @@ return [
          */
         'max_connections' => env('TELEGRAPH_WEBHOOK_MAX_CONNECTIONS', 40),
 
+        /**
+         * List of event types for which the webhook should fire.
+         *
+         * Specify a null to receive all update types except `chat_member`, `message_reaction`,
+         * and `message_reaction_count` (by default).
+         *
+         * @see https://core.telegram.org/bots/api#setwebhook
+         */
+        'allowed_updates' => null,
+
         /*
          * If enabled, Telegraph dumps received
          * webhook messages to logs
