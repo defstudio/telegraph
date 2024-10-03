@@ -235,6 +235,15 @@ it('can handle a command with custom start char', function () {
     Facade::assertSent("Hello!! your parameter is [foo bot : :]");
 });
 
+it('can handle a command without parameter', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $bot);
+
+    Facade::assertSent("Hello!!");
+});
+
 it('cannot handle a command with custom start char', function () {
     $bot = bot();
     Facade::fake();
