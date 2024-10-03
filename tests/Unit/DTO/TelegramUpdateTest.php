@@ -18,6 +18,39 @@ it('export all properties to array', function () {
             'date' => now()->timestamp,
             'text' => 'f',
         ],
+        'message_reaction' => [
+            'message_id' => 2,
+            'date' => now()->timestamp,
+            'chat' => [
+                'id' => 3,
+                'type' => 'a',
+                'title' => 'b',
+            ],
+            'actor_chat' => [
+                'id' => 3,
+                'type' => 'a',
+                'title' => 'b',
+            ],
+            'user' => [
+                'id' => 1,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+            ],
+            'new_reaction' => [
+                [
+                    'type' => 'emoji',
+                    'emoji' => '👍',
+                ],
+            ],
+            'old_reaction' => [
+                [
+                    'type' => 'emoji',
+                    'emoji' => '🔥',
+                ],
+            ],
+        ],
         'channel_post' => [
             'message_id' => 4,
             'date' => now()->timestamp,

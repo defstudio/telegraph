@@ -15,6 +15,7 @@ class TelegramUpdate implements Arrayable
 {
     private int $id;
     private ?Message $message = null;
+    private ?Reaction $messageReaction = null;
     private ?CallbackQuery $callbackQuery = null;
     private ?ChatMemberUpdate $botChatStatusChange = null;
     private ?InlineQuery $inlineQuery = null;
@@ -28,6 +29,7 @@ class TelegramUpdate implements Arrayable
      *     update_id:int,
      *     message?:array<string, mixed>,
      *     edited_message?:array<string, mixed>,
+     *     message_reaction?:array<string, mixed>,
      *     channel_post?:array<string, mixed>,
      *     callback_query?:array<string, mixed>,
      *     my_chat_member?:array<string, mixed>,
@@ -48,6 +50,11 @@ class TelegramUpdate implements Arrayable
         if (isset($data['edited_message'])) {
             /* @phpstan-ignore-next-line */
             $update->message = Message::fromArray($data['edited_message']);
+        }
+
+        if (isset($data['message_reaction'])) {
+            /* @phpstan-ignore-next-line */
+            $update->messageReaction = Reaction::fromArray($data['message_reaction']);
         }
 
         if (isset($data['channel_post'])) {
@@ -83,6 +90,11 @@ class TelegramUpdate implements Arrayable
         return $this->message;
     }
 
+    public function messageReaction(): ?Reaction
+    {
+        return $this->messageReaction;
+    }
+
     public function callbackQuery(): ?CallbackQuery
     {
         return $this->callbackQuery;
@@ -103,6 +115,7 @@ class TelegramUpdate implements Arrayable
         return array_filter([
             'id' => $this->id,
             'message' => $this->message?->toArray(),
+            'message_reaction' => $this->messageReaction?->toArray(),
             'callback_query' => $this->callbackQuery?->toArray(),
             'bot_chat_status_change' => $this->botChatStatusChange?->toArray(),
             'inline_query' => $this->inlineQuery?->toArray(),

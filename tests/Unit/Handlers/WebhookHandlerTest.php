@@ -452,7 +452,10 @@ it('can handle a message reaction', function () {
         ],
     ]), $bot);
 
-    Facade::assertSent("New reaction is 👍:Old reaction is 🔥");
+    Facade::assertSent(implode(':', [
+        'New reaction is 👍',
+        'Old reaction is 🔥',
+    ]));
 });
 
 it('can handle a message entities', function () {
