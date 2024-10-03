@@ -53,7 +53,8 @@
                 "title": "Bot Test Chat"
             },
             "photos": [],
-            "new_chat_members": []
+            "new_chat_members": [],
+            "entities": []
         }
     }
 ]
