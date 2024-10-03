@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.55.0 - 2024-10-03
+
+### What's Changed
+
+* Added entities processing by @andrey-helldar in https://github.com/defstudio/telegraph/pull/650
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.54.0...v1.55.0
+
 ## v1.54.0 - 2024-10-03
 
 ### What's Changed
