@@ -219,12 +219,12 @@ abstract class WebhookHandler
     }
 
     /**
-     * @param  array<array<string, string>>  $newReactions
-     * @param  array<array<string, string>>  $oldReactions
+     * @param Collection<array-key, Reaction> $newReactions
+     * @param Collection<array-key, Reaction> $oldReactions
      *
      * @return void
      */
-    protected function handleChatReaction(array $newReactions, array $oldReactions): void
+    protected function handleChatReaction(Collection $newReactions, Collection $oldReactions): void
     {
         // .. do nothing
     }

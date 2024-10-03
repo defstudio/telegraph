@@ -7,6 +7,7 @@ namespace DefStudio\Telegraph\DTO;
 use Carbon\CarbonInterface;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 /**
  * @implements Arrayable<string, string|int|bool|array<string, mixed>>
@@ -21,19 +22,21 @@ class Reaction implements Arrayable
     private ?User $from = null;
 
     /**
-     * @var array<array<string, string>>
+     * @var Collection<array-key, ReactionType>
      */
-    private array $oldReaction = [];
+    private Collection $oldReaction;
 
     /**
-     * @var array<array<string, string>>
+     * @var Collection<array-key, ReactionType>
      */
-    private array $newReaction = [];
+    private Collection $newReaction;
 
     private CarbonInterface $date;
 
     private function __construct()
     {
+        $this->oldReaction = Collection::empty();
+        $this->newReaction = Collection::empty();
     }
 
     /**
@@ -68,8 +71,11 @@ class Reaction implements Arrayable
 
         $reaction->date = Carbon::createFromTimestamp($data['date']);
 
-        $reaction->oldReaction = $data['old_reaction'];
-        $reaction->newReaction = $data['new_reaction'];
+        /* @phpstan-ignore-next-line */
+        $reaction->oldReaction = collect($data['old_reaction'] ?? [])->map(fn (array $reactionData) => ReactionType::fromArray($reactionData));
+
+        /* @phpstan-ignore-next-line */
+        $reaction->newReaction = collect($data['new_reaction'] ?? [])->map(fn (array $reactionData) => ReactionType::fromArray($reactionData));
 
         return $reaction;
     }
@@ -95,17 +101,17 @@ class Reaction implements Arrayable
     }
 
     /**
-     * @return array<array<string, string>>
+     * @return Collection<array-key, ReactionType>
      */
-    public function oldReaction(): array
+    public function oldReaction(): Collection
     {
         return $this->oldReaction;
     }
 
     /**
-     * @return array<array<string, string>>
+     * @return Collection<array-key, ReactionType>
      */
-    public function newReaction(): array
+    public function newReaction(): Collection
     {
         return $this->newReaction;
     }
@@ -122,8 +128,8 @@ class Reaction implements Arrayable
             'chat' => $this->chat->toArray(),
             'actor_chat' => $this->actorChat?->toArray(),
             'from' => $this->from?->toArray(),
-            'old_reaction' => $this->oldReaction,
-            'new_reaction' => $this->newReaction,
+            'old_reaction' => $this->oldReaction->toArray(),
+            'new_reaction' => $this->newReaction->toArray(),
             'date' => $this->date->toISOString(),
         ], fn ($value) => $value !== null);
     }

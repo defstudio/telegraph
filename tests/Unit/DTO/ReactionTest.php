@@ -206,7 +206,7 @@ it('extract old_reaction info', function () {
         ],
     ]);
 
-    expect($dto->oldReaction())->toBe([
+    expect($dto->oldReaction()->toArray())->toBe([
         [
             'type' => 'emoji',
             'emoji' => '🔥',
@@ -251,7 +251,7 @@ it('extract new_reaction info', function () {
         ],
     ]);
 
-    expect($dto->newReaction())->toBe([
+    expect($dto->newReaction()->toArray())->toBe([
         [
             'type' => 'emoji',
             'emoji' => '👍',
