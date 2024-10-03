@@ -341,7 +341,7 @@ class Message implements Arrayable
         return $this->writeAccessAllowed;
     }
 
-    public function entities(): ?Collection
+    public function entities(): Collection
     {
         return $this->entities;
     }
@@ -373,7 +373,7 @@ class Message implements Arrayable
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
-            'entities' => $this->entities?->toArray(),
+            'entities' => $this->entities->toArray(),
         ], fn ($value) => $value !== null);
     }
 }
