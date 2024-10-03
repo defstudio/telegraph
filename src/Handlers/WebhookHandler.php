@@ -42,7 +42,7 @@ abstract class WebhookHandler
     protected CallbackQuery|null $callbackQuery = null;
 
     /**
-     * @var Collection(<string, string>|<int, <array<string, string>>>)
+     * @var Collection<string, string>|Collection<int, array<string, string>>
      */
     protected Collection $data;
 

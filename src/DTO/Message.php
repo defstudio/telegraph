@@ -341,6 +341,9 @@ class Message implements Arrayable
         return $this->writeAccessAllowed;
     }
 
+    /**
+     * @return Collection<array-key, Entity>
+     */
     public function entities(): Collection
     {
         return $this->entities;
