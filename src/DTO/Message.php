@@ -53,12 +53,13 @@ class Message implements Arrayable
 
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
-    /** @var Collection<Entity>|null */
-    private ?Collection $entities = null;
+    /** @var Collection<array-key, Entity> */
+    private Collection $entities;
 
     private function __construct()
     {
         $this->photos = Collection::empty();
+        $this->entities = Collection::empty();
     }
 
     /**
