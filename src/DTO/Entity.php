@@ -64,7 +64,7 @@ class Entity implements Arrayable
         }
 
         if (isset($data['custom_emoji_id'])) {
-            $entity->customEmojiId = $data['custom_emoji_id'];
+            $entity->customEmojiId = (string) $data['custom_emoji_id'];
         }
 
         return $entity;
