@@ -26,6 +26,6 @@ trait CreatesScopedPayloads
     {
         $invoicePayload = TelegraphInvoicePayload::makeFrom($this);
 
-        return  $invoicePayload->invoice($title);
+        return $invoicePayload->invoice($title);
     }
 }

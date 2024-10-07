@@ -251,6 +251,13 @@ it('export all properties to array', function () {
                 'file_size' => 42,
             ],
         ],
+        'invoice' => [
+            'title' => 'Title',
+            'description' => 'Description',
+            'start_parameter' => 'test',
+            'currency' => 'EUR',
+            'total_amount' => 20,
+        ],
         'location' => [
             'latitude' => 12456789,
             'longitude' => 98765431,

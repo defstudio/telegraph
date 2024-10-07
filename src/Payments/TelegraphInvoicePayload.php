@@ -22,6 +22,9 @@ class TelegraphInvoicePayload extends Telegraph
         $telegraph->data['title'] = $title;
 
         $telegraph->data['payload'] = 'created by Telegraph';
+
+        $telegraph->data['provider_token'] = config('telegraph.payments.provider_token');
+
         $telegraph->data['prices'] = [];
 
         return $telegraph;
@@ -72,10 +75,11 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
-    public function price(string $label, int $amount): static
+    public function addItem(string $label, int $amount): static
     {
         $telegraph = clone $this;
 
+        /** @phpstan-ignore-next-line */
         $telegraph->data['prices'][] = [
             'label' => $label,
             'amount' => $amount,
@@ -114,6 +118,9 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
+    /**
+     * @param array<string> $data
+     */
     public function providerData(array $data): static
     {
         $telegraph = clone $this;
@@ -144,7 +151,7 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
-    public function needName($needed = true): static
+    public function needName(bool $needed = true): static
     {
         $telegraph = clone $this;
 
@@ -153,7 +160,7 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
-    public function needPhoneNumber($needed = true, $sendToProvider = false): static
+    public function needPhoneNumber(bool $needed = true, bool $sendToProvider = false): static
     {
         $telegraph = clone $this;
 
@@ -163,7 +170,7 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
-    public function needEmail($needed = true, $sendToProvider = false): static
+    public function needEmail(bool $needed = true, bool $sendToProvider = false): static
     {
         $telegraph = clone $this;
 
@@ -173,7 +180,7 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
-    public function needShippingAddress($needed = true): static
+    public function needShippingAddress(bool $needed = true): static
     {
         $telegraph = clone $this;
 
@@ -182,7 +189,7 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
-    public function flexible($flexible = true): static
+    public function flexible(bool $flexible = true): static
     {
         $telegraph = clone $this;
 

@@ -33,15 +33,17 @@ it('can store chat files', function () {
 
 it('can send an invoice', function () {
 
-    Telegraph::invoice('Test Invoice')
-        ->description('A test invoice sent from Telegraph')
-        ->currency('EUR')
-        ->price('line 1', 1000)
-        ->price('line 2', 1500)
-        ->price('line 3', 5000)
-        ->providerToken(env('SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN'))
-        ->link()
-        ->send()
-        ->dump();
+    $results = Telegraph::invoice('Test Invoice')
+         ->description('A test invoice sent from Telegraph')
+         ->currency('EUR')
+         ->addItem('line 1', 1000)
+         ->addItem('line 2', 1500)
+         ->addItem('line 3', 5000)
+         ->providerToken(env('SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN'))
+         ->link()
+         ->send();
 
-})->only()->skip(fn () => empty(env('SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN')) || empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
+    expect($results['ok'])->toBeTrue()
+        ->and($results['result'])->toBeString();
+
+})->skip(fn () => empty(env('SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN')) || empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');

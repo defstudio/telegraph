@@ -7,7 +7,7 @@ use Illuminate\Support\MessageBag;
 
 class InvoiceException extends Exception
 {
-    public static function validationError(MessageBag $messages): static
+    public static function validationError(MessageBag $messages): InvoiceException
     {
         return new self('Invalid Invoice: ' . $messages->toJson());
     }

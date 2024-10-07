@@ -180,4 +180,8 @@ return [
             'max_size_mb' => 50,
         ],
     ],
+
+    'payments' => [
+        'provider_token' => env('TELEGRAPH_PAYMENT_PROVIDER_TOKEN', ''),
+    ],
 ];
