@@ -10,6 +10,7 @@ use GuzzleHttp\Psr7\BufferStream;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Str;
 use Illuminate\Support\Testing\Fakes\QueueFake;
@@ -262,9 +263,31 @@ trait FakesRequests
     /** @phpstan-ignore-next-line  */
     public static function assertSentData(string $endpoint, array $data = null, bool $exact = true): void
     {
-        $foundMessages = collect(self::$sentMessages);
+        if ($data == null) {
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+        } else {
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+        }
 
-        $foundMessages = $foundMessages
+        Assert::assertNotEmpty(static::searchMessages($endpoint, $data, $exact)->toArray(), $errorMessage);
+    }
+
+    /** @phpstan-ignore-next-line  */
+    public static function assertNotSentData(string $endpoint, array $data = null, bool $exact = true): void
+    {
+        if ($data == null) {
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+        } else {
+            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+        }
+
+        Assert::assertEmpty(static::searchMessages($endpoint, $data, $exact)->toArray(), $errorMessage);
+    }
+
+    /** @phpstan-ignore-next-line  */
+    protected static function searchMessages(string $endpoint, array $data = null, bool $exact = true): Collection
+    {
+        return collect(self::$sentMessages)
             ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
             ->filter(function (array $message) use ($data, $exact): bool {
                 foreach ($data ?? [] as $key => $value) {
@@ -287,14 +310,5 @@ trait FakesRequests
 
                 return true;
             });
-
-
-        if ($data == null) {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
-        } else {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count(self::$sentMessages));
-        }
-
-        Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
     }
 }

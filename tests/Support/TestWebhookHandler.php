@@ -13,6 +13,7 @@ use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use Exception;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Stringable;
 
 class TestWebhookHandler extends WebhookHandler
@@ -139,5 +140,15 @@ class TestWebhookHandler extends WebhookHandler
     protected function handleChatMemberLeft(User $member): void
     {
         $this->chat->html("{$member->firstName()} just left")->send();
+    }
+
+    protected function handleChatReaction(Collection $newReactions, Collection $oldReactions): void
+    {
+        $this->chat->html(implode(':', [
+            /* @phpstan-ignore-next-line  */
+            'New reaction is ' . $newReactions->first()->emoji(),
+            /* @phpstan-ignore-next-line  */
+            'Old reaction is ' . $oldReactions->first()->emoji(),
+        ]))->send();
     }
 }

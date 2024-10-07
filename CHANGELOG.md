@@ -2,6 +2,55 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.55.1 - 2024-10-03
+
+### What's Changed
+
+* Added `ReactionType` data type, fixed typing by @andrey-helldar in https://github.com/defstudio/telegraph/pull/652
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.55.0...v1.55.1
+
+## v1.55.0 - 2024-10-03
+
+### What's Changed
+
+* Added entities processing by @andrey-helldar in https://github.com/defstudio/telegraph/pull/650
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.54.0...v1.55.0
+
+## v1.54.0 - 2024-10-03
+
+### What's Changed
+
+* Added independent methods for saving a chat and forming its name by @andrey-helldar in https://github.com/defstudio/telegraph/pull/647
+* [feat] reactions by @Anze in https://github.com/defstudio/telegraph/pull/641
+* Adding reaction processing when retrieving in webhooks by @andrey-helldar in https://github.com/defstudio/telegraph/pull/649
+* Fix detection of command parameter without passing it by @andrey-helldar in https://github.com/defstudio/telegraph/pull/651
+
+### New Contributors
+
+* @Anze made their first contribution in https://github.com/defstudio/telegraph/pull/641
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.53.0...v1.54.0
+
+## v1.53.0 - 2024-09-16
+
+### What's Changed
+
+* #635 implement config for connection request timeout by @MarioGattolla in https://github.com/defstudio/telegraph/pull/636
+* Added the ability to specify different prefixes for command definitions by @andrey-helldar in https://github.com/defstudio/telegraph/pull/643
+* Make protected methods by @andrey-helldar in https://github.com/defstudio/telegraph/pull/642
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.52.0...v1.53.0
+
+## v1.52.0 - 2024-08-27
+
+### What's Changed
+
+* [feat] add settings to registerWebhook method by @fabio-ivona and @MarcusLestrange  in https://github.com/defstudio/telegraph/pull/634
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.51.0...v1.52.0
+
 ## v1.51.0 - 2024-08-26
 
 ### What's Changed

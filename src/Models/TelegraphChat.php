@@ -293,6 +293,28 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->setChatPhoto($path);
     }
 
+    /**
+     * @param array<string, string> $reaction
+     */
+    public function setMessageReaction(int $messageId, array $reaction, bool $isBig = false): Telegraph
+    {
+        return TelegraphFacade::chat($this)->setMessageReaction($messageId, $reaction, $isBig);
+    }
+
+    public function reactWithEmoji(int $messageId, string $emoji, bool $isBig = false): Telegraph
+    {
+        $reaction = ['type' => 'emoji', 'emoji' => $emoji];
+
+        return $this->setMessageReaction($messageId, $reaction, $isBig);
+    }
+
+    public function reactWithCustomEmoji(int $messageId, string $customEmoji, bool $isBig = false): Telegraph
+    {
+        $reaction = ['type' => 'custom_emoji', 'emoji' => $customEmoji];
+
+        return $this->setMessageReaction($messageId, $reaction, $isBig);
+    }
+
     public function deleteChatPhoto(): Telegraph
     {
         return TelegraphFacade::chat($this)->deleteChatPhoto();

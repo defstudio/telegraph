@@ -60,6 +60,16 @@ return [
          */
         'max_connections' => env('TELEGRAPH_WEBHOOK_MAX_CONNECTIONS', 40),
 
+        /**
+         * List of event types for which the webhook should fire.
+         *
+         * Specify a null to receive all update types except `chat_member`, `message_reaction`,
+         * and `message_reaction_count` (by default).
+         *
+         * @see https://core.telegram.org/bots/api#setwebhook
+         */
+        'allowed_updates' => null,
+
         /*
          * If enabled, Telegraph dumps received
          * webhook messages to logs
@@ -71,6 +81,11 @@ return [
      * Sets HTTP request timeout when interacting with Telegram servers
      */
     'http_timeout' => env('TELEGRAPH_HTTP_TIMEOUT', 30),
+
+    /*
+     * Sets HTTP connection request timeout when interacting with Telegram servers
+     */
+    'http_connection_timeout' => env('TELEGRAPH_HTTP_CONNECTION_TIMEOUT', 10),
 
     'security' => [
         /*
@@ -179,6 +194,18 @@ return [
         'sticker' => [
             'max_size_mb' => 50,
         ],
+    ],
+
+    /*
+     * Sets preferences for commands
+     */
+    'commands' => [
+        /*
+         * Defines a list of characters that are the identifier of a command sent to the chat.
+         *
+         * Default is `/`
+         */
+        'start_with' => ['/'],
     ],
 
     'payments' => [

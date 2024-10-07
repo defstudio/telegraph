@@ -5,6 +5,7 @@
 
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Telegraph;
+use DefStudio\Telegraph\Tests\Support\TestEntitiesWebhookHandler;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -212,6 +213,58 @@ it('can handle a command with parameters and bot reference', function () {
     Facade::assertSent("Hello!! your parameter is [foo bot]");
 });
 
+it('can handle a command with custom start char', function () {
+    Config::set('telegraph.commands.start_with', ['-', '=', '!', ' % ', 1, ' :: ']);
+
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello@bot foo bot /'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('-hello@bot foo bot -'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('=hello@bot foo bot ='), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('!hello@bot foo bot !'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('%hello@bot foo bot %'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('1hello@bot foo bot 1'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('::hello@bot foo bot : :'), $bot);
+
+    Facade::assertSent("Hello!! your parameter is [foo bot /]");
+    Facade::assertSent("Hello!! your parameter is [foo bot -]");
+    Facade::assertSent("Hello!! your parameter is [foo bot =]");
+    Facade::assertSent("Hello!! your parameter is [foo bot !]");
+    Facade::assertSent("Hello!! your parameter is [foo bot %]");
+    Facade::assertSent("Hello!! your parameter is [foo bot 1]");
+    Facade::assertSent("Hello!! your parameter is [foo bot : :]");
+});
+
+it('can handle a command without parameter', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $bot);
+
+    Facade::assertSent("Hello!!");
+});
+
+it('cannot handle a command with custom start char', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('/hello@bot foo bot /'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('-hello@bot foo bot -'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('=hello@bot foo bot ='), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('!hello@bot foo bot !'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('%hello@bot foo bot %'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('1hello@bot foo bot 1'), $bot);
+
+    Facade::assertSent("Hello!! your parameter is [foo bot /]");
+
+    Facade::assertNotSent("Hello!! your parameter is [foo bot -]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot =]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot !]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot %]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot 1]");
+});
+
 it('can change the inline keyboard', function () {
     Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
     Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
@@ -355,6 +408,83 @@ it('can handle a member left', function () {
     ]), $bot);
 
     Facade::assertSent("Bob just left");
+});
+
+it('can handle a message reaction', function () {
+    Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
+
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_message_reaction(message: [
+        'chat' => [
+            'id' => 3,
+            'type' => 'a',
+            'title' => 'b',
+        ],
+        'actor_chat' => [
+            'id' => 3,
+            'type' => 'a',
+            'title' => 'b',
+        ],
+        'date' => 1727211008,
+        'user' => [
+            'id' => 1,
+            'is_bot' => false,
+            'first_name' => 'a',
+            'last_name' => 'b',
+            'username' => 'c',
+            'language_code' => 'd',
+            'is_premium' => false,
+        ],
+        'message_id' => 2,
+        'new_reaction' => [
+            [
+                'type' => 'emoji',
+                'emoji' => '👍',
+            ],
+        ],
+        'old_reaction' => [
+            [
+                'type' => 'emoji',
+                'emoji' => '🔥',
+            ],
+        ],
+    ]), $bot);
+
+    Facade::assertSent(implode(':', [
+        'New reaction is 👍',
+        'Old reaction is 🔥',
+    ]));
+});
+
+it('can handle a message entities', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestEntitiesWebhookHandler::class)->handle(webhook_message(TestEntitiesWebhookHandler::class, [
+        'message_id' => 123456,
+        'chat' => [
+            'id' => -123456789,
+            'type' => 'group',
+            'title' => 'Test chat',
+        ],
+        'date' => 1646516736,
+        'text' => 'foo https://example.com bar',
+        'entities' => [
+            [
+                'type' => 'url',
+                'offset' => 4,
+                'length' => 19,
+                'url' => 'https://example.com',
+            ],
+        ],
+    ]), $bot);
+
+    Facade::assertSent(implode('. ', [
+        'URL from text: https://example.com',
+        'URL from entity: https://example.com',
+    ]));
 });
 
 it('does not crash on errors', function () {
