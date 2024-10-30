@@ -410,6 +410,15 @@ it('can handle a member left', function () {
     Facade::assertSent("Bob just left");
 });
 
+it('can handle a chat join request', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_chat_join_request(user_id: 2), $bot);
+
+    Facade::assertChatJoinRequestApproved(2);
+});
+
 it('can handle a message reaction', function () {
     Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
 
