@@ -170,4 +170,11 @@ class TelegraphFake extends Telegraph
             'show_alert' => true,
         ]);
     }
+
+    public function assertChatJoinRequestApproved(int $userId): void
+    {
+        $this->assertSentData(Telegraph::ENDPOINT_APPROVE_CHAT_JOIN_REQUEST, [
+            'user_id' => $userId,
+        ], false);
+    }
 }

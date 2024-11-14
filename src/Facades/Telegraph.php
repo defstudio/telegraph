@@ -96,6 +96,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static void  assertRepliedWebhook(string $message)
  * @method static void  assertRepliedWebhookIsAlert()
  * @method static void  assertStoredFile(string $fileId)
+ * @method static void  assertChatJoinRequestApproved(string $userId)
  *
  * @see \DefStudio\Telegraph\Telegraph
  */

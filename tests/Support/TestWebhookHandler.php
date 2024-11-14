@@ -6,6 +6,7 @@
 
 namespace DefStudio\Telegraph\Tests\Support;
 
+use DefStudio\Telegraph\DTO\ChatJoinRequest;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
 use DefStudio\Telegraph\DTO\User;
@@ -140,6 +141,11 @@ class TestWebhookHandler extends WebhookHandler
     protected function handleChatMemberLeft(User $member): void
     {
         $this->chat->html("{$member->firstName()} just left")->send();
+    }
+
+    protected function handleChatJoinRequest(ChatJoinRequest $chatJoinRequest): void
+    {
+        $this->chat->approveJoinRequest($chatJoinRequest->userChatId())->send();
     }
 
     protected function handleChatReaction(Collection $newReactions, Collection $oldReactions): void
