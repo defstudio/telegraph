@@ -10,6 +10,7 @@ namespace DefStudio\Telegraph\Handlers;
 
 use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
+use DefStudio\Telegraph\DTO\ChatJoinRequest;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\DTO\Reaction;
@@ -40,6 +41,7 @@ abstract class WebhookHandler
     protected Message|null $message = null;
     protected Reaction|null $reaction = null;
     protected CallbackQuery|null $callbackQuery = null;
+    protected ChatJoinRequest|null $chatJoinRequest = null;
 
     /**
      * @var Collection<string, string>|Collection<int, array<string, string>>
@@ -294,6 +296,16 @@ abstract class WebhookHandler
                 return;
             }
 
+            if ($this->request->has('chat_join_request')) {
+                /* @phpstan-ignore-next-line */
+                $this->chatJoinRequest = ChatJoinRequest::fromArray($this->request->input('chat_join_request'));
+                $this->setupChat();
+                /* @phpstan-ignore-next-line */
+                $this->handleChatJoinRequest($this->chatJoinRequest);
+
+                return;
+            }
+
 
             if ($this->request->has('callback_query')) {
                 /* @phpstan-ignore-next-line */
@@ -321,6 +333,8 @@ abstract class WebhookHandler
             $telegramChat = $this->message->chat();
         } elseif (isset($this->reaction)) {
             $telegramChat = $this->reaction->chat();
+        } elseif (isset($this->chatJoinRequest)) {
+            $telegramChat = $this->chatJoinRequest->chat();
         } else {
             $telegramChat = $this->callbackQuery?->message()?->chat();
         }
@@ -409,5 +423,10 @@ abstract class WebhookHandler
         return Str::of("")
             ->append("[", $chat->type(), ']')
             ->append(" ", $chat->title());
+    }
+
+    protected function handleChatJoinRequest(ChatJoinRequest $chatJoinRequest): void
+    {
+        // .. do nothing
     }
 }
