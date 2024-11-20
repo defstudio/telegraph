@@ -50,6 +50,7 @@ class ChatInviteLink implements Arrayable
 
         $invite->inviteLink = $data['invite_link'];
 
+        /* @phpstan-ignore-next-line  */
         $invite->creator = User::fromArray($data['creator']);
 
         $invite->createsJoinRequest = $data['creates_join_request'];

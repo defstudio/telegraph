@@ -300,6 +300,7 @@ abstract class WebhookHandler
                 /* @phpstan-ignore-next-line */
                 $this->chatJoinRequest = ChatJoinRequest::fromArray($this->request->input('chat_join_request'));
                 $this->setupChat();
+                /* @phpstan-ignore-next-line */
                 $this->handleChatJoinRequest($this->chatJoinRequest);
 
                 return;

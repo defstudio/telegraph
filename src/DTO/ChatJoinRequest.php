@@ -12,7 +12,7 @@ use Illuminate\Contracts\Support\Arrayable;
 class ChatJoinRequest implements Arrayable
 {
     private int $userChatId;
-    private ?CarbonInterface $date = null;
+    private CarbonInterface $date;
     private ?string $bio = null;
     private ?ChatInviteLink $inviteLink = null;
     private Chat $chat;
@@ -38,10 +38,8 @@ class ChatJoinRequest implements Arrayable
 
         $request->userChatId = $data['user_chat_id'];
 
-        if (isset($data['date'])) {
-            /* @phpstan-ignore-next-line */
-            $request->date = Carbon::createFromTimestamp($data['date']);
-        }
+        /* @phpstan-ignore-next-line */
+        $request->date = Carbon::createFromTimestamp($data['date']);
 
         if (isset($data['bio'])) {
             $request->bio = $data['bio'];
@@ -52,8 +50,10 @@ class ChatJoinRequest implements Arrayable
             $request->inviteLink = ChatInviteLink::fromArray($data['invite_link']);
         }
 
+        /* @phpstan-ignore-next-line  */
         $request->chat = Chat::fromArray($data['chat']);
 
+        /* @phpstan-ignore-next-line  */
         $request->from = User::fromArray($data['from']);
 
         return $request;
@@ -64,7 +64,7 @@ class ChatJoinRequest implements Arrayable
         return $this->userChatId;
     }
 
-    public function date(): ?CarbonInterface
+    public function date(): CarbonInterface
     {
         return $this->date;
     }
@@ -93,7 +93,7 @@ class ChatJoinRequest implements Arrayable
     {
         return array_filter([
             'user_chat_id' => $this->userChatId,
-            'date' => $this->date?->timestamp,
+            'date' => $this->date->timestamp,
             'bio' => $this->bio,
             'invite_link' => $this->inviteLink?->toArray(),
             'chat' => $this->chat->toArray(),
