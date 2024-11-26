@@ -70,7 +70,7 @@ trait InteractsWithTelegram
         return $data;
     }
 
-    protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
+    protected function dispatchRequestToTelegram(?string $queue = null): PendingDispatch
     {
         return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files)->onQueue($queue);
     }

@@ -38,7 +38,7 @@ trait InteractsWithWebhooks
      * @throws \DefStudio\Telegraph\Exceptions\TelegramWebhookException
      * @return \DefStudio\Telegraph\Telegraph
      */
-    public function registerWebhook(bool $dropPendingUpdates = null, int $maxConnections = null, string $secretToken = null, array $allowedUpdates = null): Telegraph
+    public function registerWebhook(?bool $dropPendingUpdates = null, ?int $maxConnections = null, ?string $secretToken = null, ?array $allowedUpdates = null): Telegraph
     {
         $telegraph = clone $this;
 

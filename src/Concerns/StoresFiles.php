@@ -24,7 +24,7 @@ trait StoresFiles
         return $telegraph;
     }
 
-    public function store(Downloadable|string $downloadable, string $path, string $filename = null): string
+    public function store(Downloadable|string $downloadable, string $path, ?string $filename = null): string
     {
         $fileId = is_string($downloadable) ? $downloadable : $downloadable->id();
 

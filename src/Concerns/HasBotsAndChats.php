@@ -128,7 +128,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function createForumTopic(string $name, int $iconColor = null, string $iconCustomEmojiId = null): Telegraph
+    public function createForumTopic(string $name, ?int $iconColor = null, ?string $iconCustomEmojiId = null): Telegraph
     {
         $telegraph = clone $this;
         $telegraph->endpoint = self::ENDPOINT_CREATE_FORUM_TOPIC;
@@ -146,7 +146,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function editForumTopic(int $threadId = null, string $name = null, string $iconCustomEmojiId = null): Telegraph
+    public function editForumTopic(?int $threadId = null, ?string $name = null, ?string $iconCustomEmojiId = null): Telegraph
     {
         $telegraph = clone $this;
 
@@ -172,7 +172,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function closeForumTopic(int $threadId = null): Telegraph
+    public function closeForumTopic(?int $threadId = null): Telegraph
     {
         $telegraph = clone $this;
 
@@ -189,7 +189,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function reopenForumTopic(int $threadId = null): Telegraph
+    public function reopenForumTopic(?int $threadId = null): Telegraph
     {
         $telegraph = clone $this;
 
@@ -206,7 +206,7 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function deleteForumTopic(int $threadId = null): Telegraph
+    public function deleteForumTopic(?int $threadId = null): Telegraph
     {
         $telegraph = clone $this;
 
@@ -235,7 +235,7 @@ trait HasBotsAndChats
     /**
      * @param string[]|null $allowedUpdates
      */
-    public function botUpdates(int $timeout = null, int $offset = null, int $limit = null, array $allowedUpdates = null): Telegraph
+    public function botUpdates(?int $timeout = null, ?int $offset = null, ?int $limit = null, ?array $allowedUpdates = null): Telegraph
     {
         $telegraph = clone $this;
 
