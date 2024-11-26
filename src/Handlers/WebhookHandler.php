@@ -14,6 +14,7 @@ use DefStudio\Telegraph\DTO\ChatJoinRequest;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\DTO\Reaction;
+use DefStudio\Telegraph\DTO\ReactionType;
 use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -44,7 +45,7 @@ abstract class WebhookHandler
     protected ChatJoinRequest|null $chatJoinRequest = null;
 
     /**
-     * @var Collection<string, string>|Collection<int, array<string, string>>
+     * @var Collection<string, string>|Collection<int, array<string, string>>|Collection<array-key, ReactionType>
      */
     protected Collection $data;
 
