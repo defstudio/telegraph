@@ -2,6 +2,21 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.55.2 - 2024-11-26
+
+### What's Changed
+
+* TypeError: Cannot assign int to property `Entity::$customEmojiId` of type ?string by @andrey-helldar in https://github.com/defstudio/telegraph/pull/653
+* fix error in Keyboard::fromArray() method if InlineKeyboardButton button has empty query string by @varemel in https://github.com/defstudio/telegraph/pull/659
+* Support for handling webhook requests to join chats/channels by @AndrzejkaNowicki in https://github.com/defstudio/telegraph/pull/660
+* support for php 8.4 by @MarioGattolla in https://github.com/defstudio/telegraph/pull/672
+
+### New Contributors
+
+* @AndrzejkaNowicki made their first contribution in https://github.com/defstudio/telegraph/pull/660
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.55.1...v1.55.2
+
 ## v1.55.1 - 2024-10-03
 
 ### What's Changed
