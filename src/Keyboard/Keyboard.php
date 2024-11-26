@@ -85,11 +85,11 @@ class Keyboard implements Arrayable
                 }
 
                 if (array_key_exists('switch_inline_query', $button)) {
-                    $rowButton = $rowButton->switchInlineQuery($button['switch_inline_query'] ?? '');
+                    $rowButton = $rowButton->switchInlineQuery($button['switch_inline_query']);
                 }
 
                 if (array_key_exists('switch_inline_query_current_chat', $button)) {
-                    $rowButton = $rowButton->switchInlineQuery($button['switch_inline_query_current_chat'] ?? '')->currentChat();
+                    $rowButton = $rowButton->switchInlineQuery($button['switch_inline_query_current_chat'])->currentChat();
                 }
 
                 $rowButtons[] = $rowButton;
