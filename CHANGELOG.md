@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.55.3 - 2024-11-27
+
+### What's Changed
+
+* fix: Implicitly nullable parameter types in php8.4 by @ah-rahimi in https://github.com/defstudio/telegraph/pull/673
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.55.2...v1.55.3
+
 ## v1.55.2 - 2024-11-26
 
 ### What's Changed
