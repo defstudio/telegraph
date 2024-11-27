@@ -28,7 +28,7 @@ trait ComposesMessages
         $this->data['chat_id'] = $this->getChatId();
     }
 
-    public function html(string $message = null): Telegraph
+    public function html(?string $message = null): Telegraph
     {
         $telegraph = clone $this;
 
@@ -41,7 +41,7 @@ trait ComposesMessages
         return $telegraph;
     }
 
-    public function markdown(string $message = null): Telegraph
+    public function markdown(?string $message = null): Telegraph
     {
         $telegraph = clone $this;
 
@@ -54,7 +54,7 @@ trait ComposesMessages
         return $telegraph;
     }
 
-    public function markdownV2(string $message = null): Telegraph
+    public function markdownV2(?string $message = null): Telegraph
     {
         $telegraph = clone $this;
 
