@@ -569,14 +569,14 @@ trait HasBotsAndChats
         return $telegraph;
     }
 
-    public function unbanChatMember(string $userId): Telegraph
+    public function unbanChatMember(string $userId, bool $onlyIfBanned = true): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_UNBAN_CHAT_MEMBER;
         $telegraph->data['chat_id'] = $telegraph->getChatId();
         $telegraph->data['user_id'] = $userId;
-        $telegraph->data['only_if_banned'] = true;
+        $telegraph->data['only_if_banned'] = $onlyIfBanned;
 
         return $telegraph;
     }
