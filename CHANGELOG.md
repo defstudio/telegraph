@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.56.0 - 2024-12-02
+
+### What's Changed
+
+* add only_if_banned flag to banMemer by @AndrzejkaNowicki in https://github.com/defstudio/telegraph/pull/674
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.55.3...v1.56.0
+
 ## v1.55.3 - 2024-11-27
 
 ### What's Changed
