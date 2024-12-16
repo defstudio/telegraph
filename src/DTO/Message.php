@@ -51,6 +51,8 @@ class Message implements Arrayable
     private ?Voice $voice = null;
     private ?Sticker $sticker = null;
 
+    private ?Invoice $invoice = null;
+
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
     /** @var Collection<array-key, Entity> */
@@ -85,6 +87,7 @@ class Message implements Arrayable
      *     photo?: array<string, mixed>,
      *     location?: array<string, mixed>,
      *     contact?: array<string, mixed>,
+     *     invoice?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
@@ -181,6 +184,11 @@ class Message implements Arrayable
         if (isset($data['sticker'])) {
             /* @phpstan-ignore-next-line */
             $message->sticker = Sticker::fromArray($data['sticker']);
+        }
+
+        if (isset($data['invoice'])) {
+            /* @phpstan-ignore-next-line */
+            $message->invoice = Invoice::fromArray($data['invoice']);
         }
 
         /* @phpstan-ignore-next-line */
@@ -318,6 +326,11 @@ class Message implements Arrayable
         return $this->sticker;
     }
 
+    public function invoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
     /**
      * @return Collection<array-key, User>
      */
@@ -372,6 +385,7 @@ class Message implements Arrayable
             'contact' => $this->contact?->toArray(),
             'voice' => $this->voice?->toArray(),
             'sticker' => $this->sticker?->toArray(),
+            'invoice' => $this->invoice?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
