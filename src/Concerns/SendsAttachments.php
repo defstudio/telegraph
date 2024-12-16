@@ -9,6 +9,7 @@
 namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\DTO\Attachment;
+use DefStudio\Telegraph\DTO\Location;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphEditMediaPayload;
 use DefStudio\Telegraph\Telegraph;
@@ -313,6 +314,21 @@ trait SendsAttachments
         $telegraph->data['chat_id'] = $telegraph->getChatId();
 
         $this->attachSticker($telegraph, $path, $filename);
+
+        return $telegraph;
+    }
+
+    public function venue(float $latitude, float $longitude, string $title, string $address): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_VENUE;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        $telegraph->data['latitude'] = $latitude;
+        $telegraph->data['longitude'] = $longitude;
+        $telegraph->data['title'] = $title;
+        $telegraph->data['address'] = $address;
 
         return $telegraph;
     }

@@ -55,7 +55,7 @@ class Location implements Arrayable
         return array_filter([
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'accuracy' => $this->accuracy,
+            'horizontal_accuracy' => $this->accuracy,
         ], fn ($value) => $value !== null);
     }
 }

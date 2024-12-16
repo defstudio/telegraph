@@ -1,0 +1,11 @@
+{
+    "url": "https:\/\/api.telegram.org\/bot3f3814e1-5836-3d77-904e-60f64b15df36\/sendVenue",
+    "payload": {
+        "chat_id": "-123456789",
+        "latitude": 12.345,
+        "longitude": -54.321,
+        "title": "title",
+        "address": "address"
+    },
+    "files": []
+}
