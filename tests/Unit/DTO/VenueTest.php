@@ -2,7 +2,6 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-use DefStudio\Telegraph\DTO\Sticker;
 use DefStudio\Telegraph\DTO\Venue;
 use Illuminate\Support\Str;
 

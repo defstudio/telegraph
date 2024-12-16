@@ -9,7 +9,6 @@
 namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\DTO\Attachment;
-use DefStudio\Telegraph\DTO\Location;
 use DefStudio\Telegraph\Exceptions\FileException;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphEditMediaPayload;
 use DefStudio\Telegraph\Telegraph;

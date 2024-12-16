@@ -263,7 +263,7 @@ it('export all properties to array', function () {
                 'horizontal_accuracy' => 3,
             ],
             'title' => 'test title',
-            'address' => 'test address'
+            'address' => 'test address',
         ],
         'contact' => [
             'phone_number' => '123456789',

@@ -249,7 +249,7 @@ class TelegraphChat extends Model implements Storable
 
     public function venue(float $latitude, float $longitude, string $title, string $address): Telegraph
     {
-        return TelegraphFacade::chat($this)->venue( $latitude,  $longitude,  $title,  $address);
+        return TelegraphFacade::chat($this)->venue($latitude,  $longitude,  $title,  $address);
     }
 
     public function animation(string $path, string $filename = null): Telegraph
