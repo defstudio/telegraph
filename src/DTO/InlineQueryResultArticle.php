@@ -20,7 +20,7 @@ class InlineQueryResultArticle extends InlineQueryResult
     protected bool|null $hideUrl = null;
     protected string|null $parseMode = null;
 
-    public static function make(string $id, string $title, string $message = null): InlineQueryResultArticle
+    public static function make(string $id, string $title, ?string $message = null): InlineQueryResultArticle
     {
         $result = new InlineQueryResultArticle();
         $result->id = $id;

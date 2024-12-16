@@ -214,6 +214,48 @@ function webhook_inline_query($handler = TestWebhookHandler::class): Request
     ]);
 }
 
+function webhook_chat_join_request($handler = TestWebhookHandler::class, int $chat_id = -123456789, int $user_id = 1): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'chat_join_request' => [
+            'user_chat_id' => $user_id,
+            'bio' => 'bio',
+            'date' => now()->timestamp,
+            'invite_link' => [
+                'invite_link' => 'https:/t.me/+EEEEEEE...',
+                'creator' => [
+                    'id' => 1,
+                    'is_bot' => false,
+                    'first_name' => 'aa',
+                    'last_name' => 'bb',
+                    'username' => 'cc',
+                    'language_code' => 'dd',
+                    'is_premium' => false,
+                ],
+                'creates_join_request' => true,
+                'is_primary' => false,
+                'is_revoked' => false,
+            ],
+            'chat' => [
+                'id' => $chat_id,
+                'type' => 'a',
+                'title' => 'b',
+            ],
+            'from' => [
+                'id' => $user_id,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+                'language_code' => 'd',
+                'is_premium' => false,
+            ],
+        ],
+    ]);
+}
+
 
 expect()->extend('toMatchTelegramSnapshot', function () {
     /** @var Closure(Telegraph): Telegraph $configurationClosure */

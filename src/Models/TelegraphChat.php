@@ -353,9 +353,9 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->banChatMember($userId);
     }
 
-    public function unbanMember(string $userId): Telegraph
+    public function unbanMember(string $userId, bool $onlyIfBanned = true): Telegraph
     {
-        return TelegraphFacade::chat($this)->unbanChatMember($userId);
+        return TelegraphFacade::chat($this)->unbanChatMember($userId, $onlyIfBanned);
     }
 
     /**
