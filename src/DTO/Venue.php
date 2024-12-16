@@ -23,13 +23,13 @@ class Venue implements Arrayable
 
     /**
      * @param array{
-     *     location: Location,
+     *     location: array{longitude: float, latitude: float, horizontal_accuracy?: float},
      *     title: string,
      *     address: string,
-     *     foursquareId?: string,
-     *     foursquareType?: string,
-     *     googlePlaceId?: string,
-     *     googlePlaceType?: string
+     *     foursquare_id?: string,
+     *     foursquare_type?: string,
+     *     google_place_id?: string,
+     *     google_place_type?: string
      * } $data
      */
     public static function fromArray(array $data): Venue
