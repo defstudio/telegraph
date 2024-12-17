@@ -76,6 +76,14 @@
                 "longitude": 10.5,
                 "id": "42",
                 "type": "location"
+            },
+            {
+                "title": "testVenueTitle",
+                "latitude": 10.5,
+                "longitude": 10.5,
+                "address": "testAddress",
+                "id": "42",
+                "type": "venue"
             }
         ],
         "is_personal": true
