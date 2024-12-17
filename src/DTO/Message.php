@@ -50,6 +50,7 @@ class Message implements Arrayable
     private ?Contact $contact = null;
     private ?Voice $voice = null;
     private ?Sticker $sticker = null;
+    private ?Venue $venue = null;
 
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
@@ -84,6 +85,7 @@ class Message implements Arrayable
      *     video?: array<string, mixed>,
      *     photo?: array<string, mixed>,
      *     location?: array<string, mixed>,
+     *     venue?: array<string, mixed>,
      *     contact?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
@@ -181,6 +183,11 @@ class Message implements Arrayable
         if (isset($data['sticker'])) {
             /* @phpstan-ignore-next-line */
             $message->sticker = Sticker::fromArray($data['sticker']);
+        }
+
+        if (isset($data['venue'])) {
+            /* @phpstan-ignore-next-line */
+            $message->venue = Venue::fromArray($data['venue']);
         }
 
         /* @phpstan-ignore-next-line */
@@ -318,6 +325,11 @@ class Message implements Arrayable
         return $this->sticker;
     }
 
+    public function venue(): ?Venue
+    {
+        return $this->venue;
+    }
+
     /**
      * @return Collection<array-key, User>
      */
@@ -372,6 +384,7 @@ class Message implements Arrayable
             'contact' => $this->contact?->toArray(),
             'voice' => $this->voice?->toArray(),
             'sticker' => $this->sticker?->toArray(),
+            'venue' => $this->venue?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,

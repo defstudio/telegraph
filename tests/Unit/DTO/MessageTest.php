@@ -256,6 +256,15 @@ it('export all properties to array', function () {
             'longitude' => 98765431,
             'horizontal_accuracy' => 3,
         ],
+        'venue' => [
+            'location' => [
+                'latitude' => 12456789,
+                'longitude' => 98765431,
+                'horizontal_accuracy' => 3,
+            ],
+            'title' => 'test title',
+            'address' => 'test address',
+        ],
         'contact' => [
             'phone_number' => '123456789',
             'first_name' => 'John',
@@ -345,7 +354,7 @@ it("extract web_app_data of json type", function () {
         1,
         "string",
         [
-          "a" => "b",
+            "a" => "b",
         ],
-      ]);
+    ]);
 });

@@ -317,6 +317,21 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function venue(float $latitude, float $longitude, string $title, string $address): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_VENUE;
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+        $telegraph->data['latitude'] = $latitude;
+        $telegraph->data['longitude'] = $longitude;
+        $telegraph->data['title'] = $title;
+        $telegraph->data['address'] = $address;
+
+        return $telegraph;
+    }
+
     protected function attachPhoto(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
