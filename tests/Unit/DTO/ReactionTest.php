@@ -258,3 +258,41 @@ it('extract new_reaction info', function () {
         ],
     ]);
 });
+
+it('only custom reaction', function () {
+    $dto = Reaction::fromArray([
+        'chat' => [
+            'id' => 3,
+            'type' => 'a',
+            'title' => 'b',
+        ],
+        'date' => 1727211008,
+        'user' => [
+            'id' => 1,
+            'is_bot' => false,
+            'first_name' => 'a',
+            'last_name' => 'b',
+            'username' => 'c',
+        ],
+        'message_id' => 2,
+        'new_reaction' => [
+            [
+                'type' => 'emoji',
+                'custom_emoji_id' => '123',
+            ],
+        ],
+        'old_reaction' => [
+            [
+                'type' => 'emoji',
+                'custom_emoji_id' => '456',
+            ],
+        ],
+    ]);
+
+    expect($dto->newReaction()->toArray())->toBe([
+        [
+            'type' => 'emoji',
+            'custom_emoji_id' => '123',
+        ],
+    ]);
+});
