@@ -203,7 +203,7 @@ abstract class WebhookHandler
 
         $this->messageId = $this->reaction->id();
 
-        $this->data = collect($this->reaction->newReaction());
+        $this->data = $this->reaction->newReaction();
     }
 
     protected function handleChatMemberJoined(User $member): void

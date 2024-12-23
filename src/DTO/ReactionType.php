@@ -26,7 +26,7 @@ class ReactionType implements Arrayable
     /**
      * @param  array{
      *     type: string,
-     *     emoji: string,
+     *     emoji?: string,
      *     custom_emoji_id?: string
      * }  $data
      */
