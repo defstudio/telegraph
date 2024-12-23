@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.56.1 - 2024-12-23
+
+### What's Changed
+
+* Implement InlineQueryResultVenue by @MarioGattolla in https://github.com/defstudio/telegraph/pull/678
+* #310 venue  Implemented SendVenue Method and Venue DTO by @MarioGattolla in https://github.com/defstudio/telegraph/pull/677
+* Fixed Undefined array key "emoji" by @andrey-helldar in https://github.com/defstudio/telegraph/pull/682
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.56.0...v1.56.1
+
 ## v1.56.0 - 2024-12-02
 
 ### What's Changed
