@@ -419,6 +419,29 @@ it('can handle a chat join request', function () {
     Facade::assertChatJoinRequestApproved(2);
 });
 
+it('can handle forwarded message', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_message(message: [
+        'message_id' => 123456,
+        'chat' => [
+            'id' => -123456789,
+            'type' => 'group',
+            'title' => 'Test chat',
+        ],
+        'date' => 1646516736,
+        'forward_from_chat' => [
+            'id' => -987654321,
+            'type' => 'channel',
+            'title' => 'Test Channel',
+        ],
+        'text' => 'This is a forwarded message',
+    ]), $bot);
+
+    Facade::assertSent("message just forwarded. with message-id: 123456");
+});
+
 it('can handle a message reaction', function () {
     Config::set('telegraph.security.allow_messages_from_unknown_chats', true);
 
