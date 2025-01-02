@@ -142,6 +142,10 @@ class TestWebhookHandler extends WebhookHandler
     {
         $this->chat->html("{$member->firstName()} just left")->send();
     }
+    protected function handleForwardedMessage(array $rawMessage): void
+    {
+        $this->chat->html("message just forwarded. with message-id: ".$rawMessage['message_id'])->send();
+    }
 
     protected function handleChatJoinRequest(ChatJoinRequest $chatJoinRequest): void
     {
