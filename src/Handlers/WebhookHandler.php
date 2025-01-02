@@ -133,6 +133,12 @@ abstract class WebhookHandler
             return;
         }
 
+        $rawMessage = $this->request->input('message');
+        if (isset($rawMessage['forward_from_chat'])) {
+            $this->handleForwardedMessage($rawMessage);
+            return;
+        }
+
         $this->handleChatMessage($text);
     }
 
@@ -217,6 +223,11 @@ abstract class WebhookHandler
     }
 
     protected function handleChatMessage(Stringable $text): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleForwardedMessage(array $rawMessage): void
     {
         // .. do nothing
     }
