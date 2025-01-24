@@ -16,7 +16,7 @@ class ReactionType implements Arrayable
     public const TYPE_PAID_EMOJI = 'paid';
 
     private string $type;
-    private string $emoji;
+    private ?string $emoji = null;
     private ?string $customEmojiId = null;
 
     private function __construct()
@@ -26,7 +26,7 @@ class ReactionType implements Arrayable
     /**
      * @param  array{
      *     type: string,
-     *     emoji: string,
+     *     emoji?: string,
      *     custom_emoji_id?: string
      * }  $data
      */
@@ -35,7 +35,7 @@ class ReactionType implements Arrayable
         $reaction = new self();
 
         $reaction->type = $data['type'];
-        $reaction->emoji = $data['emoji'];
+        $reaction->emoji = $data['emoji'] ?? null;
         $reaction->customEmojiId = $data['custom_emoji_id'] ?? null;
 
         return $reaction;
@@ -46,7 +46,7 @@ class ReactionType implements Arrayable
         return $this->type;
     }
 
-    public function emoji(): string
+    public function emoji(): ?string
     {
         return $this->emoji;
     }

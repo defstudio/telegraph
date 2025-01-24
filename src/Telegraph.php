@@ -112,6 +112,8 @@ class Telegraph
     public const ENDPOINT_GET_CHAT_MENU_BUTTON = 'getChatMenuButton';
     public const ENDPOINT_DICE = 'sendDice';
     public const ENDPOINT_SEND_STICKER = 'sendSticker';
+    public const ENDPOINT_SEND_VENUE = 'sendVenue';
+
     public const ENDPOINT_APPROVE_CHAT_JOIN_REQUEST = 'approveChatJoinRequest';
     public const ENDPOINT_DECLINE_CHAT_JOIN_REQUEST = 'declineChatJoinRequest';
 
