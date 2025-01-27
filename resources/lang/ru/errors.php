@@ -18,4 +18,5 @@ return [
     'failed_to_get_log_from_telegram' => 'Не удалось получить журнал логов с сервера Телеграм',
     'failed_to_register_webhook' => 'Ошибка регистрации вебхука',
     'failed_to_unregister_webhook' => 'Ошибка удаления вебхука',
+    'webhook_error_occurred' => 'Извините, произошла ошибка',
 ];
