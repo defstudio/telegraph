@@ -2,6 +2,19 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.56.3 - 2025-01-27
+
+### What's Changed
+
+* Update 1.telegraph-bot.md by @MarcusLestrange in https://github.com/defstudio/telegraph/pull/684
+* Fix error in DefStudio\Telegraph\Client\TelegraphResponse dump() and dd() methods declaration by @varemel in https://github.com/defstudio/telegraph/pull/685
+
+### New Contributors
+
+* @MarcusLestrange made their first contribution in https://github.com/defstudio/telegraph/pull/684
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.56.2...v1.56.3
+
 ## v1.56.2 - 2024-12-23
 
 **Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.56.1...v1.56.2

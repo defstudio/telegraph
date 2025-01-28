@@ -2,6 +2,7 @@
 
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Tests\Unit\Storage\TestStorable;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 beforeEach(function () {

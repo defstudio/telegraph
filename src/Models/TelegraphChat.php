@@ -221,7 +221,7 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->chatAction($action);
     }
 
-    public function document(string $path, string $filename = null): Telegraph
+    public function document(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->document($path, $filename);
     }
@@ -231,7 +231,7 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->location(latitude: $latitude, longitude: $longitude);
     }
 
-    public function photo(string $path, string $filename = null): Telegraph
+    public function photo(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->photo($path, $filename);
     }
@@ -244,7 +244,7 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->mediaGroup($media);
     }
 
-    public function sticker(string $path, string $filename = null): Telegraph
+    public function sticker(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->sticker($path, $filename);
     }
@@ -254,22 +254,22 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->venue($latitude,  $longitude,  $title,  $address);
     }
 
-    public function animation(string $path, string $filename = null): Telegraph
+    public function animation(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->animation($path, $filename);
     }
 
-    public function video(string $path, string $filename = null): Telegraph
+    public function video(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->video($path, $filename);
     }
 
-    public function audio(string $path, string $filename = null): Telegraph
+    public function audio(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->audio($path, $filename);
     }
 
-    public function voice(string $path, string $filename = null): Telegraph
+    public function voice(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->voice($path, $filename);
     }
@@ -410,7 +410,7 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->invoice($title);
     }
 
-    public function dice(string $emoji = null): Telegraph
+    public function dice(string|null $emoji = null): Telegraph
     {
         return TelegraphFacade::chat($this)->dice($emoji);
     }
@@ -430,27 +430,27 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->setChatMenuButton();
     }
 
-    public function createForumTopic(string $name, int $iconColor = null, string $iconCustomEmojiId = null): Telegraph
+    public function createForumTopic(string $name, int|null $iconColor = null, string|null $iconCustomEmojiId = null): Telegraph
     {
         return TelegraphFacade::chat($this)->createForumTopic($name, $iconColor, $iconCustomEmojiId);
     }
 
-    public function editForumTopic(int $threadId = null, string $name = null, string $iconCustomEmojiId = null): Telegraph
+    public function editForumTopic(int|null $threadId = null, string|null $name = null, string|null $iconCustomEmojiId = null): Telegraph
     {
         return TelegraphFacade::chat($this)->editForumTopic($threadId, $name, $iconCustomEmojiId);
     }
 
-    public function closeForumTopic(int $threadId = null): Telegraph
+    public function closeForumTopic(int|null $threadId = null): Telegraph
     {
         return TelegraphFacade::chat($this)->closeForumTopic($threadId);
     }
 
-    public function reopenForumTopic(int $threadId = null): Telegraph
+    public function reopenForumTopic(int|null $threadId = null): Telegraph
     {
         return TelegraphFacade::chat($this)->reopenForumTopic($threadId);
     }
 
-    public function deleteForumTopic(int $threadId = null): Telegraph
+    public function deleteForumTopic(int|null $threadId = null): Telegraph
     {
         return TelegraphFacade::chat($this)->deleteForumTopic($threadId);
     }

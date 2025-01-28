@@ -73,7 +73,7 @@ class TelegraphBot extends Model implements Storable
         return 'token';
     }
 
-    public static function fromId(int $id = null): TelegraphBot
+    public static function fromId(int|null $id = null): TelegraphBot
     {
         if (empty($id)) {
             /** @noinspection PhpIncompatibleReturnTypeInspection */
@@ -102,7 +102,7 @@ class TelegraphBot extends Model implements Storable
         return $this->hasMany(config('telegraph.models.chat'), 'telegraph_bot_id');
     }
 
-    public function registerWebhook(bool $dropPendingUpdates = null, int $maxConnections = null, string $secretToken = null): Telegraph
+    public function registerWebhook(bool|null $dropPendingUpdates = null, int|null $maxConnections = null, string|null $secretToken = null): Telegraph
     {
         return TelegraphFacade::bot($this)->registerWebhook($dropPendingUpdates, $maxConnections, $secretToken);
     }
@@ -173,7 +173,7 @@ class TelegraphBot extends Model implements Storable
         return TelegraphFacade::bot($this)->getFileInfo($fileId);
     }
 
-    public function store(Downloadable|string $attachment, string $path, string $filename = null): string
+    public function store(Downloadable|string $attachment, string $path, string|null $filename = null): string
     {
         return TelegraphFacade::bot($this)->store($attachment, $path, $filename);
     }
@@ -188,7 +188,7 @@ class TelegraphBot extends Model implements Storable
      *
      * @return \Illuminate\Support\Collection<int, TelegramUpdate>
      */
-    public function updates(int $timeout = null, int $offset = null, int $limit = null, array $allowedUpdates = null): \Illuminate\Support\Collection
+    public function updates(int|null $timeout = null, int|null $offset = null, int|null $limit = null, array|null $allowedUpdates = null): \Illuminate\Support\Collection
     {
         $reply = TelegraphFacade::bot($this)->botUpdates($timeout, $offset, $limit, $allowedUpdates)->send();
 

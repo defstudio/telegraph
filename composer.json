@@ -54,8 +54,8 @@
     },
     "scripts": {
         "x-ray": "vendor/bin/x-ray .",
-        "lint": "vendor/bin/php-cs-fixer fix -v",
-        "test:lint": "vendor/bin/php-cs-fixer fix -v --dry-run",
+        "lint": "PHP_CS_FIXER_IGNORE_ENV=1 vendor/bin/php-cs-fixer fix -v",
+        "test:lint": "PHP_CS_FIXER_IGNORE_ENV=1  vendor/bin/php-cs-fixer fix -v --dry-run",
         "test:types": "vendor/bin/phpstan analyse --ansi --memory-limit=-1",
         "test:unit": "vendor/bin/pest --colors=always --exclude-group=sandbox",
         "test:sandbox": "vendor/bin/pest --colors=always --group=sandbox",

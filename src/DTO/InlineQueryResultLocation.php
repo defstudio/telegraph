@@ -23,7 +23,7 @@ class InlineQueryResultLocation extends InlineQueryResult
     protected float|null $horizontalAccuracy = null;
     protected string|null $parseMode = null;
 
-    public static function make(string $id, string $title, float $latitude, float $longitude, string $message = null): InlineQueryResultLocation
+    public static function make(string $id, string $title, float $latitude, float $longitude, string|null $message = null): InlineQueryResultLocation
     {
         $result = new InlineQueryResultLocation();
         $result->id = $id;

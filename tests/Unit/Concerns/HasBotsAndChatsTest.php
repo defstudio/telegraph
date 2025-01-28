@@ -123,31 +123,31 @@ it('can change chat photo', function () {
     })->toMatchUtf8TelegramSnapshot();
 });
 
-test('photo is validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+test('photo is validated', function (string $fileName, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
 
     if ($valid) {
-        expect(make_chat()->setChatPhoto(Storage::path($path)))
+        expect(make_chat()->setChatPhoto(Storage::path($fileName)))
             ->toBeInstanceOf(\DefStudio\Telegraph\Telegraph::class);
     } else {
-        expect(fn () => make_chat()->photo(Storage::path($path)))
+        expect(fn () => make_chat()->photo(Storage::path($fileName)))
             ->toThrow($exceptionClass, $exceptionMessage);
     }
 })->with([
     'valid' => [
-        'file' => 'photo.jpg',
+        'fileName' => 'photo.jpg',
         'valid' => true,
     ],
     'invalid weight' => [
-        'file' => 'invalid_photo_size.jpg',
+        'fileName' => 'invalid_photo_size.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo size (10.340000 Mb) exceeds max allowed size of 10.000000 MB',
     ],
     'valid custom weight' => [
-        'file' => 'invalid_photo_size.jpg',
+        'fileName' => 'invalid_photo_size.jpg',
         'valid' => true,
         'exception' => null,
         'message' => null,
@@ -156,7 +156,7 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
         ],
     ],
     'invalid custom weight' => [
-        'file' => 'photo.jpg',
+        'fileName' => 'photo.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo size (0.030000 Mb) exceeds max allowed size of 0.010000 MB',
@@ -165,13 +165,13 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
         ],
     ],
     'invalid ratio' => [
-        'file' => 'invalid_photo_ratio_thin.jpg',
+        'fileName' => 'invalid_photo_ratio_thin.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => "Ratio of height and width (22.222222) exceeds max allowed ratio of 20.000000",
     ],
     'valid custom ratio' => [
-        'file' => 'invalid_photo_ratio_thin.jpg',
+        'fileName' => 'invalid_photo_ratio_thin.jpg',
         'valid' => true,
         'exception' => null,
         'message' => null,
@@ -180,7 +180,7 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
         ],
     ],
     'invalid custom ratio' => [
-        'file' => 'photo.jpg',
+        'fileName' => 'photo.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => "Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000",
@@ -189,13 +189,13 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
         ],
     ],
     'invalid size' => [
-        'file' => 'invalid_photo_ratio_huge.jpg',
+        'fileName' => 'invalid_photo_ratio_huge.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo\'s sum of width and height (11000px) exceed allowed 10000px',
     ],
     'valid custom size' => [
-        'file' => 'invalid_photo_ratio_huge.jpg',
+        'fileName' => 'invalid_photo_ratio_huge.jpg',
         'valid' => true,
         'exception' => null,
         'message' => null,
@@ -204,7 +204,7 @@ test('photo is validated', function (string $path, bool $valid, string $exceptio
         ],
     ],
     'invalid custom size' => [
-        'file' => 'photo.jpg',
+        'fileName' => 'photo.jpg',
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo\'s sum of width and height (800px) exceed allowed 799px',

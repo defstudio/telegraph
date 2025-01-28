@@ -10,7 +10,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
 {
     use BuildsFromTelegraphClass;
 
-    public function photo(string $path, string $filename = null): self
+    public function photo(string $path, string|null $filename = null): self
     {
         $telegraph = clone $this;
 
@@ -29,7 +29,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
         return $telegraph;
     }
 
-    public function document(string $path, string $filename = null): self
+    public function document(string $path, string|null $filename = null): self
     {
         $telegraph = clone $this;
 
@@ -48,7 +48,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
         return $telegraph;
     }
 
-    public function animation(string $path, string $filename = null): self
+    public function animation(string $path, string|null $filename = null): self
     {
         $telegraph = clone $this;
 
@@ -67,7 +67,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
         return $telegraph;
     }
 
-    public function video(string $path, string $filename = null): self
+    public function video(string $path, string|null $filename = null): self
     {
         $telegraph = clone $this;
 
@@ -86,7 +86,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
         return $telegraph;
     }
 
-    public function audio(string $path, string $filename = null): self
+    public function audio(string $path, string|null $filename = null): self
     {
         $telegraph = clone $this;
 
