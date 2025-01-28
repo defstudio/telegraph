@@ -23,7 +23,7 @@ class InlineQueryResultVenue extends InlineQueryResult
     protected int|null $thumbWidth = null;
     protected int|null $thumbHeight = null;
 
-    public static function make(string $id, string $title, float $latitude, float $longitude, string $address, string $message = null): InlineQueryResultVenue
+    public static function make(string $id, string $title, float $latitude, float $longitude, string $address, string|null $message = null): InlineQueryResultVenue
     {
         $result = new InlineQueryResultVenue();
         $result->id = $id;

@@ -20,7 +20,7 @@ class InlineQueryResultContact extends InlineQueryResult
     protected string|null $thumbUrl = null;
     protected string|null $parseMode = null;
 
-    public static function make(string $id, string $phoneNumber, string $firstName, string $message = null): InlineQueryResultContact
+    public static function make(string $id, string $phoneNumber, string $firstName, string|null $message = null): InlineQueryResultContact
     {
         $result = new InlineQueryResultContact();
         $result->id = $id;
