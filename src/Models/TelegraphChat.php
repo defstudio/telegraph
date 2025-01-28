@@ -36,6 +36,7 @@ use Illuminate\Support\Carbon;
  */
 class TelegraphChat extends Model implements Storable
 {
+    /** @use HasFactory<TelegraphChatFactory> */
     use HasFactory;
     use HasStorage;
 

@@ -447,7 +447,7 @@ abstract class WebhookHandler
         $this->bot->answerPreCheckoutQuery($preCheckoutQuery->id(), true)->send();
     }
 
-    protected function handleSuccessfulPayment(SuccessfulPayment $successfulPayment)
+    protected function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
     {
         // .. handle SuccessfulPayment
     }

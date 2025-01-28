@@ -68,7 +68,7 @@ class OrderInfo implements Arrayable
             'name' => $this->name,
             'phone_number' => $this->phoneNumber,
             'email' => $this->email,
-            'shipping_address' => $this->shippingAddress->toArray(),
+            'shipping_address' => $this->shippingAddress?->toArray(),
         ], fn ($value) => $value !== null);
     }
 }

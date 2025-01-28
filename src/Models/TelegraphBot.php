@@ -36,6 +36,7 @@ use Illuminate\Support\Carbon;
  */
 class TelegraphBot extends Model implements Storable
 {
+    /** @use HasFactory<TelegraphBotFactory> */
     use HasFactory;
     use HasStorage;
 
@@ -93,7 +94,7 @@ class TelegraphBot extends Model implements Storable
     }
 
     /**
-     * @return HasMany<TelegraphChat>
+     * @return HasMany<TelegraphChat, $this>
      */
     public function chats(): HasMany
     {

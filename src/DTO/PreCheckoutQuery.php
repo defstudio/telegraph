@@ -28,7 +28,7 @@ class PreCheckoutQuery implements Arrayable
      *     id:int,
      *     from:array<string, mixed>,
      *     currency:string,
-     *     total_amount:string,
+     *     total_amount:int,
      *     invoice_payload:string,
      *     shipping_option_id?:string,
      *     order_info?:array<string,mixed>
@@ -72,7 +72,7 @@ class PreCheckoutQuery implements Arrayable
         return $this->currency;
     }
 
-    public function totalAmount(): string
+    public function totalAmount(): int
     {
         return $this->totalAmount;
     }

@@ -29,11 +29,11 @@ class SuccessfulPayment implements Arrayable
     /**
      * @param array{
      *     currency:string,
-     *     total_amount:string,
+     *     total_amount:int,
      *     invoice_payload:string,
-     *     subscription_expiration_date?:string,
-     *     is_recurring:bool,
-     *     is_first_recurring:bool,
+     *     subscription_expiration_date?:int,
+     *     is_recurring?:bool,
+     *     is_first_recurring?:bool,
      *     shipping_option_id?:string,
      *     order_info?:array<string,mixed>,
      *     telegram_payment_charge_id:string,
@@ -70,7 +70,7 @@ class SuccessfulPayment implements Arrayable
         return $this->currency;
     }
 
-    public function totalAmount(): string
+    public function totalAmount(): int
     {
         return $this->totalAmount;
     }
@@ -80,7 +80,7 @@ class SuccessfulPayment implements Arrayable
         return $this->invoicePayload;
     }
 
-    public function subscriptionExpirationDate(): string
+    public function subscriptionExpirationDate(): ?int
     {
         return $this->subscriptionExpirationDate;
     }

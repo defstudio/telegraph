@@ -49,27 +49,27 @@ class ShippingAddress implements Arrayable
         return $this->countryCode;
     }
 
-    public function state(): int
+    public function state(): string
     {
         return $this->state;
     }
 
-    public function city(): ?string
+    public function city(): string
     {
         return $this->city;
     }
 
-    public function streetLine1(): ?string
+    public function streetLine1(): string
     {
         return $this->streetLine1;
     }
 
-    public function streetLine2(): ?string
+    public function streetLine2(): string
     {
         return $this->streetLine1;
     }
 
-    public function postCode(): ?int
+    public function postCode(): string
     {
         return $this->postCode;
     }
