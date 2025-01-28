@@ -121,6 +121,11 @@ class TelegraphBot extends Model implements Storable
         return TelegraphFacade::bot($this)->replyWebhook($callbackQueryId, $message, $showAlert);
     }
 
+    public function answerPreCheckoutQuery(int $preCheckoutQueryId, bool $result, ?string $errorMessage = null): Telegraph
+    {
+        return TelegraphFacade::bot($this)->answerPreCheckoutQuery($preCheckoutQueryId, $result, $errorMessage);
+    }
+
     /**
      * @param InlineQueryResult[] $results
      */
@@ -174,7 +179,7 @@ class TelegraphBot extends Model implements Storable
 
     public function url(): string
     {
-        return "https://t.me/".$this->info()['username'];
+        return "https://t.me/" . $this->info()['username'];
     }
 
     /**
@@ -201,11 +206,12 @@ class TelegraphBot extends Model implements Storable
 
 
         /* @phpstan-ignore-next-line */
-        return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
+        return collect($reply->json('result'))->map(fn(array $update) => TelegramUpdate::fromArray($update));
     }
 
     public function setBaseUrl(string|null $url): Telegraph
     {
         return TelegraphFacade::bot($this)->setBaseUrl($url);
     }
+
 }

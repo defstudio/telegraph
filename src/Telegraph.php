@@ -58,6 +58,8 @@ class Telegraph
     public const ENDPOINT_UNSET_WEBHOOK = 'deleteWebhook';
     public const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';
     public const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
+
+    public const ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY = 'answerPreCheckoutQuery';
     public const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
     public const ENDPOINT_MESSAGE = 'sendMessage';
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';

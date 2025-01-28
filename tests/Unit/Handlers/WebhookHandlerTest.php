@@ -346,6 +346,28 @@ it('can handle an inlineQuery', function () {
     ]);
 });
 
+it('can handle a preCheckoutQuery', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_pre_checkout_query(), $bot);
+
+    Facade::assertSentData(Telegraph::ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY, [
+        "pre_checkout_query_id" => "3",
+        'ok' => true,
+        'error_message' => null
+    ]);
+});
+
+it('can handle a successfulPayment', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_successful_payment(), $bot);
+
+    Facade::assertSent("payment");
+});
+
 it('can handle message', function () {
     $bot = bot();
     Facade::fake();

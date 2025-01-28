@@ -17,6 +17,8 @@ class TelegramUpdate implements Arrayable
     private ?Message $message = null;
     private ?Reaction $messageReaction = null;
     private ?CallbackQuery $callbackQuery = null;
+    private ?PreCheckoutQuery $preCheckoutQuery = null;
+
     private ?ChatMemberUpdate $botChatStatusChange = null;
     private ?InlineQuery $inlineQuery = null;
 
@@ -32,6 +34,7 @@ class TelegramUpdate implements Arrayable
      *     message_reaction?:array<string, mixed>,
      *     channel_post?:array<string, mixed>,
      *     callback_query?:array<string, mixed>,
+     *     pre_checkout_query?:array<string, mixed>,
      *     my_chat_member?:array<string, mixed>,
      *     inline_query?:array<string, mixed>
      * } $data
@@ -67,6 +70,11 @@ class TelegramUpdate implements Arrayable
             $update->callbackQuery = CallbackQuery::fromArray($data['callback_query']);
         }
 
+        if (isset($data['pre_checkout_query'])) {
+            /* @phpstan-ignore-next-line */
+            $update->preCheckoutQuery = PreCheckoutQuery::fromArray($data['pre_checkout_query']);
+        }
+
         if (isset($data['my_chat_member'])) {
             /* @phpstan-ignore-next-line */
             $update->botChatStatusChange = ChatMemberUpdate::fromArray($data['my_chat_member']);
@@ -100,6 +108,11 @@ class TelegramUpdate implements Arrayable
         return $this->callbackQuery;
     }
 
+    public function preCheckoutQuery(): ?PreCheckoutQuery
+    {
+        return $this->preCheckoutQuery;
+    }
+
     public function botStatusChange(): ?ChatMemberUpdate
     {
         return $this->botChatStatusChange;
@@ -117,6 +130,7 @@ class TelegramUpdate implements Arrayable
             'message' => $this->message?->toArray(),
             'message_reaction' => $this->messageReaction?->toArray(),
             'callback_query' => $this->callbackQuery?->toArray(),
+            'pre_checkout_query' => $this->preCheckoutQuery?->toArray(),
             'bot_chat_status_change' => $this->botChatStatusChange?->toArray(),
             'inline_query' => $this->inlineQuery?->toArray(),
         ], fn ($value) => $value !== null);

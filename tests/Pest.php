@@ -7,6 +7,7 @@
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
+use DefStudio\Telegraph\Tests\Support\TestPaymentHandler;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
@@ -89,22 +90,24 @@ function register_webhook_handler(string $handler = TestWebhookHandler::class): 
     config()->set('telegraph.webhook.handler', $handler);
 }
 
+
 function webhook_message($handler = TestWebhookHandler::class, array $message = null): Request
 {
     register_webhook_handler($handler);
 
     return Request::create('', 'POST', [
         'message' => $message ?? [
-            'message_id' => 123456,
-            'chat' => [
-                'id' => 123456,
-                'type' => 'group',
-                'title' => 'Test chat',
+                'message_id' => 123456,
+                'chat' => [
+                    'id' => 123456,
+                    'type' => 'group',
+                    'title' => 'Test chat',
+                ],
+                "text" => 'foo',
             ],
-            "text" => 'foo',
-        ],
     ]);
 }
+
 
 function webhook_message_reaction($handler = TestWebhookHandler::class, array $message = null): Request
 {
@@ -211,6 +214,73 @@ function webhook_inline_query($handler = TestWebhookHandler::class): Request
             'offset' => '+4',
             'chat_type' => 'private',
         ],
+    ]);
+}
+
+function webhook_pre_checkout_query($handler = TestWebhookHandler::class): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'pre_checkout_query' => [
+            'id' => 3,
+            'from' => [
+                'id' => 1,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+            ],
+            'currency' => 'EUR',
+            'total_amount' => '100',
+            'invoice_payload' => 'test payload',
+            'shipping_option_id' => 'test id',
+            'order_info' => [
+                'name' => 'test name',
+                'phone_number' => '+39 333 333 3333',
+                'email' => 'test@email.it',
+                'shipping_address' => [
+                    'country_code' => '+39',
+                    'state' => 'italy',
+                    'city' => 'rome',
+                    'street_line1' => 'street test',
+                    'street_line2' => '',
+                    'post_code' => '00042',
+                ],
+            ]
+        ],
+    ]);
+}
+
+function webhook_successful_payment($handler = TestWebhookHandler::class): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'successful_payment' => [
+            'currency' => 'EUR',
+            'total_amount' => 100,
+            'invoice_payload' => 'id_10',
+            'subscription_expiration_date' => 14000,
+            'is_recurring' => false,
+            'is_first_recurring' => false,
+            'shipping_option_id' => 10,
+            'order_info' => [
+                'name' => 'test name',
+                'phone_number' => ' + 39 333 333 3333',
+                'email' => 'test@email . it',
+                'shipping_address' => [
+                    'country_code' => ' + 39',
+                    'state' => 'italy',
+                    'city' => 'rome',
+                    'street_line1' => 'street test',
+                    'street_line2' => '',
+                    'post_code' => '00042',
+                ],
+            ],
+            'telegram_payment_charge_id' => 10,
+            'provider_payment_charge_id' => 10,
+        ]
     ]);
 }
 

@@ -89,4 +89,18 @@ trait InteractsWithWebhooks
 
         return $telegraph;
     }
+
+    public function answerPreCheckoutQuery(int $preCheckoutQueryId, bool $result, ?string $errorMessage = null): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY;
+        $telegraph->data = [
+            'pre_checkout_query_id' => $preCheckoutQueryId,
+            'ok' => $result,
+            'error_message' => $errorMessage,
+        ];
+
+        return $telegraph;
+    }
 }

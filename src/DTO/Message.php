@@ -19,21 +19,16 @@ class Message implements Arrayable
 {
     private int $id;
     private ?int $messageThreadId = null;
-
     private CarbonInterface $date;
     private ?CarbonInterface $editDate = null;
-
     private string $text;
     /** Can be string or json string. if json then convert it to array */
     private mixed $webAppData = null;
     private bool $protected = false;
-
     private ?User $from = null;
     private ?User $forwardedFrom = null;
-
     private ?Chat $chat = null;
     private Keyboard $keyboard;
-
     private ?Message $replyToMessage = null;
 
     /** @var Collection<array-key, User> */
@@ -51,9 +46,8 @@ class Message implements Arrayable
     private ?Voice $voice = null;
     private ?Sticker $sticker = null;
     private ?Venue $venue = null;
-
     private ?Invoice $invoice = null;
-
+    private ?SuccessfulPayment $successfulPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
     /** @var Collection<array-key, Entity> */
@@ -90,6 +84,7 @@ class Message implements Arrayable
      *     venue?: array<string, mixed>,
      *     contact?: array<string, mixed>,
      *     invoice?: array<string, mixed>,
+     *     successful_payment?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
@@ -196,6 +191,11 @@ class Message implements Arrayable
         if (isset($data['invoice'])) {
             /* @phpstan-ignore-next-line */
             $message->invoice = Invoice::fromArray($data['invoice']);
+        }
+
+        if (isset($data['successful_payment'])) {
+            /* @phpstan-ignore-next-line */
+            $message->successfulPayment = SuccessfulPayment::fromArray($data['successful_payment']);
         }
 
         /* @phpstan-ignore-next-line */
@@ -343,6 +343,11 @@ class Message implements Arrayable
         return $this->invoice;
     }
 
+    public function successfulPayment(): ?SuccessfulPayment
+    {
+        return $this->successfulPayment;
+    }
+
     /**
      * @return Collection<array-key, User>
      */
@@ -399,6 +404,7 @@ class Message implements Arrayable
             'sticker' => $this->sticker?->toArray(),
             'venue' => $this->venue?->toArray(),
             'invoice' => $this->invoice?->toArray(),
+            'successful_payment' => $this->successfulPayment?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
