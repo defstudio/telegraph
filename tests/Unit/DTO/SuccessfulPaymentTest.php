@@ -2,8 +2,6 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-use DefStudio\Telegraph\DTO\CallbackQuery;
-use DefStudio\Telegraph\DTO\PreCheckoutQuery;
 use DefStudio\Telegraph\DTO\SuccessfulPayment;
 use Illuminate\Support\Str;
 

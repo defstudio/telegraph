@@ -5,8 +5,6 @@
 namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * @implements Arrayable<string, string|int|array<string, mixed>>
@@ -130,6 +128,6 @@ class SuccessfulPayment implements Arrayable
             'order_info' => $this->orderInfo?->toArray(),
             'telegram_payment_charge_id' => $this->telegramPaymentChargeId,
             'provider_payment_charge_id' => $this->providerPaymentChargeId,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

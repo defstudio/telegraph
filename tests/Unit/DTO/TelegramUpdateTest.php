@@ -91,7 +91,7 @@ it('export all properties to array', function () {
                     'street_line2' => '',
                     'post_code' => '00042',
                 ],
-            ]
+            ],
         ],
         'inline_query' => [
           'id' => "a99",

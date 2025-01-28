@@ -7,7 +7,6 @@
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Telegraph;
-use DefStudio\Telegraph\Tests\Support\TestPaymentHandler;
 use DefStudio\Telegraph\Tests\Support\TestWebhookHandler;
 use DefStudio\Telegraph\Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
@@ -247,7 +246,7 @@ function webhook_pre_checkout_query($handler = TestWebhookHandler::class): Reque
                     'street_line2' => '',
                     'post_code' => '00042',
                 ],
-            ]
+            ],
         ],
     ]);
 }
@@ -280,7 +279,7 @@ function webhook_successful_payment($handler = TestWebhookHandler::class): Reque
             ],
             'telegram_payment_charge_id' => 10,
             'provider_payment_charge_id' => 10,
-        ]
+        ],
     ]);
 }
 

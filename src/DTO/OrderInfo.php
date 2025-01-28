@@ -2,7 +2,6 @@
 
 namespace DefStudio\Telegraph\DTO;
 
-use DefStudio\Telegraph\Contracts\Downloadable;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -14,7 +13,6 @@ class OrderInfo implements Arrayable
     private ?string $phoneNumber = null;
     private ?string $email = null;
     private ?ShippingAddress $shippingAddress = null;
-
 
     private function __construct()
     {

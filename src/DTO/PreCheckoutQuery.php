@@ -5,8 +5,6 @@
 namespace DefStudio\Telegraph\DTO;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 /**
  * @implements Arrayable<string, string|int|array<string, mixed>>
@@ -104,6 +102,6 @@ class PreCheckoutQuery implements Arrayable
             'invoice_payload' => $this->invoicePayload,
             'shipping_option_id' => $this->shippingOptionId,
             'order_info' => $this->orderInfo?->toArray(),
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

@@ -2,7 +2,6 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\PreCheckoutQuery;
 use Illuminate\Support\Str;
 
@@ -32,7 +31,7 @@ it('export all properties to array', function () {
                 'street_line2' => '',
                 'post_code' => '00042',
             ],
-        ]
+        ],
     ]);
 
     $array = $dto->toArray();

@@ -355,7 +355,7 @@ it('can handle a preCheckoutQuery', function () {
     Facade::assertSentData(Telegraph::ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY, [
         "pre_checkout_query_id" => "3",
         'ok' => true,
-        'error_message' => null
+        'error_message' => null,
     ]);
 });
 

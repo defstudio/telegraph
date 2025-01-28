@@ -2,7 +2,6 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-use DefStudio\Telegraph\DTO\Audio;
 use DefStudio\Telegraph\DTO\OrderInfo;
 use Illuminate\Support\Str;
 
