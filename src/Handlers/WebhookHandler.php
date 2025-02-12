@@ -267,6 +267,11 @@ abstract class WebhookHandler
 
             $this->request = $request;
 
+            if ($this->request->has('message.successful_payment')) {
+                /* @phpstan-ignore-next-line */
+                $this->handleSuccessfulPayment(SuccessfulPayment::fromArray($this->request->input('message.successful_payment')));
+            }
+
             if ($this->request->has('message')) {
                 /* @phpstan-ignore-next-line */
                 $this->message = Message::fromArray($this->request->input('message'));
@@ -318,11 +323,6 @@ abstract class WebhookHandler
             if ($this->request->has('pre_checkout_query')) {
                 /* @phpstan-ignore-next-line */
                 $this->handlePreCheckoutQuery(PreCheckoutQuery::fromArray($this->request->input('pre_checkout_query')));
-            }
-
-            if ($this->request->has('successful_payment')) {
-                /* @phpstan-ignore-next-line */
-                $this->handleSuccessfulPayment(SuccessfulPayment::fromArray($this->request->input('successful_payment')));
             }
 
             if ($this->request->has('inline_query')) {
