@@ -130,7 +130,7 @@ class TelegraphInvoicePayload extends Telegraph
         return $telegraph;
     }
 
-    public function image(string $url, int $sizeInBytes = null, int $width = null, int $height = null): static
+    public function image(string $url, ?int $sizeInBytes = null, ?int $width = null, ?int $height = null): static
     {
         $telegraph = clone $this;
 
