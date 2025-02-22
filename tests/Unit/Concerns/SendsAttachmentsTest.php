@@ -96,7 +96,7 @@ it('can attach a keyboard to a document', function () {
     })->toMatchTelegramSnapshot();
 });
 
-test('documents are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+test('documents are validated', function (string $path, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -106,7 +106,7 @@ test('documents are validated', function (string $path, bool $valid, string $exc
             ->toBeInstanceOf(Telegraph::class);
     } else {
         expect(fn () => make_chat()->document(Storage::path($path)))
-            ->toThrow($exceptionClass, $exceptionMessage);
+            ->toThrow($exception, $message);
     }
 })->with([
     'valid' => [
@@ -124,7 +124,7 @@ test('documents are validated', function (string $path, bool $valid, string $exc
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.document.max_size_mb' => 50.01,
         ],
     ],
@@ -133,7 +133,7 @@ test('documents are validated', function (string $path, bool $valid, string $exc
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.document.max_size_mb' => 51,
         ],
     ],
@@ -142,7 +142,7 @@ test('documents are validated', function (string $path, bool $valid, string $exc
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Document size (50.000000 Mb) exceeds max allowed size of 49.999990 MB',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.document.max_size_mb' => 49.99999,
         ],
     ],
@@ -156,7 +156,7 @@ it('can attach a thumbnail', function () {
     })->toMatchUtf8TelegramSnapshot();
 });
 
-test('thumbnails are validated', function (string $thumbnailPath, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+test('thumbnails are validated', function (string $thumbnailPath, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -166,7 +166,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
             ->toBeInstanceOf(Telegraph::class);
     } else {
         expect(fn () => make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
-            ->toThrow($exceptionClass, $exceptionMessage);
+            ->toThrow($exception, $message);
     }
 })->with([
     'valid' => [
@@ -184,7 +184,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Thumbnail size (12.550000 Kb) exceeds max allowed size of 12.540000 Kb',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.max_size_kb' => 12.54,
         ],
     ],
@@ -193,7 +193,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.max_size_kb' => 201,
         ],
     ],
@@ -208,7 +208,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Thumbnail height (320px) exceeds max allowed height of 319px',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.max_height_px' => 319,
         ],
     ],
@@ -217,7 +217,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.max_height_px' => 321,
         ],
     ],
@@ -232,7 +232,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Thumbnail width (320px) exceeds max allowed width of 319px',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.max_width_px' => 319,
         ],
     ],
@@ -241,7 +241,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.max_width_px' => 321,
         ],
     ],
@@ -256,7 +256,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.allowed_ext' => ['png'],
         ],
     ],
@@ -265,7 +265,7 @@ test('thumbnails are validated', function (string $thumbnailPath, bool $valid, s
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Invalid thumbnail extension (jpg). Only png are allowed',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.thumbnail.allowed_ext' => ['png'],
         ],
     ],
@@ -355,25 +355,25 @@ it('can attach a keyboard to a photo', function () {
 it('can send an invoice', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph->invoice('Test Invoice')
-        ->description('Test Description')
-        ->currency('EUR')
-        ->addItem('Test Label', 10)
-        ->maxTip(70)
-        ->suggestedTips([30,20])
-        ->startParameter(10)
-        ->providerData(['Test Provider Data'])
-        ->image('Test Image Link', 20, 20)
-        ->needName()
-        ->needPhoneNumber(sendToProvider: true)
-        ->needEmail(sendToProvider: true)
-        ->needShippingAddress()
-        ->flexible()
-        ->link()
+            ->description('Test Description')
+            ->currency('EUR')
+            ->addItem('Test Label', 10)
+            ->maxTip(70)
+            ->suggestedTips([30,20])
+            ->startParameter(10)
+            ->providerData(['Test Provider Data'])
+            ->image('Test Image Link', 20, 20)
+            ->needName()
+            ->needPhoneNumber(sendToProvider: true)
+            ->needEmail(sendToProvider: true)
+            ->needShippingAddress()
+            ->flexible()
+            ->link()
     )
         ->toMatchUtf8TelegramSnapshot();
 });
 
-test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+test('photos are validated', function (string $path, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -383,7 +383,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
             ->toBeInstanceOf(Telegraph::class);
     } else {
         expect(fn () => make_chat()->photo(Storage::path($path)))
-            ->toThrow($exceptionClass, $exceptionMessage);
+            ->toThrow($exception, $message);
     }
 })->with([
     'valid' => [
@@ -401,7 +401,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_size_mb' => 10.34,
         ],
     ],
@@ -410,7 +410,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo size (0.030000 Mb) exceeds max allowed size of 0.010000 MB',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_size_mb' => 0.01,
         ],
     ],
@@ -425,7 +425,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_ratio' => 23,
         ],
     ],
@@ -434,7 +434,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'valid' => false,
         'exception' => FileException::class,
         'message' => "Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000",
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_ratio' => 0.99,
         ],
     ],
@@ -449,7 +449,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.height_width_sum_px' => 11000,
         ],
     ],
@@ -458,7 +458,7 @@ test('photos are validated', function (string $path, bool $valid, string $except
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo\'s sum of width and height (800px) exceed allowed 799px',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.height_width_sum_px' => 799,
         ],
     ],
@@ -515,13 +515,13 @@ it('can attach a keyboard to a voice', function () {
     )->toMatchUtf8TelegramSnapshot();
 });
 
-test('voices are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null) {
+test('voices are validated', function (string $path, bool $valid, string $exception = null, string $message = null) {
     if ($valid) {
         expect(make_chat()->voice(Storage::path($path)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
         expect(fn () => make_chat()->photo(Storage::path($path)))
-            ->toThrow($exceptionClass, $exceptionMessage);
+            ->toThrow($exception, $message);
     }
 })->with([
     'valid' => [
