@@ -58,6 +58,8 @@ class Telegraph
     public const ENDPOINT_UNSET_WEBHOOK = 'deleteWebhook';
     public const ENDPOINT_GET_WEBHOOK_DEBUG_INFO = 'getWebhookInfo';
     public const ENDPOINT_ANSWER_WEBHOOK = 'answerCallbackQuery';
+
+    public const ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY = 'answerPreCheckoutQuery';
     public const ENDPOINT_REPLACE_KEYBOARD = 'editMessageReplyMarkup';
     public const ENDPOINT_MESSAGE = 'sendMessage';
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
@@ -117,6 +119,8 @@ class Telegraph
     public const ENDPOINT_APPROVE_CHAT_JOIN_REQUEST = 'approveChatJoinRequest';
     public const ENDPOINT_DECLINE_CHAT_JOIN_REQUEST = 'declineChatJoinRequest';
 
+    public const ENDPOINT_SEND_INVOICE = 'sendInvoice';
+    public const ENDPOINT_CREATE_INVOICE_LINK = 'createInvoiceLink';
 
     /** @var array<string, mixed> */
     protected array $data = [];

@@ -207,4 +207,8 @@ return [
          */
         'start_with' => ['/'],
     ],
+
+    'payments' => [
+        'provider_token' => env('TELEGRAPH_PAYMENT_PROVIDER_TOKEN', ''),
+    ],
 ];

@@ -352,6 +352,27 @@ it('can attach a keyboard to a photo', function () {
     )->toMatchUtf8TelegramSnapshot();
 });
 
+it('can send an invoice', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph->invoice('Test Invoice')
+        ->description('Test Description')
+        ->currency('EUR')
+        ->addItem('Test Label', 10)
+        ->maxTip(70)
+        ->suggestedTips([30,20])
+        ->startParameter(10)
+        ->providerData(['Test Provider Data'])
+        ->image('Test Image Link', 20, 20)
+        ->needName()
+        ->needPhoneNumber(sendToProvider: true)
+        ->needEmail(sendToProvider: true)
+        ->needShippingAddress()
+        ->flexible()
+        ->link()
+    )
+        ->toMatchUtf8TelegramSnapshot();
+});
+
 test('photos are validated', function (string $path, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);

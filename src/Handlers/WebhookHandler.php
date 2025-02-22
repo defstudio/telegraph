@@ -13,8 +13,10 @@ use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\ChatJoinRequest;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\DTO\PreCheckoutQuery;
 use DefStudio\Telegraph\DTO\Reaction;
 use DefStudio\Telegraph\DTO\ReactionType;
+use DefStudio\Telegraph\DTO\SuccessfulPayment;
 use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Exceptions\TelegramWebhookException;
 use DefStudio\Telegraph\Keyboard\Keyboard;
@@ -265,6 +267,11 @@ abstract class WebhookHandler
 
             $this->request = $request;
 
+            if ($this->request->has('message.successful_payment')) {
+                /* @phpstan-ignore-next-line */
+                $this->handleSuccessfulPayment(SuccessfulPayment::fromArray($this->request->input('message.successful_payment')));
+            }
+
             if ($this->request->has('message')) {
                 /* @phpstan-ignore-next-line */
                 $this->message = Message::fromArray($this->request->input('message'));
@@ -307,11 +314,15 @@ abstract class WebhookHandler
                 return;
             }
 
-
             if ($this->request->has('callback_query')) {
                 /* @phpstan-ignore-next-line */
                 $this->callbackQuery = CallbackQuery::fromArray($this->request->input('callback_query'));
                 $this->handleCallbackQuery();
+            }
+
+            if ($this->request->has('pre_checkout_query')) {
+                /* @phpstan-ignore-next-line */
+                $this->handlePreCheckoutQuery(PreCheckoutQuery::fromArray($this->request->input('pre_checkout_query')));
             }
 
             if ($this->request->has('inline_query')) {
@@ -429,5 +440,15 @@ abstract class WebhookHandler
     protected function handleChatJoinRequest(ChatJoinRequest $chatJoinRequest): void
     {
         // .. do nothing
+    }
+
+    protected function handlePreCheckoutQuery(PreCheckoutQuery $preCheckoutQuery): void
+    {
+        $this->bot->answerPreCheckoutQuery($preCheckoutQuery->id(), true)->send();
+    }
+
+    protected function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
+    {
+        // .. handle SuccessfulPayment
     }
 }

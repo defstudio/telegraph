@@ -9,6 +9,7 @@ namespace DefStudio\Telegraph\Tests\Support;
 use DefStudio\Telegraph\DTO\ChatJoinRequest;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
+use DefStudio\Telegraph\DTO\SuccessfulPayment;
 use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
@@ -151,10 +152,15 @@ class TestWebhookHandler extends WebhookHandler
     protected function handleChatReaction(Collection $newReactions, Collection $oldReactions): void
     {
         $this->chat->html(implode(':', [
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             'New reaction is ' . $newReactions->first()->emoji(),
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             'Old reaction is ' . $oldReactions->first()->emoji(),
         ]))->send();
+    }
+
+    public function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
+    {
+        $this->bot->chats->first()->html('payment')->send();
     }
 }

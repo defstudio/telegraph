@@ -29,3 +29,21 @@ it('can store chat files', function () {
 
     expect(Storage::exists('images/bot/my_file.jpg'))->toBeTrue();
 })->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
+
+
+it('can send an invoice', function () {
+
+    $results = Telegraph::invoice('Test Invoice')
+         ->description('A test invoice sent from Telegraph')
+         ->currency('EUR')
+         ->addItem('line 1', 1000)
+         ->addItem('line 2', 1500)
+         ->addItem('line 3', 5000)
+         ->providerToken(env('SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN'))
+         ->link()
+         ->send();
+
+    expect($results['ok'])->toBeTrue()
+        ->and($results['result'])->toBeString();
+
+})->skip(fn () => empty(env('SANDOBOX_TELEGRAM_PAYMENT_PROVIDER_TOKEN')) || empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
