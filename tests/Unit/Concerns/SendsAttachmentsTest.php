@@ -156,16 +156,16 @@ it('can attach a thumbnail', function () {
     })->toMatchUtf8TelegramSnapshot();
 });
 
-test('thumbnails are validated', function (string $thumbnailPath, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
+test('thumbnails are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
 
     if ($valid) {
-        expect(make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
+        expect(make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($file)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($thumbnailPath)))
+        expect(fn () => make_chat()->document(Storage::path('test.txt'))->thumbnail(Storage::path($file)))
             ->toThrow($exception, $message);
     }
 })->with([
