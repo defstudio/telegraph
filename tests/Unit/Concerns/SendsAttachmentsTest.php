@@ -96,16 +96,16 @@ it('can attach a keyboard to a document', function () {
     })->toMatchTelegramSnapshot();
 });
 
-test('documents are validated', function (string $path, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
+test('documents are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
 
     if ($valid) {
-        expect(make_chat()->document(Storage::path($path)))
+        expect(make_chat()->document(Storage::path($file)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => make_chat()->document(Storage::path($path)))
+        expect(fn () => make_chat()->document(Storage::path($file)))
             ->toThrow($exception, $message);
     }
 })->with([
@@ -373,16 +373,16 @@ it('can send an invoice', function () {
         ->toMatchUtf8TelegramSnapshot();
 });
 
-test('photos are validated', function (string $path, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
+test('photos are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
 
     if ($valid) {
-        expect(make_chat()->photo(Storage::path($path)))
+        expect(make_chat()->photo(Storage::path($file)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => make_chat()->photo(Storage::path($path)))
+        expect(fn () => make_chat()->photo(Storage::path($file)))
             ->toThrow($exception, $message);
     }
 })->with([
