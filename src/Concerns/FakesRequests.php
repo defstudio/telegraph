@@ -18,6 +18,7 @@ use PHPUnit\Framework\Assert;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
+//@phpstan-ignore-next-line
 trait FakesRequests
 {
     /** @var array<int, mixed[]> */

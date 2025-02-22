@@ -30,9 +30,11 @@ trait ManagesKeyboards
         }
 
         if (is_array($keyboard)) {
+            //@phpstan-ignore-next-line
             $keyboard = Keyboard::fromArray($keyboard);
         }
 
+        //@phpstan-ignore-next-line
         data_set($telegraph->data, 'reply_markup.inline_keyboard', $keyboard->toArray());
 
         return $telegraph;
@@ -50,12 +52,16 @@ trait ManagesKeyboards
         }
 
         if (is_array($keyboard)) {
+            //@phpstan-ignore-next-line
             $keyboard = ReplyKeyboard::fromArray($keyboard);
         }
 
+        //@phpstan-ignore-next-line
         data_set($telegraph->data, 'reply_markup.keyboard', $keyboard->toArray());
 
+        //@phpstan-ignore-next-line
         foreach ($keyboard->options() as $option_key => $option_value) {
+            //@phpstan-ignore-next-line
             data_set($telegraph->data, "reply_markup.$option_key", $option_value);
         }
 
@@ -101,6 +107,8 @@ trait ManagesKeyboards
         if (is_callable($newKeyboard)) {
             $newKeyboard = $newKeyboard(Keyboard::make());
         }
+
+        assert($newKeyboard instanceof Keyboard);
 
         if ($newKeyboard->isEmpty()) {
             $replyMarkup = '';

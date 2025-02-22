@@ -646,6 +646,7 @@ trait HasBotsAndChats
             ->toArray();
 
         foreach ($permissions as $permission => $enabled) {
+            //@phpstan-ignore-next-line
             $telegraph->data[$permission] = $enabled;
         }
 

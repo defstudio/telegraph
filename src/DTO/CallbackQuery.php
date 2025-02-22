@@ -48,7 +48,6 @@ class CallbackQuery implements Arrayable
         $callbackQuery->data = Str::of($data['data'] ?? '')
             ->explode(';')
             ->filter()
-            /* @phpstan-ignore-next-line */
             ->mapWithKeys(function (string $entity) {
                 $entity = explode(':', $entity);
                 $key = $entity[0];

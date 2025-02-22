@@ -96,6 +96,6 @@ class User implements Arrayable, Storable
             'username' => $this->username,
             'language_code' => $this->languageCode,
             'is_premium' => $this->isPremium,
-        ], fn ($value) => $value !== null);
+        ], fn ($value) => $value !== null); //@phpstan-ignore-line
     }
 }

@@ -7,5 +7,4 @@ parameters:
         - src/Support/Testing
 
     ignoreErrors:
-        - '#expects string, array\|string\|null given#'
         - '#expects string, mixed given#'
