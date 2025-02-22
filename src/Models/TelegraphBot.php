@@ -32,7 +32,7 @@ use Illuminate\Support\Carbon;
  * @property string $name
  * @property Carbon $created_at
  * @property Carbon $updated_at
- * @property-read Collection<TelegraphChat> $chats
+ * @property-read Collection<int, TelegraphChat> $chats
  */
 class TelegraphBot extends Model implements Storable
 {
@@ -76,20 +76,14 @@ class TelegraphBot extends Model implements Storable
     public static function fromId(int|null $id = null): TelegraphBot
     {
         if (empty($id)) {
-            /** @noinspection PhpIncompatibleReturnTypeInspection */
-            /** @phpstan-ignore-next-line */
             return self::query()->sole();
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        /** @phpstan-ignore-next-line */
         return self::query()->findOrFail($id);
     }
 
     public static function fromToken(string $token): TelegraphBot
     {
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
-        /** @phpstan-ignore-next-line */
         return self::query()->where('token', $token)->sole();
     }
 
@@ -98,7 +92,7 @@ class TelegraphBot extends Model implements Storable
      */
     public function chats(): HasMany
     {
-        /** @phpstan-ignore-next-line */
+        //@phpstan-ignore-next-line
         return $this->hasMany(config('telegraph.models.chat'), 'telegraph_bot_id');
     }
 

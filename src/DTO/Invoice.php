@@ -78,6 +78,6 @@ class Invoice implements Arrayable
             'start_parameter' => $this->startParameter,
             'currency' => $this->currency,
             'total_amount' => $this->totalAmount,
-        ], fn ($value) => $value !== null);
+        ], fn ($value) => $value !== null); //@phpstan-ignore-line
     }
 }

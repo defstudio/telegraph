@@ -204,9 +204,8 @@ trait SendsAttachments
                 throw FileException::thumbnailWidthExceeded($width, $maxWidth);
             }
 
+            /** @var string[] $allowedExt */
             $allowedExt = config('telegraph.attachments.thumbnail.allowed_ext', ['jpg']);
-
-            assert(is_array($allowedExt));
 
             if (!Str::of($ext = File::extension($path))->lower()->is($allowedExt)) {
                 throw FileException::invalidThumbnailExtension($ext, $allowedExt);

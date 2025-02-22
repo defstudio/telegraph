@@ -38,7 +38,6 @@ class ChatJoinRequest implements Arrayable
 
         $request->userChatId = $data['user_chat_id'];
 
-        /* @phpstan-ignore-next-line */
         $request->date = Carbon::createFromTimestamp($data['date']);
 
         if (isset($data['bio'])) {

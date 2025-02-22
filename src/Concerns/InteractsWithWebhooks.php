@@ -14,6 +14,7 @@ trait InteractsWithWebhooks
 {
     private function getWebhookUrl(): string
     {
+        /** @var string|null $customWebhookUrl */
         $customWebhookUrl = config('telegraph.custom_webhook_domain', config('telegraph.webhook.domain'));
 
         if ($customWebhookUrl === null) {
@@ -43,6 +44,8 @@ trait InteractsWithWebhooks
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SET_WEBHOOK;
+
+        //@phpstan-ignore-next-line
         $telegraph->data = collect([
             'url' => $this->getWebhookUrl(),
             'drop_pending_updates' => $dropPendingUpdates,

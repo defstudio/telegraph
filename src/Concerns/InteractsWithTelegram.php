@@ -34,9 +34,11 @@ trait InteractsWithTelegram
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
             /** @phpstan-ignore-next-line */
-            function ($request, Attachment $attachment, string $key) {
-                return $request->attach($key, $attachment->contents(), $attachment->filename());
-            },
+            fn ($request, Attachment $attachment, string $key) => $request->attach(
+                $key,
+                $attachment->contents(),
+                $attachment->filename()
+            ),
             $request
         );
 
@@ -63,10 +65,11 @@ trait InteractsWithTelegram
                     }
 
                     return [$key => json_encode($value)];
-                })->toArray();
+                })
+                ->toArray();
         }
 
-
+        //@phpstan-ignore-next-line
         return $data;
     }
 

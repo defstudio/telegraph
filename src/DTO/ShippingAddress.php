@@ -83,6 +83,6 @@ class ShippingAddress implements Arrayable
             'street_line1' => $this->streetLine1,
             'street_line2' => $this->streetLine2,
             'post_code' => $this->postCode,
-        ], fn ($value) => $value !== null);
+        ], fn ($value) => $value !== null); //@phpstan-ignore-line
     }
 }

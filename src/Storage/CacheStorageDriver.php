@@ -64,6 +64,8 @@ class CacheStorageDriver extends StorageDriver
         }
 
         $mainKey = (string) Str::of($key)->before('.');
+
+        /** @var mixed[] $mainValue */
         $mainValue = $this->retrieveData($mainKey, []);
 
         $otherKeys = (string) Str::of($key)->after('.');

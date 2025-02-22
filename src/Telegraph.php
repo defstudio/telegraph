@@ -164,6 +164,7 @@ class Telegraph
     {
         $telegraph = clone $this;
 
+        //@phpstan-ignore-next-line
         data_set($telegraph->data, $key, $value);
 
         return $telegraph;
@@ -173,6 +174,7 @@ class Telegraph
     {
         $telegraph = clone $this;
 
+        //@phpstan-ignore-next-line
         data_set($telegraph->data, 'message_thread_id', $thread_id);
 
         return $telegraph;

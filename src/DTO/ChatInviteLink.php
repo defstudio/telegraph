@@ -64,7 +64,6 @@ class ChatInviteLink implements Arrayable
         }
 
         if (isset($data['expire_date'])) {
-            /* @phpstan-ignore-next-line */
             $invite->expireDate = Carbon::createFromTimestamp($data['expire_date']);
         }
 
