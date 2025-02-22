@@ -2,6 +2,17 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.57.0 - 2025-02-22
+
+### What's Changed
+
+* [fix] missing translation keys by @andrey-helldar in https://github.com/defstudio/telegraph/pull/688
+* [fix] php docs by @varemel in https://github.com/defstudio/telegraph/pull/687
+* [feat] payments by @MarioGattolla in https://github.com/defstudio/telegraph/pull/657
+* [chore] laravel 12 support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/690
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.56.3...v1.57.0
+
 ## v1.56.3 - 2025-01-27
 
 ### What's Changed
