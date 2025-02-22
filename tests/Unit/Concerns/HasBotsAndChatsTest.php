@@ -123,7 +123,7 @@ it('can change chat photo', function () {
     })->toMatchUtf8TelegramSnapshot();
 });
 
-test('photo is validated', function (string $fileName, bool $valid, string $exceptionClass = null, string $exceptionMessage = null, array $customConfigs = []) {
+test('photo is validated', function (string $fileName, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -133,7 +133,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
             ->toBeInstanceOf(\DefStudio\Telegraph\Telegraph::class);
     } else {
         expect(fn () => make_chat()->photo(Storage::path($fileName)))
-            ->toThrow($exceptionClass, $exceptionMessage);
+            ->toThrow($exception, $message);
     }
 })->with([
     'valid' => [
@@ -151,7 +151,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_size_mb' => 10.34,
         ],
     ],
@@ -160,7 +160,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo size (0.030000 Mb) exceeds max allowed size of 0.010000 MB',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_size_mb' => 0.01,
         ],
     ],
@@ -175,7 +175,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_ratio' => 23,
         ],
     ],
@@ -184,7 +184,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'valid' => false,
         'exception' => FileException::class,
         'message' => "Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000",
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.max_ratio' => 0.99,
         ],
     ],
@@ -199,7 +199,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'valid' => true,
         'exception' => null,
         'message' => null,
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.height_width_sum_px' => 11000,
         ],
     ],
@@ -208,11 +208,11 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'valid' => false,
         'exception' => FileException::class,
         'message' => 'Photo\'s sum of width and height (800px) exceed allowed 799px',
-        'custom_configs' => [
+        'customConfigs' => [
             'telegraph.attachments.photo.height_width_sum_px' => 799,
         ],
     ],
-]);
+])->only();
 
 it('can delete chat photo', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
