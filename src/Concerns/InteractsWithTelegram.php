@@ -34,7 +34,7 @@ trait InteractsWithTelegram
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
             /** @phpstan-ignore-next-line */
-            fn($request, Attachment $attachment, string $key) => $request->attach(
+            fn ($request, Attachment $attachment, string $key) => $request->attach(
                 $key,
                 $attachment->contents(),
                 $attachment->filename()
