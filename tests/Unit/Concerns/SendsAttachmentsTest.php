@@ -515,12 +515,12 @@ it('can attach a keyboard to a voice', function () {
     )->toMatchUtf8TelegramSnapshot();
 });
 
-test('voices are validated', function (string $path, bool $valid, string $exception = null, string $message = null) {
+test('voices are validated', function (string $file, bool $valid, string $exception = null, string $message = null) {
     if ($valid) {
-        expect(make_chat()->voice(Storage::path($path)))
+        expect(make_chat()->voice(Storage::path($file)))
             ->toBeInstanceOf(Telegraph::class);
     } else {
-        expect(fn () => make_chat()->photo(Storage::path($path)))
+        expect(fn () => make_chat()->photo(Storage::path($file)))
             ->toThrow($exception, $message);
     }
 })->with([
