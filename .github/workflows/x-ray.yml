@@ -5,6 +5,8 @@ on:
     paths:
       - '**.php'
       - 'x-ray.yml'
+  schedule:
+    - cron: '0 3 * * *'
 
 jobs:
   x-ray:

@@ -1,6 +1,10 @@
 name: lint
 
-on: [push]
+on:
+  push:
+    branches: [ '**' ]
+  schedule:
+    - cron: '0 3 * * *'
 
 jobs:
   php-cs-fixer:
