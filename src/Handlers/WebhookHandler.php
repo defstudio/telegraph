@@ -114,25 +114,7 @@ abstract class WebhookHandler
 
         $text = Str::of($this->message?->text() ?? '');
 
-        $commandPrefixes = $this->commandPrefixes();
-
-        $prefixFirstLetters = $commandPrefixes->map(
-            fn (string $prefix) => Str::of($prefix)->trim()->substr(01)->toString()
-        );
-
-        foreach ($commandPrefixes as $prefix) {
-            if (!$text->startsWith($prefix)) {
-                continue;
-            }
-
-            $cut = $text->substr(
-                Str::length($prefix)
-            )->before(' ');
-
-            if ($cut->startsWith($commandPrefixes) || $cut->startsWith($prefixFirstLetters)) {
-                continue;
-            }
-
+        if ($this->isCommand($text, $this->commandPrefixes())) {
             $this->handleCommand($text);
 
             return;
@@ -439,6 +421,31 @@ abstract class WebhookHandler
             ->push('/')
             ->map(fn (string $prefix) => str($prefix)->trim()->toString())
             ->unique();
+    }
+
+    protected function isCommand(Stringable $text, Collection $commandPrefixes): bool
+    {
+        $prefixFirstLetters = $commandPrefixes->map(
+            fn (string $prefix) => Str::of($prefix)->trim()->substr(0, 1)->toString()
+        );
+
+        foreach ($commandPrefixes as $prefix) {
+            if (!$text->startsWith($prefix)) {
+                continue;
+            }
+
+            $cut = $text->substr(
+                Str::length($prefix)
+            )->before(' ');
+
+            if ($cut->startsWith($commandPrefixes) || $cut->startsWith($prefixFirstLetters)) {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     protected function createChat(Chat $telegramChat, TelegraphChat $chat): void
