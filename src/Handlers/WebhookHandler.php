@@ -425,7 +425,7 @@ abstract class WebhookHandler
 
     protected function isCommand(Stringable $text, Collection $commandPrefixes): bool
     {
-        $prefixFirstLetters = $commandPrefixes->map->substr(0, 1);
+        $firstLetters = $commandPrefixes->map->substr(0, 1);
 
         foreach ($commandPrefixes as $prefix) {
             if (!$text->startsWith($prefix)) {
@@ -436,7 +436,7 @@ abstract class WebhookHandler
                 Str::length($prefix)
             )->before(' ');
 
-            if ($cut->startsWith($commandPrefixes) || $cut->startsWith($prefixFirstLetters)) {
+            if ($cut->startsWith($commandPrefixes) || $cut->startsWith($firstLetters)) {
                 continue;
             }
 
