@@ -129,7 +129,7 @@ abstract class WebhookHandler
                 Str::length($prefix)
             )->before(' ');
 
-            if ($cut->startsWith($prefixFirstLetters)) {
+            if ($cut->startsWith($commandPrefixes) || $cut->startsWith($prefixFirstLetters)) {
                 continue;
             }
 
