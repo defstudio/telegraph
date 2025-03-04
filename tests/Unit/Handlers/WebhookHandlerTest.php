@@ -265,6 +265,37 @@ it('cannot handle a command with custom start char', function () {
     Facade::assertNotSent("Hello!! your parameter is [foo bot 1]");
 });
 
+it('can handle a command with command collision', function () {
+    Config::set('telegraph.commands.start_with', ['-', '=', '!', ' % ', 1, ' :: ']);
+
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_command('--hello@bot foo bot -'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('==hello@bot foo bot ='), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('!!!!hello@bot foo bot !'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('%%%%%hello@bot foo bot %'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('1111hello@bot foo bot 1'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command(':::hello@bot foo bot :1'), $bot);
+    app(TestWebhookHandler::class)->handle(webhook_command('::::hello@bot foo bot :2'), $bot);
+
+    Facade::assertNotSent("Hello!! your parameter is [foo bot -]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot =]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot !]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot %]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot 1]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot :1]");
+    Facade::assertNotSent("Hello!! your parameter is [foo bot :2]");
+
+    Facade::assertSent("Received: --hello@bot foo bot -");
+    Facade::assertSent("Received: ==hello@bot foo bot =");
+    Facade::assertSent("Received: !!!!hello@bot foo bot !");
+    Facade::assertSent("Received: %%%%%hello@bot foo bot %");
+    Facade::assertSent("Received: 1111hello@bot foo bot 1");
+    Facade::assertSent("Received: :::hello@bot foo bot :1");
+    Facade::assertSent("Received: ::::hello@bot foo bot :2");
+});
+
 it('can change the inline keyboard', function () {
     Config::set('telegraph.security.allow_callback_queries_from_unknown_chats', true);
     Config::set('telegraph.security.allow_messages_from_unknown_chats', true);

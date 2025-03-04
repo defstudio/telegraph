@@ -114,12 +114,29 @@ abstract class WebhookHandler
 
         $text = Str::of($this->message?->text() ?? '');
 
-        if ($text->startsWith($this->commandPrefixes())) {
+        $commandPrefixes = $this->commandPrefixes();
+
+        $prefixFirstLetters = $commandPrefixes->map(
+            fn (string $prefix) => Str::of($prefix)->trim()->substr(01)->toString()
+        );
+
+        foreach ($commandPrefixes as $prefix) {
+            if (!$text->startsWith($prefix)) {
+                continue;
+            }
+
+            $cut = $text->substr(
+                Str::length($prefix)
+            )->before(' ');
+
+            if ($cut->startsWith($prefixFirstLetters)) {
+                continue;
+            }
+
             $this->handleCommand($text);
 
             return;
         }
-
 
         if ($this->message?->newChatMembers()->isNotEmpty()) {
             foreach ($this->message->newChatMembers() as $member) {
