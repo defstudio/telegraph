@@ -419,15 +419,13 @@ abstract class WebhookHandler
 
         return collect($prefixes)
             ->push('/')
-            ->map(fn (string $prefix) => str($prefix)->trim()->toString())
+            ->map(fn (string $prefix) => str($prefix)->trim())
             ->unique();
     }
 
     protected function isCommand(Stringable $text, Collection $commandPrefixes): bool
     {
-        $prefixFirstLetters = $commandPrefixes->map(
-            fn (string $prefix) => Str::of($prefix)->trim()->substr(0, 1)->toString()
-        );
+        $prefixFirstLetters = $commandPrefixes->map->substr(0, 1);
 
         foreach ($commandPrefixes as $prefix) {
             if (!$text->startsWith($prefix)) {
