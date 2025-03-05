@@ -212,7 +212,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
             'telegraph.attachments.photo.height_width_sum_px' => 799,
         ],
     ],
-])->only();
+]);
 
 it('can delete chat photo', function () {
     expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {

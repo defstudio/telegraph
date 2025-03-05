@@ -114,7 +114,7 @@ abstract class WebhookHandler
 
         $text = Str::of($this->message?->text() ?? '');
 
-        if ($this->isCommand($text, $this->commandPrefixes())) {
+        if ($this->isCommand($text)) {
             $this->handleCommand($text);
 
             return;
@@ -223,8 +223,8 @@ abstract class WebhookHandler
     }
 
     /**
-     * @param Collection<array-key, Reaction> $newReactions
-     * @param Collection<array-key, Reaction> $oldReactions
+     * @param  Collection<array-key, Reaction>  $newReactions
+     * @param  Collection<array-key, Reaction>  $oldReactions
      *
      * @return void
      */
@@ -410,7 +410,7 @@ abstract class WebhookHandler
     }
 
     /**
-     * @return Collection<int, string>
+     * @return Collection<int, Stringable>
      */
     protected function commandPrefixes(): Collection
     {
@@ -420,16 +420,19 @@ abstract class WebhookHandler
         return collect($prefixes)
             ->push('/')
             ->map(fn (string $prefix) => str($prefix)->trim())
-            ->unique();
+            ->unique()
+            ->values();
     }
 
-    protected function isCommand(Stringable $text, Collection $commandPrefixes): bool
+    protected function isCommand(Stringable $text): bool
     {
+        $commandPrefixes = $this->commandPrefixes();
+
         $firstLetters = $commandPrefixes->map->substr(0, 1);
 
-        foreach ($commandPrefixes as $prefix) {
+        $foundPrefix = $commandPrefixes->first(function (Stringable $prefix) use ($commandPrefixes, $firstLetters, $text) {
             if (!$text->startsWith($prefix)) {
-                continue;
+                return false;
             }
 
             $cut = $text->substr(
@@ -437,13 +440,13 @@ abstract class WebhookHandler
             )->before(' ');
 
             if ($cut->startsWith($commandPrefixes) || $cut->startsWith($firstLetters)) {
-                continue;
+                return false;
             }
 
             return true;
-        }
+        });
 
-        return false;
+        return $foundPrefix !== null;
     }
 
     protected function createChat(Chat $telegramChat, TelegraphChat $chat): void
