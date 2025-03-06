@@ -372,7 +372,7 @@ it('can handle a chat migration', function () {
     $bot = bot();
     Facade::fake();
 
-    app(TestWebhookHandler::class)->handle(webhook_migrate_to_chat(), $bot );
+    app(TestWebhookHandler::class)->handle(webhook_migrate_to_chat(), $bot);
 
     Facade::assertSent("We are a Supergroup now");
 

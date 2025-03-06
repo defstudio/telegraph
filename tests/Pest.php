@@ -285,7 +285,7 @@ function webhook_successful_payment($handler = TestWebhookHandler::class): Reque
     ]);
 }
 
-function webhook_migrate_to_chat($handler = TestWebhookHandler::class, int $chat_id = -123456789, int $new_chat_id = 20 ): Request
+function webhook_migrate_to_chat($handler = TestWebhookHandler::class, int $chat_id = -123456789, int $new_chat_id = 20): Request
 {
     register_webhook_handler($handler);
 
@@ -295,7 +295,7 @@ function webhook_migrate_to_chat($handler = TestWebhookHandler::class, int $chat
                 "id" => $chat_id,
                 "type" => "a",
                 "title" => "b",
-                "all_members_are_administrators" => false
+                "all_members_are_administrators" => false,
             ],
             "date" => 100000,
             "from" => [
@@ -305,10 +305,10 @@ function webhook_migrate_to_chat($handler = TestWebhookHandler::class, int $chat
                 "last_name" => "Test User",
                 "first_name" => "Test User",
                 "is_premium" => true,
-                "language_code" => "it"
+                "language_code" => "it",
             ],
             "message_id" => 1,
-            "migrate_to_chat_id" => $new_chat_id
+            "migrate_to_chat_id" => $new_chat_id,
         ],
     ]);
 }

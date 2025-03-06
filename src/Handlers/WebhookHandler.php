@@ -385,7 +385,7 @@ abstract class WebhookHandler
     {
         return (bool)match (true) {
             $this->message !== null,
-                $this->reaction !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
+            $this->reaction !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
             $this->callbackQuery != null => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
             default => false,
         };
@@ -399,7 +399,7 @@ abstract class WebhookHandler
 
         report($throwable);
 
-        rescue(fn() => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
+        rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
     /**
@@ -431,7 +431,7 @@ abstract class WebhookHandler
 
         return collect($prefixes)
             ->push('/')
-            ->map(fn(string $prefix) => str($prefix)->trim()->toString())
+            ->map(fn (string $prefix) => str($prefix)->trim()->toString())
             ->unique();
     }
 
@@ -465,7 +465,7 @@ abstract class WebhookHandler
 
     protected function handleMigrateToChat(): void
     {
-       $this->chat->chat_id = $this->message->migrateToChatId();
-       $this->chat->save();
+        $this->chat->chat_id = $this->message->migrateToChatId();
+        $this->chat->save();
     }
 }

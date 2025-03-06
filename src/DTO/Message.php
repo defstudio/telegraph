@@ -382,7 +382,6 @@ class Message implements Arrayable
         return $this->migrateToChatId;
     }
 
-
     /**
      * @return Collection<array-key, Entity>
      */
