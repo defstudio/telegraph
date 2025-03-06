@@ -277,7 +277,6 @@ abstract class WebhookHandler
                 $this->message = Message::fromArray($this->request->input('message'));
                 $this->setupChat();
 
-                /* @phpstan-ignore-next-line */
                 $this->handleMigrateToChat();
 
                 return;
@@ -465,6 +464,10 @@ abstract class WebhookHandler
 
     protected function handleMigrateToChat(): void
     {
+        if (!$this->message?->migrateToChatId()) {
+            return;
+        }
+
         $this->chat->chat_id = $this->message->migrateToChatId();
         $this->chat->save();
     }

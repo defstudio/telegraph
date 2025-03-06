@@ -230,7 +230,10 @@ class Message implements Arrayable
             $message->entities = collect($data['entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }
 
-        $message->migrateToChatId = $data['migrate_to_chat_id'] ?? null;
+        if (isset($data['migrate_to_chat_id'])) {
+            $migrateToChatId = $data['migrate_to_chat_id'];
+            $message->migrateToChatId = "$migrateToChatId";
+        }
 
 
         return $message;

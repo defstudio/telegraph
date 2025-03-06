@@ -28,7 +28,6 @@ class ReplyKeyboard implements Arrayable
 
     public function __construct()
     {
-        /* @phpstan-ignore-next-line */
         $this->buttons = collect();
     }
 
@@ -276,7 +275,6 @@ class ReplyKeyboard implements Arrayable
 
         $keyboard[] = $row;
 
-        //@phpstan-ignore-next-line
         return $this->rtl ? array_map('array_reverse', $keyboard) : $keyboard;
     }
 
