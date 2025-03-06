@@ -368,6 +368,17 @@ it('can handle a successfulPayment', function () {
     Facade::assertSent("payment");
 });
 
+it('can handle a chat migration', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_migrate_to_chat(), $bot );
+
+    Facade::assertSent("We are a Supergroup now");
+
+    expect($bot->chats()->first()->chat_id)->toBe("20");
+});
+
 it('can handle message', function () {
     $bot = bot();
     Facade::fake();

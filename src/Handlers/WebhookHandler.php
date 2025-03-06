@@ -272,6 +272,17 @@ abstract class WebhookHandler
                 $this->handleSuccessfulPayment(SuccessfulPayment::fromArray($this->request->input('message.successful_payment')));
             }
 
+            if ($this->request->has('message.migrate_to_chat_id')) {
+                /* @phpstan-ignore-next-line */
+                $this->message = Message::fromArray($this->request->input('message'));
+                $this->setupChat();
+
+                /* @phpstan-ignore-next-line */
+                $this->handleMigrateToChat();
+
+                return;
+            }
+
             if ($this->request->has('message')) {
                 /* @phpstan-ignore-next-line */
                 $this->message = Message::fromArray($this->request->input('message'));
@@ -372,9 +383,9 @@ abstract class WebhookHandler
 
     protected function allowUnknownChat(): bool
     {
-        return (bool) match (true) {
+        return (bool)match (true) {
             $this->message !== null,
-            $this->reaction !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
+                $this->reaction !== null => config('telegraph.security.allow_messages_from_unknown_chats', false),
             $this->callbackQuery != null => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
             default => false,
         };
@@ -388,7 +399,7 @@ abstract class WebhookHandler
 
         report($throwable);
 
-        rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
+        rescue(fn() => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
     /**
@@ -407,7 +418,7 @@ abstract class WebhookHandler
             }
         }
 
-        return [(string) $command, (string) ($parameter ?? '')];
+        return [(string)$command, (string)($parameter ?? '')];
     }
 
     /**
@@ -420,7 +431,7 @@ abstract class WebhookHandler
 
         return collect($prefixes)
             ->push('/')
-            ->map(fn (string $prefix) => str($prefix)->trim()->toString())
+            ->map(fn(string $prefix) => str($prefix)->trim()->toString())
             ->unique();
     }
 
@@ -450,5 +461,11 @@ abstract class WebhookHandler
     protected function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
     {
         // .. handle SuccessfulPayment
+    }
+
+    protected function handleMigrateToChat(): void
+    {
+       $this->chat->chat_id = $this->message->migrateToChatId();
+       $this->chat->save();
     }
 }
