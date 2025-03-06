@@ -60,6 +60,6 @@ class Chat implements Arrayable
             'id' => $this->id,
             'type' => $this->type,
             'title' => $this->title,
-        ], fn ($value) => $value !== null);
+        ], fn ($value) => $value !== null); //@phpstan-ignore-line
     }
 }
