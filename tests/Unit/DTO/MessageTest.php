@@ -329,6 +329,7 @@ it('export all properties to array', function () {
             "web_app_name" => "test",
             "from_attachment_menu" => true,
         ],
+        'migrate_to_chat_id' => 20,
         'entities' => [
             [
                 'type' => 'url',

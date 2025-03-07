@@ -22,6 +22,7 @@
             },
             "photos": [],
             "new_chat_members": [],
+            "migrate_to_chat_id": 0,
             "entities": [
                 {
                     "type": "bot_command",
@@ -54,6 +55,7 @@
             },
             "photos": [],
             "new_chat_members": [],
+            "migrate_to_chat_id": 0,
             "entities": []
         }
     }
