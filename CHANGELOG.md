@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.57.1 - 2025-03-07
+
+### What's Changed
+
+* [chore] schedule runner by @MarioGattolla in https://github.com/defstudio/telegraph/pull/693
+* [fix] collision of custom command prefixes by @andrey-helldar in https://github.com/defstudio/telegraph/pull/694
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.57.0...v1.57.1
+
 ## v1.57.0 - 2025-02-22
 
 ### What's Changed
