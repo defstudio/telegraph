@@ -94,6 +94,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Joris Drenth](https://github.com/jorisdrenth) Dutch
 - [Moayed Alhagy](https://github.com/moayedalhagy) Arabic
 - [Rafael](https://github.com/rjmo) Portuguese
+- [sadegh19b][https://github.com/sadegh19b] Persian
 
 
 ## License
