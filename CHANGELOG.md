@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.57.2 - 2025-03-13
+
+### What's Changed
+
+* [lang] Added Persian Translations by @sadegh19b in https://github.com/defstudio/telegraph/pull/696
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.57.1...v1.57.2
+
 ## v1.57.1 - 2025-03-07
 
 ### What's Changed
