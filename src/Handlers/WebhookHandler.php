@@ -396,17 +396,19 @@ abstract class WebhookHandler
     protected function parseCommand(Stringable $text): array
     {
         $command = $text->before('@')->before(' ');
-
-        foreach ($this->commandPrefixes() as $prefix) {
-            if ($command->startsWith($prefix)) {
-                $parameter = $text->after($command)->after('@')->after(' ');
-                $command = $command->after($prefix);
-
-                break;
-            }
-        }
-
-        return [(string) $command, (string) ($parameter ?? '')];
+        
+		foreach (commandPrefixes() as $prefix) {
+			if ($command->startsWith($prefix)) {
+				$parameter = match (true) {
+					($text->after($command)->startsWith(' ')) => $text->after($command)->trim(),
+					default => null,
+				};
+				$command = $command->after($prefix);
+				break;
+			}
+		}
+        
+		return [(string) $command, (string) ($parameter ?? '')];
     }
 
     /**
