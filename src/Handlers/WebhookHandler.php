@@ -399,8 +399,9 @@ abstract class WebhookHandler
         
 		foreach (commandPrefixes() as $prefix) {
 			if ($command->startsWith($prefix)) {
-				$parameter = match (true) {
+                $parameter = match (true) {
 					($text->after($command)->startsWith(' ')) => $text->after($command)->trim(),
+					(($params = $text->after($command.'@'.$this->bot->name))->startsWith(' ')) => $params->after(' ')->trim(),
 					default => null,
 				};
 				$command = $command->after($prefix);
