@@ -50,6 +50,8 @@ class Message implements Arrayable
     private ?SuccessfulPayment $successfulPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
+    private ?string $migrateToChatId = null;
+
     /** @var Collection<array-key, Entity> */
     private Collection $entities;
 
@@ -89,6 +91,7 @@ class Message implements Arrayable
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
      *     write_access_allowed?: array<string, mixed>,
+     *     migrate_to_chat_id?: int,
      *     entities?: array<object>
      *  } $data
      */
@@ -226,6 +229,12 @@ class Message implements Arrayable
             /* @phpstan-ignore-next-line */
             $message->entities = collect($data['entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }
+
+        if (isset($data['migrate_to_chat_id'])) {
+            $migrateToChatId = $data['migrate_to_chat_id'];
+            $message->migrateToChatId = "$migrateToChatId";
+        }
+
 
         return $message;
     }
@@ -371,6 +380,11 @@ class Message implements Arrayable
         return $this->writeAccessAllowed;
     }
 
+    public function migrateToChatId(): ?string
+    {
+        return $this->migrateToChatId;
+    }
+
     /**
      * @return Collection<array-key, Entity>
      */
@@ -409,6 +423,7 @@ class Message implements Arrayable
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
+            'migrate_to_chat_id' => (int) $this->migrateToChatId,
             'entities' => $this->entities->toArray(),
         ], fn ($value) => $value !== null);
     }

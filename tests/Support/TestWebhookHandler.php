@@ -159,8 +159,15 @@ class TestWebhookHandler extends WebhookHandler
         ]))->send();
     }
 
-    public function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
+    protected function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
     {
         $this->bot->chats->first()->html('payment')->send();
+    }
+
+    protected function handleMigrateToChat(): void
+    {
+        parent::handleMigrateToChat();
+
+        $this->chat->html('We are a Supergroup now')->send();
     }
 }
