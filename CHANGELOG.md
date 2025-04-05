@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.58.0 - 2025-04-05
+
+### What's Changed
+
+* [feat] handle chat to supergroup upgrade by @MarioGattolla in https://github.com/defstudio/telegraph/pull/695
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.57.2...v1.58.0
+
 ## v1.57.2 - 2025-03-13
 
 ### What's Changed
