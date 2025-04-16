@@ -121,6 +121,7 @@ class Telegraph
 
     public const ENDPOINT_SEND_INVOICE = 'sendInvoice';
     public const ENDPOINT_CREATE_INVOICE_LINK = 'createInvoiceLink';
+    public const ENDPOINT_REFUND_STAR_PAYMENT = 'refundStarPayment';
 
     /** @var array<string, mixed> */
     protected array $data = [];
