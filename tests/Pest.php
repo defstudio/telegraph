@@ -96,14 +96,14 @@ function webhook_message($handler = TestWebhookHandler::class, array $message = 
 
     return Request::create('', 'POST', [
         'message' => $message ?? [
-                'message_id' => 123456,
-                'chat' => [
-                    'id' => 123456,
-                    'type' => 'group',
-                    'title' => 'Test chat',
-                ],
-                "text" => 'foo',
+            'message_id' => 123456,
+            'chat' => [
+                'id' => 123456,
+                'type' => 'group',
+                'title' => 'Test chat',
             ],
+            "text" => 'foo',
+        ],
     ]);
 }
 
@@ -114,25 +114,25 @@ function webhook_message_reaction($handler = TestWebhookHandler::class, array $m
 
     return Request::create('', 'POST', [
         'message_reaction' => $message ?? [
-                'chat' => [
-                    'id' => 3,
-                    'type' => 'a',
-                    'title' => 'b',
-                ],
-                'date' => 1727211008,
-                'user' => [
-                    'id' => 1,
-                    'first_name' => 'a',
-                ],
-                'message_id' => 2,
-                'new_reaction' => [
-                    [
-                        'type' => 'emoji',
-                        'emoji' => '👍',
-                    ],
-                ],
-                'old_reaction' => [],
+            'chat' => [
+                'id' => 3,
+                'type' => 'a',
+                'title' => 'b',
             ],
+            'date' => 1727211008,
+            'user' => [
+                'id' => 1,
+                'first_name' => 'a',
+            ],
+            'message_id' => 2,
+            'new_reaction' => [
+                [
+                    'type' => 'emoji',
+                    'emoji' => '👍',
+                ],
+            ],
+            'old_reaction' => [],
+        ],
     ]);
 }
 
@@ -251,12 +251,29 @@ function webhook_pre_checkout_query($handler = TestWebhookHandler::class): Reque
     ]);
 }
 
-function webhook_successful_payment($handler = TestWebhookHandler::class): Request
+function webhook_successful_payment($handler = TestWebhookHandler::class, int $chat_id = -123456789): Request
 {
     register_webhook_handler($handler);
 
     return Request::create('', 'POST', [
         'message' => [
+            "message_id" => 1,
+            "from" => [
+                "id" => 100,
+                "is_bot" => false,
+                "username" => "Test User",
+                "last_name" => "Test User",
+                "first_name" => "Test User",
+                "is_premium" => true,
+                "language_code" => "it",
+            ],
+            "chat" => [
+                "id" => $chat_id,
+                "type" => "a",
+                "title" => "b",
+                "all_members_are_administrators" => false,
+            ],
+            "date" => 100000,
             'successful_payment' => [
                 'currency' => 'EUR',
                 'total_amount' => 100,

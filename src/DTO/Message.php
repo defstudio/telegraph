@@ -231,8 +231,7 @@ class Message implements Arrayable
         }
 
         if (isset($data['migrate_to_chat_id'])) {
-            $migrateToChatId = $data['migrate_to_chat_id'];
-            $message->migrateToChatId = "$migrateToChatId";
+            $message->migrateToChatId = (string) $data['migrate_to_chat_id'];
         }
 
 
