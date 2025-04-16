@@ -88,6 +88,7 @@ class Message implements Arrayable
      *     contact?: array<string, mixed>,
      *     invoice?: array<string, mixed>,
      *     successful_payment?: array<string, mixed>,
+     *     refunded_payment?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
