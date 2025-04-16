@@ -440,7 +440,7 @@ abstract class WebhookHandler
         $this->chat->save();
     }
 
-    // Helpers
+    //---- Helpers
     protected function replaceKeyboard(Keyboard $newKeyboard): void
     {
         $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();
