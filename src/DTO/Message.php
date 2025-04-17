@@ -364,6 +364,11 @@ class Message implements Arrayable
         return $this->successfulPayment;
     }
 
+    public function refundedPayment(): ?RefundedPayment
+    {
+        return $this->refundedPayment;
+    }
+
     /**
      * @return Collection<array-key, User>
      */
