@@ -121,6 +121,11 @@ class TelegraphBot extends Model implements Storable
         return TelegraphFacade::bot($this)->answerPreCheckoutQuery($preCheckoutQueryId, $result, $errorMessage);
     }
 
+    public function refundStarPayment(string $userId, string $telegramPaymentChargeId): Telegraph
+    {
+        return TelegraphFacade::bot($this)->refundStarPayment($userId, $telegramPaymentChargeId);
+    }
+
     /**
      * @param InlineQueryResult[] $results
      */

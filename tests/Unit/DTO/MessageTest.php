@@ -282,6 +282,13 @@ it('export all properties to array', function () {
             'telegram_payment_charge_id' => 10,
             'provider_payment_charge_id' => 10,
         ],
+        'refunded_payment' => [
+            'currency' => 'XTR',
+            'total_amount' => 100,
+            'invoice_payload' => 'id_10',
+            'telegram_payment_charge_id' => 10,
+            'provider_payment_charge_id' => 10,
+        ],
         'location' => [
             'latitude' => 12456789,
             'longitude' => 98765431,

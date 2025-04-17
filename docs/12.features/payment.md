@@ -167,5 +167,16 @@ represents a successful payment.
 - `->telegramPaymentChargeId()` telegram payment identifier
 - `->providerPaymentChargeId()` provider payment identifier
 
+
+## `RefundedPayment`
+
+represents a refunded payment.
+
+- `->currency()` three-letter ISO 4217 currency code, or “XTR” for payments in Telegram Stars
+- `->totalAmount()` total price in the smallest units of the currency
+- `->invoicePayload()` bot-specified invoice payload
+- `->telegramPaymentChargeId()` telegram payment identifier
+- `->providerPaymentChargeId()` (optional) provider payment identifier
+
 > [!NOTE]
 > If the buyer initiates a chargeback with the relevant payment provider following this transaction, the funds may be debited from your balance. This is outside of Telegram's control.
