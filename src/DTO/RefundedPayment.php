@@ -27,7 +27,7 @@ class RefundedPayment implements Arrayable
      *     total_amount:int,
      *     invoice_payload:string,
      *     telegram_payment_charge_id:string,
-     *     provider_payment_charge_id:string,
+     *     provider_payment_charge_id?:string,
      * } $data
      */
     public static function fromArray(array $data): RefundedPayment
