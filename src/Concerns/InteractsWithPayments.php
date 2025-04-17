@@ -10,15 +10,15 @@ use DefStudio\Telegraph\Telegraph;
 /**
  * @mixin Telegraph
  */
-
-trait InteractWithUsers
+trait InteractsWithPayments
 {
-    public function userProfilePhotos(string $userId): Telegraph
+    public function refundStarPayment(string $userId, string $telegramPaymentChargeId): Telegraph
     {
         $telegraph = clone $this;
 
-        $telegraph->endpoint = self::ENDPOINT_GET_USER_PROFILE_PHOTOS;
+        $telegraph->endpoint = self::ENDPOINT_REFUND_STAR_PAYMENT;
         $telegraph->data['user_id'] = $userId;
+        $telegraph->data['telegram_payment_charge_id'] = $telegramPaymentChargeId;
 
         return $telegraph;
     }

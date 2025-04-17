@@ -14,6 +14,7 @@ use DefStudio\Telegraph\Concerns\ComposesMessages;
 use DefStudio\Telegraph\Concerns\CreatesScopedPayloads;
 use DefStudio\Telegraph\Concerns\HasBotsAndChats;
 use DefStudio\Telegraph\Concerns\InteractsWithCommands;
+use DefStudio\Telegraph\Concerns\InteractsWithPayments;
 use DefStudio\Telegraph\Concerns\InteractsWithTelegram;
 use DefStudio\Telegraph\Concerns\InteractsWithWebhooks;
 use DefStudio\Telegraph\Concerns\InteractWithUsers;
@@ -39,6 +40,7 @@ class Telegraph
     use CreatesScopedPayloads;
     use InteractWithUsers;
     use InteractsWithCommands;
+    use InteractsWithPayments;
     use Conditionable;
 
 
