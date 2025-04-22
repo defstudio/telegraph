@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.59.0 - 2025-04-22
+
+### What's Changed
+
+* [fix] minor typo in telegraph-bot.md by @AndreiChernousov in https://github.com/defstudio/telegraph/pull/702
+* [feat] star refunds by @ah-rahimi in https://github.com/defstudio/telegraph/pull/705
+* [fix] Webhook handlers by @ah-rahimi in https://github.com/defstudio/telegraph/pull/703
+
+### New Contributors
+
+* @AndreiChernousov made their first contribution in https://github.com/defstudio/telegraph/pull/702
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.58.0...v1.59.0
+
 ## v1.58.0 - 2025-04-05
 
 ### What's Changed
