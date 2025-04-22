@@ -314,6 +314,7 @@ trait HasBotsAndChats
         assert(is_numeric($maxSizeInMb));
 
         if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeInMb) {
+            /* @phpstan-ignore-next-line */
             throw FileException::photoSizeExceeded($size, $maxSizeInMb);
         }
 
@@ -325,6 +326,7 @@ trait HasBotsAndChats
         assert(is_numeric($height_width_sum_px));
 
         if (($totalLength = $height + $width) > $height_width_sum_px) {
+            /* @phpstan-ignore-next-line */
             throw FileException::invalidPhotoSize($totalLength, $height_width_sum_px);
         }
 
@@ -333,6 +335,7 @@ trait HasBotsAndChats
         assert(is_numeric($maxRatio));
 
         if (($ratio = $height / $width) > $maxRatio || $ratio < (1 / $maxRatio)) {
+            /* @phpstan-ignore-next-line */
             throw FileException::invalidPhotoRatio($ratio, $maxRatio);
         }
 

@@ -30,7 +30,6 @@ trait ManagesKeyboards
         }
 
         if (is_array($keyboard)) {
-            //@phpstan-ignore-next-line
             $keyboard = Keyboard::fromArray($keyboard);
         }
 
@@ -52,7 +51,6 @@ trait ManagesKeyboards
         }
 
         if (is_array($keyboard)) {
-            //@phpstan-ignore-next-line
             $keyboard = ReplyKeyboard::fromArray($keyboard);
         }
 

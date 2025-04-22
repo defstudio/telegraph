@@ -32,13 +32,9 @@ class ChatMemberUpdate implements Arrayable
         $chatMemberUpdate = new self();
 
         $chatMemberUpdate->date = Carbon::createFromTimestamp($data['date']);
-        /* @phpstan-ignore-next-line  */
         $chatMemberUpdate->chat = Chat::fromArray($data['chat']);
-        /* @phpstan-ignore-next-line  */
         $chatMemberUpdate->from = User::fromArray($data['from']);
-        /* @phpstan-ignore-next-line  */
         $chatMemberUpdate->previous = ChatMember::fromArray($data['old_chat_member']);
-        /* @phpstan-ignore-next-line  */
         $chatMemberUpdate->new = ChatMember::fromArray($data['new_chat_member']);
 
         return $chatMemberUpdate;

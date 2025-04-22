@@ -52,7 +52,6 @@ class Animation implements Arrayable, Downloadable
         $animation->mimeType = $data['mime_type'] ?? null;
 
         if (isset($data['thumb'])) {
-            /* @phpstan-ignore-next-line */
             $animation->thumbnail = Photo::fromArray($data['thumb']);
         }
 

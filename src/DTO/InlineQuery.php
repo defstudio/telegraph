@@ -36,7 +36,6 @@ class InlineQuery implements Arrayable
 
         $inlineQuery->id = $data['id'];
 
-        /** @phpstan-ignore-next-line  */
         $inlineQuery->from = User::fromArray($data['from']);
 
         $inlineQuery->query = $data['query'] ?? '';
@@ -44,7 +43,6 @@ class InlineQuery implements Arrayable
         $inlineQuery->chatType = $data['chat_type'];
 
         if (isset($data['location'])) {
-            /** @phpstan-ignore-next-line */
             $inlineQuery->location = Location::fromArray($data['location']);
         }
 

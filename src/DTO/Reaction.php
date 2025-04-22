@@ -56,16 +56,13 @@ class Reaction implements Arrayable
 
         $reaction->id = $data['message_id'];
 
-        /* @phpstan-ignore-next-line */
         $reaction->chat = Chat::fromArray($data['chat']);
 
         if (isset($data['actor_chat'])) {
-            /* @phpstan-ignore-next-line */
             $reaction->actorChat = Chat::fromArray($data['actor_chat']);
         }
 
         if (isset($data['user'])) {
-            /* @phpstan-ignore-next-line */
             $reaction->from = User::fromArray($data['user']);
         }
 

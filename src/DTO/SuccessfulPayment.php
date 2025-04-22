@@ -55,7 +55,6 @@ class SuccessfulPayment implements Arrayable
 
 
         if (isset($data['order_info'])) {
-            /* @phpstan-ignore-next-line */
             $successfulPayment->orderInfo = OrderInfo::fromArray($data['order_info']);
         }
 

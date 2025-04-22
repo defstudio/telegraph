@@ -35,7 +35,6 @@ class OrderInfo implements Arrayable
         $orderInfo->email = $data['email'] ?? null;
 
         if (isset($data['shipping_address'])) {
-            /* @phpstan-ignore-next-line  */
             $orderInfo->shippingAddress = ShippingAddress::fromArray($data['shipping_address']);
         }
 

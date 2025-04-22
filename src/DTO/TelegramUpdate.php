@@ -46,42 +46,34 @@ class TelegramUpdate implements Arrayable
         $update->id = $data['update_id'];
 
         if (isset($data['message'])) {
-            /* @phpstan-ignore-next-line */
             $update->message = Message::fromArray($data['message']);
         }
 
         if (isset($data['edited_message'])) {
-            /* @phpstan-ignore-next-line */
             $update->message = Message::fromArray($data['edited_message']);
         }
 
         if (isset($data['message_reaction'])) {
-            /* @phpstan-ignore-next-line */
             $update->messageReaction = Reaction::fromArray($data['message_reaction']);
         }
 
         if (isset($data['channel_post'])) {
-            /* @phpstan-ignore-next-line */
             $update->message = Message::fromArray($data['channel_post']);
         }
 
         if (isset($data['callback_query'])) {
-            /* @phpstan-ignore-next-line */
             $update->callbackQuery = CallbackQuery::fromArray($data['callback_query']);
         }
 
         if (isset($data['pre_checkout_query'])) {
-            /* @phpstan-ignore-next-line */
             $update->preCheckoutQuery = PreCheckoutQuery::fromArray($data['pre_checkout_query']);
         }
 
         if (isset($data['my_chat_member'])) {
-            /* @phpstan-ignore-next-line */
             $update->botChatStatusChange = ChatMemberUpdate::fromArray($data['my_chat_member']);
         }
 
         if (isset($data['inline_query'])) {
-            /* @phpstan-ignore-next-line */
             $update->inlineQuery = InlineQuery::fromArray($data['inline_query']);
         }
 

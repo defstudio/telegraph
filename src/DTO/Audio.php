@@ -48,7 +48,6 @@ class Audio implements Arrayable, Downloadable
         $audio->filesize = $data['file_size'] ?? null;
 
         if (isset($data['thumb'])) {
-            /* @phpstan-ignore-next-line  */
             $audio->thumbnail = Photo::fromArray($data['thumb']);
         }
 

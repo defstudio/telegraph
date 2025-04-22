@@ -157,7 +157,7 @@ abstract class WebhookHandler
 
     protected function allowUnknownChat(): bool
     {
-        return match (true) {
+        return (bool) match (true) {
             isset($this->message),
             isset($this->reaction) => config('telegraph.security.allow_messages_from_unknown_chats', false),
             isset($this->callbackQuery) => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
@@ -432,6 +432,7 @@ abstract class WebhookHandler
 
     protected function handleMigrateToChat(): void
     {
+        /** @phpstan-ignore-next-line */
         $this->chat->chat_id = $this->message->migrateToChatId();
         $this->chat->save();
     }

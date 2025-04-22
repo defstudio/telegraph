@@ -37,11 +37,9 @@ class CallbackQuery implements Arrayable
 
         $callbackQuery->id = $data['id'];
 
-        /* @phpstan-ignore-next-line */
         $callbackQuery->from = User::fromArray($data['from']);
 
         if (isset($data['message'])) {
-            /* @phpstan-ignore-next-line */
             $callbackQuery->message = Message::fromArray($data['message']);
         }
 
