@@ -5,6 +5,10 @@ on:
     paths:
       - '**.php'
       - 'phpstan.neon'
+  pull_request:
+    paths:
+      - '**.php'
+      - 'phpstan.neon'
   schedule:
     - cron: '0 3 * * *'
 
