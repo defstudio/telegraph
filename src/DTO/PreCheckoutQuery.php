@@ -40,7 +40,6 @@ class PreCheckoutQuery implements Arrayable
 
         $preCheckoutQuery->id = $data['id'];
 
-        /* @phpstan-ignore-next-line */
         $preCheckoutQuery->from = User::fromArray($data['from']);
 
         $preCheckoutQuery->currency = $data['currency'];
@@ -50,7 +49,6 @@ class PreCheckoutQuery implements Arrayable
 
 
         if (isset($data['order_info'])) {
-            /* @phpstan-ignore-next-line */
             $preCheckoutQuery->orderInfo = OrderInfo::fromArray($data['order_info']);
         }
 

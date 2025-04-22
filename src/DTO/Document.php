@@ -41,7 +41,6 @@ class Document implements Arrayable, Downloadable
         $document->filesize = $data['file_size'] ?? null;
 
         if (isset($data['thumb'])) {
-            /* @phpstan-ignore-next-line  */
             $document->thumbnail = Photo::fromArray($data['thumb']);
         }
 

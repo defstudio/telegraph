@@ -45,14 +45,11 @@ class ChatJoinRequest implements Arrayable
         }
 
         if (isset($data['invite_link'])) {
-            /* @phpstan-ignore-next-line */
             $request->inviteLink = ChatInviteLink::fromArray($data['invite_link']);
         }
 
-        /* @phpstan-ignore-next-line  */
         $request->chat = Chat::fromArray($data['chat']);
 
-        /* @phpstan-ignore-next-line  */
         $request->from = User::fromArray($data['from']);
 
         return $request;

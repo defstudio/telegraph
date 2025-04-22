@@ -51,7 +51,6 @@ class Sticker implements Arrayable, Downloadable
         $sticker->filesize = $data['file_size'] ?? null;
 
         if (isset($data['thumb'])) {
-            /* @phpstan-ignore-next-line */
             $sticker->thumbnail = Photo::fromArray($data['thumb']);
         }
 

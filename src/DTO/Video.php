@@ -50,7 +50,6 @@ class Video implements Arrayable, Downloadable
         $video->filesize = $data['file_size'] ?? null;
 
         if (isset($data['thumb'])) {
-            /* @phpstan-ignore-next-line  */
             $video->thumbnail = Photo::fromArray($data['thumb']);
         }
 

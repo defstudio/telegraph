@@ -311,9 +311,10 @@ trait HasBotsAndChats
 
         $maxSizeInMb = config('telegraph.attachments.photo.max_size_mb', 10);
 
-        assert(is_float($maxSizeInMb));
+        assert(is_numeric($maxSizeInMb));
 
         if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeInMb) {
+            /* @phpstan-ignore-next-line */
             throw FileException::photoSizeExceeded($size, $maxSizeInMb);
         }
 
@@ -322,17 +323,19 @@ trait HasBotsAndChats
 
         $height_width_sum_px = config('telegraph.attachments.photo.height_width_sum_px', 10000);
 
-        assert(is_integer($height_width_sum_px));
+        assert(is_numeric($height_width_sum_px));
 
         if (($totalLength = $height + $width) > $height_width_sum_px) {
+            /* @phpstan-ignore-next-line */
             throw FileException::invalidPhotoSize($totalLength, $height_width_sum_px);
         }
 
         $maxRatio = config('telegraph.attachments.photo.max_ratio', 20);
 
-        assert(is_float($maxRatio));
+        assert(is_numeric($maxRatio));
 
         if (($ratio = $height / $width) > $maxRatio || $ratio < (1 / $maxRatio)) {
+            /* @phpstan-ignore-next-line */
             throw FileException::invalidPhotoRatio($ratio, $maxRatio);
         }
 

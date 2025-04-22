@@ -38,7 +38,6 @@ class ChatMember implements Arrayable
 
         $member->status = $data['status'];
 
-        /* @phpstan-ignore-next-line */
         $member->user = User::fromArray($data['user']);
 
         $member->isAnonymous = $data['is_anonymous'] ?? false;

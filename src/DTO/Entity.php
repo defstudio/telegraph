@@ -55,7 +55,6 @@ class Entity implements Arrayable
         }
 
         if (isset($data['user'])) {
-            /* @phpstan-ignore-next-line */
             $entity->user = User::fromArray($data['user']);
         }
 

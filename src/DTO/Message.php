@@ -118,27 +118,22 @@ class Message implements Arrayable
         $message->protected = $data['has_protected_content'] ?? false;
 
         if (isset($data['reply_to_message'])) {
-            /* @phpstan-ignore-next-line */
             $message->replyToMessage = Message::fromArray($data['reply_to_message']);
         }
 
         if (isset($data['from'])) {
-            /* @phpstan-ignore-next-line */
             $message->from = User::fromArray($data['from']);
         }
 
         if (isset($data['forward_from'])) {
-            /* @phpstan-ignore-next-line */
             $message->forwardedFrom = User::fromArray($data['forward_from']);
         }
 
         if (isset($data['chat'])) {
-            /* @phpstan-ignore-next-line */
             $message->chat = Chat::fromArray($data['chat']);
         }
 
         if (isset($data['reply_markup']) && isset($data['reply_markup']['inline_keyboard'])) {
-            /* @phpstan-ignore-next-line */
             $message->keyboard = Keyboard::fromArray($data['reply_markup']['inline_keyboard']);
         } else {
             $message->keyboard = Keyboard::make();
@@ -148,58 +143,47 @@ class Message implements Arrayable
         $message->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
 
         if (isset($data['animation'])) {
-            /* @phpstan-ignore-next-line */
             $message->animation = Animation::fromArray($data['animation']);
         }
 
         if (isset($data['audio'])) {
-            /* @phpstan-ignore-next-line */
             $message->audio = Audio::fromArray($data['audio']);
         }
 
         if (isset($data['document'])) {
-            /* @phpstan-ignore-next-line */
             $message->document = Document::fromArray($data['document']);
         }
 
         if (isset($data['video'])) {
-            /* @phpstan-ignore-next-line */
             $message->video = Video::fromArray($data['video']);
         }
 
         if (isset($data['location'])) {
-            /* @phpstan-ignore-next-line */
             $message->location = Location::fromArray($data['location']);
         }
 
 
         if (isset($data['contact'])) {
-            /* @phpstan-ignore-next-line */
             $message->contact = Contact::fromArray($data['contact']);
         }
 
         if (isset($data['voice'])) {
-            /* @phpstan-ignore-next-line */
             $message->voice = Voice::fromArray($data['voice']);
         }
 
         if (isset($data['sticker'])) {
-            /* @phpstan-ignore-next-line */
             $message->sticker = Sticker::fromArray($data['sticker']);
         }
 
         if (isset($data['venue'])) {
-            /* @phpstan-ignore-next-line */
             $message->venue = Venue::fromArray($data['venue']);
         }
 
         if (isset($data['invoice'])) {
-            /* @phpstan-ignore-next-line */
             $message->invoice = Invoice::fromArray($data['invoice']);
         }
 
         if (isset($data['successful_payment'])) {
-            /* @phpstan-ignore-next-line */
             $message->successfulPayment = SuccessfulPayment::fromArray($data['successful_payment']);
         }
 
@@ -213,7 +197,6 @@ class Message implements Arrayable
 
 
         if (isset($data['left_chat_member'])) {
-            /* @phpstan-ignore-next-line */
             $message->leftChatMember = User::fromArray($data['left_chat_member']);
         }
 
@@ -228,7 +211,6 @@ class Message implements Arrayable
         }
 
         if (isset($data['write_access_allowed'])) {
-            /* @phpstan-ignore-next-line */
             $message->writeAccessAllowed = WriteAccessAllowed::fromArray($data['write_access_allowed']);
         }
 
@@ -238,8 +220,7 @@ class Message implements Arrayable
         }
 
         if (isset($data['migrate_to_chat_id'])) {
-            $migrateToChatId = $data['migrate_to_chat_id'];
-            $message->migrateToChatId = "$migrateToChatId";
+            $message->migrateToChatId = (string) $data['migrate_to_chat_id'];
         }
 
 
