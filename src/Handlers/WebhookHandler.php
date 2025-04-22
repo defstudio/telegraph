@@ -432,10 +432,6 @@ abstract class WebhookHandler
 
     protected function handleMigrateToChat(): void
     {
-        if (!$this->message?->migrateToChatId()) {
-            return;
-        }
-
         $this->chat->chat_id = $this->message->migrateToChatId();
         $this->chat->save();
     }
