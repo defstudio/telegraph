@@ -64,3 +64,8 @@ it('can reply to a webhook call', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->bot(make_bot())->replyWebhook(2123456, 'foo'))
         ->toMatchTelegramSnapshot();
 });
+
+it('can answer pre checkout query', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->bot(make_bot())->answerPreCheckoutQuery(4123456, true, 'test error'))
+        ->toMatchTelegramSnapshot();
+})->only();

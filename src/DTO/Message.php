@@ -48,6 +48,7 @@ class Message implements Arrayable
     private ?Venue $venue = null;
     private ?Invoice $invoice = null;
     private ?SuccessfulPayment $successfulPayment = null;
+    private ?RefundedPayment $refundedPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
     private ?string $migrateToChatId = null;
@@ -87,6 +88,7 @@ class Message implements Arrayable
      *     contact?: array<string, mixed>,
      *     invoice?: array<string, mixed>,
      *     successful_payment?: array<string, mixed>,
+     *     refunded_payment?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
@@ -199,6 +201,11 @@ class Message implements Arrayable
         if (isset($data['successful_payment'])) {
             /* @phpstan-ignore-next-line */
             $message->successfulPayment = SuccessfulPayment::fromArray($data['successful_payment']);
+        }
+
+        if (isset($data['refunded_payment'])) {
+            /* @phpstan-ignore-next-line */
+            $message->refundedPayment = RefundedPayment::fromArray($data['refunded_payment']);
         }
 
         /* @phpstan-ignore-next-line */
@@ -357,6 +364,11 @@ class Message implements Arrayable
         return $this->successfulPayment;
     }
 
+    public function refundedPayment(): ?RefundedPayment
+    {
+        return $this->refundedPayment;
+    }
+
     /**
      * @return Collection<array-key, User>
      */
@@ -419,6 +431,7 @@ class Message implements Arrayable
             'venue' => $this->venue?->toArray(),
             'invoice' => $this->invoice?->toArray(),
             'successful_payment' => $this->successfulPayment?->toArray(),
+            'refunded_payment' => $this->refundedPayment?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
