@@ -50,6 +50,8 @@ class Message implements Arrayable
     private ?SuccessfulPayment $successfulPayment = null;
     private ?RefundedPayment $refundedPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
+    private ?UsersShared $usersShared = null;
+    private ?ChatShared $chatShared = null;
 
     private ?string $migrateToChatId = null;
 
@@ -93,6 +95,8 @@ class Message implements Arrayable
      *     left_chat_member?: array<string, mixed>,
      *     web_app_data?: array<string, mixed>,
      *     write_access_allowed?: array<string, mixed>,
+     *     users_shared?: array<string, mixed>,
+     *     chat_shared?: array<string, mixed>,
      *     migrate_to_chat_id?: int,
      *     entities?: array<object>
      *  } $data
@@ -212,6 +216,14 @@ class Message implements Arrayable
 
         if (isset($data['write_access_allowed'])) {
             $message->writeAccessAllowed = WriteAccessAllowed::fromArray($data['write_access_allowed']);
+        }
+
+        if (isset($data['user_shared'])) {
+            $message->usersShared = UsersShared::fromArray($data['user_shared']);
+        }
+
+        if (isset($data['chat_shared'])) {
+            $message->chatShared = ChatShared::fromArray($data['chat_shared']);
         }
 
         if (isset($data['entities']) && $data['entities']) {
@@ -373,6 +385,16 @@ class Message implements Arrayable
         return $this->writeAccessAllowed;
     }
 
+    public function usersShared(): ?UsersShared
+    {
+        return $this->usersShared;
+    }
+
+    public function chatShared(): ?ChatShared
+    {
+        return $this->chatShared;
+    }
+
     public function migrateToChatId(): ?string
     {
         return $this->migrateToChatId;
@@ -417,6 +439,8 @@ class Message implements Arrayable
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
+            'users_shared' => $this->usersShared?->toArray(),
+            'chat_shared' => $this->chatShared?->toArray(),
             'migrate_to_chat_id' => (int) $this->migrateToChatId,
             'entities' => $this->entities->toArray(),
         ], fn ($value) => $value !== null);

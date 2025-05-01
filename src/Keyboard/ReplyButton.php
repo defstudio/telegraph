@@ -17,6 +17,16 @@ class ReplyButton
      */
     private array $pollType;
 
+    /**
+     * @var array<string, string>
+     */
+    private array $usersType;
+
+    /**
+     * @var array<string, mixed>
+     */
+    private array $chatType;
+
     private int $width = 0;
 
     private function __construct(
@@ -80,6 +90,62 @@ class ReplyButton
         return $this;
     }
 
+    public function requestUsers(
+        int $request_id,
+        bool $user_is_bot,
+        bool $user_is_premium,
+        int $max_quantity,
+        bool $request_name,
+        bool $request_username,
+        bool $request_photo
+    ): static
+    {
+        $this->type = ReplyButtonType::REQUEST_USERS;
+        $this->usersType = [
+            'request_id' => $request_id,
+            'user_is_bot' => $user_is_bot,
+            'user_is_premium' => $user_is_premium,
+            'max_quantity' => $max_quantity,
+            'request_name' => $request_name,
+            'request_username' => $request_username,
+            'request_photo' => $request_photo,
+        ];
+
+        return $this;
+    }
+
+    public function requestChat(
+        int $request_id,
+        bool $chat_is_channel,
+        ?bool $chat_is_forum,
+        ?bool $chat_has_username,
+        ?bool $chat_is_created,
+        ?array $user_administrator_rights,
+        ?array $bot_administrator_rights,
+        ?bool $bot_is_member,
+        ?bool $request_title,
+        ?bool $request_username,
+        ?bool $request_photo
+    ): static
+    {
+        $this->type = ReplyButtonType::REQUEST_CHAT;
+        $this->chatType = [
+            'request_id' => $request_id,
+            'chat_is_channel' => $chat_is_channel,
+            'chat_is_forum' => $chat_is_forum,
+            'chat_has_username' => $chat_has_username,
+            'chat_is_created' => $chat_is_created,
+            'user_administrator_rights' => $user_administrator_rights,
+            'bot_administrator_rights' => $bot_administrator_rights,
+            'bot_is_member' => $bot_is_member,
+            'request_title' => $request_title,
+            'request_username' => $request_username,
+            'request_photo' => $request_photo,
+        ];
+
+        return $this;
+    }
+
     /**
      * @return array<string, string|string[]|true>
      */
@@ -103,6 +169,14 @@ class ReplyButton
 
         if ($this->type === ReplyButtonType::REQUEST_POLL) {
             $data['request_poll'] = $this->pollType;
+        }
+
+        if ($this->type === ReplyButtonType::REQUEST_USERS) {
+            $data['request_users'] = $this->usersType;
+        }
+
+        if ($this->type === ReplyButtonType::REQUEST_CHAT) {
+            $data['request_chat'] = $this->chatType;
         }
 
         return $data;
