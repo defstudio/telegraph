@@ -57,7 +57,7 @@ class ReplyKeyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, array<array-key, array{text: string, request_contact?: bool, request_location?: bool, request_poll?: string[], web_app?: string[]}>> $arrayKeyboard
+     * @param array<array-key, array<array-key, array{text: string, request_contact?: bool, request_location?: bool, request_poll?: string[], web_app?: string[], request_users?: string[], request_chat?: []}>> $arrayKeyboard
      *
      * @return self
      */
@@ -89,6 +89,34 @@ class ReplyKeyboard implements Arrayable
 
                 if (array_key_exists("web_app", $button)) {
                     $rowButton = $rowButton->webApp($button['web_app']['url']);
+                }
+
+                if (array_key_exists("request_users", $button)) {
+                    $rowButton = $rowButton->requestUsers(
+                        $button['request_users']['request_id'], 
+                        $button['request_users']['user_is_bot'],
+                        $button['request_users']['user_is_premium'],
+                        $button['request_users']['max_quantity'],
+                        $button['request_users']['request_name'],
+                        $button['request_users']['request_username'],
+                        $button['request_users']['request_photo']
+                    );
+                }
+
+                if (array_key_exists("request_chat", $button)) {
+                    $rowButton = $rowButton->requestChat(
+                        $button['request_chat']['request_id'],
+                        $button['request_chat']['chat_is_channel'],
+                        $button['request_chat']['chat_is_forum'],
+                        $button['request_chat']['chat_has_username'],
+                        $button['request_chat']['chat_is_created'],
+                        $button['request_chat']['user_administrator_rights'],
+                        $button['request_chat']['bot_administrator_rights'],
+                        $button['request_chat']['bot_is_member'],
+                        $button['request_chat']['request_title'],
+                        $button['request_chat']['request_username'],
+                        $button['request_chat']['request_photo']
+                    );
                 }
 
                 $rowButtons[] = $rowButton;
