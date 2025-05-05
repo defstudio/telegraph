@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int|null|array>
  */
-class UsersShared implements Arrayable
+class SharedUsers implements Arrayable
 {
     public int $requestId;
     /** @var SharedUser[] */
@@ -23,17 +23,17 @@ class UsersShared implements Arrayable
      *     users: array<array<string, mixed>>
      * } $data
      */
-    public static function fromArray(array $data): UsersShared
+    public static function fromArray(array $data): SharedUsers
     {
-        $usersShared = new self();
+        $sharedUsers = new self();
 
-        $usersShared->requestId = $data['request_id'];
-        $usersShared->users = array_map(
+        $sharedUsers->requestId = $data['request_id'];
+        $sharedUsers->users = array_map(
             fn(array $userData) => SharedUser::fromArray($userData),
             $data['users']
         );
 
-        return $usersShared;
+        return $sharedUsers;
     }
 
     public function requestId(): int

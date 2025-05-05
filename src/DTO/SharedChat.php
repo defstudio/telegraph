@@ -7,7 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int|null|array>
  */
-class ChatShared implements Arrayable
+class SharedChat implements Arrayable
 {
     private int $requestId;
     private int $chatId;
@@ -29,23 +29,23 @@ class ChatShared implements Arrayable
      *     photo?: array<array<string, mixed>>
      * } $data
      */
-    public static function fromArray(array $data): ChatShared
+    public static function fromArray(array $data): SharedChat
     {
-        $chatShared = new self();
+        $sharedChat = new self();
 
-        $chatShared->requestId = $data['request_id'];
-        $chatShared->chatId = $data['chat_id'];
-        $chatShared->title = $data['title'] ?? null;
-        $chatShared->username = $data['username'] ?? null;
+        $sharedChat->requestId = $data['request_id'];
+        $sharedChat->chatId = $data['chat_id'];
+        $sharedChat->title = $data['title'] ?? null;
+        $sharedChat->username = $data['username'] ?? null;
 
         if (isset($data['photo'])) {
-            $chatShared->photo = array_map(
+            $sharedChat->photo = array_map(
                 fn(array $photoData) => Photo::fromArray($photoData),
                 $data['photo']
             );
         }
 
-        return $chatShared;
+        return $sharedChat;
     }
 
     public function requestId(): int
