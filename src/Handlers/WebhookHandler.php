@@ -138,7 +138,9 @@ abstract class WebhookHandler
             default => $this->callbackQuery?->message()?->chat(),
         };
 
-        assert($telegramChat !== null);
+        if ($telegramChat === null) {
+            return;
+        }
 
         $this->chat = $this->bot->chats()->firstOrNew([
             'chat_id' => $telegramChat->id(),
@@ -214,7 +216,9 @@ abstract class WebhookHandler
 
     protected function extractMessageData(): void
     {
-        assert($this->message !== null);
+        if ($this->message === null) {
+            return;
+        }
 
         $this->messageId = $this->message->id();
 
@@ -349,7 +353,9 @@ abstract class WebhookHandler
 
     protected function extractCallbackQueryData(): void
     {
-        assert($this->callbackQuery !== null);
+        if ($this->callbackQuery === null) {
+            return;
+        }
 
         $this->messageId = $this->callbackQuery->message()?->id() ?? throw TelegramWebhookException::invalidData('message id missing');
 
@@ -376,7 +382,9 @@ abstract class WebhookHandler
 
     protected function extractReactionData(): void
     {
-        assert($this->reaction !== null);
+        if ($this->reaction === null) {
+            return;
+        }
 
         $this->messageId = $this->reaction->id();
 
