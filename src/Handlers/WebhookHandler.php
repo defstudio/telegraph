@@ -112,6 +112,8 @@ abstract class WebhookHandler
             // run handlers
             match (true) {
                 isset($this->message) && $this->message->successfulPayment() => $this->handleSuccessfulPayment($this->message->successfulPayment()),
+                isset($this->message) && $this->message->sharedUsers() => $this->handleSharedUsers($this->message->sharedUsers()),
+                isset($this->message) && $this->message->sharedChat() => $this->handleSharedChat($this->message->sharedChat()),
                 isset($this->message) && $this->message->migrateToChatId() => $this->handleMigrateToChat(),
                 isset($this->message) => $this->handleMessage(),
                 isset($this->callbackQuery) => $this->handleCallbackQuery(),
@@ -397,6 +399,16 @@ abstract class WebhookHandler
     }
 
     protected function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleSharedUsers(SharedUsers $sharedUsers): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleSharedChat(SharedChat $sharedChat): void
     {
         // .. do nothing
     }
