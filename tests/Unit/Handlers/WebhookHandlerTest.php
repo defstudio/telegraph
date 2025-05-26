@@ -389,6 +389,15 @@ it('can handle a successfulPayment', function () {
     Facade::assertSent("payment");
 });
 
+it('can handle a bot chat status update', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_bot_chat_status_update(), $bot);
+
+    Facade::assertSent("banned");
+});
+
 it('can handle a chat migration', function () {
     $bot = bot();
     Facade::fake();

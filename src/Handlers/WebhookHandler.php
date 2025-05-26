@@ -11,6 +11,7 @@ namespace DefStudio\Telegraph\Handlers;
 use DefStudio\Telegraph\DTO\CallbackQuery;
 use DefStudio\Telegraph\DTO\Chat;
 use DefStudio\Telegraph\DTO\ChatJoinRequest;
+use DefStudio\Telegraph\DTO\ChatMemberUpdate;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
 use DefStudio\Telegraph\DTO\PreCheckoutQuery;
@@ -72,6 +73,12 @@ abstract class WebhookHandler
 
             if ($this->request->has('pre_checkout_query')) {
                 $this->handlePreCheckoutQuery(PreCheckoutQuery::fromArray($this->request->input('pre_checkout_query')));
+
+                return;
+            }
+
+            if ($this->request->has('my_chat_member')) {
+                $this->handleBotChatStatusUpdate(ChatMemberUpdate::fromArray($this->request->input('my_chat_member')));
 
                 return;
             }
@@ -415,6 +422,11 @@ abstract class WebhookHandler
     }
 
     protected function handleChatMemberLeft(User $member): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleBotChatStatusUpdate(ChatMemberUpdate $chatMemberUpdate): void
     {
         // .. do nothing
     }

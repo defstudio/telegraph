@@ -7,6 +7,7 @@
 namespace DefStudio\Telegraph\Tests\Support;
 
 use DefStudio\Telegraph\DTO\ChatJoinRequest;
+use DefStudio\Telegraph\DTO\ChatMemberUpdate;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
 use DefStudio\Telegraph\DTO\SuccessfulPayment;
@@ -162,6 +163,11 @@ class TestWebhookHandler extends WebhookHandler
     protected function handleSuccessfulPayment(SuccessfulPayment $successfulPayment): void
     {
         $this->bot->chats->first()->html('payment')->send();
+    }
+
+    protected function handleBotChatStatusUpdate(ChatMemberUpdate $chatMemberUpdate): void
+    {
+        $this->bot->chats->first()->html('banned')->send();
     }
 
     protected function handleMigrateToChat(): void

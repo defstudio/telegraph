@@ -96,14 +96,14 @@ function webhook_message($handler = TestWebhookHandler::class, array $message = 
 
     return Request::create('', 'POST', [
         'message' => $message ?? [
-            'message_id' => 123456,
-            'chat' => [
-                'id' => 123456,
-                'type' => 'group',
-                'title' => 'Test chat',
+                'message_id' => 123456,
+                'chat' => [
+                    'id' => 123456,
+                    'type' => 'group',
+                    'title' => 'Test chat',
+                ],
+                "text" => 'foo',
             ],
-            "text" => 'foo',
-        ],
     ]);
 }
 
@@ -114,25 +114,25 @@ function webhook_message_reaction($handler = TestWebhookHandler::class, array $m
 
     return Request::create('', 'POST', [
         'message_reaction' => $message ?? [
-            'chat' => [
-                'id' => 3,
-                'type' => 'a',
-                'title' => 'b',
-            ],
-            'date' => 1727211008,
-            'user' => [
-                'id' => 1,
-                'first_name' => 'a',
-            ],
-            'message_id' => 2,
-            'new_reaction' => [
-                [
-                    'type' => 'emoji',
-                    'emoji' => '👍',
+                'chat' => [
+                    'id' => 3,
+                    'type' => 'a',
+                    'title' => 'b',
                 ],
+                'date' => 1727211008,
+                'user' => [
+                    'id' => 1,
+                    'first_name' => 'a',
+                ],
+                'message_id' => 2,
+                'new_reaction' => [
+                    [
+                        'type' => 'emoji',
+                        'emoji' => '👍',
+                    ],
+                ],
+                'old_reaction' => [],
             ],
-            'old_reaction' => [],
-        ],
     ]);
 }
 
@@ -297,6 +297,48 @@ function webhook_successful_payment($handler = TestWebhookHandler::class, int $c
                 ],
                 'telegram_payment_charge_id' => 10,
                 'provider_payment_charge_id' => 10,
+            ],
+        ],
+    ]);
+}
+
+function webhook_bot_chat_status_update($handler = TestWebhookHandler::class): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'update_id' => 123456789,
+        'my_chat_member' => [
+            'chat' => [
+                'id' => 123456789,
+                'first_name' => 'Mario',
+                'type' => 'private',
+            ],
+            'from' => [
+                'id' => 123456789,
+                'is_bot' => false,
+                'first_name' => 'Mario',
+                'language_code' => 'it',
+            ],
+            'date' => 123456789,
+            'old_chat_member' => [
+                'user' => [
+                    'id' => 1111111,
+                    'is_bot' => true,
+                    'first_name' => 'Bot',
+                    'username' => 'MarioBot',
+                ],
+                'status' => 'member',
+            ],
+            'new_chat_member' => [
+                'user' => [
+                    'id' => 2222222,
+                    'is_bot' => true,
+                    'first_name' => 'Bot',
+                    'username' => 'MarioBot',
+                ],
+                'status' => 'kicked',
+                'until_date' => 0,
             ],
         ],
     ]);
