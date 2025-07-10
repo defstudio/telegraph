@@ -15,7 +15,6 @@ class PollOption implements Arrayable
 
     private int $voterCount;
 
-
     private function __construct()
     {
     }
@@ -31,7 +30,7 @@ class PollOption implements Arrayable
 
         if (!empty($data['text_entities'])) {
             /* @phpstan-ignore-next-line */
-            $pollOption->textEntities = collect($data['text_entities'])->map(fn(array $entity) => Entity::fromArray($entity));
+            $pollOption->textEntities = collect($data['text_entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }
 
         $pollOption->voterCount = $data['voter_count'];
@@ -43,7 +42,6 @@ class PollOption implements Arrayable
     {
         return $this->text;
     }
-
 
     public function textEntities(): ?Collection
     {
@@ -62,6 +60,6 @@ class PollOption implements Arrayable
             'text_entities' => $this->textEntities,
             'voter_count' => $this->voterCount,
 
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

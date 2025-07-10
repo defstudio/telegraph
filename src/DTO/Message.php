@@ -142,7 +142,7 @@ class Message implements Arrayable
         }
 
         /* @phpstan-ignore-next-line */
-        $message->photos = collect($data['photo'] ?? [])->map(fn(array $photoData) => Photo::fromArray($photoData));
+        $message->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
 
         if (isset($data['animation'])) {
             $message->animation = Animation::fromArray($data['animation']);
@@ -199,7 +199,7 @@ class Message implements Arrayable
         }
 
         /* @phpstan-ignore-next-line */
-        $message->newChatMembers = collect($data['new_chat_members'] ?? [])->map(fn(array $userData) => User::fromArray($userData));
+        $message->newChatMembers = collect($data['new_chat_members'] ?? [])->map(fn (array $userData) => User::fromArray($userData));
 
 
         if (isset($data['left_chat_member'])) {
@@ -222,7 +222,7 @@ class Message implements Arrayable
 
         if (isset($data['entities']) && $data['entities']) {
             /* @phpstan-ignore-next-line */
-            $message->entities = collect($data['entities'])->map(fn(array $entity) => Entity::fromArray($entity));
+            $message->entities = collect($data['entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }
 
         if (isset($data['migrate_to_chat_id'])) {
@@ -431,6 +431,6 @@ class Message implements Arrayable
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
             'migrate_to_chat_id' => (int)$this->migrateToChatId,
             'entities' => $this->entities->toArray(),
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

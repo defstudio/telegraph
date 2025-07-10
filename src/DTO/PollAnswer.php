@@ -2,9 +2,7 @@
 
 namespace DefStudio\Telegraph\DTO;
 
-use DefStudio\Telegraph\Models\TelegraphChat;
 use Illuminate\Contracts\Support\Arrayable;
-use Illuminate\Support\Collection;
 
 /**
  * @implements Arrayable<string, string|int>
@@ -17,7 +15,6 @@ class PollAnswer implements Arrayable
 
     /** @var array<mixed, int> */
     private array $optionIds;
-
 
     private function __construct()
     {
@@ -74,6 +71,6 @@ class PollAnswer implements Arrayable
             'voter_chat' => $this->voterChat?->toArray(),
             'option_ids' => $this->optionIds,
 
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

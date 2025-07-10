@@ -314,18 +314,18 @@ function webhook_poll_state_update($handler = TestWebhookHandler::class, int $ch
             "options" => [
                 [
                     "text" => "Profession 1",
-                    "voter_count" => 1
+                    "voter_count" => 1,
                 ],
                 [
                     "text" => "Profession 2",
-                    "voter_count" => 0
-                ]
+                    "voter_count" => 0,
+                ],
             ],
             "total_voter_count" => 1,
             "is_closed" => false,
             "is_anonymous" => false,
             "type" => "regular",
-            "allows_multiple_answers" => false
+            "allows_multiple_answers" => false,
         ],
     ]);
 }
@@ -342,12 +342,12 @@ function webhook_poll_answer_received($handler = TestWebhookHandler::class, int 
                 "id" => 1771049713,
                 "is_bot" => false,
                 "first_name" => "Mario Gattolla",
-                "language_code" => "it"
+                "language_code" => "it",
             ],
             "option_ids" => [
-                0
-            ]
-        ]
+                0,
+            ],
+        ],
     ]);
 }
 

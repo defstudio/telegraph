@@ -146,7 +146,7 @@ abstract class WebhookHandler
 
         report($throwable);
 
-        rescue(fn() => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
+        rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
     //---- Chat Setup
@@ -279,7 +279,7 @@ abstract class WebhookHandler
 
         return collect($prefixes)
             ->push('/')
-            ->map(fn(string $prefix) => str($prefix)->trim())
+            ->map(fn (string $prefix) => str($prefix)->trim())
             ->unique()
             ->values();
     }
