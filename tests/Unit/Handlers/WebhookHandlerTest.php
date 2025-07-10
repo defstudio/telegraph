@@ -427,6 +427,24 @@ it('can handle message', function () {
     Facade::assertSent("Received: foo");
 });
 
+it('can handle poll state update', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_poll_state_update(), $bot);
+
+    Facade::assertSent("Poll state updated");
+});
+
+it('can handle poll answer received', function () {
+    $bot = bot();
+    Facade::fake();
+
+    app(TestWebhookHandler::class)->handle(webhook_poll_answer_received(), $bot);
+
+    Facade::assertSent("Poll answer received");
+});
+
 it('can handle a member join', function () {
     $bot = bot();
     Facade::fake();
@@ -565,8 +583,7 @@ it('does not crash on errors', function () {
     Facade::fake();
 
     app(TestWebhookHandler::class)
-        ->handle(webhook_request('trigger_failure'), $chat->bot)
-    ;
+        ->handle(webhook_request('trigger_failure'), $chat->bot);
 
     Facade::assertRepliedWebhook('Sorry, an error occurred');
 });

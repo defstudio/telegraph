@@ -302,6 +302,55 @@ function webhook_successful_payment($handler = TestWebhookHandler::class, int $c
     ]);
 }
 
+function webhook_poll_state_update($handler = TestWebhookHandler::class, int $chat_id = -123456789): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'update_id' => 123456789,
+        "poll" => [
+            "id" => $chat_id,
+            "question" => "Select Professions",
+            "options" => [
+                [
+                    "text" => "Profession 1",
+                    "voter_count" => 1
+                ],
+                [
+                    "text" => "Profession 2",
+                    "voter_count" => 0
+                ]
+            ],
+            "total_voter_count" => 1,
+            "is_closed" => false,
+            "is_anonymous" => false,
+            "type" => "regular",
+            "allows_multiple_answers" => false
+        ],
+    ]);
+}
+
+function webhook_poll_answer_received($handler = TestWebhookHandler::class, int $chat_id = -123456789): Request
+{
+    register_webhook_handler($handler);
+
+    return Request::create('', 'POST', [
+        'update_id' => 123456789,
+        "poll_answer" => [
+            "poll_id" => "5998796039392330592",
+            "user" => [
+                "id" => 1771049713,
+                "is_bot" => false,
+                "first_name" => "Mario Gattolla",
+                "language_code" => "it"
+            ],
+            "option_ids" => [
+                0
+            ]
+        ]
+    ]);
+}
+
 function webhook_bot_chat_status_update($handler = TestWebhookHandler::class): Request
 {
     register_webhook_handler($handler);

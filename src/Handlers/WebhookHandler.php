@@ -14,6 +14,8 @@ use DefStudio\Telegraph\DTO\ChatJoinRequest;
 use DefStudio\Telegraph\DTO\ChatMemberUpdate;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\Message;
+use DefStudio\Telegraph\DTO\Poll;
+use DefStudio\Telegraph\DTO\PollAnswer;
 use DefStudio\Telegraph\DTO\PreCheckoutQuery;
 use DefStudio\Telegraph\DTO\Reaction;
 use DefStudio\Telegraph\DTO\ReactionType;
@@ -67,6 +69,18 @@ abstract class WebhookHandler
 
             if ($this->request->has('inline_query')) {
                 $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
+
+                return;
+            }
+
+            if ($this->request->has('poll')) {
+                $this->handlePollStateUpdate(Poll::fromArray($this->request->input('poll')));
+
+                return;
+            }
+
+            if ($this->request->has('poll_answer')) {
+                $this->handlePollAnswer(PollAnswer::fromArray($this->request->input('poll_answer')));
 
                 return;
             }
@@ -132,7 +146,7 @@ abstract class WebhookHandler
 
         report($throwable);
 
-        rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
+        rescue(fn() => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
     //---- Chat Setup
@@ -164,7 +178,7 @@ abstract class WebhookHandler
 
     protected function allowUnknownChat(): bool
     {
-        return (bool) match (true) {
+        return (bool)match (true) {
             isset($this->message),
             isset($this->reaction) => config('telegraph.security.allow_messages_from_unknown_chats', false),
             isset($this->callbackQuery) => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
@@ -265,7 +279,7 @@ abstract class WebhookHandler
 
         return collect($prefixes)
             ->push('/')
-            ->map(fn (string $prefix) => str($prefix)->trim())
+            ->map(fn(string $prefix) => str($prefix)->trim())
             ->unique()
             ->values();
     }
@@ -406,6 +420,16 @@ abstract class WebhookHandler
         // .. do nothing
     }
 
+    protected function handlePollStateUpdate(Poll $poll): void
+    {
+        // .. do nothing
+    }
+
+    protected function handlePollAnswer(PollAnswer $pollAnswer): void
+    {
+        // .. do nothing
+    }
+
     protected function handleChatMessage(Stringable $text): void
     {
         // .. do nothing
@@ -432,8 +456,8 @@ abstract class WebhookHandler
     }
 
     /**
-     * @param  Collection<array-key, Reaction>  $newReactions
-     * @param  Collection<array-key, Reaction>  $oldReactions
+     * @param Collection<array-key, Reaction> $newReactions
+     * @param Collection<array-key, Reaction> $oldReactions
      *
      * @return void
      */

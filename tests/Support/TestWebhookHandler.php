@@ -10,6 +10,8 @@ use DefStudio\Telegraph\DTO\ChatJoinRequest;
 use DefStudio\Telegraph\DTO\ChatMemberUpdate;
 use DefStudio\Telegraph\DTO\InlineQuery;
 use DefStudio\Telegraph\DTO\InlineQueryResultGif;
+use DefStudio\Telegraph\DTO\Poll;
+use DefStudio\Telegraph\DTO\PollAnswer;
 use DefStudio\Telegraph\DTO\SuccessfulPayment;
 use DefStudio\Telegraph\DTO\User;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
@@ -175,5 +177,15 @@ class TestWebhookHandler extends WebhookHandler
         parent::handleMigrateToChat();
 
         $this->chat->html('We are a Supergroup now')->send();
+    }
+
+    protected function handlePollStateUpdate(Poll $poll): void
+    {
+        $this->bot->chats->first()->html('Poll state updated')->send();
+    }
+
+    protected function handlePollAnswer(PollAnswer $pollAnswer): void
+    {
+        $this->bot->chats->first()->html('Poll answer received')->send();
     }
 }

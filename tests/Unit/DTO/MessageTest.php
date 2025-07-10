@@ -294,6 +294,34 @@ it('export all properties to array', function () {
             'longitude' => 98765431,
             'horizontal_accuracy' => 3,
         ],
+        'poll' => [
+            'id' => '1234567',
+            'question' => 'it true or false?',
+            'question_entities' => [
+                [
+                    'type' => 'url',
+                    'offset' => 4,
+                    'length' => 19,
+                    'url' => 'https://example.com',
+                ],
+            ],
+            'options' => [
+                [
+                    'text' => 'true',
+                    'voter_count' => 1,
+                ],
+                [
+                    'text' => 'false',
+                    'voter_count' => 1,
+                ],
+            ],
+            'total_voter_count' => 1,
+            'is_closed' => false,
+            'is_anonymous' => false,
+            'type' => 'quiz',
+            'allows_multiple_answers' => false,
+
+        ],
         'venue' => [
             'location' => [
                 'latitude' => 12456789,
