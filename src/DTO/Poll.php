@@ -38,11 +38,11 @@ class Poll implements Arrayable
 
         if (!empty($data['question_entities'])) {
             /* @phpstan-ignore-next-line */
-            $poll->questionEntities = collect($data['question_entities'])->map(fn(array $entity) => Entity::fromArray($entity));
+            $poll->questionEntities = collect($data['question_entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }
 
         /* @phpstan-ignore-next-line */
-        $poll->options = collect($data['options'])->map(fn(array $option) => PollOption::fromArray($option));
+        $poll->options = collect($data['options'])->map(fn (array $option) => PollOption::fromArray($option));
 
         $poll->totalVoterCount = $data['total_voter_count'];
         $poll->isClosed = $data['is_closed'];
@@ -117,6 +117,6 @@ class Poll implements Arrayable
             'type' => $this->type,
             'allows_multiple_answers' => $this->allowsMultipleAnswers,
 
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

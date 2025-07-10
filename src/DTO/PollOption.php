@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 class PollOption implements Arrayable
 {
     private string $text;
-    /** @var Collection<int, Entity>|null  */
+    /** @var Collection<int, Entity>|null */
     private ?Collection $textEntities = null;
 
     private int $voterCount;
