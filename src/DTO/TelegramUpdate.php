@@ -62,7 +62,7 @@ class TelegramUpdate implements Arrayable
         }
 
         if (isset($data['poll'])) {
-            $update->pollAnswer = PollAnswer::fromArray($data['poll_answer']);
+            $update->poll = Poll::fromArray($data['poll']);
         }
 
         if (isset($data['poll_answer'])) {

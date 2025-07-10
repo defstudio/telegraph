@@ -12,8 +12,9 @@ class Poll implements Arrayable
 {
     private string $id;
     private string $question;
+    /** @var Collection<int, Entity>|null */
     private ?Collection $questionEntities = null;
-
+    /** @var Collection<int, PollOption> */
     private Collection $options;
     private int $totalVoterCount;
     private bool $isClosed;
@@ -26,7 +27,7 @@ class Poll implements Arrayable
     }
 
     /**
-     * @param array{id:string, question:string,question_entities?: array<object> , options:array<object>, total_voter_count:bool, is_closed:bool, is_anonymous:bool, type:string, allows_multiple_answers:bool} $data
+     * @param array{id:string, question:string,question_entities?: array<object> , options:array<object>, total_voter_count:int, is_closed:bool, is_anonymous:bool, type:string, allows_multiple_answers:bool} $data
      */
     public static function fromArray(array $data): Poll
     {
@@ -37,13 +38,15 @@ class Poll implements Arrayable
 
         if (!empty($data['question_entities'])) {
             /* @phpstan-ignore-next-line */
-            $poll->questionEntities = collect($data['question_entities'])->map(fn (array $entity) => Entity::fromArray($entity));
+            $poll->questionEntities = collect($data['question_entities'])->map(fn(array $entity) => Entity::fromArray($entity));
         }
 
-        $poll->options = collect($data['options'])->map(fn (array $option) => PollOption::fromArray($option));
+        /* @phpstan-ignore-next-line */
+        $poll->options = collect($data['options'])->map(fn(array $option) => PollOption::fromArray($option));
+
         $poll->totalVoterCount = $data['total_voter_count'];
-        $poll->isClosed = $data['is_closed'] ?? false;
-        $poll->isAnonymous = $data['is_anonymous'] ?? false;
+        $poll->isClosed = $data['is_closed'];
+        $poll->isAnonymous = $data['is_anonymous'];
         $poll->type = $data['type'];
         $poll->allowsMultipleAnswers = $data['allows_multiple_answers'];
 
@@ -60,11 +63,17 @@ class Poll implements Arrayable
         return $this->question;
     }
 
+    /**
+     * @return Collection<int,Entity>|null
+     */
     public function questionEntities(): ?Collection
     {
         return $this->questionEntities;
     }
 
+    /**
+     * @return Collection<int, PollOption>
+     */
     public function options(): Collection
     {
         return $this->options;
@@ -108,6 +117,6 @@ class Poll implements Arrayable
             'type' => $this->type,
             'allows_multiple_answers' => $this->allowsMultipleAnswers,
 
-        ], fn ($value) => $value !== null);
+        ], fn($value) => $value !== null);
     }
 }

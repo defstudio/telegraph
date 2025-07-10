@@ -21,7 +21,7 @@ class PollAnswer implements Arrayable
     }
 
     /**
-     * @param array{poll_id:string, voter_chat:array<object>, user:array<object>, option_ids:array<mixed, int>} $data
+     * @param array{poll_id:string, voter_chat?:array<object>, user?:array<object>, option_ids:array<mixed, int>} $data
      */
     public static function fromArray(array $data): PollAnswer
     {
@@ -30,10 +30,12 @@ class PollAnswer implements Arrayable
         $pollAnswer->pollId = $data['poll_id'];
 
         if (isset($data['user'])) {
+            /* @phpstan-ignore-next-line */
             $pollAnswer->user = User::fromArray($data['user']);
         }
 
         if (isset($data['voter_chat'])) {
+            /* @phpstan-ignore-next-line */
             $pollAnswer->voterChat = Chat::fromArray($data['voter_chat']);
         }
 
@@ -58,6 +60,9 @@ class PollAnswer implements Arrayable
         return $this->voterChat;
     }
 
+    /**
+     * @return int[]
+     */
     public function optionIds(): array
     {
         return $this->optionIds;
