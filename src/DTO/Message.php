@@ -45,6 +45,7 @@ class Message implements Arrayable
     private ?Contact $contact = null;
     private ?Voice $voice = null;
     private ?Sticker $sticker = null;
+    private ?Poll $poll = null;
     private ?Venue $venue = null;
     private ?Invoice $invoice = null;
     private ?SuccessfulPayment $successfulPayment = null;
@@ -84,6 +85,7 @@ class Message implements Arrayable
      *     video?: array<string, mixed>,
      *     photo?: array<string, mixed>,
      *     location?: array<string, mixed>,
+     *     poll?: array<string, mixed>,
      *     venue?: array<string, mixed>,
      *     contact?: array<string, mixed>,
      *     invoice?: array<string, mixed>,
@@ -175,6 +177,10 @@ class Message implements Arrayable
             $message->sticker = Sticker::fromArray($data['sticker']);
         }
 
+        if (isset($data['poll'])) {
+            $message->poll = Poll::fromArray($data['poll']);
+        }
+
         if (isset($data['venue'])) {
             $message->venue = Venue::fromArray($data['venue']);
         }
@@ -220,7 +226,7 @@ class Message implements Arrayable
         }
 
         if (isset($data['migrate_to_chat_id'])) {
-            $message->migrateToChatId = (string) $data['migrate_to_chat_id'];
+            $message->migrateToChatId = (string)$data['migrate_to_chat_id'];
         }
 
 
@@ -330,6 +336,11 @@ class Message implements Arrayable
         return $this->sticker;
     }
 
+    public function poll(): ?Poll
+    {
+        return $this->poll;
+    }
+
     public function venue(): ?Venue
     {
         return $this->venue;
@@ -409,6 +420,7 @@ class Message implements Arrayable
             'contact' => $this->contact?->toArray(),
             'voice' => $this->voice?->toArray(),
             'sticker' => $this->sticker?->toArray(),
+            'poll' => $this->poll?->toArray(),
             'venue' => $this->venue?->toArray(),
             'invoice' => $this->invoice?->toArray(),
             'successful_payment' => $this->successfulPayment?->toArray(),
@@ -417,7 +429,7 @@ class Message implements Arrayable
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
-            'migrate_to_chat_id' => (int) $this->migrateToChatId,
+            'migrate_to_chat_id' => (int)$this->migrateToChatId,
             'entities' => $this->entities->toArray(),
         ], fn ($value) => $value !== null);
     }

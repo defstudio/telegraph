@@ -16,6 +16,8 @@ class TelegramUpdate implements Arrayable
     private int $id;
     private ?Message $message = null;
     private ?Reaction $messageReaction = null;
+    private ?Poll $poll = null;
+    private ?PollAnswer $pollAnswer = null;
     private ?CallbackQuery $callbackQuery = null;
     private ?PreCheckoutQuery $preCheckoutQuery = null;
 
@@ -32,6 +34,8 @@ class TelegramUpdate implements Arrayable
      *     message?:array<string, mixed>,
      *     edited_message?:array<string, mixed>,
      *     message_reaction?:array<string, mixed>,
+     *     poll?:array<string, mixed>,
+     *     poll_answer?:array<string, mixed>,
      *     channel_post?:array<string, mixed>,
      *     callback_query?:array<string, mixed>,
      *     pre_checkout_query?:array<string, mixed>,
@@ -55,6 +59,14 @@ class TelegramUpdate implements Arrayable
 
         if (isset($data['message_reaction'])) {
             $update->messageReaction = Reaction::fromArray($data['message_reaction']);
+        }
+
+        if (isset($data['poll'])) {
+            $update->poll = Poll::fromArray($data['poll']);
+        }
+
+        if (isset($data['poll_answer'])) {
+            $update->pollAnswer = PollAnswer::fromArray($data['poll_answer']);
         }
 
         if (isset($data['channel_post'])) {
@@ -95,6 +107,16 @@ class TelegramUpdate implements Arrayable
         return $this->messageReaction;
     }
 
+    public function pollAnswer(): ?PollAnswer
+    {
+        return $this->pollAnswer;
+    }
+
+    public function poll(): ?Poll
+    {
+        return $this->poll;
+    }
+
     public function callbackQuery(): ?CallbackQuery
     {
         return $this->callbackQuery;
@@ -121,6 +143,8 @@ class TelegramUpdate implements Arrayable
             'id' => $this->id,
             'message' => $this->message?->toArray(),
             'message_reaction' => $this->messageReaction?->toArray(),
+            'poll' => $this->pollAnswer?->toArray(),
+            'poll_answer' => $this->pollAnswer?->toArray(),
             'callback_query' => $this->callbackQuery?->toArray(),
             'pre_checkout_query' => $this->preCheckoutQuery?->toArray(),
             'bot_chat_status_change' => $this->botChatStatusChange?->toArray(),

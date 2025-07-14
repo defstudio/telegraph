@@ -20,7 +20,7 @@ trait SendsPolls
         $telegraph = clone $this;
 
         /** @phpstan-ignore-next-line */
-        if (count($telegraph->data['options']) === 10) {
+        if (count($telegraph->data['options']) === 12) {
             throw TelegraphPollException::tooManyOptions();
         }
 

@@ -51,6 +51,53 @@ it('export all properties to array', function () {
                 ],
             ],
         ],
+        'poll' => [
+            'id' => '1234567',
+            'question' => 'it true or false?',
+            'question_entities' => [
+                [
+                    'type' => 'url',
+                    'offset' => 4,
+                    'length' => 19,
+                    'url' => 'https://example.com',
+                ],
+            ],
+            'options' => [
+                [
+                    'text' => 'true',
+                    'voter_count' => 1,
+                ],
+                [
+                    'text' => 'false',
+                    'voter_count' => 1,
+                ],
+            ],
+            'total_voter_count' => 1,
+            'is_closed' => false,
+            'is_anonymous' => false,
+            'type' => 'quiz',
+            'allows_multiple_answers' => false,
+
+        ],
+        'poll_answer' => [
+            'poll_id' => '10',
+            'user' => [
+                'id' => 1,
+                'is_bot' => true,
+                'first_name' => 'a',
+                'last_name' => 'b',
+                'username' => 'c',
+                'language_code' => 'd',
+                'is_premium' => false,
+            ],
+            'voter_chat' => [
+                'id' => 3,
+                'type' => 'a',
+                'title' => 'b',
+            ],
+            'option_ids' => [0, 1, 2],
+
+        ],
         'channel_post' => [
             'message_id' => 4,
             'date' => now()->timestamp,
