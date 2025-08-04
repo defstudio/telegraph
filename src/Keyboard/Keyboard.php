@@ -232,7 +232,6 @@ class Keyboard implements Arrayable
 
         $keyboard[] = $row;
 
-        //@phpstan-ignore-next-line
         return $this->rtl ? array_map('array_reverse', $keyboard) : $keyboard;
     }
 }
