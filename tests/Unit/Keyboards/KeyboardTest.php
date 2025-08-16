@@ -153,6 +153,7 @@ it('can quickly add buttons', function () {
         ->button('switch')->switchInlineQuery('test')
         ->button('switch here')->switchInlineQuery('test 2')->currentChat()
         ->button('foo')->loginUrl('https://my-loginUrl.dev')
+        ->button('Copy text')->copyText('text123')
         ->chunk(2);
 
     expect($keyboard->toArray())->toBe([
@@ -167,6 +168,9 @@ it('can quickly add buttons', function () {
         [
             ['text' => 'switch here', 'switch_inline_query_current_chat' => 'test 2'],
             ['text' => 'foo', 'login_url' => ['url' => 'https://my-loginUrl.dev']],
+        ],
+        [
+            ['text' => 'Copy text', 'copy_text' => 'text123'],
         ],
     ]);
 });
@@ -208,6 +212,65 @@ it('can right to left layout for buttons', function () {
         [
             ['text' => 'foo', 'url' => 'bar'],
             ['text' => 'baz', 'callback_data' => 'action:quuz'],
+        ],
+    ]);
+});
+
+it('can create copy text buttons', function () {
+    $button = Button::make('Copy text123')->copyText('text123');
+    
+    expect($button->toArray())->toBe([
+        'text' => 'Copy text123',
+        'copy_text' => 'text123',
+    ]);
+});
+
+it('can create keyboard with copy text buttons', function () {
+    $keyboard = Keyboard::make()
+        ->row([
+            Button::make('Copy text')->copyText('Hello World!'),
+            Button::make('Delete')->action('delete')->param('id', '42'),
+        ]);
+
+    expect($keyboard->toArray())->toMatchArray([
+        [
+            ['text' => 'Copy text', 'copy_text' => 'Hello World!'],
+            ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
+        ],
+    ]);
+});
+
+it('can parse keyboard from array with copy text buttons', function () {
+    $arrayKeyboard = [
+        [
+            ['text' => 'Copy text', 'copy_text' => 'Hello World!'],
+            ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
+        ],
+        [
+            ['text' => 'Copy URL', 'copy_text' => 'https://example.com'],
+        ],
+    ];
+
+    $keyboard = Keyboard::fromArray($arrayKeyboard);
+
+    expect($keyboard->toArray())->toMatchArray($arrayKeyboard);
+});
+
+it('can use fluent keyboard builder with copy text buttons', function () {
+    $keyboard = Keyboard::make()
+        ->button('Copy Username')->copyText('@johndoe')
+        ->button('Copy Email')->copyText('john@example.com')
+        ->button('Delete User')->action('delete')->param('id', 'user123');
+
+    expect($keyboard->toArray())->toBe([
+        [
+            ['text' => 'Copy Username', 'copy_text' => '@johndoe'],
+        ],
+        [
+            ['text' => 'Copy Email', 'copy_text' => 'john@example.com'],
+        ],
+        [
+            ['text' => 'Delete User', 'callback_data' => 'action:delete;id:user123'],
         ],
     ]);
 });
