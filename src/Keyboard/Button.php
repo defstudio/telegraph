@@ -154,7 +154,9 @@ class Button
         if (isset($this->copyText)) {
             return [
                 'text' => $this->label,
-                'copy_text' => $this->copyText,
+                'copy_text' => [
+                    'text' => $this->copyText,
+                ],
             ];
         }
 

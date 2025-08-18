@@ -47,7 +47,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[], switch_inline_query?: string|null, switch_inline_query_current_chat?: string|null, copy_text?: string}>> $arrayKeyboard
+     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[], switch_inline_query?: string|null, switch_inline_query_current_chat?: string|null, copy_text?: string[]}>> $arrayKeyboard
      *
      * @return Keyboard
      */
@@ -93,7 +93,7 @@ class Keyboard implements Arrayable
                 }
 
                 if (array_key_exists('copy_text', $button)) {
-                    $rowButton = $rowButton->copyText($button['copy_text']);
+                    $rowButton = $rowButton->copyText($button['copy_text']['text']);
                 }
 
                 $rowButtons[] = $rowButton;

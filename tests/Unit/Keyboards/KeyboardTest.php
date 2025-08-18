@@ -170,7 +170,7 @@ it('can quickly add buttons', function () {
             ['text' => 'foo', 'login_url' => ['url' => 'https://my-loginUrl.dev']],
         ],
         [
-            ['text' => 'Copy text', 'copy_text' => 'text123'],
+            ['text' => 'Copy text', 'copy_text' => ['text' => 'text123']],
         ],
     ]);
 });
@@ -221,7 +221,9 @@ it('can create copy text buttons', function () {
 
     expect($button->toArray())->toBe([
         'text' => 'Copy text123',
-        'copy_text' => 'text123',
+        'copy_text' => [
+            'text' => 'text123',
+        ],
     ]);
 });
 
@@ -234,7 +236,7 @@ it('can create keyboard with copy text buttons', function () {
 
     expect($keyboard->toArray())->toMatchArray([
         [
-            ['text' => 'Copy text', 'copy_text' => 'Hello World!'],
+            ['text' => 'Copy text', 'copy_text' => ['text' => 'Hello World!']],
             ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
         ],
     ]);
@@ -243,11 +245,11 @@ it('can create keyboard with copy text buttons', function () {
 it('can parse keyboard from array with copy text buttons', function () {
     $arrayKeyboard = [
         [
-            ['text' => 'Copy text', 'copy_text' => 'Hello World!'],
+            ['text' => 'Copy text', 'copy_text' => ['text' => 'Hello World!']],
             ['text' => 'Delete', 'callback_data' => 'action:delete;id:42'],
         ],
         [
-            ['text' => 'Copy URL', 'copy_text' => 'https://example.com'],
+            ['text' => 'Copy URL', 'copy_text' => ['text' => 'https://example.com/']],
         ],
     ];
 
@@ -264,10 +266,10 @@ it('can use fluent keyboard builder with copy text buttons', function () {
 
     expect($keyboard->toArray())->toBe([
         [
-            ['text' => 'Copy Username', 'copy_text' => '@johndoe'],
+            ['text' => 'Copy Username', 'copy_text' => ['text' => '@johndoe']],
         ],
         [
-            ['text' => 'Copy Email', 'copy_text' => 'john@example.com'],
+            ['text' => 'Copy Email', 'copy_text' => ['text' => 'john@example.com']],
         ],
         [
             ['text' => 'Delete User', 'callback_data' => 'action:delete;id:user123'],
