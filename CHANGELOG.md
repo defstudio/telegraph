@@ -2,6 +2,21 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.61.0 - 2025-08-19
+
+### What's Changed
+
+* Implement keyboardButtonCopy functionality for Telegraph keyboard buttons by @Copilot in https://github.com/defstudio/telegraph/pull/718
+* Add comprehensive GitHub Copilot instructions for Telegraph Laravel package by @Copilot in https://github.com/defstudio/telegraph/pull/720
+* Added Uzbek translations by @Khudayberdiyev0022 in https://github.com/defstudio/telegraph/pull/715
+
+### New Contributors
+
+* @Copilot made their first contribution in https://github.com/defstudio/telegraph/pull/718
+* @Khudayberdiyev0022 made their first contribution in https://github.com/defstudio/telegraph/pull/715
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.60.0...v1.61.0
+
 ## v1.60.0 - 2025-07-14
 
 ### What's Changed
