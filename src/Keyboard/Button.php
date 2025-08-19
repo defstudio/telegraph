@@ -12,6 +12,8 @@ class Button
     private string $switchInlineQuery;
     private string $switchInlineQueryCurrentChat;
 
+    private string $copyText;
+
     /** @var string[] */
     private array $callbackData = [];
 
@@ -91,6 +93,13 @@ class Button
         return $this;
     }
 
+    public function copyText(string $text): static
+    {
+        $this->copyText = $text;
+
+        return $this;
+    }
+
     /**
      * @return array<string, string|string[]>
      */
@@ -139,6 +148,15 @@ class Button
             return [
                 'text' => $this->label,
                 'switch_inline_query_current_chat' => $this->switchInlineQueryCurrentChat,
+            ];
+        }
+
+        if (isset($this->copyText)) {
+            return [
+                'text' => $this->label,
+                'copy_text' => [
+                    'text' => $this->copyText,
+                ],
             ];
         }
 
