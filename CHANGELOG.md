@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.61.1 - 2025-09-11
+
+### What's Changed
+
+* #723 fix media group by @MarioGattolla in https://github.com/defstudio/telegraph/pull/724
+* #716 contact first_name on null from Webhook Update by @MarioGattolla in https://github.com/defstudio/telegraph/pull/725
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.61.0...v1.61.1
+
 ## v1.61.0 - 2025-08-19
 
 ### What's Changed
