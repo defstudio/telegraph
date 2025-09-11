@@ -20,7 +20,7 @@ class Contact implements Arrayable
     }
 
     /**
-     * @param array{phone_number: string, first_name: string, last_name?: string, user_id?: int, vcard?: string} $data
+     * @param array{phone_number: string, first_name?: string, last_name?: string, user_id?: int, vcard?: string} $data
      */
     public static function fromArray(array $data): Contact
     {
