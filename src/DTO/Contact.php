@@ -20,14 +20,14 @@ class Contact implements Arrayable
     }
 
     /**
-     * @param array{phone_number: string, first_name: string, last_name?: string, user_id?: int, vcard?: string} $data
+     * @param array{phone_number: string, first_name?: string, last_name?: string, user_id?: int, vcard?: string} $data
      */
     public static function fromArray(array $data): Contact
     {
         $contact = new self();
 
         $contact->phone_number = $data['phone_number'];
-        $contact->first_name = $data['first_name'];
+        $contact->first_name = $data['first_name'] ?? '';
         $contact->last_name = $data['last_name'] ?? null;
         $contact->user_id = $data['user_id'] ?? null;
         $contact->vcard = $data['vcard'] ?? null;
