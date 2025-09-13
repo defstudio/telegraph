@@ -110,6 +110,6 @@ class ChatMemberUpdate implements Arrayable
             'invite_link' => $this->inviteLink?->toArray(),
             'via_join_request' => $this->viaJoinRequest,
             'via_chat_folder_invite_link' => $this->viaChatFolderInviteLink,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }
