@@ -167,6 +167,11 @@ class TestWebhookHandler extends WebhookHandler
         $this->bot->chats->first()->html('payment')->send();
     }
 
+    protected function handleChatMemberUpdate(ChatMemberUpdate $chatMemberUpdate): void
+    {
+        $this->bot->chats->first()->html('updated')->send();
+    }
+
     protected function handleBotChatStatusUpdate(ChatMemberUpdate $chatMemberUpdate): void
     {
         $this->bot->chats->first()->html('banned')->send();
