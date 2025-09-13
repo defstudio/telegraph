@@ -91,6 +91,12 @@ abstract class WebhookHandler
                 return;
             }
 
+            if ($this->request->has('chat_member')) {
+                $this->handleChatMemberUpdate(ChatMemberUpdate::fromArray($this->request->input('chat_member')));
+
+                return;
+            }
+
             if ($this->request->has('my_chat_member')) {
                 $this->handleBotChatStatusUpdate(ChatMemberUpdate::fromArray($this->request->input('my_chat_member')));
 
@@ -446,6 +452,11 @@ abstract class WebhookHandler
     }
 
     protected function handleChatMemberLeft(User $member): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleChatMemberUpdate(ChatMemberUpdate $chatMemberUpdate): void
     {
         // .. do nothing
     }
