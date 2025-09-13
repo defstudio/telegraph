@@ -133,6 +133,11 @@ class TelegramUpdate implements Arrayable
         return $this->preCheckoutQuery;
     }
 
+    public function chatMemberUpdate(): ?ChatMemberUpdate
+    {
+        return $this->chatMemberUpdate;
+    }
+
     public function botStatusChange(): ?ChatMemberUpdate
     {
         return $this->botChatStatusChange;
@@ -153,6 +158,7 @@ class TelegramUpdate implements Arrayable
             'poll_answer' => $this->pollAnswer?->toArray(),
             'callback_query' => $this->callbackQuery?->toArray(),
             'pre_checkout_query' => $this->preCheckoutQuery?->toArray(),
+            'chat_member_update' => $this->chatMemberUpdate?->toArray(),
             'bot_chat_status_change' => $this->botChatStatusChange?->toArray(),
             'inline_query' => $this->inlineQuery?->toArray(),
         ], fn ($value) => $value !== null);
