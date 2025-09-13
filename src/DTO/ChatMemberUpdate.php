@@ -19,9 +19,9 @@ class ChatMemberUpdate implements Arrayable
     private User $from;
     private ChatMember $previous;
     private ChatMember $new;
-    private ?ChatInviteLink $inviteLink;
-    private ?bool $viaJoinRequest;
-    private ?bool $viaChatFolderInviteLink;
+    private ?ChatInviteLink $inviteLink = null;
+    private ?bool $viaJoinRequest = null;
+    private ?bool $viaChatFolderInviteLink = null;
 
     private function __construct()
     {
