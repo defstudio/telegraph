@@ -21,6 +21,7 @@ class TelegramUpdate implements Arrayable
     private ?CallbackQuery $callbackQuery = null;
     private ?PreCheckoutQuery $preCheckoutQuery = null;
 
+    private ?ChatMemberUpdate $chatMemberUpdate = null;
     private ?ChatMemberUpdate $botChatStatusChange = null;
     private ?InlineQuery $inlineQuery = null;
 
@@ -39,6 +40,7 @@ class TelegramUpdate implements Arrayable
      *     channel_post?:array<string, mixed>,
      *     callback_query?:array<string, mixed>,
      *     pre_checkout_query?:array<string, mixed>,
+     *     chat_member?:array<string, mixed>,
      *     my_chat_member?:array<string, mixed>,
      *     inline_query?:array<string, mixed>
      * } $data
@@ -79,6 +81,10 @@ class TelegramUpdate implements Arrayable
 
         if (isset($data['pre_checkout_query'])) {
             $update->preCheckoutQuery = PreCheckoutQuery::fromArray($data['pre_checkout_query']);
+        }
+
+        if (isset($data['chat_member'])) {
+            $update->chatMemberUpdate = ChatMemberUpdate::fromArray($data['chat_member']);
         }
 
         if (isset($data['my_chat_member'])) {
