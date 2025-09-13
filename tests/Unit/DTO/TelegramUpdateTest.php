@@ -103,8 +103,8 @@ it('export all properties to array', function () {
             'message_id' => 4,
             'date' => now()->timestamp,
             'text' => 'f',
-        ], 
-       'edited_channel_post' => [
+        ],
+        'edited_channel_post' => [
             'message_id' => 4,
             'date' => now()->timestamp,
             'edit_date' => now()->timestamp,
