@@ -65,7 +65,7 @@ class ChatMember implements Arrayable
      *     is_anonymous?:bool,
      *     is_member?:bool,
      *     custom_title?:string,
-     *     until_date?:int
+     *     until_date?:int,
      *     can_be_edited?:bool,
      *     can_change_info?:bool,
      *     can_invite_users?:bool,
