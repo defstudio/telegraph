@@ -15,6 +15,9 @@ it('export all properties to array', function () {
         ],
         'status' => 'kicked',
         'until_date' => 0,
+        'custom_title' => 'My custom title',
+        'can_change_info' => true,
+        'can_post_messages' => true,
     ]);
 
     $array = $dto->toArray();
