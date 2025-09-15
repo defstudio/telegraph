@@ -4,6 +4,7 @@
 
 namespace DefStudio\Telegraph\DTO;
 
+use DefStudio\Telegraph\Concerns\InteractWithPrivileges;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -11,6 +12,8 @@ use Illuminate\Contracts\Support\Arrayable;
  */
 class ChatMember implements Arrayable
 {
+    use InteractWithPrivileges;
+
     public const STATUS_CREATOR = 'creator';
     public const STATUS_ADMINISTRATOR = 'administrator';
     public const STATUS_MEMBER = 'member';
@@ -20,33 +23,66 @@ class ChatMember implements Arrayable
 
     private string $status;
     private User $user;
-    private bool $isAnonymous;
-    private string $custom_title;
-    private bool $is_member;
-    private ?int $until_date;
+    private bool $isAnonymous = false;
+    private bool $isMember = false;
+    private ?string $customTitle = null;
+    private ?int $untilDate = null;
 
     private function __construct()
     {
     }
 
     /**
-     * @param array{status:string, user:array<string, mixed>, is_anonymous?:bool, custom_title?:string, is_member?:bool, until_date?:int} $data
+     * @param array{
+     *     status:string,
+     *     user:array<string, mixed>,
+     *     is_anonymous?:bool,
+     *     is_member?:bool,
+     *     custom_title?:string,
+     *     until_date?:int,
+     *     can_be_edited?:bool,
+     *     can_change_info?:bool,
+     *     can_invite_users?:bool,
+     *     can_manage_chat?:bool,
+     *     can_manage_topics?:bool,
+     *     can_manage_video_chats?:bool,
+     *     can_manage_voice_chats?:bool,
+     *     can_manage_direct_messages?:bool,
+     *     can_restrict_members?:bool,
+     *     can_promote_members?:bool,
+     *     can_post_messages?:bool,
+     *     can_edit_messages?:bool,
+     *     can_delete_messages?:bool,
+     *     can_pin_messages?:bool,
+     *     can_post_stories?:bool,
+     *     can_edit_stories?:bool,
+     *     can_delete_stories?:bool,
+     *     can_send_messages?:bool,
+     *     can_send_media_messages?:bool,
+     *     can_send_audios?:bool,
+     *     can_send_documents?:bool,
+     *     can_send_photos?:bool,
+     *     can_send_videos?:bool,
+     *     can_send_video_notes?:bool,
+     *     can_send_voice_notes?:bool,
+     *     can_send_polls?:bool,
+     *     can_send_other_messages?:bool,
+     *     can_add_web_page_previews?:bool
+     *  } $data
      */
     public static function fromArray(array $data): ChatMember
     {
         $member = new self();
 
         $member->status = $data['status'];
-
         $member->user = User::fromArray($data['user']);
 
         $member->isAnonymous = $data['is_anonymous'] ?? false;
+        $member->isMember = $data['is_member'] ?? false;
+        $member->customTitle = $data['custom_title'] ?? null;
+        $member->untilDate = $data['until_date'] ?? null;
 
-        $member->custom_title = $data['custom_title'] ?? '';
-
-        $member->is_member = $data['is_member'] ?? false;
-
-        $member->until_date = $data['until_date'] ?? null;
+        $member = self::privilegesFromArray($member, $data);
 
         return $member;
     }
@@ -66,19 +102,37 @@ class ChatMember implements Arrayable
         return $this->isAnonymous;
     }
 
-    public function custom_title(): string
+    public function isMember(): bool
     {
-        return $this->custom_title;
+        return $this->isMember;
     }
 
+    public function customTitle(): ?string
+    {
+        return $this->customTitle;
+    }
+
+    public function untilDate(): ?int
+    {
+        return $this->untilDate;
+    }
+
+    //old method
     public function is_member(): bool
     {
-        return $this->is_member;
+        return $this->isMember();
     }
 
+    //old method
+    public function custom_title(): string
+    {
+        return $this->customTitle() ?? '';
+    }
+
+    //old method
     public function until_date(): ?int
     {
-        return $this->until_date;
+        return $this->untilDate();
     }
 
     public function toArray(): array
@@ -87,9 +141,10 @@ class ChatMember implements Arrayable
             'status' => $this->status,
             'user' => $this->user->toArray(),
             'is_anonymous' => $this->isAnonymous,
-            'custom_title' => $this->custom_title,
-            'is_member' => $this->is_member,
-            'until_date' => $this->until_date,
+            'is_member' => $this->isMember,
+            'custom_title' => $this->customTitle,
+            'until_date' => $this->untilDate,
+            ...$this->privilegesToArray(),
         ], fn ($value) => $value !== null);
     }
 }
