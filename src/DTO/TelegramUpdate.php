@@ -37,6 +37,7 @@ class TelegramUpdate implements Arrayable
      *     poll?:array<string, mixed>,
      *     poll_answer?:array<string, mixed>,
      *     channel_post?:array<string, mixed>,
+     *     edited_channel_post?:array<string, mixed>,
      *     callback_query?:array<string, mixed>,
      *     pre_checkout_query?:array<string, mixed>,
      *     my_chat_member?:array<string, mixed>,
@@ -71,6 +72,10 @@ class TelegramUpdate implements Arrayable
 
         if (isset($data['channel_post'])) {
             $update->message = Message::fromArray($data['channel_post']);
+        }
+
+        if (isset($data['edited_channel_post'])) {
+            $update->message = Message::fromArray($data['edited_channel_post']);
         }
 
         if (isset($data['callback_query'])) {

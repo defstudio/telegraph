@@ -16,6 +16,7 @@ it('export all properties to array', function () {
         'edited_message' => [
             'message_id' => 2,
             'date' => now()->timestamp,
+            'edit_date' => now()->timestamp,
             'text' => 'f',
         ],
         'message_reaction' => [
@@ -101,6 +102,12 @@ it('export all properties to array', function () {
         'channel_post' => [
             'message_id' => 4,
             'date' => now()->timestamp,
+            'text' => 'f',
+        ],
+        'edited_channel_post' => [
+            'message_id' => 4,
+            'date' => now()->timestamp,
+            'edit_date' => now()->timestamp,
             'text' => 'f',
         ],
         'callback_query' => [

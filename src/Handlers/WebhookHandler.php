@@ -102,6 +102,7 @@ abstract class WebhookHandler
                 $this->request->has('message') => Message::fromArray($this->request->input('message')),
                 $this->request->has('edited_message') => Message::fromArray($this->request->input('edited_message')),
                 $this->request->has('channel_post') => Message::fromArray($this->request->input('channel_post')),
+                $this->request->has('edited_channel_post') => Message::fromArray($this->request->input('edited_channel_post')),
                 default => null,
             };
 
