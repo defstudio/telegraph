@@ -117,16 +117,19 @@ class ChatMember implements Arrayable
         return $this->untilDate;
     }
 
+    //old method
     public function is_member(): bool
     {
         return $this->isMember();
     }
 
+    //old method
     public function custom_title(): string
     {
         return $this->customTitle() ?? '';
     }
 
+    //old method
     public function until_date(): ?int
     {
         return $this->untilDate();
