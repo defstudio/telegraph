@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.62.0 - 2025-09-16
+
+### What's Changed
+
+* Feat: Chat Member Additional Privileges by @ah-rahimi in https://github.com/defstudio/telegraph/pull/729
+* Fix: Edit channel post by @ah-rahimi in https://github.com/defstudio/telegraph/pull/726
+* Feat: Chat members updated by @ah-rahimi in https://github.com/defstudio/telegraph/pull/727
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.61.1...v1.62.0
+
 ## v1.61.1 - 2025-09-11
 
 ### What's Changed
