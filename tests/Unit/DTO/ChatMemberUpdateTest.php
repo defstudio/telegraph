@@ -38,6 +38,23 @@ it('export all properties to array', function () {
             'status' => 'kicked',
             'until_date' => 0,
         ],
+        'invite_link' => [
+            'invite_link' => 'https:/t.me/+EEEEEEE...',
+            'creator' => [
+                'id' => 1,
+                'is_bot' => false,
+                'first_name' => 'aa',
+                'last_name' => 'bb',
+                'username' => 'cc',
+                'language_code' => 'dd',
+                'is_premium' => false,
+            ],
+            'creates_join_request' => true,
+            'is_primary' => false,
+            'is_revoked' => false,
+        ],
+        'via_join_request' => true,
+        'via_chat_folder_invite_link' => false,
     ]);
 
     $array = $dto->toArray();
