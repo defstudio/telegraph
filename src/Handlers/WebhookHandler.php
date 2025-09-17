@@ -203,7 +203,7 @@ abstract class WebhookHandler
     {
         return Str::of("")
             ->append("[", $chat->type(), ']')
-            ->append(" ", $chat->title() ?? $chat->username());
+            ->append(" ", $chat->title() ?? $chat->username() ?? '');
     }
 
     //---- Message Handlers
