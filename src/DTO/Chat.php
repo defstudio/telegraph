@@ -32,7 +32,7 @@ class Chat implements Arrayable
 
     /**
      * @param array{
-     *     id:int,
+     *     id:string,
      *     type:string,
      *     title?:string,
      *     username?:string,
