@@ -46,6 +46,8 @@ abstract class WebhookHandler
     protected Request $request;
     protected Message|null $message = null;
     protected Reaction|null $reaction = null;
+    protected ChatMemberUpdate|null $chatMember = null;
+    protected ChatMemberUpdate|null $myChatMember = null;
     protected CallbackQuery|null $callbackQuery = null;
     protected ChatJoinRequest|null $chatJoinRequest = null;
 
@@ -100,21 +102,21 @@ abstract class WebhookHandler
             }
 
             if ($this->request->has('chat_member')) {
-                $chatMemberUpdate = ChatMemberUpdate::fromArray($this->request->input('chat_member'));
+                $this->chatMember = ChatMemberUpdate::fromArray($this->request->input('chat_member'));
 
-                $this->setupChat($chatMemberUpdate->chat());
+                $this->setupChat();
 
-                $this->handleChatMemberUpdate($chatMemberUpdate);
+                $this->handleChatMemberUpdate($this->chatMember);
 
                 return;
             }
 
             if ($this->request->has('my_chat_member')) {
-                $chatMemberUpdate = ChatMemberUpdate::fromArray($this->request->input('my_chat_member'));
+                $this->myChatMember = ChatMemberUpdate::fromArray($this->request->input('my_chat_member'));
 
-                $this->setupChat($chatMemberUpdate->chat());
+                $this->setupChat();
 
-                $this->handleBotChatStatusUpdate($chatMemberUpdate);
+                $this->handleBotChatStatusUpdate($this->myChatMember);
 
                 return;
             }
@@ -173,9 +175,11 @@ abstract class WebhookHandler
     }
 
     //---- Chat Setup
-    protected function setupChat(?Chat $chat = null): void
+    protected function setupChat(): void
     {
-        $telegramChat = $chat ?? match (true) {
+        $telegramChat = match (true) {
+            isset($this->chatMember) => $this->chatMember->chat(),
+            isset($this->myChatMember) => $this->myChatMember->chat(),
             isset($this->message) => $this->message->chat(),
             isset($this->reaction) => $this->reaction->chat(),
             isset($this->chatJoinRequest) => $this->chatJoinRequest->chat(),
@@ -206,6 +210,7 @@ abstract class WebhookHandler
             isset($this->message),
             isset($this->reaction) => config('telegraph.security.allow_messages_from_unknown_chats', false),
             isset($this->callbackQuery) => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
+            isset($this->chatMember), isset($this->myChatMember) => true,
             default => false,
         };
     }
