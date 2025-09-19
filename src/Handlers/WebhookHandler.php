@@ -67,6 +67,10 @@ abstract class WebhookHandler
             $this->bot = $bot;
             $this->request = $request;
 
+            if (config('telegraph.debug_mode', config('telegraph.webhook.debug'))) {
+                Log::debug('Telegraph webhook received', $this->request->all());
+            }
+
             if ($this->request->has('inline_query')) {
                 $this->handleInlineQuery(InlineQuery::fromArray($this->request->input('inline_query')));
 
@@ -221,10 +225,6 @@ abstract class WebhookHandler
     {
         $this->extractMessageData();
 
-        if (config('telegraph.debug_mode', config('telegraph.webhook.debug'))) {
-            Log::debug('Telegraph webhook message', $this->data->toArray());
-        }
-
         $text = Str::of($this->message?->text() ?? '');
 
         if ($this->isCommand($text)) {
@@ -367,10 +367,6 @@ abstract class WebhookHandler
     {
         $this->extractCallbackQueryData();
 
-        if (config('telegraph.debug_mode', config('telegraph.webhook.debug'))) {
-            Log::debug('Telegraph webhook callback', $this->data->toArray());
-        }
-
         /** @var string $action */
         $action = $this->callbackQuery?->data()->get('action') ?? '';
 
@@ -403,10 +399,6 @@ abstract class WebhookHandler
     protected function handleReaction(): void
     {
         $this->extractReactionData();
-
-        if (config('telegraph.debug_mode', config('telegraph.webhook.debug'))) {
-            Log::debug('Telegraph webhook message', $this->data->toArray());
-        }
 
         /** @phpstan-ignore-next-line */
         $this->handleChatReaction($this->reaction->newReaction(), $this->reaction->oldReaction());
