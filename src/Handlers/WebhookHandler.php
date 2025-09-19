@@ -44,12 +44,12 @@ abstract class WebhookHandler
     protected int $callbackQueryId;
 
     protected Request $request;
-    protected Message|null $message = null;
-    protected Reaction|null $reaction = null;
-    protected ChatMemberUpdate|null $chatMember = null;
-    protected ChatMemberUpdate|null $myChatMember = null;
-    protected CallbackQuery|null $callbackQuery = null;
-    protected ChatJoinRequest|null $chatJoinRequest = null;
+    protected ?Message $message = null;
+    protected ?Reaction $reaction = null;
+    protected ?CallbackQuery $callbackQuery = null;
+    protected ?ChatJoinRequest $chatJoinRequest = null;
+    protected ?ChatMemberUpdate $myChatMember = null;
+    protected ?ChatMemberUpdate $chatMember = null;
 
     /**
      * @var Collection<string, string>|Collection<int, array<string, string>>|Collection<array-key, ReactionType>
@@ -86,37 +86,13 @@ abstract class WebhookHandler
             }
 
             if ($this->request->has('poll_answer')) {
-                $pollAnswer = PollAnswer::fromArray($this->request->input('poll_answer'));
-
-                $this->setupChat($pollAnswer->voterChat());
-
-                $this->handlePollAnswer($pollAnswer);
+                $this->handlePollAnswer(PollAnswer::fromArray($this->request->input('poll_answer')));
 
                 return;
             }
 
             if ($this->request->has('pre_checkout_query')) {
                 $this->handlePreCheckoutQuery(PreCheckoutQuery::fromArray($this->request->input('pre_checkout_query')));
-
-                return;
-            }
-
-            if ($this->request->has('chat_member')) {
-                $this->chatMember = ChatMemberUpdate::fromArray($this->request->input('chat_member'));
-
-                $this->setupChat();
-
-                $this->handleChatMemberUpdate($this->chatMember);
-
-                return;
-            }
-
-            if ($this->request->has('my_chat_member')) {
-                $this->myChatMember = ChatMemberUpdate::fromArray($this->request->input('my_chat_member'));
-
-                $this->setupChat();
-
-                $this->handleBotChatStatusUpdate($this->myChatMember);
 
                 return;
             }
@@ -145,6 +121,16 @@ abstract class WebhookHandler
                 default => null,
             };
 
+            $this->myChatMember = match (true) {
+                $this->request->has('my_chat_member') => ChatMemberUpdate::fromArray($this->request->input('my_chat_member')),
+                default => null,
+            };
+
+            $this->chatMember = match (true) {
+                $this->request->has('chat_member') => ChatMemberUpdate::fromArray($this->request->input('chat_member')),
+                default => null,
+            };
+
             // setup chat
             $this->setupChat();
 
@@ -153,9 +139,11 @@ abstract class WebhookHandler
                 isset($this->message) && $this->message->successfulPayment() => $this->handleSuccessfulPayment($this->message->successfulPayment()),
                 isset($this->message) && $this->message->migrateToChatId() => $this->handleMigrateToChat(),
                 isset($this->message) => $this->handleMessage(),
+                isset($this->reaction) => $this->handleReaction(),
                 isset($this->callbackQuery) => $this->handleCallbackQuery(),
                 isset($this->chatJoinRequest) => $this->handleChatJoinRequest($this->chatJoinRequest),
-                isset($this->reaction) => $this->handleReaction(),
+                isset($this->myChatMember) => $this->handleBotChatStatusUpdate($this->myChatMember),
+                isset($this->chatMember) => $this->handleChatMemberUpdate($this->chatMember),
                 default => null,
             };
         } catch (Throwable $throwable) {
@@ -177,16 +165,7 @@ abstract class WebhookHandler
     //---- Chat Setup
     protected function setupChat(): void
     {
-        $telegramChat = match (true) {
-            isset($this->chatMember) => $this->chatMember->chat(),
-            isset($this->myChatMember) => $this->myChatMember->chat(),
-            isset($this->message) => $this->message->chat(),
-            isset($this->reaction) => $this->reaction->chat(),
-            isset($this->chatJoinRequest) => $this->chatJoinRequest->chat(),
-            default => $this->callbackQuery?->message()?->chat(),
-        };
-
-        assert($telegramChat !== null);
+        $telegramChat = $this->extractTelegramChat();
 
         $this->chat = $this->bot->chats()->firstOrNew([
             'chat_id' => $telegramChat->id(),
@@ -202,6 +181,23 @@ abstract class WebhookHandler
                 $this->createChat($telegramChat, $this->chat);
             }
         }
+    }
+
+    protected function extractTelegramChat(): Chat
+    {
+        $telegramChat = match (true) {
+            isset($this->message) => $this->message->chat(),
+            isset($this->reaction) => $this->reaction->chat(),
+            isset($this->callbackQuery) => $this->callbackQuery->message()?->chat(),
+            isset($this->chatJoinRequest) => $this->chatJoinRequest->chat(),
+            isset($this->myChatMember) => $this->myChatMember->chat(),
+            isset($this->chatMember) => $this->chatMember->chat(),
+            default => null,
+        };
+
+        assert($telegramChat !== null);
+
+        return $telegramChat;
     }
 
     protected function allowUnknownChat(): bool
