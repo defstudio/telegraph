@@ -18,7 +18,11 @@
             "chat": {
                 "id": "987654",
                 "type": "private",
-                "title": "john_smith"
+                "username": "john_smith",
+                "first_name": "John",
+                "last_name": "Smith",
+                "is_forum": false,
+                "is_direct_messages": false
             },
             "photos": [],
             "new_chat_members": [],
@@ -51,7 +55,9 @@
             "chat": {
                 "id": "-987455499",
                 "type": "group",
-                "title": "Bot Test Chat"
+                "title": "Bot Test Chat",
+                "is_forum": false,
+                "is_direct_messages": false
             },
             "photos": [],
             "new_chat_members": [],

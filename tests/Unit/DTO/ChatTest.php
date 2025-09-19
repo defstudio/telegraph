@@ -10,6 +10,11 @@ it('export all properties to array', function () {
         'id' => 3,
         'type' => 'a',
         'title' => 'b',
+        'username' => 'c',
+        'first_name' => 'd',
+        'last_name' => 'e',
+        'is_forum' => true,
+        'is_direct_messages' => false,
     ]);
 
     $array = $dto->toArray();
