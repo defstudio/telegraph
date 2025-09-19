@@ -165,17 +165,7 @@ abstract class WebhookHandler
     //---- Chat Setup
     protected function setupChat(): void
     {
-        $telegramChat = match (true) {
-            isset($this->message) => $this->message->chat(),
-            isset($this->reaction) => $this->reaction->chat(),
-            isset($this->callbackQuery) => $this->callbackQuery->message()?->chat(),
-            isset($this->chatJoinRequest) => $this->chatJoinRequest->chat(),
-            isset($this->myChatMember) => $this->myChatMember->chat(),
-            isset($this->chatMember) => $this->chatMember->chat(),
-            default => null,
-        };
-
-        assert($telegramChat !== null);
+        $telegramChat = $this->extractTelegramChat();
 
         $this->chat = $this->bot->chats()->firstOrNew([
             'chat_id' => $telegramChat->id(),
@@ -191,6 +181,23 @@ abstract class WebhookHandler
                 $this->createChat($telegramChat, $this->chat);
             }
         }
+    }
+
+    protected function extractTelegramChat(): Chat
+    {
+        $telegramChat = match (true) {
+            isset($this->message) => $this->message->chat(),
+            isset($this->reaction) => $this->reaction->chat(),
+            isset($this->callbackQuery) => $this->callbackQuery->message()?->chat(),
+            isset($this->chatJoinRequest) => $this->chatJoinRequest->chat(),
+            isset($this->myChatMember) => $this->myChatMember->chat(),
+            isset($this->chatMember) => $this->chatMember->chat(),
+            default => null,
+        };
+
+        assert($telegramChat !== null);
+
+        return $telegramChat;
     }
 
     protected function allowUnknownChat(): bool
