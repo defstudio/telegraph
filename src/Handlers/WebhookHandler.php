@@ -80,7 +80,11 @@ abstract class WebhookHandler
             }
 
             if ($this->request->has('poll_answer')) {
-                $this->handlePollAnswer(PollAnswer::fromArray($this->request->input('poll_answer')));
+                $pollAnswer = PollAnswer::fromArray($this->request->input('poll_answer'));
+
+                $this->setupChat($pollAnswer->voterChat());
+
+                $this->handlePollAnswer($pollAnswer);
 
                 return;
             }
@@ -92,13 +96,21 @@ abstract class WebhookHandler
             }
 
             if ($this->request->has('chat_member')) {
-                $this->handleChatMemberUpdate(ChatMemberUpdate::fromArray($this->request->input('chat_member')));
+                $chatMemberUpdate = ChatMemberUpdate::fromArray($this->request->input('chat_member'));
+
+                $this->setupChat($chatMemberUpdate->chat());
+
+                $this->handleChatMemberUpdate($chatMemberUpdate);
 
                 return;
             }
 
             if ($this->request->has('my_chat_member')) {
-                $this->handleBotChatStatusUpdate(ChatMemberUpdate::fromArray($this->request->input('my_chat_member')));
+                $chatMemberUpdate = ChatMemberUpdate::fromArray($this->request->input('my_chat_member'));
+
+                $this->setupChat($chatMemberUpdate->chat());
+
+                $this->handleBotChatStatusUpdate($chatMemberUpdate);
 
                 return;
             }
@@ -153,13 +165,13 @@ abstract class WebhookHandler
 
         report($throwable);
 
-        rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
+        rescue(fn() => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
     //---- Chat Setup
-    protected function setupChat(): void
+    protected function setupChat(?Chat $chat = null): void
     {
-        $telegramChat = match (true) {
+        $telegramChat = $chat ?? match (true) {
             isset($this->message) => $this->message->chat(),
             isset($this->reaction) => $this->reaction->chat(),
             isset($this->chatJoinRequest) => $this->chatJoinRequest->chat(),
@@ -177,15 +189,13 @@ abstract class WebhookHandler
                 throw new NotFoundHttpException();
             }
 
-            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
-                $this->createChat($telegramChat, $this->chat);
-            }
+            $this->createChat($telegramChat, $this->chat);
         }
     }
 
     protected function allowUnknownChat(): bool
     {
-        return (bool)match (true) {
+        return (bool) match (true) {
             isset($this->message),
             isset($this->reaction) => config('telegraph.security.allow_messages_from_unknown_chats', false),
             isset($this->callbackQuery) => config('telegraph.security.allow_callback_queries_from_unknown_chats', false),
@@ -257,7 +267,7 @@ abstract class WebhookHandler
 
         $firstLetters = $commandPrefixes->map->substr(0, 1);
 
-        $foundPrefix = $commandPrefixes->first(function (Stringable $prefix) use ($commandPrefixes, $firstLetters, $text) {
+        $foundPrefix = $commandPrefixes->first(function(Stringable $prefix) use ($commandPrefixes, $firstLetters, $text) {
             if (!$text->startsWith($prefix)) {
                 return false;
             }
@@ -286,7 +296,7 @@ abstract class WebhookHandler
 
         return collect($prefixes)
             ->push('/')
-            ->map(fn (string $prefix) => str($prefix)->trim())
+            ->map(fn(string $prefix) => str($prefix)->trim())
             ->unique()
             ->values();
     }
@@ -320,7 +330,7 @@ abstract class WebhookHandler
             }
         }
 
-        return [(string)$command, (string)($parameter ?? '')];
+        return [(string) $command, (string) ($parameter ?? '')];
     }
 
     protected function canHandle(string $action): bool
@@ -468,8 +478,8 @@ abstract class WebhookHandler
     }
 
     /**
-     * @param Collection<array-key, Reaction> $newReactions
-     * @param Collection<array-key, Reaction> $oldReactions
+     * @param  Collection<array-key, Reaction>  $newReactions
+     * @param  Collection<array-key, Reaction>  $oldReactions
      *
      * @return void
      */
