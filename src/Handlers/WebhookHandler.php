@@ -169,7 +169,7 @@ abstract class WebhookHandler
 
         report($throwable);
 
-        rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
+        rescue(fn() => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
     //---- Chat Setup
@@ -193,7 +193,10 @@ abstract class WebhookHandler
                 throw new NotFoundHttpException();
             }
 
-            $this->createChat($telegramChat, $this->chat);
+
+            if (config('telegraph.security.store_unknown_chats_in_db', false)) {
+                $this->createChat($telegramChat, $this->chat);
+            }
         }
     }
 
@@ -267,7 +270,7 @@ abstract class WebhookHandler
 
         $firstLetters = $commandPrefixes->map->substr(0, 1);
 
-        $foundPrefix = $commandPrefixes->first(function (Stringable $prefix) use ($commandPrefixes, $firstLetters, $text) {
+        $foundPrefix = $commandPrefixes->first(function(Stringable $prefix) use ($commandPrefixes, $firstLetters, $text) {
             if (!$text->startsWith($prefix)) {
                 return false;
             }
@@ -296,7 +299,7 @@ abstract class WebhookHandler
 
         return collect($prefixes)
             ->push('/')
-            ->map(fn (string $prefix) => str($prefix)->trim())
+            ->map(fn(string $prefix) => str($prefix)->trim())
             ->unique()
             ->values();
     }
