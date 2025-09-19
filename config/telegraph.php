@@ -20,13 +20,13 @@ return [
          * Sets a custom webhook domain to be used,
          * if null defaults to the app.url
          */
-        'domain' => null,
+        'domain' => env('TELEGRAM_WEBHOOK_DOMAIN'),
 
         /*
          * Sets the webhook URL that will be exposed by the server,
          * this can be customized or entirely disabled (by setting it to NULL)
          */
-        'url' => config('telegraph.webhook.url', '/telegraph/{token}/webhook'),
+        'url' => env('TELEGRAPH_WEBHOOK_URL', '/telegraph/{token}/webhook'),
 
         /*
          * Sets the handler to be used when Telegraph
