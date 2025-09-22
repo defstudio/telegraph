@@ -35,6 +35,19 @@ it('can retrieve its url', function () {
     expect($bot->url())->toMatchSnapshot();
 });
 
+it('can send request with custom endpoint and data', function () {
+    withfakeUrl();
+
+    Telegraph::fake();
+    $bot = make_bot();
+
+    $bot->withEndpoint('custom-endpoint')->withData('sample', 'test')->send();
+
+    Telegraph::assertSentData('custom-endpoint', [
+        'sample' => 'test',
+    ]);
+});
+
 it('can register its webhook', function () {
     withfakeUrl();
 

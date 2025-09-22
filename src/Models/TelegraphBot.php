@@ -96,6 +96,16 @@ class TelegraphBot extends Model implements Storable
         return $this->hasMany(config('telegraph.models.chat'), 'telegraph_bot_id');
     }
 
+    public function withEndpoint(string $endpoint): Telegraph
+    {
+        return TelegraphFacade::bot($this)->withEndpoint($endpoint);
+    }
+
+    public function withData(string $key, mixed $value): Telegraph
+    {
+        return TelegraphFacade::bot($this)->withData($key, $value);
+    }
+
     public function registerWebhook(bool|null $dropPendingUpdates = null, int|null $maxConnections = null, string|null $secretToken = null): Telegraph
     {
         return TelegraphFacade::bot($this)->registerWebhook($dropPendingUpdates, $maxConnections, $secretToken);

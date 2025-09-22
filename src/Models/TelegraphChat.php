@@ -120,6 +120,11 @@ class TelegraphChat extends Model implements Storable
         return ChatMember::fromArray($reply->json('result'));
     }
 
+    public function withEndpoint(string $endpoint): Telegraph
+    {
+        return TelegraphFacade::chat($this)->withEndpoint($endpoint);
+    }
+
     public function withData(string $key, mixed $value): Telegraph
     {
         return TelegraphFacade::chat($this)->withData($key, $value);

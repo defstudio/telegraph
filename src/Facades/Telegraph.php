@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  bot(TelegraphBot|string $bot)
  * @method static \DefStudio\Telegraph\Telegraph  chat(TelegraphChat|string $chat)
  * @method static \DefStudio\Telegraph\Telegraph  message(string $message)
+ * @method static \DefStudio\Telegraph\Telegraph  withEndpoint(string $endpoint)
  * @method static \DefStudio\Telegraph\Telegraph  withData(string $key, mixed $value)
  * @method static \DefStudio\Telegraph\Telegraph  inThread(int $thread_id)
  * @method static \DefStudio\Telegraph\Telegraph  html(string $message)
