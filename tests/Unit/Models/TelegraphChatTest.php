@@ -806,6 +806,17 @@ it('can set web app menu button', function () {
     ]);
 });
 
+it('can send request with custom endpoint and data', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->withEndpoint('custom-endpoint')->withData('sample', 'test')->send();
+
+    Telegraph::assertSentData('custom-endpoint', [
+        'sample' => 'test',
+    ]);
+});
+
 it('can edit Telegraph data before sending a media ', function () {
     Telegraph::fake();
     $chat = make_chat();

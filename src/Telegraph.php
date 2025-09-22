@@ -163,6 +163,15 @@ class Telegraph
         return $this;
     }
 
+    public function withEndpoint(string $endpoint): static
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = ltrim($endpoint, '/');
+
+        return $telegraph;
+    }
+
     public function withData(string $key, mixed $value): static
     {
         $telegraph = clone $this;
