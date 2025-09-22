@@ -2,6 +2,16 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.63.0 - 2025-09-22
+
+### What's Changed
+
+* Fix: Chats for Handler by @ah-rahimi in https://github.com/defstudio/telegraph/pull/733
+* Fix: Chat DTO Attributes by @ah-rahimi in https://github.com/defstudio/telegraph/pull/731
+* Feat: Can send custom endpoint request by @ah-rahimi in https://github.com/defstudio/telegraph/pull/734
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.62.3...v1.63.0
+
 ## v1.62.3 - 2025-09-19
 
 **Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.62.2...v1.62.3
