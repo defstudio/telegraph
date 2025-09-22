@@ -19,14 +19,28 @@ class Chat implements Arrayable
 
     private string $id;
     private string $type;
-    private string $title;
+    private ?string $title;
+    private ?string $username;
+    private ?string $firstName;
+    private ?string $lastName;
+    private bool $isForum = false;
+    private bool $isDirectMessages = false;
 
     private function __construct()
     {
     }
 
     /**
-     * @param array{id:string, type:string, title?:string, username?: string} $data
+     * @param array{
+     *     id:string,
+     *     type:string,
+     *     title?:string,
+     *     username?:string,
+     *     first_name?:string,
+     *     last_name?:string,
+     *     is_forum?:bool,
+     *     is_direct_messages?:bool,
+     *  } $data
      */
     public static function fromArray(array $data): Chat
     {
@@ -34,7 +48,12 @@ class Chat implements Arrayable
 
         $chat->id = $data['id'];
         $chat->type = $data['type'];
-        $chat->title = $data['title'] ?? $data['username'] ?? '';
+        $chat->title = $data['title'] ?? null;
+        $chat->username = $data['username'] ?? null;
+        $chat->firstName = $data['first_name'] ?? null;
+        $chat->lastName = $data['last_name'] ?? null;
+        $chat->isForum = $data['is_forum'] ?? false;
+        $chat->isDirectMessages = $data['is_direct_messages'] ?? false;
 
         return $chat;
     }
@@ -49,9 +68,34 @@ class Chat implements Arrayable
         return $this->type;
     }
 
-    public function title(): string
+    public function title(): ?string
     {
         return $this->title;
+    }
+
+    public function username(): ?string
+    {
+        return $this->username;
+    }
+
+    public function firstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function lastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function isForum(): bool
+    {
+        return $this->isForum;
+    }
+
+    public function isDirectMessages(): bool
+    {
+        return $this->isDirectMessages;
     }
 
     public function toArray(): array
@@ -60,6 +104,11 @@ class Chat implements Arrayable
             'id' => $this->id,
             'type' => $this->type,
             'title' => $this->title,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+            'username' => $this->username,
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName,
+            'is_forum' => $this->isForum,
+            'is_direct_messages' => $this->isDirectMessages,
+        ], fn ($value) => $value !== null);
     }
 }
