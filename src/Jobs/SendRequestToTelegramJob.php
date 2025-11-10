@@ -42,6 +42,11 @@ class SendRequestToTelegramJob implements ShouldQueue
             $request
         );
 
+        // Apply proxy configuration if set
+        if ($proxy = config('telegraph.http_proxy')) {
+            $request->withOptions(['proxy' => $proxy]);
+        }
+
         /** @phpstan-ignore-next-line  */
         $request->timeout(config('telegraph.http_timeout', 30))->connectTimeout(config('telegraph.http_connection_timeout', 10))->post($this->url, $this->data);
     }
