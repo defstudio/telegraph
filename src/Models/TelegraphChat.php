@@ -289,6 +289,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->setBaseUrl($url);
     }
 
+    public function setHttpProxy(string|null $proxy): Telegraph
+    {
+        return TelegraphFacade::chat($this)->setHttpProxy($proxy);
+    }
+
     public function setTitle(string $title): Telegraph
     {
         return TelegraphFacade::chat($this)->setTitle($title);

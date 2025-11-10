@@ -23,6 +23,8 @@ trait InteractsWithTelegram
 
     protected string|null $baseUrl = null;
 
+    protected string|null $httpProxy = null;
+
     protected function sendRequestToTelegram(): Response
     {
         $asMultipart = $this->files->isNotEmpty();
@@ -43,7 +45,7 @@ trait InteractsWithTelegram
         );
 
         // Apply proxy configuration if set
-        if ($proxy = config('telegraph.http_proxy')) {
+        if ($proxy = $this->httpProxy ?? config('telegraph.http_proxy')) {
             $request->withOptions(['proxy' => $proxy]);
         }
 
@@ -80,7 +82,7 @@ trait InteractsWithTelegram
 
     protected function dispatchRequestToTelegram(?string $queue = null): PendingDispatch
     {
-        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files)->onQueue($queue);
+        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files, $this->httpProxy)->onQueue($queue);
     }
 
     public function setBaseUrl(string|null $url): Telegraph
@@ -88,6 +90,15 @@ trait InteractsWithTelegram
         $telegraph = clone $this;
 
         $telegraph->baseUrl = $url;
+
+        return $telegraph;
+    }
+
+    public function setHttpProxy(string|null $proxy): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->httpProxy = $proxy;
 
         return $telegraph;
     }

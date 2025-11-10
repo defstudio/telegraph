@@ -21,7 +21,7 @@ class SendRequestToTelegramJob implements ShouldQueue
      * @param array<string, mixed> $data
      * @param Collection<string, Attachment> $files
      */
-    public function __construct(public string $url, public array $data, public Collection $files)
+    public function __construct(public string $url, public array $data, public Collection $files, public string|null $httpProxy = null)
     {
     }
 
@@ -43,7 +43,7 @@ class SendRequestToTelegramJob implements ShouldQueue
         );
 
         // Apply proxy configuration if set
-        if ($proxy = config('telegraph.http_proxy')) {
+        if ($proxy = $this->httpProxy ?? config('telegraph.http_proxy')) {
             $request->withOptions(['proxy' => $proxy]);
         }
 
