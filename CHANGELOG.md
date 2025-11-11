@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.64.0 - 2025-11-11
+
+### What's Changed
+
+* feat: Http proxy for Requests by @ah-rahimi in https://github.com/defstudio/telegraph/pull/739
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.63.0...v1.64.0
+
 ## v1.63.0 - 2025-09-22
 
 ### What's Changed
