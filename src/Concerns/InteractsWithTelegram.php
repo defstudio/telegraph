@@ -113,6 +113,7 @@ trait InteractsWithTelegram
 
     protected function getHttpProxy(): string|null
     {
+        /* @phpstan-ignore-next-line */
         return $this->httpProxy ?? config('telegraph.http_proxy');
     }
 
