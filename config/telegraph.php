@@ -89,6 +89,12 @@ return [
     'http_timeout' => env('TELEGRAPH_HTTP_TIMEOUT', 30),
 
     /*
+     * Sets HTTP proxy to be used when interacting with Telegram servers
+     * Example: 'http://user:password@host:port'
+     */
+    'http_proxy' => env('TELEGRAPH_HTTP_PROXY', null),
+
+    /*
      * Sets HTTP connection request timeout when interacting with Telegram servers
      */
     'http_connection_timeout' => env('TELEGRAPH_HTTP_CONNECTION_TIMEOUT', 10),

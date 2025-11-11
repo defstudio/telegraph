@@ -223,4 +223,9 @@ class TelegraphBot extends Model implements Storable
     {
         return TelegraphFacade::bot($this)->setBaseUrl($url);
     }
+
+    public function setHttpProxy(string|null $proxy): Telegraph
+    {
+        return TelegraphFacade::bot($this)->setHttpProxy($proxy);
+    }
 }

@@ -57,6 +57,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  botUpdates()
  * @method static \DefStudio\Telegraph\Telegraph  botInfo()
  * @method static \DefStudio\Telegraph\Telegraph  setBaseUrl(string|null $url)
+ * @method static \DefStudio\Telegraph\Telegraph  setHttpProxy(string|null $proxy)
  * @method static \DefStudio\Telegraph\Telegraph  setTitle(string $title)
  * @method static \DefStudio\Telegraph\Telegraph  setDescription(string $description)
  * @method static \DefStudio\Telegraph\Telegraph  setChatPhoto(string $path)

@@ -23,6 +23,8 @@ trait InteractsWithTelegram
 
     protected string|null $baseUrl = null;
 
+    protected string|null $httpProxy = null;
+
     protected function sendRequestToTelegram(): Response
     {
         $asMultipart = $this->files->isNotEmpty();
@@ -41,6 +43,11 @@ trait InteractsWithTelegram
             ),
             $request
         );
+
+        // Apply proxy configuration if set
+        if ($proxy = $this->getHttpProxy()) {
+            $request->withOptions(['proxy' => $proxy]);
+        }
 
         /** @phpstan-ignore-next-line  */
         return $request->timeout(config('telegraph.http_timeout', 30))->connectTimeout(config('telegraph.http_connection_timeout', 10))->post($this->getApiUrl(), $this->prepareData());
@@ -75,7 +82,7 @@ trait InteractsWithTelegram
 
     protected function dispatchRequestToTelegram(?string $queue = null): PendingDispatch
     {
-        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files)->onQueue($queue);
+        return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files, $this->getHttpProxy())->onQueue($queue);
     }
 
     public function setBaseUrl(string|null $url): Telegraph
@@ -93,6 +100,21 @@ trait InteractsWithTelegram
         return Str::of($this->baseUrl ?? config('telegraph.telegram_api_url', 'https://api.telegram.org/'))
             ->rtrim('/')
             ->append('/bot');
+    }
+
+    public function setHttpProxy(string|null $proxy): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->httpProxy = $proxy;
+
+        return $telegraph;
+    }
+
+    protected function getHttpProxy(): string|null
+    {
+        /* @phpstan-ignore-next-line */
+        return $this->httpProxy ?? config('telegraph.http_proxy');
     }
 
     protected function getFilesBaseUrl(): string
