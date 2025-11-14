@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.64.1 - 2025-11-14
+
+### What's Changed
+
+* Remove unnecessary chats eager-load in getBotIfAvailable() by @ah-rahimi in https://github.com/defstudio/telegraph/pull/740
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.64.0...v1.64.1
+
 ## v1.64.0 - 2025-11-11
 
 ### What's Changed
