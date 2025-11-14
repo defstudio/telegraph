@@ -59,7 +59,7 @@ trait HasBotsAndChats
 
         if (empty($telegraph->bot)) {
             /** @var TelegraphBot|string $bot */
-            $bot = rescue(fn () => TelegraphBot::query()->with('chats')->sole(), config('telegraph.bot_token'), false);
+            $bot = rescue(fn () => TelegraphBot::query()->sole(), config('telegraph.bot_token'), false);
 
             $telegraph->bot = $bot;
         }
