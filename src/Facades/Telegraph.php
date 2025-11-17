@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static string getUrl()
+ * @method static string getFilesUrl()
  * @method static \DefStudio\Telegraph\Telegraph  bot(TelegraphBot|string $bot)
  * @method static \DefStudio\Telegraph\Telegraph  chat(TelegraphChat|string $chat)
  * @method static \DefStudio\Telegraph\Telegraph  message(string $message)

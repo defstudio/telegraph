@@ -6,6 +6,7 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\DTO\Attachment;
 use DefStudio\Telegraph\Jobs\SendRequestToTelegramJob;
+use DefStudio\Telegraph\Models\Concerns\HasCustomUrl;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Foundation\Bus\PendingDispatch;
 use Illuminate\Http\Client\PendingRequest;
@@ -49,7 +50,7 @@ trait InteractsWithTelegram
             $request->withOptions(['proxy' => $proxy]);
         }
 
-        /** @phpstan-ignore-next-line  */
+        /** @phpstan-ignore-next-line */
         return $request->timeout(config('telegraph.http_timeout', 30))->connectTimeout(config('telegraph.http_connection_timeout', 10))->post($this->getApiUrl(), $this->prepareData());
     }
 
@@ -127,19 +128,46 @@ trait InteractsWithTelegram
 
     public function getUrl(): string
     {
+        $bot = $this->getBot();
+
+        $url = $bot instanceof HasCustomUrl
+            ? $bot->getUrl()
+            : Str::of($this->getBaseUrl())
+                ->append($this->getBotToken())
+                ->toString();
+
         /** @phpstan-ignore-next-line */
-        return (string) Str::of($this->getBaseUrl())
-            ->append($this->getBotToken())
+        return Str::of($url)
             ->append('/', $this->endpoint)
-            ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)));
+            ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)))
+            ->toString();
+    }
+
+    public function getFilesUrl(): string
+    {
+        $bot = $this->getBot();
+
+        return $bot instanceof HasCustomUrl
+            ? $bot->getFilesUrl()
+            : Str::of($this->getFilesBaseUrl())
+                ->append($this->getBotToken())
+                ->toString();
     }
 
     public function getApiUrl(): string
     {
+        $bot = $this->getBot();
+
+        $url = $bot instanceof HasCustomUrl
+            ? $bot->getUrl()
+            : Str::of($this->getBaseUrl())
+                ->append($this->getBotToken())
+                ->toString();
+
         /** @phpstan-ignore-next-line */
-        return (string) Str::of($this->getBaseUrl())
-            ->append($this->getBotToken())
-            ->append('/', $this->endpoint);
+        return Str::of($url)
+            ->append('/', $this->endpoint)
+            ->toString();
     }
 
     /**

@@ -9,13 +9,35 @@ use DefStudio\Telegraph\Enums\ChatPermissions;
 use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use DefStudio\Telegraph\Models\Concerns\HasCustomUrl;
 use DefStudio\Telegraph\Models\TelegraphBot;
+use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphEditMediaFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphPollFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphQuizFake;
 use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphSetChatMenuButtonFake;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+
+test('custom Bots urls', function () {
+
+    $bot = new class () extends TelegraphBot implements HasCustomUrl {
+        public function getUrl(): string
+        {
+            return 'custom_url';
+        }
+
+        public function getFilesUrl(): string
+        {
+            return 'custom_files_url';
+        }
+    };
+
+    $telegraph = app(TelegraphChat::class)->withEndpoint('endpoint')->bot($bot);
+
+    expect($telegraph->getUrl())->toBe('custom_url/endpoint')
+        ->and($telegraph->getFilesUrl())->toBe('custom_files_url');
+});
 
 test('name is set to ID if missing', function () {
     $bot = TelegraphBot::create([
