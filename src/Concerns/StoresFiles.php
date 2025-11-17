@@ -6,6 +6,7 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Exceptions\FileException;
+use DefStudio\Telegraph\Models\Concerns\HasCustomUrl;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\File;
@@ -38,8 +39,15 @@ trait StoresFiles
 
         assert(is_string($filePath));
 
-        $url = Str::of($this->getFilesBaseUrl())
-            ->append($this->getBotToken())
+        $bot = $this->getBot();
+
+        $url = $bot instanceof HasCustomUrl
+            ? $bot->getFilesUrl()
+            : Str::of($this->getFilesBaseUrl())
+                ->append($this->getBotToken())
+                ->toString();
+
+        $url = Str::of($url)
             ->append('/', $filePath);
 
         /** @var Response $response */
@@ -52,8 +60,8 @@ trait StoresFiles
         $filename ??= $url->afterLast('/')->before('?');
 
         File::ensureDirectoryExists($path);
-        File::put($path . "/" . $filename, $response->body());
+        File::put($path."/".$filename, $response->body());
 
-        return $path . "/" . $filename;
+        return $path."/".$filename;
     }
 }
