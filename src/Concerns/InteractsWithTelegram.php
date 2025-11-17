@@ -49,8 +49,8 @@ trait InteractsWithTelegram
             $request->withOptions(['proxy' => $proxy]);
         }
 
-        return $request->timeout(config()->integer('telegraph.http_timeout', 30))
-            ->connectTimeout(config()->integer('telegraph.http_connection_timeout', 10))
+        return $request->timeout(config('telegraph.http_timeout', 30)) //@phpstan-ignore-line
+            ->connectTimeout(config('telegraph.http_connection_timeout', 10)) //@phpstan-ignore-line
             ->post($this->getApiUrl(), $this->prepareData());
     }
 
@@ -100,7 +100,7 @@ trait InteractsWithTelegram
         /* @phpstan-ignore-next-line */
         return Str::of($this->baseUrl ?? config('telegraph.telegram_api_url', 'https://api.telegram.org/'))
             ->rtrim('/')
-            ->append('/', config()->string('telegraph.token_prefix', 'bot'));
+            ->append('/', config('telegraph.token_prefix', 'bot')); //@phpstan-ignore-line
     }
 
     public function setHttpProxy(string|null $proxy): Telegraph
@@ -123,7 +123,7 @@ trait InteractsWithTelegram
         /* @phpstan-ignore-next-line */
         return Str::of($this->baseUrl ?? config('telegraph.telegram_api_url', 'https://api.telegram.org/'))
             ->rtrim('/')
-            ->append('/file/', config()->string('telegraph.token_prefix', 'bot'));
+            ->append('/file/', config('telegraph.token_prefix', 'bot')); //@phpstan-ignore-line
     }
 
     public function getUrl(): string
