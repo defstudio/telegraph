@@ -6,7 +6,6 @@ namespace DefStudio\Telegraph\Concerns;
 
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\Exceptions\FileException;
-use DefStudio\Telegraph\Models\Concerns\HasCustomUrl;
 use DefStudio\Telegraph\Telegraph;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\File;
@@ -39,7 +38,7 @@ trait StoresFiles
 
         assert(is_string($filePath));
 
-        $url= $this->getFilesUrl();
+        $url = $this->getFilesUrl();
 
         $url = Str::of($url)
             ->append('/', $filePath);

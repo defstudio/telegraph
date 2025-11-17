@@ -19,10 +19,9 @@ use DefStudio\Telegraph\Support\Testing\Fakes\TelegraphSetChatMenuButtonFake;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-test('custom Bots urls', function() {
+test('custom Bots urls', function () {
 
-    $bot = new class extends TelegraphBot implements HasCustomUrl
-    {
+    $bot = new class () extends TelegraphBot implements HasCustomUrl {
         public function getUrl(): string
         {
             return 'custom_url';
