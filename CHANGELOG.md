@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.65.0 - 2025-11-17
+
+### What's Changed
+
+* [feat] bot url customization by @fabio-ivona in https://github.com/defstudio/telegraph/pull/743
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.64.1...v1.65.0
+
 ## v1.64.1 - 2025-11-14
 
 ### What's Changed
