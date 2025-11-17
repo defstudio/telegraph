@@ -39,13 +39,7 @@ trait StoresFiles
 
         assert(is_string($filePath));
 
-        $bot = $this->getBot();
-
-        $url = $bot instanceof HasCustomUrl
-            ? $bot->getFilesUrl()
-            : Str::of($this->getFilesBaseUrl())
-                ->append($this->getBotToken())
-                ->toString();
+        $url= $this->getFilesUrl();
 
         $url = Str::of($url)
             ->append('/', $filePath);

@@ -143,6 +143,17 @@ trait InteractsWithTelegram
             ->toString();
     }
 
+    public function getFilesUrl(): string
+    {
+        $bot = $this->getBot();
+
+        return $bot instanceof HasCustomUrl
+            ? $bot->getFilesUrl()
+            : Str::of($this->getFilesBaseUrl())
+                ->append($this->getBotToken())
+                ->toString();
+    }
+
     public function getApiUrl(): string
     {
         $bot = $this->getBot();
