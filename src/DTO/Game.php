@@ -12,7 +12,9 @@ class Game implements Arrayable
 {
     private string $title;
     private string $description;
+    /** @var Collection<array-key, Photo> */
     private Collection $photos;
+    /** @var Collection<array-key, Entity> */
     private Collection $entities;
     private ?Animation $animation = null;
     private ?string $text = null;
@@ -26,8 +28,8 @@ class Game implements Arrayable
 
     /**
      * @param  array{
-     *     title: string,
-     *     description: string,
+     *     title?: string,
+     *     description?: string,
      *     entities?: array<object>,
      *     photo?: array<string, mixed>,
      *     animation?:array<string, mixed>,
@@ -42,6 +44,7 @@ class Game implements Arrayable
         $game->description = $data['description'] ?? '';
         $game->text = $data['text'] ?? '';
 
+        /* @phpstan-ignore-next-line */
         $game->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
 
         if (isset($data['animation'])) {
@@ -66,7 +69,7 @@ class Game implements Arrayable
         return $this->description;
     }
 
-    public function text(): string
+    public function text(): ?string
     {
         return $this->text;
     }
