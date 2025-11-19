@@ -2,7 +2,6 @@
 
 namespace DefStudio\Telegraph\DTO;
 
-use DefStudio\Telegraph\Contracts\Downloadable;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 
@@ -17,7 +16,6 @@ class Game implements Arrayable
     private Collection $entities;
     private ?Animation $animation = null;
     private ?string $text = null;
-
 
     private function __construct()
     {
@@ -40,9 +38,9 @@ class Game implements Arrayable
     {
         $game = new self();
 
-        $game->title =  $data['title'] ?? '';
-        $game->description =  $data['description'] ?? '';
-        $game->text =  $data['text'] ?? '';
+        $game->title = $data['title'] ?? '';
+        $game->description = $data['description'] ?? '';
+        $game->text = $data['text'] ?? '';
 
         $game->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
 
@@ -103,6 +101,6 @@ class Game implements Arrayable
             'photos' => $this->photos->toArray(),
             'animation' => $this->animation?->toArray(),
             'entities' => $this->entities->toArray(),
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }

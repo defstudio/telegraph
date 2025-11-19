@@ -312,7 +312,6 @@ class Message implements Arrayable
         return $this->audio;
     }
 
-
     public function document(): ?Document
     {
         return $this->document;
