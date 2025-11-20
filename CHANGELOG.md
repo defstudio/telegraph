@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.66.0 - 2025-11-20
+
+### What's Changed
+
+* [Feature] Game Model + sendGame Method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/745
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.65.0...v1.66.0
+
 ## v1.65.0 - 2025-11-17
 
 ### What's Changed
