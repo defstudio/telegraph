@@ -359,7 +359,7 @@ it('can send an invoice', function () {
             ->currency('EUR')
             ->addItem('Test Label', 10)
             ->maxTip(70)
-            ->suggestedTips([30,20])
+            ->suggestedTips([30, 20])
             ->startParameter(10)
             ->providerData(['Test Provider Data'])
             ->image('Test Image Link', 20, 20)
@@ -372,6 +372,20 @@ it('can send an invoice', function () {
     )
         ->toMatchUtf8TelegramSnapshot();
 });
+
+it('can send a game', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph->game('game_short_name')
+            ->businessConnectionId('business_connection_id')
+            ->messageThreadId('message_thread_id')
+            ->messageEffectId('message_effect_id')
+            ->disableNotification(true)
+            ->protectContent(true)
+            ->allowPaidBroadcast(true)
+    )
+        ->toMatchUtf8TelegramSnapshot();
+});
+
 
 test('photos are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {

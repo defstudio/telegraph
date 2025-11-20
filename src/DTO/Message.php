@@ -48,6 +48,7 @@ class Message implements Arrayable
     private ?Poll $poll = null;
     private ?Venue $venue = null;
     private ?Invoice $invoice = null;
+    private ?Game $game = null;
     private ?SuccessfulPayment $successfulPayment = null;
     private ?RefundedPayment $refundedPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
@@ -89,6 +90,7 @@ class Message implements Arrayable
      *     venue?: array<string, mixed>,
      *     contact?: array<string, mixed>,
      *     invoice?: array<string, mixed>,
+     *     game?:array<string, mixed>,
      *     successful_payment?: array<string, mixed>,
      *     refunded_payment?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
@@ -187,6 +189,10 @@ class Message implements Arrayable
 
         if (isset($data['invoice'])) {
             $message->invoice = Invoice::fromArray($data['invoice']);
+        }
+
+        if (isset($data['game'])) {
+            $message->game = Game::fromArray($data['game']);
         }
 
         if (isset($data['successful_payment'])) {
@@ -351,6 +357,11 @@ class Message implements Arrayable
         return $this->invoice;
     }
 
+    public function game(): ?Game
+    {
+        return $this->game;
+    }
+
     public function successfulPayment(): ?SuccessfulPayment
     {
         return $this->successfulPayment;
@@ -423,6 +434,7 @@ class Message implements Arrayable
             'poll' => $this->poll?->toArray(),
             'venue' => $this->venue?->toArray(),
             'invoice' => $this->invoice?->toArray(),
+            'game' => $this->game?->toArray(),
             'successful_payment' => $this->successfulPayment?->toArray(),
             'refunded_payment' => $this->refundedPayment?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),

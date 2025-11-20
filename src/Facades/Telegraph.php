@@ -4,6 +4,7 @@ namespace DefStudio\Telegraph\Facades;
 
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\DTO\InlineQueryResult;
+use DefStudio\Telegraph\Games\TelegraphGamePayload;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
@@ -86,6 +87,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  reopenForumTopic(int $threadId = null)
  * @method static \DefStudio\Telegraph\Telegraph  deleteForumTopic(int $threadId = null)
  * @method static TelegraphInvoicePayload  invoice(string $title)
+ * @method static TelegraphGamePayload  game(string $shortName)
  * @method static SetChatMenuButtonPayload  setChatMenuButton()
  * @method static TelegraphPollPayload poll(string $question)
  * @method static TelegraphQuizPayload quiz(string $question)

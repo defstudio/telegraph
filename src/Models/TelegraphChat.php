@@ -12,6 +12,7 @@ use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\DTO\ChatMember;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
+use DefStudio\Telegraph\Games\TelegraphGamePayload;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Payments\TelegraphInvoicePayload;
 use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
@@ -418,6 +419,11 @@ class TelegraphChat extends Model implements Storable
     public function invoice(string $title): TelegraphInvoicePayload
     {
         return TelegraphFacade::chat($this)->invoice($title);
+    }
+
+    public function game(string $shortName): TelegraphGamePayload
+    {
+        return TelegraphFacade::chat($this)->game($shortName);
     }
 
     public function dice(string|null $emoji = null): Telegraph
