@@ -85,6 +85,24 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
 
         return $telegraph;
     }
+    public function videoNote(string $path, string|null $filename = null): self
+    {
+        $telegraph = clone $this;
+
+        $this->attachVideoNote($telegraph, $path, $filename);
+
+        $data = [
+            'type' => 'video_note',
+            'media' => $telegraph->files->has('video_note')
+                ? "attach://video"
+                : $telegraph->data['video_note'],
+        ];
+
+
+        $telegraph->data['media'] = json_encode($data);
+
+        return $telegraph;
+    }
 
     public function audio(string $path, string|null $filename = null): self
     {

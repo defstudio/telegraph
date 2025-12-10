@@ -80,6 +80,7 @@ class Telegraph
     public const ENDPOINT_SEND_DOCUMENT = 'sendDocument';
     public const ENDPOINT_SEND_PHOTO = 'sendPhoto';
     public const ENDPOINT_SEND_VIDEO = 'sendVideo';
+    public const ENDPOINT_SEND_VIDEO_NOTE = 'sendVideoNote';
     public const ENDPOINT_SEND_AUDIO = 'sendAudio';
     public const ENDPOINT_SEND_CONTACT = 'sendContact';
     public const ENDPOINT_GET_FILE = 'getFile';
