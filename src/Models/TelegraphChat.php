@@ -136,6 +136,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->inThread($thread_id);
     }
 
+    public function inBusiness(string $business_connection_id): Telegraph
+    {
+        return TelegraphFacade::chat($this)->inBusiness($business_connection_id);
+    }
+
     public function message(string $message): Telegraph
     {
         return TelegraphFacade::chat($this)->message($message);
@@ -200,6 +205,11 @@ class TelegraphChat extends Model implements Storable
     public function deleteMessages(array $messageIds): Telegraph
     {
         return TelegraphFacade::chat($this)->deleteMessages($messageIds);
+    }
+
+    public function readBusinessMessage(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->readBusinessMessage($messageId);
     }
 
     public function pinMessage(int $messageId): Telegraph

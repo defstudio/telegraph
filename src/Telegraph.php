@@ -66,6 +66,8 @@ class Telegraph
     public const ENDPOINT_MESSAGE = 'sendMessage';
     public const ENDPOINT_DELETE_MESSAGE = 'deleteMessage';
     public const ENDPOINT_DELETE_MESSAGES = 'deleteMessages';
+    public const ENDPOINT_READ_BUSINESS_MESSAGE = 'readBusinessMessage';
+    public const ENDPOINT_DELETE_BUSINESS_MESSAGES = 'deleteBusinessMessages';
     public const ENDPOINT_PIN_MESSAGE = 'pinChatMessage';
     public const ENDPOINT_UNPIN_MESSAGE = 'unpinChatMessage';
     public const ENDPOINT_UNPIN_ALL_MESSAGES = 'unpinAllChatMessages';
@@ -191,6 +193,15 @@ class Telegraph
 
         //@phpstan-ignore-next-line
         data_set($telegraph->data, 'message_thread_id', $thread_id);
+
+        return $telegraph;
+    }
+    public function inBusiness(string $business_connection_id): static
+    {
+        $telegraph = clone $this;
+
+        //@phpstan-ignore-next-line
+        data_set($telegraph->data, 'business_connection_id', $business_connection_id);
 
         return $telegraph;
     }

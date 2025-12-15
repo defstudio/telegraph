@@ -19,6 +19,7 @@ class Message implements Arrayable
 {
     private int $id;
     private ?int $messageThreadId = null;
+    private ?string $businessConnectionId = null;
     private CarbonInterface $date;
     private ?CarbonInterface $editDate = null;
     private string $text;
@@ -69,6 +70,7 @@ class Message implements Arrayable
      * @param array{
      *     message_id: int,
      *     message_thread_id?: int,
+     *     business_connection_id?: string,
      *     date: int,
      *     edit_date?: int,
      *     text?: string,
@@ -108,6 +110,10 @@ class Message implements Arrayable
         $message = new self();
 
         $message->id = $data['message_id'];
+
+        if (isset($data['business_connection_id'])) {
+            $message->businessConnectionId = $data['business_connection_id'];
+        }
 
         if (isset($data['message_thread_id'])) {
             $message->messageThreadId = $data['message_thread_id'];
@@ -253,6 +259,11 @@ class Message implements Arrayable
     public function messageThreadId(): ?int
     {
         return $this->messageThreadId;
+    }
+
+    public function businessConnectionId(): ?string
+    {
+        return $this->businessConnectionId;
     }
 
     public function date(): CarbonInterface
@@ -423,6 +434,7 @@ class Message implements Arrayable
         return array_filter([
             'id' => $this->id,
             'message_thread_id' => $this->messageThreadId,
+            'business_connection_id' => $this->businessConnectionId,
             'date' => $this->date->toISOString(),
             'edit_date' => $this->editDate?->toISOString(),
             'text' => $this->text,
