@@ -196,6 +196,7 @@ class Telegraph
 
         return $telegraph;
     }
+
     public function inBusiness(string $business_connection_id): static
     {
         $telegraph = clone $this;

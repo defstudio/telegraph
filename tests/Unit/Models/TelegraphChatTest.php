@@ -916,6 +916,30 @@ it('can send a message to a specific Thread before', function () {
     ]);
 });
 
+it('can send a message to a specific business connection after', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->message('foo')->inBusiness(5)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'business_connection_id' => 5,
+    ]);
+});
+
+it('can send a message to a specific business connection before', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->inBusiness(5)->message('foo')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'business_connection_id' => 5,
+    ]);
+});
+
 it('can accept chat join request', function () {
     Telegraph::fake();
     $chat = make_chat();
