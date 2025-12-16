@@ -41,6 +41,7 @@ class Message implements Arrayable
     private ?Audio $audio = null;
     private ?Document $document = null;
     private ?Video $video = null;
+    private ?VideoNote $videoNote = null;
     private ?Location $location = null;
     private ?Contact $contact = null;
     private ?Voice $voice = null;
@@ -84,6 +85,7 @@ class Message implements Arrayable
      *     sticker?:array<string, mixed>,
      *     document?: array<string, mixed>,
      *     video?: array<string, mixed>,
+     *     video_note?: array<string, mixed>,
      *     photo?: array<string, mixed>,
      *     location?: array<string, mixed>,
      *     poll?: array<string, mixed>,
@@ -160,6 +162,10 @@ class Message implements Arrayable
 
         if (isset($data['video'])) {
             $message->video = Video::fromArray($data['video']);
+        }
+
+        if (isset($data['video_note'])) {
+            $message->videoNote = VideoNote::fromArray($data['video_note']);
         }
 
         if (isset($data['location'])) {
@@ -322,6 +328,11 @@ class Message implements Arrayable
         return $this->video;
     }
 
+    public function videoNote(): ?VideoNote
+    {
+        return $this->videoNote;
+    }
+
     public function location(): ?Location
     {
         return $this->location;
@@ -427,6 +438,7 @@ class Message implements Arrayable
             'audio' => $this->audio?->toArray(),
             'document' => $this->document?->toArray(),
             'video' => $this->video?->toArray(),
+            'video_note' => $this->videoNote?->toArray(),
             'location' => $this->location?->toArray(),
             'contact' => $this->contact?->toArray(),
             'voice' => $this->voice?->toArray(),

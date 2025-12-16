@@ -300,6 +300,10 @@ it('can send a video', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->video(Storage::path('video.mp4')))
         ->toMatchUtf8TelegramSnapshot();
 });
+it('can send a videoNote', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->videoNote(Storage::path('video.mp4')))
+        ->toMatchUtf8TelegramSnapshot();
+});
 
 it('can send an audio', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('audio.mp3')))

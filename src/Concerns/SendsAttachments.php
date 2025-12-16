@@ -139,6 +139,20 @@ trait SendsAttachments
         return $telegraph;
     }
 
+    public function videoNote(string $path, ?string $thumbnail = null): self
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_SEND_VIDEO_NOTE;
+
+        $telegraph->data['chat_id'] = $telegraph->getChatId();
+
+
+        $this->attachVideoNote($telegraph, $path, $thumbnail);
+
+        return $telegraph;
+    }
+
     public function audio(string $path, ?string $filename = null): self
     {
         $telegraph = clone $this;
@@ -410,6 +424,27 @@ trait SendsAttachments
             $telegraph->data['protect_content'] ??= 'false';
             $telegraph->data['reply_to_message_id'] ??= '';
             $telegraph->data['allow_sending_without_reply'] ??= 'false';
+        }
+    }
+
+    protected function attachVideoNote(self $telegraph, string $path, ?string $filename): void
+    {
+        if (File::exists($path)) {
+            /* @phpstan-ignore-next-line  */
+            $maxSizeMb = floatval(config('telegraph.attachments.video.max_size_mb', 50));
+
+            if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
+                throw FileException::documentSizeExceeded($size, $maxSizeMb);
+            }
+
+            $telegraph->files->put('video_note', new Attachment($path, $filename));
+        } else {
+            $telegraph->data['video_note'] = $path;
+            $telegraph->data['duration'] ??= '';
+            $telegraph->data['length'] ??= '';
+            $telegraph->data['thumbnail'] ??= '';
+            $telegraph->data['disable_notification'] ??= 'false';
+            $telegraph->data['protect_content'] ??= 'false';
         }
     }
 
