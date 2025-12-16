@@ -154,6 +154,10 @@ trait ComposesMessages
 
         return $telegraph;
     }
+
+    /**
+     * @param array<int> $messageIds
+     */
     public function deleteBusinessMessages(array $messageIds): Telegraph
     {
         $telegraph = clone $this;

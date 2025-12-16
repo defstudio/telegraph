@@ -12,10 +12,7 @@ class VideoNote implements Arrayable, Downloadable
 {
     private string $id;
     private int $duration;
-    private ?int $length = null;
-
-    private ?string $filename = null;
-    private ?string $mimeType = null;
+    private int $length;
     private ?int $filesize = null;
 
     private ?Photo $thumbnail = null;
@@ -24,30 +21,29 @@ class VideoNote implements Arrayable, Downloadable
     {
     }
 
-
     /**
-     * @param array{
+     * @param  array{
      *     file_id: string,
+     *     length: int,
      *     duration: int,
-     *     length?: int,
      *     file_size?: int,
      *     thumb?: array<string, mixed>,
-     * } $data
+     * }  $data
      */
     public static function fromArray(array $data): VideoNote
     {
-        $videoNote = new self();
+        $video = new self();
 
-        $videoNote->id = $data['file_id'];
-        $videoNote->duration = $data['duration'];
-        $videoNote->length = $data['length'] ?? null;
-        $videoNote->filesize = $data['file_size'] ?? null;
+        $video->id = $data['file_id'];
+        $video->length = $data['length'];
+        $video->duration = $data['duration'];
+        $video->filesize = $data['file_size'] ?? null;
 
         if (isset($data['thumb'])) {
-            $videoNote->thumbnail = Photo::fromArray($data['thumb']);
+            $video->thumbnail = Photo::fromArray($data['thumb']);
         }
 
-        return $videoNote;
+        return $video;
     }
 
     public function id(): string
@@ -55,13 +51,14 @@ class VideoNote implements Arrayable, Downloadable
         return $this->id;
     }
 
+    public function length(): int
+    {
+        return $this->length;
+    }
+
     public function duration(): int
     {
         return $this->duration;
-    }
-    public function length(): ?int
-    {
-        return $this->length;
     }
 
     public function filesize(): ?int
@@ -78,9 +75,8 @@ class VideoNote implements Arrayable, Downloadable
     {
         return array_filter([
             'id' => $this->id,
+            'length' => $this->length,
             'duration' => $this->duration,
-            'filename' => $this->filename,
-            'mime_type' => $this->mimeType,
             'filesize' => $this->filesize,
             'thumbnail' => $this->thumbnail?->toArray(),
         ], fn ($value) => $value !== null);

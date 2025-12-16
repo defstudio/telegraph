@@ -85,6 +85,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
 
         return $telegraph;
     }
+
     public function videoNote(string $path, string|null $filename = null): self
     {
         $telegraph = clone $this;

@@ -138,6 +138,7 @@ trait SendsAttachments
 
         return $telegraph;
     }
+
     public function videoNote(string $path, ?string $thumbnail = null): self
     {
         $telegraph = clone $this;
@@ -425,6 +426,7 @@ trait SendsAttachments
             $telegraph->data['allow_sending_without_reply'] ??= 'false';
         }
     }
+
     protected function attachVideoNote(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
@@ -435,7 +437,7 @@ trait SendsAttachments
                 throw FileException::documentSizeExceeded($size, $maxSizeMb);
             }
 
-            $telegraph->files->put('video_note', new Attachment($path,$filename));
+            $telegraph->files->put('video_note', new Attachment($path, $filename));
         } else {
             $telegraph->data['video_note'] = $path;
             $telegraph->data['duration'] ??= '';

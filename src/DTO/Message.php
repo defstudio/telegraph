@@ -338,6 +338,7 @@ class Message implements Arrayable
     {
         return $this->video;
     }
+
     public function videoNote(): ?VideoNote
     {
         return $this->videoNote;
