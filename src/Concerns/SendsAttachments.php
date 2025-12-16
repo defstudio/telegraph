@@ -435,7 +435,7 @@ trait SendsAttachments
                 throw FileException::documentSizeExceeded($size, $maxSizeMb);
             }
 
-            $telegraph->files->put('video_note', new Attachment($path,$filename));
+            $telegraph->files->put('video_note', new Attachment($path, $filename));
         } else {
             $telegraph->data['video_note'] = $path;
             $telegraph->data['duration'] ??= '';
