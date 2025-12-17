@@ -127,7 +127,7 @@ trait ComposesMessages
     }
 
     /**
-     * @param array<int> $messageIds
+     * @param  array<int>  $messageIds
      */
     public function deleteMessages(array $messageIds): Telegraph
     {
@@ -156,7 +156,7 @@ trait ComposesMessages
     }
 
     /**
-     * @param array<int> $messageIds
+     * @param  array<int>  $messageIds
      */
     public function deleteBusinessMessages(array $messageIds): Telegraph
     {

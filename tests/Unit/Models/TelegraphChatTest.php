@@ -775,6 +775,31 @@ it('can forward a message', function () {
         'message_id' => 123,
     ]);
 });
+
+it('can read business message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->readBusinessMessage(123)->inBusiness(321)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_READ_BUSINESS_MESSAGE, [
+        'business_connection_id' => 321,
+        'message_id' => 123,
+    ]);
+});
+
+it('can delete business messages', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->deleteBusinessMessages([123])->inBusiness(321)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_BUSINESS_MESSAGES, [
+        'business_connection_id' => 321,
+        'message_ids' => [123],
+    ]);
+});
+
 it('can copy a message', function () {
     Telegraph::fake();
     $chat = make_chat();

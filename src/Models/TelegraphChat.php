@@ -167,7 +167,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
+     * @param  Keyboard|callable(Keyboard):Keyboard  $newKeyboard
      */
     public function replaceKeyboard(int $messageId, Keyboard|callable $newKeyboard): Telegraph
     {
@@ -200,7 +200,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int> $messageIds
+     * @param  array<int>  $messageIds
      */
     public function deleteMessages(array $messageIds): Telegraph
     {
@@ -210,6 +210,14 @@ class TelegraphChat extends Model implements Storable
     public function readBusinessMessage(int $messageId): Telegraph
     {
         return TelegraphFacade::chat($this)->readBusinessMessage($messageId);
+    }
+
+    /**
+     * @param  array<int>  $messageIds
+     */
+    public function deleteBusinessMessages(array $messageIds): Telegraph
+    {
+        return TelegraphFacade::chat($this)->deleteBusinessMessages($messageIds);
     }
 
     public function pinMessage(int $messageId): Telegraph
@@ -253,7 +261,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, array<mixed>> $media
+     * @param  array<int|string, array<mixed>>  $media
      */
     public function mediaGroup(array $media): Telegraph
     {
@@ -267,7 +275,7 @@ class TelegraphChat extends Model implements Storable
 
     public function venue(float $latitude, float $longitude, string $title, string $address): Telegraph
     {
-        return TelegraphFacade::chat($this)->venue($latitude,  $longitude,  $title,  $address);
+        return TelegraphFacade::chat($this)->venue($latitude, $longitude, $title, $address);
     }
 
     public function animation(string $path, string|null $filename = null): Telegraph
@@ -326,7 +334,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<string, string> $reaction
+     * @param  array<string, string>  $reaction
      */
     public function setMessageReaction(int $messageId, array $reaction, bool $isBig = false): Telegraph
     {
@@ -373,7 +381,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, string|bool> $permissions
+     * @param  array<int|string, string|bool>  $permissions
      */
     public function setPermissions(array $permissions): Telegraph
     {
@@ -391,7 +399,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, string|bool> $permissions
+     * @param  array<int|string, string|bool>  $permissions
      */
     public function restrictMember(string $userId, array $permissions): Telegraph
     {
@@ -399,7 +407,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, string|bool> $permissions
+     * @param  array<int|string, string|bool>  $permissions
      */
     public function promoteMember(string $userId, array $permissions): Telegraph
     {
