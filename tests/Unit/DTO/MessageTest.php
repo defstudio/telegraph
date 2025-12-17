@@ -265,6 +265,18 @@ it('export all properties to array', function () {
                 'file_size' => 42,
             ],
         ],
+        'video_note' => [
+            'file_id' => 31,
+            'length' => 50,
+            'duration' => 666,
+            'file_size' => 42,
+            'thumb' => [
+                'file_id' => 99,
+                'width' => 1024,
+                'height' => 768,
+                'file_size' => 42,
+            ],
+        ],
         'voice' => [
             'file_id' => 31,
             'duration' => 666,

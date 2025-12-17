@@ -95,7 +95,7 @@ class TelegraphEditMediaPayload extends \DefStudio\Telegraph\Telegraph
         $data = [
             'type' => 'video_note',
             'media' => $telegraph->files->has('video_note')
-                ? "attach://video"
+                ? "attach://video_note"
                 : $telegraph->data['video_note'],
         ];
 

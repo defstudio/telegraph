@@ -441,16 +441,10 @@ trait SendsAttachments
         } else {
             $telegraph->data['video_note'] = $path;
             $telegraph->data['duration'] ??= '';
-            $telegraph->data['width'] ??= '';
-            $telegraph->data['height'] ??= '';
+            $telegraph->data['length'] ??= '';
             $telegraph->data['thumbnail'] ??= '';
-            $telegraph->data['caption'] ??= '';
-            $telegraph->data['parse_mode'] ??= '';
-            $telegraph->data['supports_streaming'] ??= 'false';
             $telegraph->data['disable_notification'] ??= 'false';
             $telegraph->data['protect_content'] ??= 'false';
-            $telegraph->data['reply_to_message_id'] ??= '';
-            $telegraph->data['allow_sending_without_reply'] ??= 'false';
         }
     }
 
