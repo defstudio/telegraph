@@ -127,13 +127,42 @@ trait ComposesMessages
     }
 
     /**
-     * @param array<int> $messageIds
+     * @param  array<int>  $messageIds
      */
     public function deleteMessages(array $messageIds): Telegraph
     {
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_DELETE_MESSAGES;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChatId(),
+            'message_ids' => $messageIds,
+        ];
+
+        return $telegraph;
+    }
+
+    public function readBusinessMessage(int $messageId): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_READ_BUSINESS_MESSAGE;
+        $telegraph->data = [
+            'chat_id' => $telegraph->getChatId(),
+            'message_id' => $messageId,
+        ];
+
+        return $telegraph;
+    }
+
+    /**
+     * @param  array<int>  $messageIds
+     */
+    public function deleteBusinessMessages(array $messageIds): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->endpoint = self::ENDPOINT_DELETE_BUSINESS_MESSAGES;
         $telegraph->data = [
             'chat_id' => $telegraph->getChatId(),
             'message_ids' => $messageIds,

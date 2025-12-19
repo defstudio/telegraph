@@ -75,3 +75,17 @@ it('can forward a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->forwardMessage($chat, 123456))
         ->toMatchTelegramSnapshot();
 });
+
+it('can read business message', function () {
+    $chat = make_chat();
+
+    expect(fn (Telegraph $telegraph) => $telegraph->readBusinessMessage(123)->inBusiness(321))
+        ->toMatchTelegramSnapshot();
+});
+
+it('can delete business messages', function () {
+    $chat = make_chat();
+
+    expect(fn (Telegraph $telegraph) => $telegraph->deleteBusinessMessages([123])->inBusiness(321))
+        ->toMatchTelegramSnapshot();
+});
