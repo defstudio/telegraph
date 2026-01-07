@@ -12,6 +12,7 @@ beforeEach(fn () => sandbox_bot());
 
 it('can return bot info', function () {
     $response = Telegraph::botInfo()->send();
+    dd($response->json('result'));
     expect($response->json('result'))->toMatchSnapshot();
 })->skip(fn () => empty(env('SANDOBOX_TELEGRAM_BOT_TOKEN')) || env('SANDOBOX_TELEGRAM_BOT_TOKEN') === ':fake_bot_token:', 'Sandbox telegram bot token missing');
 
