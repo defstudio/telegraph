@@ -22,7 +22,6 @@ class Giveaway implements Arrayable
     private ?int $prizeStarCount;
     private ?int $premiumSubscriptionMonthCount;
 
-
     private function __construct()
     {
         $this->chats = Collection::empty();
@@ -121,6 +120,6 @@ class Giveaway implements Arrayable
             'prize_star_count' => $this->prizeStarCount,
             'premium_subscription_month_count' => $this->premiumSubscriptionMonthCount,
 
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }
