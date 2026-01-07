@@ -44,11 +44,13 @@ class Giveaway implements Arrayable
     {
         $giveaway = new self();
 
+        /* @phpstan-ignore-next-line */
         $giveaway->chats = collect($data['chats'] ?? [])->map(fn (array $chat) => Chat::fromArray($chat));
+
         $giveaway->winnersSelectionDate = $data['winners_selection_date'];
         $giveaway->winnerCount = $data['winner_count'];
-        $giveaway->onlyNewMembers = $data['only_new_members'] ?? false;
-        $giveaway->hasPublicWinners = $data['has_public_winners'] ?? false;
+        $giveaway->onlyNewMembers = $data['only_new_members'];
+        $giveaway->hasPublicWinners = $data['has_public_winners'];
         $giveaway->prizeDescription = $data['prize_description'] ?? null;
         $giveaway->countryCodes = $data['country_codes'] ?? [];
         $giveaway->prizeStarCount = $data['prize_star_count'] ?? null;
