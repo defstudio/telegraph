@@ -2,6 +2,20 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.67.0 - 2026-01-08
+
+### What's Changed
+
+* implement sendVideoNote by @imperiumbee in https://github.com/defstudio/telegraph/pull/748
+* Business connection messages by @imperiumbee in https://github.com/defstudio/telegraph/pull/749
+* #746 giveaway by @MarioGattolla in https://github.com/defstudio/telegraph/pull/750
+
+### New Contributors
+
+* @imperiumbee made their first contribution in https://github.com/defstudio/telegraph/pull/748
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.66.0...v1.67.0
+
 ## v1.66.0 - 2025-11-20
 
 ### What's Changed
