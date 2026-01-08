@@ -40,6 +40,8 @@ class Message implements Arrayable
     private Collection $photos;
     private ?Animation $animation = null;
     private ?Audio $audio = null;
+    private ?Giveaway $giveaway = null;
+
     private ?Document $document = null;
     private ?Video $video = null;
     private ?VideoNote $videoNote = null;
@@ -89,6 +91,7 @@ class Message implements Arrayable
      *     video?: array<string, mixed>,
      *     video_note?: array<string, mixed>,
      *     photo?: array<string, mixed>,
+     *     giveaway?: array<string, mixed>,
      *     location?: array<string, mixed>,
      *     poll?: array<string, mixed>,
      *     venue?: array<string, mixed>,
@@ -178,6 +181,9 @@ class Message implements Arrayable
             $message->location = Location::fromArray($data['location']);
         }
 
+        if (isset($data['giveaway'])) {
+            $message->giveaway = Giveaway::fromArray($data['giveaway']);
+        }
 
         if (isset($data['contact'])) {
             $message->contact = Contact::fromArray($data['contact']);
@@ -324,6 +330,11 @@ class Message implements Arrayable
         return $this->animation;
     }
 
+    public function giveaway(): ?Giveaway
+    {
+        return $this->giveaway;
+    }
+
     public function audio(): ?Audio
     {
         return $this->audio;
@@ -450,6 +461,7 @@ class Message implements Arrayable
             'audio' => $this->audio?->toArray(),
             'document' => $this->document?->toArray(),
             'video' => $this->video?->toArray(),
+            'giveaway' => $this->giveaway?->toArray(),
             'video_note' => $this->videoNote?->toArray(),
             'location' => $this->location?->toArray(),
             'contact' => $this->contact?->toArray(),
