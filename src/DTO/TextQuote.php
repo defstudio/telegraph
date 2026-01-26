@@ -76,6 +76,6 @@ class TextQuote implements Arrayable
             'entities' => $this->entities->toArray(),
             'position' => $this->position,
             'is_manual' => $this->isManual,
-        ], fn ($value) => $value !== null);
+        ], fn ($value) => $value !== null); //@phpstan-ignore-line
     }
 }
