@@ -53,6 +53,7 @@ class Message implements Arrayable
     private ?Venue $venue = null;
     private ?Invoice $invoice = null;
     private ?Game $game = null;
+    private ?TextQuote $quote = null;
     private ?SuccessfulPayment $successfulPayment = null;
     private ?RefundedPayment $refundedPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
@@ -69,7 +70,7 @@ class Message implements Arrayable
     }
 
     /**
-     * @param array{
+     * @param  array{
      *     message_id: int,
      *     message_thread_id?: int,
      *     business_connection_id?: string,
@@ -98,6 +99,7 @@ class Message implements Arrayable
      *     contact?: array<string, mixed>,
      *     invoice?: array<string, mixed>,
      *     game?:array<string, mixed>,
+     *     quote?:array<string,mixed>,
      *     successful_payment?: array<string, mixed>,
      *     refunded_payment?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
@@ -106,7 +108,7 @@ class Message implements Arrayable
      *     write_access_allowed?: array<string, mixed>,
      *     migrate_to_chat_id?: int,
      *     entities?: array<object>
-     *  } $data
+     *  }  $data
      */
     public static function fromArray(array $data): Message
     {
@@ -155,7 +157,7 @@ class Message implements Arrayable
         }
 
         /* @phpstan-ignore-next-line */
-        $message->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
+        $message->photos = collect($data['photo'] ?? [])->map(fn(array $photoData) => Photo::fromArray($photoData));
 
         if (isset($data['animation'])) {
             $message->animation = Animation::fromArray($data['animation']);
@@ -213,6 +215,10 @@ class Message implements Arrayable
             $message->game = Game::fromArray($data['game']);
         }
 
+        if (isset($data['quote'])) {
+            $message->quote = TextQuote::fromArray($data['quote']);
+        }
+
         if (isset($data['successful_payment'])) {
             $message->successfulPayment = SuccessfulPayment::fromArray($data['successful_payment']);
         }
@@ -223,7 +229,7 @@ class Message implements Arrayable
         }
 
         /* @phpstan-ignore-next-line */
-        $message->newChatMembers = collect($data['new_chat_members'] ?? [])->map(fn (array $userData) => User::fromArray($userData));
+        $message->newChatMembers = collect($data['new_chat_members'] ?? [])->map(fn(array $userData) => User::fromArray($userData));
 
 
         if (isset($data['left_chat_member'])) {
@@ -246,11 +252,11 @@ class Message implements Arrayable
 
         if (isset($data['entities']) && $data['entities']) {
             /* @phpstan-ignore-next-line */
-            $message->entities = collect($data['entities'])->map(fn (array $entity) => Entity::fromArray($entity));
+            $message->entities = collect($data['entities'])->map(fn(array $entity) => Entity::fromArray($entity));
         }
 
         if (isset($data['migrate_to_chat_id'])) {
-            $message->migrateToChatId = (string)$data['migrate_to_chat_id'];
+            $message->migrateToChatId = (string) $data['migrate_to_chat_id'];
         }
 
 
@@ -395,6 +401,11 @@ class Message implements Arrayable
         return $this->game;
     }
 
+    public function quote(): ?TextQuote
+    {
+        return $this->quote;
+    }
+
     public function successfulPayment(): ?SuccessfulPayment
     {
         return $this->successfulPayment;
@@ -471,14 +482,15 @@ class Message implements Arrayable
             'venue' => $this->venue?->toArray(),
             'invoice' => $this->invoice?->toArray(),
             'game' => $this->game?->toArray(),
+            'quote' => $this->quote?->toArray(),
             'successful_payment' => $this->successfulPayment?->toArray(),
             'refunded_payment' => $this->refundedPayment?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
-            'migrate_to_chat_id' => (int)$this->migrateToChatId,
+            'migrate_to_chat_id' => (int) $this->migrateToChatId,
             'entities' => $this->entities->toArray(),
-        ], fn ($value) => $value !== null);
+        ], fn($value) => $value !== null);
     }
 }

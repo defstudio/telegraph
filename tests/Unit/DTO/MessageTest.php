@@ -252,6 +252,19 @@ it('export all properties to array', function () {
                 ],
             ],
         ],
+        'quote' => [
+            'text' => 'test quote',
+            'entities' => [
+                [
+                    'type' => 'url',
+                    'offset' => 4,
+                    'length' => 19,
+                    'url' => 'https://example.com',
+                ],
+            ],
+            'position' => 1,
+            'is_manual' => true,
+        ],
         'audio' => [
             'file_id' => 31,
             'duration' => 666,
