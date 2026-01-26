@@ -5,7 +5,7 @@
 use DefStudio\Telegraph\DTO\TextQuote;
 use Illuminate\Support\Str;
 
-it('export all properties to array', function() {
+it('export all properties to array', function () {
     $dto = TextQuote::fromArray([
         'text' => 'test quote',
         'entities' => [

@@ -39,7 +39,7 @@ class TextQuote implements Arrayable
 
         if (isset($data['entities']) && $data['entities']) {
             /* @phpstan-ignore-next-line */
-            $textQuote->entities = collect($data['entities'])->map(fn(array $entity) => Entity::fromArray($entity));
+            $textQuote->entities = collect($data['entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }
 
         return $textQuote;
@@ -75,6 +75,6 @@ class TextQuote implements Arrayable
             'entities' => $this->entities->toArray(),
             'position' => $this->position,
             'is_manual' => $this->isManual,
-        ], fn($value) => $value !== null);
+        ], fn ($value) => $value !== null);
     }
 }
