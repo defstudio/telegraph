@@ -11,6 +11,7 @@ use Illuminate\Support\Collection;
 class TextQuote implements Arrayable
 {
     private string $text;
+    /** @var Collection<array-key, Entity> */
     private Collection $entities;
     private int $position;
     private bool $isManual = false;
@@ -23,7 +24,7 @@ class TextQuote implements Arrayable
 
     /**
      * @param  array{
-     *     text: string,
+     *     text?: string,
      *     entities?: array<object>,
      *     position: int,
      *     is_manual?: bool,
@@ -34,7 +35,7 @@ class TextQuote implements Arrayable
         $textQuote = new self();
 
         $textQuote->text = $data['text'] ?? '';
-        $textQuote->position = $data['position'] ?? '';
+        $textQuote->position = $data['position'];
         $textQuote->isManual = $data['is_manual'] ?? false;
 
         if (isset($data['entities']) && $data['entities']) {
