@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.68.0 - 2026-01-27
+
+### What's Changed
+
+* #751 Implemented TextQuote by @MarioGattolla in https://github.com/defstudio/telegraph/pull/752
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.67.0...v1.68.0
+
 ## v1.67.0 - 2026-01-08
 
 ### What's Changed
