@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.69.0 - 2026-02-10
+
+### What's Changed
+
+* [chore] PHP8.5 support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/747
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.68.0...v1.69.0
+
 ## v1.68.0 - 2026-01-27
 
 ### What's Changed
