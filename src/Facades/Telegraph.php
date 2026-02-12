@@ -62,6 +62,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  mediaGroup(array<int|string, array<mixed>> $media)
  * @method static \DefStudio\Telegraph\Telegraph  botUpdates()
  * @method static \DefStudio\Telegraph\Telegraph  botInfo()
+ * @method static \DefStudio\Telegraph\Telegraph  setUrl(string|null $url)
  * @method static \DefStudio\Telegraph\Telegraph  setBaseUrl(string|null $url)
  * @method static \DefStudio\Telegraph\Telegraph  setHttpProxy(string|null $proxy)
  * @method static \DefStudio\Telegraph\Telegraph  setTitle(string $title)
