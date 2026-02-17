@@ -54,6 +54,7 @@ class Message implements Arrayable
     private ?Invoice $invoice = null;
     private ?Game $game = null;
     private ?TextQuote $quote = null;
+    private ?string $mediaGroupId = null;
     private ?SuccessfulPayment $successfulPayment = null;
     private ?RefundedPayment $refundedPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
@@ -100,6 +101,7 @@ class Message implements Arrayable
      *     invoice?: array<string, mixed>,
      *     game?:array<string, mixed>,
      *     quote?:array<string,mixed>,
+     *     media_group_id?: string,
      *     successful_payment?: array<string, mixed>,
      *     refunded_payment?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
@@ -118,6 +120,10 @@ class Message implements Arrayable
 
         if (isset($data['business_connection_id'])) {
             $message->businessConnectionId = $data['business_connection_id'];
+        }
+
+        if (isset($data['media_group_id'])) {
+            $message->mediaGroupId = $data['media_group_id'];
         }
 
         if (isset($data['message_thread_id'])) {
@@ -276,6 +282,11 @@ class Message implements Arrayable
     public function businessConnectionId(): ?string
     {
         return $this->businessConnectionId;
+    }
+
+    public function mediaGroupId(): ?string
+    {
+        return $this->mediaGroupId;
     }
 
     public function date(): CarbonInterface
@@ -458,6 +469,7 @@ class Message implements Arrayable
             'id' => $this->id,
             'message_thread_id' => $this->messageThreadId,
             'business_connection_id' => $this->businessConnectionId,
+            'media_group_id' => $this->mediaGroupId,
             'date' => $this->date->toISOString(),
             'edit_date' => $this->editDate?->toISOString(),
             'text' => $this->text,

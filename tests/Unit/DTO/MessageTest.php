@@ -11,6 +11,7 @@ it('export all properties to array', function () {
         'message_id' => 2,
         'message_thread_id' => 123456,
         'business_connection_id' => 123456,
+        'media_group_id' => 123456,
         'date' => now()->timestamp,
         'edit_date' => now()->timestamp,
         'text' => 'f',
