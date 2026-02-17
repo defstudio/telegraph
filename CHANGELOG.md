@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.70.0 - 2026-02-17
+
+### What's Changed
+
+* #753 media_group_id by @MarioGattolla in https://github.com/defstudio/telegraph/pull/754
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.69.0...v1.70.0
+
 ## v1.69.0 - 2026-02-10
 
 ### What's Changed
