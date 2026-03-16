@@ -36,9 +36,20 @@ class TelegraphFake extends Telegraph
         $this->files = new Collection();
     }
 
+    protected function inheritState(Telegraph $fake): Telegraph
+    {
+        $fake->bot = $this->bot;
+        $fake->chat = $this->chat;
+        $fake->data = $this->data;
+        $fake->baseUrl = $this->baseUrl;
+        $fake->httpProxy = $this->httpProxy;
+
+        return $fake;
+    }
+
     public function editMedia(int $messageId): TelegraphEditMediaFake
     {
-        $fake = new TelegraphEditMediaFake($this->replies);
+        $fake = $this->inheritState(new TelegraphEditMediaFake($this->replies));
         $fake->endpoint = self::ENDPOINT_EDIT_MEDIA;
         $fake->data['message_id'] = $messageId;
 
@@ -47,7 +58,7 @@ class TelegraphFake extends Telegraph
 
     public function poll(string $question): TelegraphPollPayload
     {
-        $fake = new TelegraphPollFake($this->replies);
+        $fake = $this->inheritState(new TelegraphPollFake($this->replies));
         $fake->endpoint = self::ENDPOINT_SEND_POLL;
         $fake->data['options'] = [];
         $fake->data['question'] = $question;
@@ -57,16 +68,15 @@ class TelegraphFake extends Telegraph
 
     public function setChatMenuButton(): SetChatMenuButtonPayload
     {
-        $fake = new TelegraphSetChatMenuButtonFake($this->replies);
+        $fake = $this->inheritState(new TelegraphSetChatMenuButtonFake($this->replies));
         $fake->endpoint = self::ENDPOINT_SET_CHAT_MENU_BUTTON;
-        $fake->data = $this->data;
 
         return $fake;
     }
 
     public function quiz(string $question): TelegraphQuizPayload
     {
-        $fake = new TelegraphQuizFake($this->replies);
+        $fake = $this->inheritState(new TelegraphQuizFake($this->replies));
         $fake->endpoint = self::ENDPOINT_SEND_POLL;
         $fake->data['options'] = [];
         $fake->data['question'] = $question;

@@ -64,6 +64,7 @@ trait InteractsWithTelegram
         $data = $this->data;
 
         $data = $this->pipeTraits('preprocessData', $data);
+        $data = $this->prepareChatData($data);
 
         if ($asMultipart) {
             $data = collect($data)
@@ -129,6 +130,7 @@ trait InteractsWithTelegram
     public function getUrl(): string
     {
         $bot = $this->getBot();
+        $data = $this->prepareData();
 
         $url = $bot instanceof HasCustomUrl
             ? $bot->getUrl()
@@ -139,7 +141,7 @@ trait InteractsWithTelegram
         /** @phpstan-ignore-next-line */
         return Str::of($url)
             ->append('/', $this->endpoint)
-            ->when(!empty($this->data), fn (Stringable $str) => $str->append('?', http_build_query($this->data)))
+            ->when(!empty($data), fn (Stringable $str) => $str->append('?', http_build_query($data)))
             ->toString();
     }
 
