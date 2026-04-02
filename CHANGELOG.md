@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.70.2 - 2026-04-02
+
+### What's Changed
+
+* Laravel 13.x Compatibility by @laravel-shift in https://github.com/defstudio/telegraph/pull/760
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/defstudio/telegraph/pull/760
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.1...v1.70.2
+
 ## v1.70.1 - 2026-02-25
 
 ### What's Changed
