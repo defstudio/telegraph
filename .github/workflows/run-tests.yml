@@ -2,21 +2,24 @@ name: run-tests
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
   schedule:
     - cron: '0 3 * * *'
 
 jobs:
   test:
     runs-on: ${{ matrix.os }}
+
     strategy:
       fail-fast: true
       matrix:
         os: [ubuntu-latest, macos-latest]
         php: [8.2, 8.3, 8.4, 8.5]
-        laravel: [10.*, 11.*, 12.*]
+        laravel: ['10.*', '11.*', '12.*', '13.*']
         stability: [prefer-lowest, prefer-stable]
         exclude:
           - laravel: 12.*
@@ -29,7 +32,8 @@ jobs:
             stability: prefer-lowest
           - php: 8.2
             stability: prefer-lowest
-
+          - laravel: 13.*
+            php: 8.2
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
@@ -60,4 +64,3 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/pest -vv --ci
-
