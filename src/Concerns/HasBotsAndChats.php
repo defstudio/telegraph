@@ -102,6 +102,11 @@ trait HasBotsAndChats
         return $telegraph->chat ?? null;
     }
 
+    /**
+     * @param array<string, mixed> $data
+     *
+     * @return array<string, mixed>
+     */
     protected function prepareChatData(array $data): array
     {
         $shouldSetChatId = array_key_exists('chat_id', $data);
