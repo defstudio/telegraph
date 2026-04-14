@@ -59,7 +59,7 @@ trait HasBotsAndChats
 
         if (empty($telegraph->bot)) {
             /** @var TelegraphBot|string $bot */
-            $bot = rescue(fn() => TelegraphBot::query()->sole(), config('telegraph.bot_token'), false);
+            $bot = rescue(fn () => TelegraphBot::query()->sole(), config('telegraph.bot_token'), false);
 
             $telegraph->bot = $bot;
         }
@@ -91,12 +91,12 @@ trait HasBotsAndChats
             $bot = $telegraph->getBotIfAvailable();
 
             if ($bot instanceof TelegraphBot) {
-                $telegraph->chat = rescue(fn() => $bot->chats()->sole(), report: false);
+                $telegraph->chat = rescue(fn () => $bot->chats()->sole(), report: false);
             }
         }
 
         if (empty($telegraph->chat)) {
-            $telegraph->chat = rescue(fn() => TelegraphChat::query()->sole(), report: false);
+            $telegraph->chat = rescue(fn () => TelegraphChat::query()->sole(), report: false);
         }
 
         return $telegraph->chat ?? null;
@@ -127,7 +127,6 @@ trait HasBotsAndChats
 
         throw TelegraphException::missingChat();
     }
-
 
     protected function getChat(): TelegraphChat|string
     {
@@ -560,7 +559,7 @@ trait HasBotsAndChats
 
         $permissions = collect($permissions)
             ->mapWithKeys(
-                fn($value, $key) => is_bool($value)
+                fn ($value, $key) => is_bool($value)
                     ? [$key => $value]
                     : [$value => true]
             );
@@ -625,7 +624,7 @@ trait HasBotsAndChats
         /** @var array<string, bool> $permissions */
         $permissions = collect($permissions)
             ->mapWithKeys(
-                fn($value, $key) => is_bool($value)
+                fn ($value, $key) => is_bool($value)
                     ? [$key => $value]
                     : [$value => true]
             );
@@ -650,7 +649,7 @@ trait HasBotsAndChats
         /** @var array<string, bool> $permissions */
         $permissions = collect($permissions)
             ->mapWithKeys(
-                fn($value, $key) => is_bool($value)
+                fn ($value, $key) => is_bool($value)
                     ? [$key => $value]
                     : [$value => true]
             );
@@ -672,7 +671,7 @@ trait HasBotsAndChats
 
         /** @var array<string|bool> $permissions */
         $permissions = collect(ChatAdminPermissions::available_permissions())
-            ->mapWithKeys(fn(string $value) => [$value => false])
+            ->mapWithKeys(fn (string $value) => [$value => false])
             ->toArray();
 
         foreach ($permissions as $permission => $enabled) {
