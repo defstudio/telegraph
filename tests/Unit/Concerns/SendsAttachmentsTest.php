@@ -46,7 +46,7 @@ it('can send a sticker with telegram sticker set file_id', function (string $fil
 ]);
 
 it('requires a chat to send a document', function () {
-    TelegraphFacade::document(Storage::path('test.txt'));
+    TelegraphFacade::document(Storage::path('test.txt'))->bot('1')->send();
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a document while writing a message', function () {
@@ -311,7 +311,7 @@ it('can send an audio', function () {
 });
 
 it('requires a chat to send a photo', function () {
-    TelegraphFacade::photo(Storage::path('photo.jpg'));
+    TelegraphFacade::photo(Storage::path('photo.jpg'))->bot('1')->send();
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a photo while writing a message', function () {
@@ -488,7 +488,7 @@ it('can send a voice', function () {
 });
 
 it('requires a chat to send a voice', function () {
-    TelegraphFacade::voice(Storage::path('voice.ogg'));
+    TelegraphFacade::voice(Storage::path('voice.ogg'))->bot('1')->send();
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a voice while writing a message', function () {
