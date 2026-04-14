@@ -1,99 +1,99 @@
 <?php
 
-use DefStudio\Telegraph\Telegraph;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use DefStudio\Telegraph\Telegraph;
 
-it('can send an html message', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->html('foobar'))
+it('can send an html message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->html('foobar'))
         ->toMatchTelegramSnapshot();
 });
 
-it('can send a markdown message', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->markdown('foobar'))
+it('can send a markdown message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('foobar'))
         ->toMatchTelegramSnapshot();
 });
 
-it('can send a markdownV2 message', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->markdownV2('foobar'))
+it('can send a markdownV2 message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdownV2('foobar'))
         ->toMatchTelegramSnapshot();
 });
 
-it('can send protected content', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->markdown('test')->protected())
+it('can send protected content', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('test')->protected())
         ->toMatchTelegramSnapshot();
 });
 
-it('can send silent messages', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->markdown('test')->silent())
+it('can send silent messages', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('test')->silent())
         ->toMatchTelegramSnapshot();
 });
 
-it('can disable url preview', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->markdown('test')->withoutPreview())
+it('can disable url preview', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('test')->withoutPreview())
         ->toMatchTelegramSnapshot();
 });
 
-it('can reply to a message', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->markdown('test')->reply(123456))
+it('can reply to a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->markdown('test')->reply(123456))
         ->toMatchTelegramSnapshot();
 });
 
-it('can delete a message', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->deleteMessage(123456))
+it('can delete a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->deleteMessage(123456))
         ->toMatchTelegramSnapshot();
 });
 
-it('can delete messages', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->deleteMessages([123456, 654321, 11111]))
+it('can delete messages', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->deleteMessages([123456, 654321, 11111]))
         ->toMatchTelegramSnapshot();
 });
 
-it('can pin a message', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->pinMessage(123456))
+it('can pin a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->pinMessage(123456))
         ->toMatchTelegramSnapshot();
 });
 
-it('can unpin a message', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->unpinMessage(123456))
+it('can unpin a message', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->unpinMessage(123456))
         ->toMatchTelegramSnapshot();
 });
 
-it('can unpin al messages', function() {
-    expect(fn(Telegraph $telegraph) => $telegraph->unpinAllMessages())
+it('can unpin al messages', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->unpinAllMessages())
         ->toMatchTelegramSnapshot();
 });
 
-it('can edit a message', function(callable $setupClosure) {
+it('can edit a message', function (callable $setupClosure) {
     expect($setupClosure)->toMatchTelegramSnapshot();
 })->with([
-    'edit before text' => fn(Telegraph $telegraph) => $telegraph->edit(123456)->markdown('new text'),
-    'edit after text' => fn(Telegraph $telegraph) => $telegraph->markdown('new text')->edit(123456),
+    'edit before text' => fn (Telegraph $telegraph) => $telegraph->edit(123456)->markdown('new text'),
+    'edit after text' => fn (Telegraph $telegraph) => $telegraph->markdown('new text')->edit(123456),
 ]);
 
-it('can forward a message', function() {
+it('can forward a message', function () {
     $chat = make_chat();
 
-    expect(fn(Telegraph $telegraph) => $telegraph->forwardMessage($chat, 123456))
+    expect(fn (Telegraph $telegraph) => $telegraph->forwardMessage($chat, 123456))
         ->toMatchTelegramSnapshot();
 });
 
-it('can read business message', function() {
+it('can read business message', function () {
     $chat = make_chat();
 
-    expect(fn(Telegraph $telegraph) => $telegraph->readBusinessMessage(123)->inBusiness(321))
+    expect(fn (Telegraph $telegraph) => $telegraph->readBusinessMessage(123)->inBusiness(321))
         ->toMatchTelegramSnapshot();
 });
 
-it('can delete business messages', function() {
+it('can delete business messages', function () {
     $chat = make_chat();
 
-    expect(fn(Telegraph $telegraph) => $telegraph->deleteBusinessMessages([123])->inBusiness(321))
+    expect(fn (Telegraph $telegraph) => $telegraph->deleteBusinessMessages([123])->inBusiness(321))
         ->toMatchTelegramSnapshot();
 });
 
-it('can defer bot and chat assignment for a composed message', function() {
+it('can defer bot and chat assignment for a composed message', function () {
     Facade::fake();
 
     $chat = make_chat();
@@ -113,10 +113,10 @@ it('can defer bot and chat assignment for a composed message', function() {
     ], false);
 });
 
-it('throws missing chat only when sending a deferred message', function() {
-    expect(fn() => app(Telegraph::class)->html('foobar'))
+it('throws missing chat only when sending a deferred message', function () {
+    expect(fn () => app(Telegraph::class)->html('foobar'))
         ->not->toThrow(TelegraphException::class);
 
-    expect(fn() => app(Telegraph::class)->html('foobar')->bot('test-token')->send())
+    expect(fn () => app(Telegraph::class)->html('foobar')->bot('test-token')->send())
         ->toThrow(TelegraphException::class, 'No TelegraphChat defined for this request');
 });
