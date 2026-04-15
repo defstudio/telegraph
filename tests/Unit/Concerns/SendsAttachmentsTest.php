@@ -47,7 +47,7 @@ it('can send a sticker with telegram sticker set file_id', function (string $fil
 
 it('requires a chat to send a document', function () {
     TelegraphFacade::document(Storage::path('test.txt'))->bot('1')->send();
-})->throws(TelegraphException::class, 'No TelegraphChat defined for this request')->only();
+})->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a document while writing a message', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->markdown('look at **this** file!')->document(Storage::path('test.txt')))
