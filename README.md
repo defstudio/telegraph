@@ -95,6 +95,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 - [Moayed Alhagy](https://github.com/moayedalhagy) Arabic
 - [Rafael](https://github.com/rjmo) Portuguese
 - [Sadegh Barzegar](https://github.com/sadegh19b) Persian
+- [Furkan Akkoc](https://github.com/frknakk) German
 
 
 ## License
