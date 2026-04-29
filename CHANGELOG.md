@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.70.3 - 2026-04-29
+
+### What's Changed
+
+* Added german language by @frknakk in https://github.com/defstudio/telegraph/pull/764
+
+### New Contributors
+
+* @frknakk made their first contribution in https://github.com/defstudio/telegraph/pull/764
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.2...v1.70.3
+
 ## v1.70.2 - 2026-04-02
 
 ### What's Changed
