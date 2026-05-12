@@ -24,6 +24,25 @@ it('can allow multiple answers', function () {
     )->toMatchTelegramSnapshot();
 });
 
+it('can allow multiple options to be added in an array', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph
+        ->poll('foo?')
+        ->options(['bar', 'baz'])
+        ->allowMultipleAnswers()
+    )->toMatchTelegramSnapshot();
+});
+
+it('can disable anonymous answers', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph
+        ->poll('foo?')
+        ->option('bar')
+        ->option('baz')
+        ->allowMultipleAnswers()
+    )->toMatchTelegramSnapshot();
+});
+
 it('can disable anonymous answers', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
