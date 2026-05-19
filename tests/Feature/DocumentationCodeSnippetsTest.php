@@ -4,6 +4,7 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
+use DefStudio\Telegraph\Telegraph as TelegraphCore;
 
 it('documents the programmatic bot chat and message flow', function () {
     config()->set('services.telegram.bot_token', 'test-bot-token');
@@ -34,6 +35,10 @@ it('documents the programmatic bot chat and message flow', function () {
         ->chat_id->toBe('123456789');
 
     Telegraph::assertSent('<strong>Hello!</strong>');
+    Telegraph::assertSentData(TelegraphCore::ENDPOINT_MESSAGE, [
+        'chat_id' => $chat->chat_id,
+        'text' => '<strong>Hello!</strong>',
+    ]);
 });
 
 it('documents handling the start command with a custom webhook handler', function () {
@@ -59,4 +64,8 @@ it('documents handling the start command with a custom webhook handler', functio
     $handler->handle(webhook_command('/start'), $bot);
 
     Telegraph::assertSent('Welcome!');
+    Telegraph::assertSentData(TelegraphCore::ENDPOINT_MESSAGE, [
+        'chat_id' => '-123456789',
+        'text' => 'Welcome!',
+    ]);
 });

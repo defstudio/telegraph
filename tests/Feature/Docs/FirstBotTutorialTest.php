@@ -4,6 +4,7 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Telegraph as TelegraphCore;
+use Illuminate\Http\Request;
 
 class FirstBotTutorialWebhookHandler extends WebhookHandler
 {
@@ -29,7 +30,18 @@ it('обрабатывает команду /start из tutorial', function () {
     Telegraph::fake();
 
     app(FirstBotTutorialWebhookHandler::class)->handle(
-        webhook_command('/start'),
+        Request::create('', 'POST', [
+            'message' => [
+                'message_id' => 123456,
+                'chat' => [
+                    'id' => (int) $chat->chat_id,
+                    'type' => 'private',
+                    'username' => 'john-smith',
+                ],
+                'text' => '/start',
+                'date' => 1646516736,
+            ],
+        ]),
         $bot,
     );
 
