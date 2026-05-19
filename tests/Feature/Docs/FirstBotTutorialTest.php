@@ -16,7 +16,7 @@ class FirstBotTutorialWebhookHandler extends WebhookHandler
     }
 }
 
-it('обрабатывает команду /start из tutorial', function () {
+it('handles the /start command from the tutorial', function () {
     $bot = TelegraphBot::create([
         'token' => 'test-bot-token',
         'name' => 'Support Bot',
