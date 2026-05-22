@@ -54,18 +54,33 @@ class TelegraphQuizPayload extends Telegraph
      */
     public function options(array $options): static
     {
-        $telegraph = self::_createOptions($options);
+        $arr = [];
+        $index = 0;
+        $correct_id = null;
 
-        foreach($options as $opt_key => $opt_value) {
-            if ($opt_value == true) {
-                if (isset($telegraph->data['correct_option_id'])) {
-                    /** @phpstan-ignore-next-line */
-                    throw TelegraphPollException::onlyOneCorrectAnswerAllowed($telegraph->data['options'][$telegraph->data['correct_option_id']]);
-                }
-
-                /** @phpstan-ignore-next-line */
-                $telegraph->data['correct_option_id'] = count($telegraph->data['options']) - count($options) + $opt_key;
+        foreach ($options as $key => $value) {
+            if ($value === true) {
+                // when an option is provided as ["key" => true], the key is the text
+                $val = $key;
+                $correct_id = $index;
+            } else {
+                $val = $value;
             }
+
+            array_push($arr, $val);
+            $index++;
+        }
+
+        $telegraph = self::_createOptions($arr);
+
+        if ($correct_id !== null) {
+            if (isset($telegraph->data['correct_option_id'])) {
+                /** @phpstan-ignore-next-line */
+                throw TelegraphPollException::onlyOneCorrectAnswerAllowed($telegraph->data['options'][$telegraph->data['correct_option_id']]);
+            }
+
+            /** @phpstan-ignore-next-line */
+            $telegraph->data['correct_option_id'] = $correct_id;
         }
 
         return $telegraph;
