@@ -43,12 +43,11 @@ it('can disable anonymous answers', function () {
     )->toMatchTelegramSnapshot();
 });
 
-it('can disable anonymous answers', function () {
+it('can disable anonymous answers using options method', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
         ->poll('foo?')
-        ->option('bar')
-        ->option('baz')
+        ->options(['bar','baz'])
         ->disableAnonymous()
     )->toMatchTelegramSnapshot();
 });
