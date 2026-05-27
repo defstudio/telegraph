@@ -25,6 +25,14 @@ it('can disable anonymous answers', function () {
     )->toMatchTelegramSnapshot();
 });
 
+it('can allow multiple options to be added in an array', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph
+        ->quiz('foo?')
+        ->options(['bar' => true, 'baz'])
+    )->toMatchTelegramSnapshot();
+});
+
 it('can set quiz validity', function () {
     \Spatie\PestPluginTestTime\testTime()->freeze(Carbon::make('2020-10-03'));
     expect(
