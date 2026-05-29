@@ -14,6 +14,7 @@ class TelegraphQuizPayload extends Telegraph
     use BuildsFromTelegraphClass;
     use SendsPolls {
         option as protected _createOption;
+        options as protected _createOptions;
     }
 
     public function quiz(string $question): static
@@ -41,6 +42,47 @@ class TelegraphQuizPayload extends Telegraph
 
             /** @phpstan-ignore-next-line */
             $telegraph->data['correct_option_id'] = count($telegraph->data['options']) - 1;
+        }
+
+        return $telegraph;
+    }
+
+    /**
+     * Summary of options
+     * @param array<string> $options
+     * @return static
+     */
+    public function options(array $options): static
+    {
+        $arr = [];
+        $index = 0;
+        $correct_id = null;
+
+        foreach ($options as $key => $value) {
+
+            /** @phpstan-ignore-next-line */
+            if ($value === true) {
+                // when an option is provided as ["key" => true], the key is the text
+                $val = $key;
+                $correct_id = $index;
+            } else {
+                $val = $value;
+            }
+
+            array_push($arr, $val);
+            $index++;
+        }
+
+        $telegraph = self::_createOptions($arr);
+
+        /** @phpstan-ignore-next-line */
+        if ($correct_id !== null) {
+            if (isset($telegraph->data['correct_option_id'])) {
+                /** @phpstan-ignore-next-line */
+                throw TelegraphPollException::onlyOneCorrectAnswerAllowed($telegraph->data['options'][$telegraph->data['correct_option_id']]);
+            }
+
+            $telegraph->data['correct_option_id'] = $correct_id;
         }
 
         return $telegraph;
