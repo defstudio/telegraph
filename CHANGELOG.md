@@ -2,6 +2,18 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## 1.70.5 - 2026-05-29
+
+### What's Changed
+
+* Feature/onboarding tutorial by @pepperfm in https://github.com/defstudio/telegraph/pull/768
+
+### New Contributors
+
+* @pepperfm made their first contribution in https://github.com/defstudio/telegraph/pull/768
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.4...1.70.5
+
 ## v1.70.4 - 2026-05-27
 
 ### What's Changed
