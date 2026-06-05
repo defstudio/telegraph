@@ -11,12 +11,3 @@ node_modules
 .php-cs-fixer.cache
 phpunit.xml
 /.phpunit.cache/
-.env
-
-.agents
-.claude
-.codex
-AGENTS.md
-CLAUDE.md
-.ai-factory*
-.mcp.json
