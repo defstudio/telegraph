@@ -92,7 +92,7 @@ class InlineQueryResultGif extends InlineQueryResult
     {
         return array_filter([
             'gif_url' => $this->url,
-            'thumb_url' => $this->thumbUrl,
+            'thumbnail_url' => $this->thumbUrl,
             'gif_width' => $this->width,
             'gif_height' => $this->height,
             'gif_duration' => $this->duration,
