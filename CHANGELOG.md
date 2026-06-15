@@ -2,6 +2,42 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## 1.70.5 - 2026-05-29
+
+### What's Changed
+
+* Feature/onboarding tutorial by @pepperfm in https://github.com/defstudio/telegraph/pull/768
+
+### New Contributors
+
+* @pepperfm made their first contribution in https://github.com/defstudio/telegraph/pull/768
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.4...1.70.5
+
+## v1.70.4 - 2026-05-27
+
+### What's Changed
+
+* Added the options function to polls and quizzes by @Kawesom in https://github.com/defstudio/telegraph/pull/765
+
+### New Contributors
+
+* @Kawesom made their first contribution in https://github.com/defstudio/telegraph/pull/765
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.3...v1.70.4
+
+## v1.70.3 - 2026-04-29
+
+### What's Changed
+
+* Added german language by @frknakk in https://github.com/defstudio/telegraph/pull/764
+
+### New Contributors
+
+* @frknakk made their first contribution in https://github.com/defstudio/telegraph/pull/764
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.2...v1.70.3
+
 ## v1.70.2 - 2026-04-02
 
 ### What's Changed
