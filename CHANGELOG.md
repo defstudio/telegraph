@@ -2,6 +2,14 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.71.0 - 2026-06-15
+
+### What's Changed
+
+* Add Telegraph notification channel by @pepperfm in https://github.com/defstudio/telegraph/pull/769
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/1.70.5...v1.71.0
+
 ## 1.70.5 - 2026-05-29
 
 ### What's Changed
