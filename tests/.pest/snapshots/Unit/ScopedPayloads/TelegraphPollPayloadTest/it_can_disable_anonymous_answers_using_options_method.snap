@@ -7,7 +7,7 @@
             "baz"
         ],
         "question": "foo?",
-        "allows_multiple_answers": true
+        "is_anonymous": false
     },
     "files": []
 }
