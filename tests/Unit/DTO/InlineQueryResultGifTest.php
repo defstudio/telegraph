@@ -13,7 +13,7 @@ it('can export to array', function () {
         ->toArray()
     )->toBe([
         'gif_url' => 'https://gif.dev',
-        'thumb_url' => 'https://thumb.gif.dev',
+        'thumbnail_url' => 'https://thumb.gif.dev',
         'gif_width' => 200,
         'gif_height' => 400,
         'gif_duration' => 300,
