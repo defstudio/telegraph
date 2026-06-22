@@ -219,6 +219,11 @@ class TelegraphBot extends Model implements Storable
         return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
     }
 
+    public function setUrl(string|null $url): Telegraph
+    {
+        return TelegraphFacade::bot($this)->setUrl($url);
+    }
+
     public function setBaseUrl(string|null $url): Telegraph
     {
         return TelegraphFacade::bot($this)->setBaseUrl($url);
