@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.71.1 - 2026-06-22
+
+### What's Changed
+
+* fix: tolerate empty file storage payloads by @pepperfm in https://github.com/defstudio/telegraph/pull/773
+* fix: use thumbnail fields for inline query results by @varemel in https://github.com/defstudio/telegraph/pull/771
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.71.0...v1.71.1
+
 ## v1.71.0 - 2026-06-15
 
 ### What's Changed
