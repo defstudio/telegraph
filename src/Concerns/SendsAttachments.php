@@ -61,7 +61,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_EDIT_MEDIA;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
         $telegraph->data['message_id'] = $messageId;
 
         return TelegraphEditMediaPayload::makeFrom($telegraph);
@@ -74,7 +74,7 @@ trait SendsAttachments
         $telegraph->endpoint = self::ENDPOINT_SEND_LOCATION;
         $telegraph->data['latitude'] = $latitude;
         $telegraph->data['longitude'] = $longitude;
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
         return $telegraph;
     }
@@ -84,7 +84,7 @@ trait SendsAttachments
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SEND_CONTACT;
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
         $telegraph->data['phone_number'] = $phoneNumber;
         $telegraph->data['first_name'] = $firstName;
 
@@ -97,7 +97,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_VOICE;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
         if (File::exists($path)) {
             $telegraph->files->put('voice', new Attachment($path, $filename));
@@ -117,7 +117,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_ANIMATION;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
 
         $this->attachAnimation($telegraph, $path, $filename);
@@ -131,7 +131,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_VIDEO;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
 
         $this->attachVideo($telegraph, $path, $filename);
@@ -145,7 +145,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_VIDEO_NOTE;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
 
         $this->attachVideoNote($telegraph, $path, $thumbnail);
@@ -159,7 +159,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_AUDIO;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
 
         $this->attachAudio($telegraph, $path, $filename);
@@ -173,7 +173,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_DOCUMENT;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
 
         $this->attachDocument($telegraph, $path, $filename);
@@ -242,7 +242,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_PHOTO;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
         $this->attachPhoto($telegraph, $path, $filename);
 
@@ -258,7 +258,7 @@ trait SendsAttachments
 
         $telegraph->endpoint = self::ENDPOINT_SEND_MEDIA_GROUP;
 
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
         $telegraph->data['media'] = $mediaInputs;
 
@@ -309,7 +309,7 @@ trait SendsAttachments
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_DICE;
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
         if ($emoji !== null) {
             $telegraph->data['emoji'] = $emoji;
@@ -323,7 +323,7 @@ trait SendsAttachments
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SEND_STICKER;
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
         $this->attachSticker($telegraph, $path, $filename);
 
@@ -335,7 +335,7 @@ trait SendsAttachments
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SEND_VENUE;
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
 
         $telegraph->data['latitude'] = $latitude;
         $telegraph->data['longitude'] = $longitude;
