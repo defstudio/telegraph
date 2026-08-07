@@ -116,10 +116,11 @@ trait ManagesKeyboards
 
         $telegraph->endpoint = self::ENDPOINT_REPLACE_KEYBOARD;
         $telegraph->data = [
-            'chat_id' => $telegraph->getChatId(),
+            'chat_id' => null,
             'message_id' => $messageId,
             'reply_markup' => $replyMarkup,
         ];
+        $telegraph->syncChatIdData();
 
         return $telegraph;
     }
