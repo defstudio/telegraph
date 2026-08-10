@@ -27,7 +27,7 @@
         "ext-sqlite3": "*",
         "defstudio/pest-plugin-laravel-expectations": "^2.1.2",
         "friendsofphp/php-cs-fixer": "^3.13.0",
-        "guzzlehttp/guzzle": "^7.5.0",
+        "guzzlehttp/guzzle": "^8.0.2",
         "nunomaduro/collision": "^7.10.0 | ^8.1.1",
         "larastan/larastan": "^1.0.4 | ^2.4.0 | ^3.1.0",
         "orchestra/testbench": "^8.0 | ^9.0 | ^10.0 | ^11.0",
