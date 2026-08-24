@@ -144,6 +144,9 @@ class Button
         return $data;
     }
 
+    /**
+     * @return array<string, string|string[]>
+     */
     private function getFilteredData(): array
     {
         if (count($this->callbackData) > 0) {
