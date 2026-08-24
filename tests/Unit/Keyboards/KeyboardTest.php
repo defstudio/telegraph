@@ -1,5 +1,6 @@
 <?php
 
+use DefStudio\Telegraph\Enums\ButtonStyle;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 
@@ -216,13 +217,28 @@ it('can right to left layout for buttons', function () {
     ]);
 });
 
-it('can create copy text buttons', function () {
-    $button = Button::make('Copy text123')->copyText('text123');
+it('can set style for buttons', function () {
+    $button = Button::make('Copy text123');
 
     expect($button->toArray())->toBe([
         'text' => 'Copy text123',
         'copy_text' => [
             'text' => 'text123',
+        ],
+    ]);
+});
+
+it('can create copy text buttons', function () {
+    $keyboard = Keyboard::make()
+        ->row([
+            Button::make('Success Button')->style(ButtonStyle::success),
+            Button::make('Danger Button')->style(ButtonStyle::danger),
+        ]);
+
+    expect($keyboard->toArray())->toMatchArray([
+        [
+            ['text' => 'Success Button', 'style' => ButtonStyle::success],
+            ['text' => 'Danger Button', 'style' => ButtonStyle::danger],
         ],
     ]);
 });
