@@ -21,7 +21,6 @@ class Button
 
     private ?string $style = null;
 
-
     private function __construct(
         private string $label,
     ) {
@@ -109,7 +108,6 @@ class Button
 
         return $this;
     }
-
 
     public function label(): string
     {
