@@ -9,14 +9,19 @@ beforeEach(function () {
     Storage::fake();
 });
 
+function testStorableStorageFile(TestStorable $class): string
+{
+    return (string) Str::of('telegraph')
+        ->append('/', class_basename($class::class))
+        ->append("/", 'foo', '.json');
+}
+
 it('can store and retrieve data', function (string $key, mixed $value) {
     $class = new TestStorable();
 
     $class->storage('file')->set($key, $value);
 
-    $file = Str::of('telegraph')
-        ->append('/', class_basename($class::class))
-        ->append("/", 'foo', '.json');
+    $file = testStorableStorageFile($class);
 
     expect(Storage::exists($file))->toBeTrue();
 
@@ -42,9 +47,7 @@ it('can store and retrieve a model', function () {
 
     $class->storage('file')->set('model', $model);
 
-    $file = Str::of('telegraph')
-        ->append('/', class_basename($class::class))
-        ->append("/", 'foo', '.json');
+    $file = testStorableStorageFile($class);
 
     expect(Storage::exists($file))->toBeTrue();
 
@@ -67,9 +70,7 @@ it('can store and retrieve a nested model', function () {
 
     $class->storage('file')->set('models', $models);
 
-    $file = Str::of('telegraph')
-        ->append('/', class_basename($class::class))
-        ->append("/", 'foo', '.json');
+    $file = testStorableStorageFile($class);
 
     expect(Storage::exists($file))->toBeTrue();
 
@@ -99,3 +100,44 @@ it('can store and retrieve a nested model', function () {
     expect($class->storage('file')->get('models.2'))->toBeInstanceOf(TelegraphChat::class)->id->toBe(3);
     expect($class->storage('file')->get('models.3'))->toBeInstanceOf(TelegraphChat::class)->id->toBe(4);
 });
+
+it('falls back to the default value when the file storage data is missing or empty', function (?string $contents) {
+    $class = new TestStorable();
+    $file = testStorableStorageFile($class);
+
+    if ($contents !== null) {
+        Storage::put($file, $contents);
+    }
+
+    expect($class->storage('file')->get('missing', 'fallback'))->toBe('fallback')
+        ->and($class->storage('file')->get('missing'))->toBeNull();
+})->with([
+    'missing file' => [null],
+    'empty file' => [''],
+    'blank file' => [" \n\t "],
+]);
+
+it('falls back safely when the file storage data is invalid json', function () {
+    $class = new TestStorable();
+    $file = testStorableStorageFile($class);
+
+    Storage::put($file, '{invalid json');
+
+    expect($class->storage('file')->get('missing', 'fallback'))->toBe('fallback');
+});
+
+it('overwrites empty or invalid file storage data with valid json', function (string $contents) {
+    $class = new TestStorable();
+    $file = testStorableStorageFile($class);
+
+    Storage::put($file, $contents);
+
+    $class->storage('file')->set('foo.bar', 'baz');
+
+    expect(json_decode(Storage::get($file), true, flags: JSON_THROW_ON_ERROR))
+        ->toBe(['foo' => ['bar' => 'baz']]);
+})->with([
+    'empty file' => [''],
+    'blank file' => [" \n\t "],
+    'invalid json' => ['{invalid json'],
+]);

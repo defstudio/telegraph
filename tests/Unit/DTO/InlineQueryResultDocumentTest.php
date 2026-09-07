@@ -18,9 +18,9 @@ it('can export to array', function () {
         'document_url' => 'testDocumentUrl',
         'mime_type' => 'testMimeType',
         'description' => 'testDescription',
-        'thumb_url' => 'testThumbUrl',
-        'thumb_width' => 400,
-        'thumb_height' => 200,
+        'thumbnail_url' => 'testThumbUrl',
+        'thumbnail_width' => 400,
+        'thumbnail_height' => 200,
         'id' => "a45",
         'type' => "document",
     ]);

@@ -92,7 +92,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
     {
         return array_filter([
             'photo_url' => $this->url,
-            'thumb_url' => $this->thumbUrl,
+            'thumbnail_url' => $this->thumbUrl,
             'photo_width' => $this->width,
             'photo_height' => $this->height,
             'title' => $this->title,

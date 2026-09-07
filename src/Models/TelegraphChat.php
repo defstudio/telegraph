@@ -15,6 +15,7 @@ use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
 use DefStudio\Telegraph\Games\TelegraphGamePayload;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Payments\TelegraphInvoicePayload;
+use DefStudio\Telegraph\RichMessages\TelegraphRichMessagePayload;
 use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
@@ -447,6 +448,11 @@ class TelegraphChat extends Model implements Storable
     public function game(string $shortName): TelegraphGamePayload
     {
         return TelegraphFacade::chat($this)->game($shortName);
+    }
+
+    public function richMessage(string $richMessage): TelegraphRichMessagePayload
+    {
+        return TelegraphFacade::chat($this)->richMessage($richMessage);
     }
 
     public function dice(string|null $emoji = null): Telegraph

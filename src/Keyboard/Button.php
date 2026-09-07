@@ -19,6 +19,8 @@ class Button
 
     private int $width = 0;
 
+    private ?string $style = null;
+
     private function __construct(
         private string $label,
     ) {
@@ -71,6 +73,13 @@ class Button
         return $this;
     }
 
+    public function style(string $style): static
+    {
+        $this->style = $style;
+
+        return $this;
+    }
+
     public function loginUrl(string $url): static
     {
         $this->loginUrl = $url;
@@ -100,10 +109,43 @@ class Button
         return $this;
     }
 
+    public function label(): string
+    {
+        return $this->label;
+    }
+
+    public function get_width(): float
+    {
+        if ($this->width === 0) {
+            return 1;
+        }
+
+        return $this->width / 100;
+    }
+
+    public function has_width(): bool
+    {
+        return $this->width > 0;
+    }
+
     /**
      * @return array<string, string|string[]>
      */
     public function toArray(): array
+    {
+        $data = $this->getFilteredData();
+
+        if (!empty($this->style)) {
+            $data['style'] = $this->style;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array<string, string|string[]>
+     */
+    private function getFilteredData(): array
     {
         if (count($this->callbackData) > 0) {
             return [
@@ -163,24 +205,5 @@ class Button
         return [
             'text' => $this->label,
         ];
-    }
-
-    public function label(): string
-    {
-        return $this->label;
-    }
-
-    public function get_width(): float
-    {
-        if ($this->width === 0) {
-            return 1;
-        }
-
-        return $this->width / 100;
-    }
-
-    public function has_width(): bool
-    {
-        return $this->width > 0;
     }
 }

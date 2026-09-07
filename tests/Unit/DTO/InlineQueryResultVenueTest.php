@@ -23,9 +23,9 @@ it('can export to array', function () {
         'foursquare_type' => 'testType',
         'google_place_id' => 'testPlaceId',
         'google_place_type' => 'testPlaceType',
-        'thumb_url' => 'testThumbUrl',
-        'thumb_width' => 200,
-        'thumb_height' => 100,
+        'thumbnail_url' => 'testThumbUrl',
+        'thumbnail_width' => 200,
+        'thumbnail_height' => 100,
         'id' => "a45",
         'type' => "venue",
     ]);

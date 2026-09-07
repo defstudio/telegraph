@@ -38,6 +38,7 @@ class Message implements Arrayable
 
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
+    private ?RichMessage $richMessage = null;
     private ?Animation $animation = null;
     private ?Audio $audio = null;
     private ?Giveaway $giveaway = null;
@@ -85,6 +86,7 @@ class Message implements Arrayable
      *     chat?: array<string, mixed>,
      *     reply_markup?: array<array<array<string>>>,
      *     reply_to_message?: array<string, mixed>,
+     *     rich_message?: array<string,mixed>,
      *     animation?:array<string, mixed>,
      *     audio?:array<string, mixed>,
      *     voice?:array<string, mixed>,
@@ -164,6 +166,10 @@ class Message implements Arrayable
 
         /* @phpstan-ignore-next-line */
         $message->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
+
+        if (isset($data['rich_message'])) {
+            $message->richMessage = RichMessage::fromArray($data['rich_message']);
+        }
 
         if (isset($data['animation'])) {
             $message->animation = Animation::fromArray($data['animation']);
@@ -342,6 +348,11 @@ class Message implements Arrayable
         return $this->photos;
     }
 
+    public function richMessage(): ?RichMessage
+    {
+        return $this->richMessage;
+    }
+
     public function animation(): ?Animation
     {
         return $this->animation;
@@ -480,6 +491,7 @@ class Message implements Arrayable
             'keyboard' => $this->keyboard->isFilled() ? $this->keyboard->toArray() : null,
             'reply_to_message' => $this->replyToMessage?->toArray(),
             'photos' => $this->photos->toArray(),
+            'rich_message' => $this->richMessage?->toArray(),
             'animation' => $this->animation?->toArray(),
             'audio' => $this->audio?->toArray(),
             'document' => $this->document?->toArray(),

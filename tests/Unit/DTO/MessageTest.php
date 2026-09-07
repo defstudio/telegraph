@@ -175,6 +175,18 @@ it('export all properties to array', function () {
                 'file_size' => 42,
             ],
         ],
+        'rich_message' => [
+            'blocks' => [
+                [
+                    'type' => 'paragraph',
+                    'text' => [
+                        'type' => 'bold',
+                        'text' => 'Hello world',
+                    ],
+                ],
+            ],
+            'is_rtl' => false,
+        ],
         'giveaway' => [
             'chats' => [
                 [

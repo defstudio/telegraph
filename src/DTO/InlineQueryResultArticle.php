@@ -103,9 +103,9 @@ class InlineQueryResultArticle extends InlineQueryResult
             'url' => $this->url,
             'hide_url' => $this->hideUrl,
             'description' => $this->description,
-            'thumb_url' => $this->thumbUrl,
-            'thumb_width' => $this->thumbWidth,
-            'thumb_height' => $this->thumbHeight,
+            'thumbnail_url' => $this->thumbUrl,
+            'thumbnail_width' => $this->thumbWidth,
+            'thumbnail_height' => $this->thumbHeight,
         ];
 
         if ($this->message !== null) {

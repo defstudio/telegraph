@@ -1,5 +1,6 @@
 <?php
 
+use DefStudio\Telegraph\Enums\ButtonStyle;
 use DefStudio\Telegraph\Keyboard\ReplyButton;
 use DefStudio\Telegraph\Keyboard\ReplyKeyboard;
 
@@ -83,6 +84,22 @@ it('can replace a button', function () {
         ],
     ]);
 });
+
+
+it('can customize button style', function () {
+    $keyboard = ReplyKeyboard::make()
+        ->row([
+            ReplyButton::make('danger button')->style(ButtonStyle::danger),
+        ]);
+
+    expect($keyboard->toArray())->toMatchArray([
+        [
+            ['text' => 'danger button', 'style' => ButtonStyle::danger],
+        ],
+    ]);
+});
+
+
 
 it('can delete a button', function () {
     $keyboard = ReplyKeyboard::make()

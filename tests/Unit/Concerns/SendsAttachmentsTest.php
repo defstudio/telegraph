@@ -390,6 +390,19 @@ it('can send a game', function () {
         ->toMatchUtf8TelegramSnapshot();
 });
 
+it('can send a Rich Message', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph->richMessage('<ul>Rich Message</ul>')
+            ->businessConnectionId('business_connection_id')
+            ->messageThreadId('message_thread_id')
+            ->messageEffectId('message_effect_id')
+            ->disableNotification(true)
+            ->protectContent(true)
+            ->allowPaidBroadcast(true)
+    )
+        ->toMatchUtf8TelegramSnapshot();
+});
+
 
 test('photos are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {

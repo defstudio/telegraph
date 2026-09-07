@@ -5,14 +5,14 @@
         "results": [
             {
                 "gif_url": "https:\/\/gif.dev",
-                "thumb_url": "https:\/\/gif-thumb.dev",
+                "thumbnail_url": "https:\/\/gif-thumb.dev",
                 "parse_mode": "html",
                 "id": "42",
                 "type": "gif"
             },
             {
                 "photo_url": "https:\/\/photo.dev",
-                "thumb_url": "https:\/\/photo-thumb.dev",
+                "thumbnail_url": "https:\/\/photo-thumb.dev",
                 "parse_mode": "html",
                 "id": "42",
                 "type": "photo"
@@ -34,7 +34,7 @@
             },
             {
                 "mpeg4_url": "testMpeg4Url",
-                "thumb_url": "testThumbUrl",
+                "thumbnail_url": "testThumbUrl",
                 "parse_mode": "html",
                 "id": "42",
                 "type": "mpeg4_gif"
@@ -42,7 +42,7 @@
             {
                 "video_url": "testVideoUrl",
                 "mime_type": "testMimeType",
-                "thumb_url": "testThumbUrl",
+                "thumbnail_url": "testThumbUrl",
                 "title": "testTitle",
                 "parse_mode": "html",
                 "id": "42",
