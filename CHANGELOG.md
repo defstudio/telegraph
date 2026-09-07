@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.72.1 - 2026-09-07
+
+### What's Changed
+
+* #774 button and replyButton style by @MarioGattolla in https://github.com/defstudio/telegraph/pull/780
+* docs: document queue processing best practices by @pepperfm in https://github.com/defstudio/telegraph/pull/777
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.72.0...v1.72.1
+
 ## v1.72.0 - 2026-07-16
 
 ### What's Changed
