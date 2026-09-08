@@ -4,7 +4,7 @@ use DefStudio\Telegraph\Enums\ButtonStyle;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 
-test('keyboard creation by rows', function() {
+test('keyboard creation by rows', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('foo')
@@ -30,7 +30,7 @@ test('keyboard creation by rows', function() {
     ]);
 });
 
-test('keyboard creation by buttons', function() {
+test('keyboard creation by buttons', function () {
     $keyboard = Keyboard::make()
         ->buttons([
             Button::make('foo')
@@ -54,7 +54,7 @@ test('keyboard creation by buttons', function() {
     ]);
 });
 
-test('keboard from array', function() {
+test('keboard from array', function () {
     $arrayKeyboard = [
         [
             ['text' => 'foo', 'callback_data' => 'action:bar;key1:baz;key2:quuz'],
@@ -70,7 +70,7 @@ test('keboard from array', function() {
     expect($keyboard->toArray())->toMatchArray($arrayKeyboard);
 });
 
-it('can replace a button', function() {
+it('can replace a button', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('quzz')->url('hi'),
@@ -95,7 +95,7 @@ it('can replace a button', function() {
     ]);
 });
 
-it('can delete a button', function() {
+it('can delete a button', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('quzz')->url('hi'),
@@ -121,7 +121,7 @@ it('can delete a button', function() {
     ]);
 });
 
-it('can flatten its buttons', function() {
+it('can flatten its buttons', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('quzz')->url('hi'),
@@ -146,7 +146,7 @@ it('can flatten its buttons', function() {
     ]);
 });
 
-it('can quickly add buttons', function() {
+it('can quickly add buttons', function () {
     $keyboard = Keyboard::make()
         ->button('Delete')->action('delete')->param('id', '42')
         ->button('open')->url('https://test.it')
@@ -176,11 +176,11 @@ it('can quickly add buttons', function() {
     ]);
 });
 
-it('can handle conditional closures', function() {
+it('can handle conditional closures', function () {
     $keyboard = Keyboard::make()
         ->button('Delete')->action('delete')->param('id', '42')
-        ->when(true, fn(Keyboard $keyboard) => $keyboard->button('Test')->action('test')->param('foo', 66))
-        ->when(false, fn(Keyboard $keyboard) => $keyboard->button('Unwanted Test')->action('unwanted_test')->param('foo', 33));
+        ->when(true, fn (Keyboard $keyboard) => $keyboard->button('Test')->action('test')->param('foo', 66))
+        ->when(false, fn (Keyboard $keyboard) => $keyboard->button('Unwanted Test')->action('unwanted_test')->param('foo', 33));
 
     expect($keyboard->toArray())->toBe([
         [
@@ -192,7 +192,7 @@ it('can handle conditional closures', function() {
     ]);
 });
 
-it('can right to left layout for buttons', function() {
+it('can right to left layout for buttons', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('foo')->url('bar'),
@@ -218,7 +218,7 @@ it('can right to left layout for buttons', function() {
 });
 
 
-it('can create copy text buttons', function() {
+it('can create copy text buttons', function () {
     $button = Button::make('Copy text123')->copyText('text123');
 
     expect($button->toArray())->toBe([
@@ -229,7 +229,7 @@ it('can create copy text buttons', function() {
     ]);
 });
 
-it('can set style for buttons', function() {
+it('can set style for buttons', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('Success Button')->style(ButtonStyle::success),
@@ -244,7 +244,7 @@ it('can set style for buttons', function() {
     ]);
 });
 
-it('can create keyboard with copy text buttons', function() {
+it('can create keyboard with copy text buttons', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('Copy text')->copyText('Hello World!'),
@@ -259,7 +259,7 @@ it('can create keyboard with copy text buttons', function() {
     ]);
 });
 
-it('can parse keyboard from array with copy text buttons', function() {
+it('can parse keyboard from array with copy text buttons', function () {
     $arrayKeyboard = [
         [
             ['text' => 'Copy text', 'copy_text' => ['text' => 'Hello World!']],
@@ -275,7 +275,7 @@ it('can parse keyboard from array with copy text buttons', function() {
     expect($keyboard->toArray())->toMatchArray($arrayKeyboard);
 });
 
-it('can use fluent keyboard builder with copy text buttons', function() {
+it('can use fluent keyboard builder with copy text buttons', function () {
     $keyboard = Keyboard::make()
         ->button('Copy Username')->copyText('@johndoe')
         ->button('Copy Email')->copyText('john@example.com')
