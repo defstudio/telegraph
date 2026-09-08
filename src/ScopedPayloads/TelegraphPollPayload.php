@@ -18,7 +18,7 @@ class TelegraphPollPayload extends Telegraph
         $telegraph = clone $this;
 
         $telegraph->endpoint = self::ENDPOINT_SEND_POLL;
-        $telegraph->data['chat_id'] = $telegraph->getChatId();
+        $telegraph->data['chat_id'] = null;
         $telegraph->data['options'] = [];
         $telegraph->data['question'] = $question;
 

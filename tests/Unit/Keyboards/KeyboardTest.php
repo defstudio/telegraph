@@ -217,8 +217,9 @@ it('can right to left layout for buttons', function () {
     ]);
 });
 
-it('can set style for buttons', function () {
-    $button = Button::make('Copy text123');
+
+it('can create copy text buttons', function () {
+    $button = Button::make('Copy text123')->copyText('text123');
 
     expect($button->toArray())->toBe([
         'text' => 'Copy text123',
@@ -228,7 +229,7 @@ it('can set style for buttons', function () {
     ]);
 });
 
-it('can create copy text buttons', function () {
+it('can set style for buttons', function () {
     $keyboard = Keyboard::make()
         ->row([
             Button::make('Success Button')->style(ButtonStyle::success),
