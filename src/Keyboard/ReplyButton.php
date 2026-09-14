@@ -21,6 +21,8 @@ class ReplyButton
 
     private ?string $style = null;
 
+    private ?string $icon = null;
+
     private function __construct(
         private string $label,
     ) {
@@ -73,6 +75,13 @@ class ReplyButton
         return $this;
     }
 
+    public function icon(string $icon): static
+    {
+        $this->icon = $icon;
+
+        return $this;
+    }
+
     public function requestPoll(): static
     {
         $this->type = ReplyButtonType::REQUEST_POLL;
@@ -116,6 +125,10 @@ class ReplyButton
 
         if (!empty($this->style)) {
             $data['style'] = $this->style;
+        }
+
+        if (!empty($this->icon)) {
+            $data['icon_custom_emoji_id'] = $this->icon;
         }
 
         return $data;

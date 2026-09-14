@@ -85,7 +85,6 @@ it('can replace a button', function () {
     ]);
 });
 
-
 it('can customize button style', function () {
     $keyboard = ReplyKeyboard::make()
         ->row([
@@ -99,7 +98,20 @@ it('can customize button style', function () {
     ]);
 });
 
+it('can set custom emoji icon', function () {
+    $icon_id = 'some_awesome_id';
 
+    $keyboard = ReplyKeyboard::make()
+        ->row([
+            ReplyButton::make('icon button')->icon($icon_id),
+        ]);
+
+    expect($keyboard->toArray())->toMatchArray([
+        [
+            ['text' => 'icon button', 'icon_custom_emoji_id' => $icon_id],
+        ],
+    ]);
+});
 
 it('can delete a button', function () {
     $keyboard = ReplyKeyboard::make()
