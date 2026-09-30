@@ -1,5 +1,8 @@
 <?php
 
+use DefStudio\Telegraph\Exceptions\TelegraphException;
+use DefStudio\Telegraph\Facades\Telegraph as Facade;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Telegraph;
 
 it('can send an html message', function () {
@@ -88,4 +91,32 @@ it('can delete business messages', function () {
 
     expect(fn (Telegraph $telegraph) => $telegraph->deleteBusinessMessages([123])->inBusiness(321))
         ->toMatchTelegramSnapshot();
+});
+
+it('can defer bot and chat assignment for a composed message', function () {
+    Facade::fake();
+
+    $chat = make_chat();
+
+    Facade::html('foobar')
+        ->keyboard(Keyboard::make())
+        ->withoutPreview()
+        ->bot($chat->bot)
+        ->chat($chat)
+        ->send();
+
+    Facade::assertSentData(Telegraph::ENDPOINT_MESSAGE, [
+        'chat_id' => $chat->chat_id,
+        'text' => 'foobar',
+        'parse_mode' => Telegraph::PARSE_HTML,
+        'disable_web_page_preview' => true,
+    ], false);
+});
+
+it('throws missing chat only when sending a deferred message', function () {
+    expect(fn () => app(Telegraph::class)->html('foobar'))
+        ->not->toThrow(TelegraphException::class);
+
+    expect(fn () => app(Telegraph::class)->html('foobar')->bot('test-token')->send())
+        ->toThrow(TelegraphException::class, 'No TelegraphChat defined for this request');
 });
