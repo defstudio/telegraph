@@ -2,6 +2,15 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.73.0 - 2026-09-30
+
+### What's Changed
+
+* Deferred chat bot by @MarioGattolla in https://github.com/defstudio/telegraph/pull/762
+* Feat: can custom full url on a request by @ah-rahimi in https://github.com/defstudio/telegraph/pull/744
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.72.1...v1.73.0
+
 ## v1.72.1 - 2026-09-07
 
 ### What's Changed
