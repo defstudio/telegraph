@@ -19,6 +19,7 @@ class Message implements Arrayable
 {
     private int $id;
     private ?int $messageThreadId = null;
+    private ?string $businessConnectionId = null;
     private CarbonInterface $date;
     private ?CarbonInterface $editDate = null;
     private string $text;
@@ -37,10 +38,14 @@ class Message implements Arrayable
 
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
+    private ?RichMessage $richMessage = null;
     private ?Animation $animation = null;
     private ?Audio $audio = null;
+    private ?Giveaway $giveaway = null;
+
     private ?Document $document = null;
     private ?Video $video = null;
+    private ?VideoNote $videoNote = null;
     private ?Location $location = null;
     private ?Contact $contact = null;
     private ?Voice $voice = null;
@@ -48,6 +53,9 @@ class Message implements Arrayable
     private ?Poll $poll = null;
     private ?Venue $venue = null;
     private ?Invoice $invoice = null;
+    private ?Game $game = null;
+    private ?TextQuote $quote = null;
+    private ?string $mediaGroupId = null;
     private ?SuccessfulPayment $successfulPayment = null;
     private ?RefundedPayment $refundedPayment = null;
     private ?WriteAccessAllowed $writeAccessAllowed = null;
@@ -64,9 +72,10 @@ class Message implements Arrayable
     }
 
     /**
-     * @param array{
+     * @param  array{
      *     message_id: int,
      *     message_thread_id?: int,
+     *     business_connection_id?: string,
      *     date: int,
      *     edit_date?: int,
      *     text?: string,
@@ -77,18 +86,24 @@ class Message implements Arrayable
      *     chat?: array<string, mixed>,
      *     reply_markup?: array<array<array<string>>>,
      *     reply_to_message?: array<string, mixed>,
+     *     rich_message?: array<string,mixed>,
      *     animation?:array<string, mixed>,
      *     audio?:array<string, mixed>,
      *     voice?:array<string, mixed>,
      *     sticker?:array<string, mixed>,
      *     document?: array<string, mixed>,
      *     video?: array<string, mixed>,
+     *     video_note?: array<string, mixed>,
      *     photo?: array<string, mixed>,
+     *     giveaway?: array<string, mixed>,
      *     location?: array<string, mixed>,
      *     poll?: array<string, mixed>,
      *     venue?: array<string, mixed>,
      *     contact?: array<string, mixed>,
      *     invoice?: array<string, mixed>,
+     *     game?:array<string, mixed>,
+     *     quote?:array<string,mixed>,
+     *     media_group_id?: string,
      *     successful_payment?: array<string, mixed>,
      *     refunded_payment?: array<string, mixed>,
      *     new_chat_members?: array<string, mixed>,
@@ -97,13 +112,21 @@ class Message implements Arrayable
      *     write_access_allowed?: array<string, mixed>,
      *     migrate_to_chat_id?: int,
      *     entities?: array<object>
-     *  } $data
+     *  }  $data
      */
     public static function fromArray(array $data): Message
     {
         $message = new self();
 
         $message->id = $data['message_id'];
+
+        if (isset($data['business_connection_id'])) {
+            $message->businessConnectionId = $data['business_connection_id'];
+        }
+
+        if (isset($data['media_group_id'])) {
+            $message->mediaGroupId = $data['media_group_id'];
+        }
 
         if (isset($data['message_thread_id'])) {
             $message->messageThreadId = $data['message_thread_id'];
@@ -144,6 +167,10 @@ class Message implements Arrayable
         /* @phpstan-ignore-next-line */
         $message->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));
 
+        if (isset($data['rich_message'])) {
+            $message->richMessage = RichMessage::fromArray($data['rich_message']);
+        }
+
         if (isset($data['animation'])) {
             $message->animation = Animation::fromArray($data['animation']);
         }
@@ -160,10 +187,17 @@ class Message implements Arrayable
             $message->video = Video::fromArray($data['video']);
         }
 
+        if (isset($data['video_note'])) {
+            $message->videoNote = VideoNote::fromArray($data['video_note']);
+        }
+
         if (isset($data['location'])) {
             $message->location = Location::fromArray($data['location']);
         }
 
+        if (isset($data['giveaway'])) {
+            $message->giveaway = Giveaway::fromArray($data['giveaway']);
+        }
 
         if (isset($data['contact'])) {
             $message->contact = Contact::fromArray($data['contact']);
@@ -187,6 +221,14 @@ class Message implements Arrayable
 
         if (isset($data['invoice'])) {
             $message->invoice = Invoice::fromArray($data['invoice']);
+        }
+
+        if (isset($data['game'])) {
+            $message->game = Game::fromArray($data['game']);
+        }
+
+        if (isset($data['quote'])) {
+            $message->quote = TextQuote::fromArray($data['quote']);
         }
 
         if (isset($data['successful_payment'])) {
@@ -226,7 +268,7 @@ class Message implements Arrayable
         }
 
         if (isset($data['migrate_to_chat_id'])) {
-            $message->migrateToChatId = (string)$data['migrate_to_chat_id'];
+            $message->migrateToChatId = (string) $data['migrate_to_chat_id'];
         }
 
 
@@ -241,6 +283,16 @@ class Message implements Arrayable
     public function messageThreadId(): ?int
     {
         return $this->messageThreadId;
+    }
+
+    public function businessConnectionId(): ?string
+    {
+        return $this->businessConnectionId;
+    }
+
+    public function mediaGroupId(): ?string
+    {
+        return $this->mediaGroupId;
     }
 
     public function date(): CarbonInterface
@@ -296,9 +348,19 @@ class Message implements Arrayable
         return $this->photos;
     }
 
+    public function richMessage(): ?RichMessage
+    {
+        return $this->richMessage;
+    }
+
     public function animation(): ?Animation
     {
         return $this->animation;
+    }
+
+    public function giveaway(): ?Giveaway
+    {
+        return $this->giveaway;
     }
 
     public function audio(): ?Audio
@@ -314,6 +376,11 @@ class Message implements Arrayable
     public function video(): ?Video
     {
         return $this->video;
+    }
+
+    public function videoNote(): ?VideoNote
+    {
+        return $this->videoNote;
     }
 
     public function location(): ?Location
@@ -349,6 +416,16 @@ class Message implements Arrayable
     public function invoice(): ?Invoice
     {
         return $this->invoice;
+    }
+
+    public function game(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function quote(): ?TextQuote
+    {
+        return $this->quote;
     }
 
     public function successfulPayment(): ?SuccessfulPayment
@@ -402,6 +479,8 @@ class Message implements Arrayable
         return array_filter([
             'id' => $this->id,
             'message_thread_id' => $this->messageThreadId,
+            'business_connection_id' => $this->businessConnectionId,
+            'media_group_id' => $this->mediaGroupId,
             'date' => $this->date->toISOString(),
             'edit_date' => $this->editDate?->toISOString(),
             'text' => $this->text,
@@ -412,10 +491,13 @@ class Message implements Arrayable
             'keyboard' => $this->keyboard->isFilled() ? $this->keyboard->toArray() : null,
             'reply_to_message' => $this->replyToMessage?->toArray(),
             'photos' => $this->photos->toArray(),
+            'rich_message' => $this->richMessage?->toArray(),
             'animation' => $this->animation?->toArray(),
             'audio' => $this->audio?->toArray(),
             'document' => $this->document?->toArray(),
             'video' => $this->video?->toArray(),
+            'giveaway' => $this->giveaway?->toArray(),
+            'video_note' => $this->videoNote?->toArray(),
             'location' => $this->location?->toArray(),
             'contact' => $this->contact?->toArray(),
             'voice' => $this->voice?->toArray(),
@@ -423,13 +505,15 @@ class Message implements Arrayable
             'poll' => $this->poll?->toArray(),
             'venue' => $this->venue?->toArray(),
             'invoice' => $this->invoice?->toArray(),
+            'game' => $this->game?->toArray(),
+            'quote' => $this->quote?->toArray(),
             'successful_payment' => $this->successfulPayment?->toArray(),
             'refunded_payment' => $this->refundedPayment?->toArray(),
             'new_chat_members' => $this->newChatMembers->toArray(),
             'left_chat_member' => $this->leftChatMember,
             'web_app_data' => $this->webAppData,
             'write_access_allowed' => $this->writeAccessAllowed?->toArray(),
-            'migrate_to_chat_id' => (int)$this->migrateToChatId,
+            'migrate_to_chat_id' => (int) $this->migrateToChatId,
             'entities' => $this->entities->toArray(),
         ], fn ($value) => $value !== null);
     }

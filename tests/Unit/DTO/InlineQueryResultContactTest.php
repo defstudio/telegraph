@@ -16,9 +16,9 @@ it('can export to array', function () {
         'first_name' => 'testFirstName',
         'last_name' => 'testLastName',
         'vcard' => 'testVcard',
-        'thumb_url' => 'testThumbUrl',
-        'thumb_width' => 400,
-        'thumb_height' => 200,
+        'thumbnail_url' => 'testThumbUrl',
+        'thumbnail_width' => 400,
+        'thumbnail_height' => 200,
         'id' => "a45",
         'type' => "contact",
     ]);

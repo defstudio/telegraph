@@ -2,6 +2,142 @@
 
 All notable changes to `telegraph` will be documented in this file.
 
+## v1.72.1 - 2026-09-07
+
+### What's Changed
+
+* #774 button and replyButton style by @MarioGattolla in https://github.com/defstudio/telegraph/pull/780
+* docs: document queue processing best practices by @pepperfm in https://github.com/defstudio/telegraph/pull/777
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.72.0...v1.72.1
+
+## v1.72.0 - 2026-07-16
+
+### What's Changed
+
+* [Features]#772 implemented Rich Message, RichBlock , RichItem, sendRichMessag by @MarioGattolla in https://github.com/defstudio/telegraph/pull/776
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.71.1...v1.72.0
+
+## v1.71.1 - 2026-06-22
+
+### What's Changed
+
+* fix: tolerate empty file storage payloads by @pepperfm in https://github.com/defstudio/telegraph/pull/773
+* fix: use thumbnail fields for inline query results by @varemel in https://github.com/defstudio/telegraph/pull/771
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.71.0...v1.71.1
+
+## v1.71.0 - 2026-06-15
+
+### What's Changed
+
+* Add Telegraph notification channel by @pepperfm in https://github.com/defstudio/telegraph/pull/769
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/1.70.5...v1.71.0
+
+## 1.70.5 - 2026-05-29
+
+### What's Changed
+
+* Feature/onboarding tutorial by @pepperfm in https://github.com/defstudio/telegraph/pull/768
+
+### New Contributors
+
+* @pepperfm made their first contribution in https://github.com/defstudio/telegraph/pull/768
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.4...1.70.5
+
+## v1.70.4 - 2026-05-27
+
+### What's Changed
+
+* Added the options function to polls and quizzes by @Kawesom in https://github.com/defstudio/telegraph/pull/765
+
+### New Contributors
+
+* @Kawesom made their first contribution in https://github.com/defstudio/telegraph/pull/765
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.3...v1.70.4
+
+## v1.70.3 - 2026-04-29
+
+### What's Changed
+
+* Added german language by @frknakk in https://github.com/defstudio/telegraph/pull/764
+
+### New Contributors
+
+* @frknakk made their first contribution in https://github.com/defstudio/telegraph/pull/764
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.2...v1.70.3
+
+## v1.70.2 - 2026-04-02
+
+### What's Changed
+
+* Laravel 13.x Compatibility by @laravel-shift in https://github.com/defstudio/telegraph/pull/760
+
+### New Contributors
+
+* @laravel-shift made their first contribution in https://github.com/defstudio/telegraph/pull/760
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.1...v1.70.2
+
+## v1.70.1 - 2026-02-25
+
+### What's Changed
+
+* #758 fix image by @MarioGattolla in https://github.com/defstudio/telegraph/pull/759
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.70.0...v1.70.1
+
+## v1.70.0 - 2026-02-17
+
+### What's Changed
+
+* #753 media_group_id by @MarioGattolla in https://github.com/defstudio/telegraph/pull/754
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.69.0...v1.70.0
+
+## v1.69.0 - 2026-02-10
+
+### What's Changed
+
+* [chore] PHP8.5 support by @fabio-ivona in https://github.com/defstudio/telegraph/pull/747
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.68.0...v1.69.0
+
+## v1.68.0 - 2026-01-27
+
+### What's Changed
+
+* #751 Implemented TextQuote by @MarioGattolla in https://github.com/defstudio/telegraph/pull/752
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.67.0...v1.68.0
+
+## v1.67.0 - 2026-01-08
+
+### What's Changed
+
+* implement sendVideoNote by @imperiumbee in https://github.com/defstudio/telegraph/pull/748
+* Business connection messages by @imperiumbee in https://github.com/defstudio/telegraph/pull/749
+* #746 giveaway by @MarioGattolla in https://github.com/defstudio/telegraph/pull/750
+
+### New Contributors
+
+* @imperiumbee made their first contribution in https://github.com/defstudio/telegraph/pull/748
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.66.0...v1.67.0
+
+## v1.66.0 - 2025-11-20
+
+### What's Changed
+
+* [Feature] Game Model + sendGame Method by @MarioGattolla in https://github.com/defstudio/telegraph/pull/745
+
+**Full Changelog**: https://github.com/defstudio/telegraph/compare/v1.65.0...v1.66.0
+
 ## v1.65.0 - 2025-11-17
 
 ### What's Changed

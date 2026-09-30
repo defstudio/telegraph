@@ -97,9 +97,9 @@ class InlineQueryResultContact extends InlineQueryResult
             'first_name' => $this->firstName,
             'last_name' => $this->lastName,
             'vcard' => $this->vcard,
-            'thumb_url' => $this->thumbUrl,
-            'thumb_width' => $this->thumbWidth,
-            'thumb_height' => $this->thumbHeight,
+            'thumbnail_url' => $this->thumbUrl,
+            'thumbnail_width' => $this->thumbWidth,
+            'thumbnail_height' => $this->thumbHeight,
         ];
 
         if ($this->message !== null) {

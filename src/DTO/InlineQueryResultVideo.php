@@ -97,7 +97,7 @@ class InlineQueryResultVideo extends InlineQueryResult
         return array_filter([
             'video_url' => $this->url,
             'mime_type' => $this->mimeType,
-            'thumb_url' => $this->thumbUrl,
+            'thumbnail_url' => $this->thumbUrl,
             'title' => $this->title,
             'caption' => $this->caption,
             'parse_mode' => $this->parseMode ?? config('telegraph.default_parse_mode', Telegraph::PARSE_HTML),

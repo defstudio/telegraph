@@ -19,6 +19,8 @@ class ReplyButton
 
     private int $width = 0;
 
+    private ?string $style = null;
+
     private function __construct(
         private string $label,
     ) {
@@ -31,7 +33,7 @@ class ReplyButton
 
     public function width(float $percentage): ReplyButton
     {
-        $width = (int)($percentage * 100);
+        $width = (int) ($percentage * 100);
 
         if ($width > 100) {
             $width = 100;
@@ -60,6 +62,13 @@ class ReplyButton
     public function requestLocation(): static
     {
         $this->type = ReplyButtonType::REQUEST_LOCATION;
+
+        return $this;
+    }
+
+    public function style(string $style): static
+    {
+        $this->style = $style;
 
         return $this;
     }
@@ -103,6 +112,10 @@ class ReplyButton
 
         if ($this->type === ReplyButtonType::REQUEST_POLL) {
             $data['request_poll'] = $this->pollType;
+        }
+
+        if (!empty($this->style)) {
+            $data['style'] = $this->style;
         }
 
         return $data;

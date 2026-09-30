@@ -34,6 +34,9 @@ class FileStorageDriver extends StorageDriver
     {
         try {
             $json = $this->disk->get($this->file);
+            if (blank($json)) {
+                return [];
+            }
 
             /** @phpstan-ignore-next-line */
             return rescue(fn () => json_decode($json, true, flags: JSON_THROW_ON_ERROR), []);

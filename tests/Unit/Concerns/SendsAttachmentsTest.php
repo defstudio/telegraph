@@ -46,7 +46,7 @@ it('can send a sticker with telegram sticker set file_id', function (string $fil
 ]);
 
 it('requires a chat to send a document', function () {
-    TelegraphFacade::document(Storage::path('test.txt'));
+    TelegraphFacade::document(Storage::path('test.txt'))->bot('1')->send();
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a document while writing a message', function () {
@@ -300,6 +300,10 @@ it('can send a video', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->video(Storage::path('video.mp4')))
         ->toMatchUtf8TelegramSnapshot();
 });
+it('can send a videoNote', function () {
+    expect(fn (Telegraph $telegraph) => $telegraph->videoNote(Storage::path('video.mp4')))
+        ->toMatchUtf8TelegramSnapshot();
+});
 
 it('can send an audio', function () {
     expect(fn (Telegraph $telegraph) => $telegraph->audio(Storage::path('audio.mp3')))
@@ -307,7 +311,7 @@ it('can send an audio', function () {
 });
 
 it('requires a chat to send a photo', function () {
-    TelegraphFacade::photo(Storage::path('photo.jpg'));
+    TelegraphFacade::photo(Storage::path('photo.jpg'))->bot('1')->send();
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a photo while writing a message', function () {
@@ -359,7 +363,7 @@ it('can send an invoice', function () {
             ->currency('EUR')
             ->addItem('Test Label', 10)
             ->maxTip(70)
-            ->suggestedTips([30,20])
+            ->suggestedTips([30, 20])
             ->startParameter(10)
             ->providerData(['Test Provider Data'])
             ->image('Test Image Link', 20, 20)
@@ -372,6 +376,33 @@ it('can send an invoice', function () {
     )
         ->toMatchUtf8TelegramSnapshot();
 });
+
+it('can send a game', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph->game('game_short_name')
+            ->businessConnectionId('business_connection_id')
+            ->messageThreadId('message_thread_id')
+            ->messageEffectId('message_effect_id')
+            ->disableNotification(true)
+            ->protectContent(true)
+            ->allowPaidBroadcast(true)
+    )
+        ->toMatchUtf8TelegramSnapshot();
+});
+
+it('can send a Rich Message', function () {
+    expect(
+        fn (Telegraph $telegraph) => $telegraph->richMessage('<ul>Rich Message</ul>')
+            ->businessConnectionId('business_connection_id')
+            ->messageThreadId('message_thread_id')
+            ->messageEffectId('message_effect_id')
+            ->disableNotification(true)
+            ->protectContent(true)
+            ->allowPaidBroadcast(true)
+    )
+        ->toMatchUtf8TelegramSnapshot();
+});
+
 
 test('photos are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
@@ -470,7 +501,7 @@ it('can send a voice', function () {
 });
 
 it('requires a chat to send a voice', function () {
-    TelegraphFacade::voice(Storage::path('voice.ogg'));
+    TelegraphFacade::voice(Storage::path('voice.ogg'))->bot('1')->send();
 })->throws(TelegraphException::class, 'No TelegraphChat defined for this request');
 
 it('can attach a voice while writing a message', function () {

@@ -99,9 +99,9 @@ class InlineQueryResultVenue extends InlineQueryResult
             'foursquare_type' => $this->foursquareType,
             'google_place_id' => $this->googlePlaceId,
             'google_place_type' => $this->googlePlaceType,
-            'thumb_url' => $this->thumbUrl,
-            'thumb_width' => $this->thumbWidth,
-            'thumb_height' => $this->thumbHeight,
+            'thumbnail_url' => $this->thumbUrl,
+            'thumbnail_width' => $this->thumbWidth,
+            'thumbnail_height' => $this->thumbHeight,
         ];
 
         if ($this->message !== null) {

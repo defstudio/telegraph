@@ -99,9 +99,9 @@ class InlineQueryResultDocument extends InlineQueryResult
             'document_url' => $this->url,
             'mime_type' => $this->mimeType,
             'description' => $this->description,
-            'thumb_url' => $this->thumbUrl,
-            'thumb_width' => $this->thumbWidth,
-            'thumb_height' => $this->thumbHeight,
+            'thumbnail_url' => $this->thumbUrl,
+            'thumbnail_width' => $this->thumbWidth,
+            'thumbnail_height' => $this->thumbHeight,
         ], fn ($value) => $value !== null);
     }
 }

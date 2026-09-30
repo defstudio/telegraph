@@ -214,7 +214,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @return array<array-key, array<array-key, array<string|string[]>>>
+     * @return array<array-key, mixed>
      */
     public function toArray(): array
     {

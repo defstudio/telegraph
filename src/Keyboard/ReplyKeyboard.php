@@ -254,7 +254,7 @@ class ReplyKeyboard implements Arrayable
     }
 
     /**
-     * @return array<array-key, array<array-key, array<string|string[]|bool>>>
+     * @return array<array-key, mixed>
      */
     public function toArray(): array
     {

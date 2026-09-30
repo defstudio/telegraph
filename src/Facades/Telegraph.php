@@ -4,10 +4,12 @@ namespace DefStudio\Telegraph\Facades;
 
 use DefStudio\Telegraph\Contracts\Downloadable;
 use DefStudio\Telegraph\DTO\InlineQueryResult;
+use DefStudio\Telegraph\Games\TelegraphGamePayload;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Models\TelegraphChat;
 use DefStudio\Telegraph\Payments\TelegraphInvoicePayload;
+use DefStudio\Telegraph\RichMessages\TelegraphRichMessagePayload;
 use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
@@ -23,6 +25,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  withEndpoint(string $endpoint)
  * @method static \DefStudio\Telegraph\Telegraph  withData(string $key, mixed $value)
  * @method static \DefStudio\Telegraph\Telegraph  inThread(int $thread_id)
+ * @method static \DefStudio\Telegraph\Telegraph  inBusiness(string $business_connection_id)
  * @method static \DefStudio\Telegraph\Telegraph  html(string $message)
  * @method static \DefStudio\Telegraph\Telegraph  reply(int $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  edit(string $messageId)
@@ -42,6 +45,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  pinMessage(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  unpinMessage(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  unpinAllMessages()
+ * @method static \DefStudio\Telegraph\Telegraph  readBusinessMessage(int $messageId)
+ * @method static \DefStudio\Telegraph\Telegraph  deleteBusinessMessages(array<int> $messageIds)
  * @method static \DefStudio\Telegraph\Telegraph  editCaption(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  editMedia(string $messageId)
  * @method static \DefStudio\Telegraph\Telegraph  answerInlineQuery(string $inlineQueryID, InlineQueryResult[] $results)
@@ -52,6 +57,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  location(float $latitude, float $longitude)
  * @method static \DefStudio\Telegraph\Telegraph  contact(string $phoneNumber, string $firstName)
  * @method static \DefStudio\Telegraph\Telegraph  video(string $path, string $filename = null)
+ * @method static \DefStudio\Telegraph\Telegraph  videoNote(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  audio(string $path, string $filename = null)
  * @method static \DefStudio\Telegraph\Telegraph  dice()
  * @method static \DefStudio\Telegraph\Telegraph  mediaGroup(array<int|string, array<mixed>> $media)
@@ -87,6 +93,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \DefStudio\Telegraph\Telegraph  reopenForumTopic(int $threadId = null)
  * @method static \DefStudio\Telegraph\Telegraph  deleteForumTopic(int $threadId = null)
  * @method static TelegraphInvoicePayload  invoice(string $title)
+ * @method static TelegraphGamePayload  game(string $shortName)
+ * @method static TelegraphRichMessagePayload  richMessage(string $richMessage)
  * @method static SetChatMenuButtonPayload  setChatMenuButton()
  * @method static TelegraphPollPayload poll(string $question)
  * @method static TelegraphQuizPayload quiz(string $question)

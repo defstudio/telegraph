@@ -99,6 +99,8 @@ abstract class WebhookHandler
 
             // setup data
             $this->message = match (true) {
+                $this->request->has('business_message') => Message::fromArray($this->request->input('business_message')),
+                $this->request->has('edited_business_message') => Message::fromArray($this->request->input('edited_business_message')),
                 $this->request->has('message') => Message::fromArray($this->request->input('message')),
                 $this->request->has('edited_message') => Message::fromArray($this->request->input('edited_message')),
                 $this->request->has('channel_post') => Message::fromArray($this->request->input('channel_post')),
@@ -247,6 +249,12 @@ abstract class WebhookHandler
 
         if ($this->message?->leftChatMember() !== null) {
             $this->handleChatMemberLeft($this->message->leftChatMember());
+
+            return;
+        }
+
+        if ($this->message?->businessConnectionId() !== null) {
+            $this->handleBusinessChatMessage($text);
 
             return;
         }
@@ -444,6 +452,11 @@ abstract class WebhookHandler
     }
 
     protected function handleChatMessage(Stringable $text): void
+    {
+        // .. do nothing
+    }
+
+    protected function handleBusinessChatMessage(Stringable $text): void
     {
         // .. do nothing
     }

@@ -321,7 +321,7 @@ it('can handle an inlineQuery', function () {
         "results" => [
             [
                 "gif_url" => "https://gif.dev",
-                "thumb_url" => "https://thumb.gif.test",
+                "thumbnail_url" => "https://thumb.gif.test",
                 "gif_width" => 300,
                 "gif_height" => 400,
                 "gif_duration" => 200,
@@ -343,7 +343,7 @@ it('can handle an inlineQuery', function () {
             ],
             [
                 "gif_url" => "https://gif2.dev",
-                "thumb_url" => "https://thumb.gif2.test",
+                "thumbnail_url" => "https://thumb.gif2.test",
                 "gif_width" => 1300,
                 "gif_height" => 1400,
                 "gif_duration" => 1200,

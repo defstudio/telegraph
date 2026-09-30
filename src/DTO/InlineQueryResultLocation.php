@@ -114,12 +114,12 @@ class InlineQueryResultLocation extends InlineQueryResult
             'title' => $this->title,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
-            'thumb_url' => $this->thumbUrl,
+            'thumbnail_url' => $this->thumbUrl,
             'live_period' => $this->livePeriod,
             'heading' => $this->heading,
             'proximity_alert_radius' => $this->proximityAlertRadius,
-            'thumb_width' => $this->thumbWidth,
-            'thumb_height' => $this->thumbHeight,
+            'thumbnail_width' => $this->thumbWidth,
+            'thumbnail_height' => $this->thumbHeight,
             'horizontal_accuracy' => $this->horizontalAccuracy,
         ];
 

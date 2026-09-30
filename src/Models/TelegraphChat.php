@@ -12,8 +12,10 @@ use DefStudio\Telegraph\Database\Factories\TelegraphChatFactory;
 use DefStudio\Telegraph\DTO\ChatMember;
 use DefStudio\Telegraph\Exceptions\TelegraphException;
 use DefStudio\Telegraph\Facades\Telegraph as TelegraphFacade;
+use DefStudio\Telegraph\Games\TelegraphGamePayload;
 use DefStudio\Telegraph\Keyboard\Keyboard;
 use DefStudio\Telegraph\Payments\TelegraphInvoicePayload;
+use DefStudio\Telegraph\RichMessages\TelegraphRichMessagePayload;
 use DefStudio\Telegraph\ScopedPayloads\SetChatMenuButtonPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphPollPayload;
 use DefStudio\Telegraph\ScopedPayloads\TelegraphQuizPayload;
@@ -135,6 +137,11 @@ class TelegraphChat extends Model implements Storable
         return TelegraphFacade::chat($this)->inThread($thread_id);
     }
 
+    public function inBusiness(string $business_connection_id): Telegraph
+    {
+        return TelegraphFacade::chat($this)->inBusiness($business_connection_id);
+    }
+
     public function message(string $message): Telegraph
     {
         return TelegraphFacade::chat($this)->message($message);
@@ -161,7 +168,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
+     * @param  Keyboard|callable(Keyboard):Keyboard  $newKeyboard
      */
     public function replaceKeyboard(int $messageId, Keyboard|callable $newKeyboard): Telegraph
     {
@@ -194,11 +201,24 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int> $messageIds
+     * @param  array<int>  $messageIds
      */
     public function deleteMessages(array $messageIds): Telegraph
     {
         return TelegraphFacade::chat($this)->deleteMessages($messageIds);
+    }
+
+    public function readBusinessMessage(int $messageId): Telegraph
+    {
+        return TelegraphFacade::chat($this)->readBusinessMessage($messageId);
+    }
+
+    /**
+     * @param  array<int>  $messageIds
+     */
+    public function deleteBusinessMessages(array $messageIds): Telegraph
+    {
+        return TelegraphFacade::chat($this)->deleteBusinessMessages($messageIds);
     }
 
     public function pinMessage(int $messageId): Telegraph
@@ -242,7 +262,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, array<mixed>> $media
+     * @param  array<int|string, array<mixed>>  $media
      */
     public function mediaGroup(array $media): Telegraph
     {
@@ -256,7 +276,7 @@ class TelegraphChat extends Model implements Storable
 
     public function venue(float $latitude, float $longitude, string $title, string $address): Telegraph
     {
-        return TelegraphFacade::chat($this)->venue($latitude,  $longitude,  $title,  $address);
+        return TelegraphFacade::chat($this)->venue($latitude, $longitude, $title, $address);
     }
 
     public function animation(string $path, string|null $filename = null): Telegraph
@@ -267,6 +287,11 @@ class TelegraphChat extends Model implements Storable
     public function video(string $path, string|null $filename = null): Telegraph
     {
         return TelegraphFacade::chat($this)->video($path, $filename);
+    }
+
+    public function videoNote(string $path, string|null $filename = null): Telegraph
+    {
+        return TelegraphFacade::chat($this)->videoNote($path, $filename);
     }
 
     public function audio(string $path, string|null $filename = null): Telegraph
@@ -315,7 +340,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<string, string> $reaction
+     * @param  array<string, string>  $reaction
      */
     public function setMessageReaction(int $messageId, array $reaction, bool $isBig = false): Telegraph
     {
@@ -362,7 +387,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, string|bool> $permissions
+     * @param  array<int|string, string|bool>  $permissions
      */
     public function setPermissions(array $permissions): Telegraph
     {
@@ -380,7 +405,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, string|bool> $permissions
+     * @param  array<int|string, string|bool>  $permissions
      */
     public function restrictMember(string $userId, array $permissions): Telegraph
     {
@@ -388,7 +413,7 @@ class TelegraphChat extends Model implements Storable
     }
 
     /**
-     * @param array<int|string, string|bool> $permissions
+     * @param  array<int|string, string|bool>  $permissions
      */
     public function promoteMember(string $userId, array $permissions): Telegraph
     {
@@ -423,6 +448,16 @@ class TelegraphChat extends Model implements Storable
     public function invoice(string $title): TelegraphInvoicePayload
     {
         return TelegraphFacade::chat($this)->invoice($title);
+    }
+
+    public function game(string $shortName): TelegraphGamePayload
+    {
+        return TelegraphFacade::chat($this)->game($shortName);
+    }
+
+    public function richMessage(string $richMessage): TelegraphRichMessagePayload
+    {
+        return TelegraphFacade::chat($this)->richMessage($richMessage);
     }
 
     public function dice(string|null $emoji = null): Telegraph

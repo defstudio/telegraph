@@ -10,6 +10,8 @@ it('export all properties to array', function () {
     $dto = Message::fromArray([
         'message_id' => 2,
         'message_thread_id' => 123456,
+        'business_connection_id' => 123456,
+        'media_group_id' => 123456,
         'date' => now()->timestamp,
         'edit_date' => now()->timestamp,
         'text' => 'f',
@@ -173,6 +175,45 @@ it('export all properties to array', function () {
                 'file_size' => 42,
             ],
         ],
+        'rich_message' => [
+            'blocks' => [
+                [
+                    'type' => 'paragraph',
+                    'text' => [
+                        'type' => 'bold',
+                        'text' => 'Hello world',
+                    ],
+                ],
+            ],
+            'is_rtl' => false,
+        ],
+        'giveaway' => [
+            'chats' => [
+                [
+                    'id' => 1,
+                    'type' => 'channel',
+                    'title' => 'chat1',
+                    'username' => 'username1',
+                ],
+                [
+                    'id' => 2,
+                    'type' => 'channel',
+                    'title' => 'chat2',
+                    'username' => 'username2',
+                ],
+            ],
+            'winners_selection_date' => 1001,
+            'winner_count' => 1,
+            'only_new_members' => true,
+            'has_public_winners' => true,
+            'prize_description' => 'prize',
+            'country_codes' => [
+                'AM',
+                'BY',
+            ],
+            'prize_star_count' => 10,
+            'premium_subscription_month_count' => 1,
+        ],
         'animation' => [
             'file_id' => 99,
             'width' => 10,
@@ -187,6 +228,55 @@ it('export all properties to array', function () {
                 'height' => 768,
                 'file_size' => 42,
             ],
+        ],
+        'game' => [
+            'title' => 'test title',
+            'description' => 'test description',
+            'text' => 'test text',
+            'photo' => [
+                [
+                    'file_id' => 99,
+                    'width' => 1024,
+                    'height' => 768,
+                    'file_size' => 42,
+                ],
+            ],
+            'animation' => [
+                'file_id' => 99,
+                'width' => 10,
+                'height' => 20,
+                'duration' => 10,
+                'file_name' => 'name',
+                'mime_type' => 'type',
+                'file_size' => 20,
+                'thumb' => [
+                    'file_id' => 99,
+                    'width' => 1024,
+                    'height' => 768,
+                    'file_size' => 42,
+                ],
+            ],
+            'entities' => [
+                [
+                    'type' => 'url',
+                    'offset' => 4,
+                    'length' => 19,
+                    'url' => 'https://example.com',
+                ],
+            ],
+        ],
+        'quote' => [
+            'text' => 'test quote',
+            'entities' => [
+                [
+                    'type' => 'url',
+                    'offset' => 4,
+                    'length' => 19,
+                    'url' => 'https://example.com',
+                ],
+            ],
+            'position' => 1,
+            'is_manual' => true,
         ],
         'audio' => [
             'file_id' => 31,
@@ -221,6 +311,18 @@ it('export all properties to array', function () {
             'duration' => 666,
             'file_name' => 'My Audio.mp3',
             'mime_type' => 'audio/mp3',
+            'file_size' => 42,
+            'thumb' => [
+                'file_id' => 99,
+                'width' => 1024,
+                'height' => 768,
+                'file_size' => 42,
+            ],
+        ],
+        'video_note' => [
+            'file_id' => 31,
+            'length' => 50,
+            'duration' => 666,
             'file_size' => 42,
             'thumb' => [
                 'file_id' => 99,

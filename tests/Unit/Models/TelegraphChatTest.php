@@ -775,6 +775,31 @@ it('can forward a message', function () {
         'message_id' => 123,
     ]);
 });
+
+it('can read business message', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->readBusinessMessage(123)->inBusiness(321)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_READ_BUSINESS_MESSAGE, [
+        'business_connection_id' => 321,
+        'message_id' => 123,
+    ]);
+});
+
+it('can delete business messages', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->deleteBusinessMessages([123])->inBusiness(321)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_BUSINESS_MESSAGES, [
+        'business_connection_id' => 321,
+        'message_ids' => [123],
+    ]);
+});
+
 it('can copy a message', function () {
     Telegraph::fake();
     $chat = make_chat();
@@ -913,6 +938,30 @@ it('can send a message to a specific Thread before', function () {
     Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
         'text' => 'foo',
         'message_thread_id' => 5,
+    ]);
+});
+
+it('can send a message to a specific business connection after', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->message('foo')->inBusiness(5)->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'business_connection_id' => 5,
+    ]);
+});
+
+it('can send a message to a specific business connection before', function () {
+    Telegraph::fake();
+    $chat = make_chat();
+
+    $chat->inBusiness(5)->message('foo')->send();
+
+    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+        'text' => 'foo',
+        'business_connection_id' => 5,
     ]);
 });
 

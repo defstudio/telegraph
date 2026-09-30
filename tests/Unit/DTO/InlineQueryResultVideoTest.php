@@ -14,7 +14,7 @@ it('can export to array', function () {
     )->toBe([
         'video_url' => 'testVideoUrl',
         'mime_type' => 'testMimeType',
-        'thumb_url' => 'testThumbUrl',
+        'thumbnail_url' => 'testThumbUrl',
         'title' => 'testTitle',
         'caption' => 'testCaption',
         'parse_mode' => 'html',
