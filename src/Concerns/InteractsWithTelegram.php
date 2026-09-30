@@ -22,6 +22,8 @@ trait InteractsWithTelegram
 {
     protected string $endpoint;
 
+    protected string|null $url = null;
+
     protected string|null $baseUrl = null;
 
     protected string|null $httpProxy = null;
@@ -87,6 +89,15 @@ trait InteractsWithTelegram
         return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files, $this->getHttpProxy())->onQueue($queue);
     }
 
+    public function setUrl(string|null $url): Telegraph
+    {
+        $telegraph = clone $this;
+
+        $telegraph->url = $url;
+
+        return $telegraph;
+    }
+
     public function setBaseUrl(string|null $url): Telegraph
     {
         $telegraph = clone $this;
@@ -133,11 +144,11 @@ trait InteractsWithTelegram
 
         $data = $this->prepareData();
 
-        $url = $bot instanceof HasCustomUrl
-            ? $bot->getUrl()
-            : Str::of($this->getBaseUrl())
-                ->append($this->getBotToken())
-                ->toString();
+        $url = match (true) {
+            !is_null($this->url) => $this->url,
+            $bot instanceof HasCustomUrl => $bot->getUrl(),
+            default => Str::of($this->getBaseUrl())->append($this->getBotToken())->toString(),
+        };
 
         /** @phpstan-ignore-next-line */
         return Str::of($url)
@@ -150,22 +161,22 @@ trait InteractsWithTelegram
     {
         $bot = $this->getBot();
 
-        return $bot instanceof HasCustomUrl
-            ? $bot->getFilesUrl()
-            : Str::of($this->getFilesBaseUrl())
-                ->append($this->getBotToken())
-                ->toString();
+        return match (true) {
+            !is_null($this->url) => $this->url,
+            $bot instanceof HasCustomUrl => $bot->getFilesUrl(),
+            default => Str::of($this->getFilesBaseUrl())->append($this->getBotToken())->toString(),
+        };
     }
 
     public function getApiUrl(): string
     {
         $bot = $this->getBot();
 
-        $url = $bot instanceof HasCustomUrl
-            ? $bot->getUrl()
-            : Str::of($this->getBaseUrl())
-                ->append($this->getBotToken())
-                ->toString();
+        $url = match (true) {
+            !is_null($this->url) => $this->url,
+            $bot instanceof HasCustomUrl => $bot->getUrl(),
+            default => Str::of($this->getBaseUrl())->append($this->getBotToken())->toString(),
+        };
 
         /** @phpstan-ignore-next-line */
         return Str::of($url)
