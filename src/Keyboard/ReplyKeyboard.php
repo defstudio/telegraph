@@ -20,11 +20,16 @@ class ReplyKeyboard implements Arrayable
     protected Collection $buttons;
 
     protected bool $rtl = false;
+
     protected bool $persistent = false;
+
     protected bool $resize = false;
+
     protected bool $oneTime = false;
+
     protected bool $selective = false;
-    protected string|null $inputPlaceholder = null;
+
+    protected ?string $inputPlaceholder = null;
 
     public function __construct()
     {
@@ -34,7 +39,7 @@ class ReplyKeyboard implements Arrayable
 
     public static function make(): self
     {
-        return new self();
+        return new self;
     }
 
     public function rightToLeft(bool $condition = true): self
@@ -57,9 +62,7 @@ class ReplyKeyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, array<array-key, array{text: string, request_contact?: bool, request_location?: bool, request_poll?: string[], web_app?: string[]}>> $arrayKeyboard
-     *
-     * @return self
+     * @param  array<array-key, array<array-key, array{text: string, request_contact?: bool, request_location?: bool, request_poll?: string[], web_app?: string[]}>>  $arrayKeyboard
      */
     public static function fromArray(array $arrayKeyboard): self
     {
@@ -87,7 +90,7 @@ class ReplyKeyboard implements Arrayable
                     }
                 }
 
-                if (array_key_exists("web_app", $button)) {
+                if (array_key_exists('web_app', $button)) {
                     $rowButton = $rowButton->webApp($button['web_app']['url']);
                 }
 
@@ -146,9 +149,7 @@ class ReplyKeyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, ReplyButton>|Collection<array-key, ReplyButton> $buttons
-     *
-     * @return self
+     * @param  array<array-key, ReplyButton>|Collection<array-key, ReplyButton>  $buttons
      */
     public function row(array|Collection $buttons): self
     {
@@ -179,9 +180,7 @@ class ReplyKeyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, ReplyButton>|Collection<array-key, ReplyButton> $buttons $buttons
-     *
-     * @return self
+     * @param  array<array-key, ReplyButton>|Collection<array-key, ReplyButton>  $buttons  $buttons
      */
     public function buttons(array|Collection $buttons): self
     {
@@ -202,7 +201,7 @@ class ReplyKeyboard implements Arrayable
 
         $clone->buttons = $clone->buttons->map(function (ReplyButton $button) use ($newButton, $label) {
             if ($button->label() == $label) {
-                if (!$newButton->has_width()) {
+                if (! $newButton->has_width()) {
                     $newButton = $newButton->width($button->get_width());
                 }
 
@@ -250,7 +249,7 @@ class ReplyKeyboard implements Arrayable
 
     public function isFilled(): bool
     {
-        return !$this->isEmpty();
+        return ! $this->isEmpty();
     }
 
     /**

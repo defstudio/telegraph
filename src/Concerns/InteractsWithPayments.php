@@ -1,6 +1,5 @@
 <?php
 
-
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Concerns;

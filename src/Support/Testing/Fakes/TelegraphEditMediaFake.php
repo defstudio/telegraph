@@ -17,7 +17,7 @@ class TelegraphEditMediaFake extends TelegraphEditMediaPayload
     use FakesRequests;
 
     /**
-     * @param array<string, array<mixed>> $replies
+     * @param  array<string, array<mixed>>  $replies
      */
     public function __construct(array $replies = [])
     {
@@ -28,7 +28,7 @@ class TelegraphEditMediaFake extends TelegraphEditMediaPayload
     public static function assertSentEditMedia(string $type, string $media): void
     {
         self::assertSentData(Telegraph::ENDPOINT_EDIT_MEDIA, [
-            "media" => json_encode([
+            'media' => json_encode([
                 'type' => $type,
                 'media' => $media,
             ]),

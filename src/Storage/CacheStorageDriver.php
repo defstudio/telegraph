@@ -12,32 +12,33 @@ use Illuminate\Support\Str;
 class CacheStorageDriver extends StorageDriver
 {
     private string $key;
+
     private Repository $cache;
 
     /**
-     * @param string[] $configuration
+     * @param  string[]  $configuration
      */
     public function __construct(string $itemClass, string $itemKey, array $configuration)
     {
         $this->key = (string) Str::of($configuration['key_prefix'])
-            ->append("_", class_basename($itemClass))
-            ->append("_", $itemKey);
+            ->append('_', class_basename($itemClass))
+            ->append('_', $itemKey);
 
         $this->cache = Cache::store($configuration['store'] ?? null);
     }
 
     public function storeData(string $key, mixed $value): void
     {
-        if (!Str::of($key)->contains('.')) {
+        if (! Str::of($key)->contains('.')) {
             $this->cache->set("{$this->key}_$key", $value);
 
             return;
         }
 
-        $mainKey = (string)Str::of($key)->before('.');
+        $mainKey = (string) Str::of($key)->before('.');
         $mainValue = $this->retrieveData($mainKey, []);
 
-        $otherKeys = (string)Str::of($key)->after('.');
+        $otherKeys = (string) Str::of($key)->after('.');
         data_set($mainValue, $otherKeys, $value);
 
         $this->cache->set("{$this->key}_".$mainKey, $mainValue);
@@ -45,7 +46,7 @@ class CacheStorageDriver extends StorageDriver
 
     public function retrieveData(string $key, mixed $default = null): mixed
     {
-        if (!Str::of($key)->contains('.')) {
+        if (! Str::of($key)->contains('.')) {
             return $this->cache->get("{$this->key}_$key", $default);
         }
 
@@ -59,7 +60,7 @@ class CacheStorageDriver extends StorageDriver
 
     public function forget(string $key): static
     {
-        if (!Str::of($key)->contains('.')) {
+        if (! Str::of($key)->contains('.')) {
             $this->cache->forget("{$this->key}_$key");
         }
 

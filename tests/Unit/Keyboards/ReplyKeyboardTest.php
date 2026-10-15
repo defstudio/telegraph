@@ -85,7 +85,6 @@ it('can replace a button', function () {
     ]);
 });
 
-
 it('can customize button style', function () {
     $keyboard = ReplyKeyboard::make()
         ->row([
@@ -98,8 +97,6 @@ it('can customize button style', function () {
         ],
     ]);
 });
-
-
 
 it('can delete a button', function () {
     $keyboard = ReplyKeyboard::make()

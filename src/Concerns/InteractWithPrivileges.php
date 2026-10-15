@@ -1,6 +1,5 @@
 <?php
 
-
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Concerns;
@@ -11,36 +10,62 @@ use DefStudio\Telegraph\Telegraph;
 /**
  * @mixin Telegraph
  */
-
 trait InteractWithPrivileges
 {
     private bool $canBeEdited = false;
+
     private bool $canChangeInfo = false;
+
     private bool $canInviteUsers = false;
+
     private bool $canManageChat = false;
+
     private bool $canManageTopics = false;
+
     private bool $canManageVideoChats = false;
+
     private bool $canManageVoiceChats = false;
+
     private bool $canManageDirectMessages = false;
+
     private bool $canRestrictMembers = false;
+
     private bool $canPromoteMembers = false;
+
     private bool $canPostMessages = false;
+
     private bool $canEditMessages = false;
+
     private bool $canDeleteMessages = false;
+
     private bool $canPinMessages = false;
+
     private bool $canPostStories = false;
+
     private bool $canEditStories = false;
+
     private bool $canDeleteStories = false;
+
     private bool $canSendMessages = false;
+
     private bool $canSendMediaMessages = false;
+
     private bool $canSendAudios = false;
+
     private bool $canSendDocuments = false;
+
     private bool $canSendPhotos = false;
+
     private bool $canSendVideos = false;
+
     private bool $canSendVideoNotes = false;
+
     private bool $canSendVoiceNotes = false;
+
     private bool $canSendPolls = false;
+
     private bool $canSendOtherMessages = false;
+
     private bool $canAddWebPagePreviews = false;
 
     /**

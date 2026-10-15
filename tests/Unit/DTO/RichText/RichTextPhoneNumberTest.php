@@ -74,11 +74,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextPhoneNumber::fromData([
         'type' => 'phone_number',
-        'text' =>
-            [
-                'type' => 'bold',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'bold',
+            'text' => 'Hello world',
+        ],
         'phone_number' => 'test',
 
     ]);

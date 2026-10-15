@@ -49,8 +49,8 @@ class TelegraphQuizPayload extends Telegraph
 
     /**
      * Summary of options
-     * @param array<string> $options
-     * @return static
+     *
+     * @param  array<string>  $options
      */
     public function options(array $options): static
     {

@@ -18,12 +18,10 @@ class SendRequestToTelegramJob implements ShouldQueue
     use Queueable;
 
     /**
-     * @param array<string, mixed> $data
-     * @param Collection<string, Attachment> $files
+     * @param  array<string, mixed>  $data
+     * @param  Collection<string, Attachment>  $files
      */
-    public function __construct(public string $url, public array $data, public Collection $files, public string|null $httpProxy = null)
-    {
-    }
+    public function __construct(public string $url, public array $data, public Collection $files, public ?string $httpProxy = null) {}
 
     public function handle(): void
     {
@@ -36,7 +34,7 @@ class SendRequestToTelegramJob implements ShouldQueue
         /** @var PendingRequest $request */
         $request = $this->files->reduce(
             function ($request, Attachment $attachment, string $key) {
-                //@phpstan-ignore-next-line
+                // @phpstan-ignore-next-line
                 return $request->attach($key, $attachment->contents(), $attachment->filename());
             },
             $request

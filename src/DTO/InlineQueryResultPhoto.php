@@ -9,19 +9,28 @@ use DefStudio\Telegraph\Telegraph;
 class InlineQueryResultPhoto extends InlineQueryResult
 {
     protected string $type = 'photo';
+
     protected string $id;
+
     protected string $url;
+
     protected string $thumbUrl;
-    protected int|null $width = null;
-    protected int|null $height = null;
-    protected string|null $title = null;
-    protected string|null $caption = null;
-    protected string|null $description = null;
-    protected string|null $parseMode = null;
+
+    protected ?int $width = null;
+
+    protected ?int $height = null;
+
+    protected ?string $title = null;
+
+    protected ?string $caption = null;
+
+    protected ?string $description = null;
+
+    protected ?string $parseMode = null;
 
     public static function make(string $id, string $url, string $thumbUrl): InlineQueryResultPhoto
     {
-        $result = new InlineQueryResultPhoto();
+        $result = new InlineQueryResultPhoto;
         $result->id = $id;
         $result->url = $url;
         $result->thumbUrl = $thumbUrl;
@@ -29,35 +38,35 @@ class InlineQueryResultPhoto extends InlineQueryResult
         return $result;
     }
 
-    public function width(int|null $width): static
+    public function width(?int $width): static
     {
         $this->width = $width;
 
         return $this;
     }
 
-    public function height(int|null $height): static
+    public function height(?int $height): static
     {
         $this->height = $height;
 
         return $this;
     }
 
-    public function title(string|null $title): static
+    public function title(?string $title): static
     {
         $this->title = $title;
 
         return $this;
     }
 
-    public function caption(string|null $caption): static
+    public function caption(?string $caption): static
     {
         $this->caption = $caption;
 
         return $this;
     }
 
-    public function description(string|null $description): static
+    public function description(?string $description): static
     {
         $this->description = $description;
 
@@ -86,7 +95,7 @@ class InlineQueryResultPhoto extends InlineQueryResult
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function data(): array
     {

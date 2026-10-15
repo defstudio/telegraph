@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 class RichTextReferenceLink implements RichTextItem
 {
     private const TYPE = 'reference_link';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
+
     private string $referenceName;
 
     public function __construct()
@@ -25,14 +27,12 @@ class RichTextReferenceLink implements RichTextItem
      *     text: string|array<string ,mixed>,
      *     reference_name: string
      * }  $data
-     *
-     * @return RichTextReferenceLink
      */
     public static function fromData(string|array $data): RichTextReferenceLink
     {
-        $richTextReferenceLink = new self();
+        $richTextReferenceLink = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -68,6 +68,6 @@ class RichTextReferenceLink implements RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'reference_name' => $this->referenceName,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

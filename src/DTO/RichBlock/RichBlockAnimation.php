@@ -11,11 +11,14 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockAnimation implements RichBlockItem, Arrayable
+class RichBlockAnimation implements Arrayable, RichBlockItem
 {
     private const TYPE = 'animation';
+
     private Animation $animation;
+
     private bool $hasSpoiler = false;
+
     private ?RichBlockCaption $caption = null;
 
     /**
@@ -25,8 +28,6 @@ class RichBlockAnimation implements RichBlockItem, Arrayable
      *     has_spoiler?: bool,
      *     caption?: array<string, mixed>
      * }  $data
-     *
-     * @return RichBlockAnimation
      */
     public static function fromArray(array $data): RichBlockAnimation
     {
@@ -34,7 +35,7 @@ class RichBlockAnimation implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockAnimation = new self();
+        $richBlockAnimation = new self;
 
         $richBlockAnimation->animation = Animation::fromArray($data['animation']);
 

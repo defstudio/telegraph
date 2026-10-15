@@ -18,46 +18,78 @@ use Illuminate\Support\Collection;
 class Message implements Arrayable
 {
     private int $id;
+
     private ?int $messageThreadId = null;
+
     private ?string $businessConnectionId = null;
+
     private CarbonInterface $date;
+
     private ?CarbonInterface $editDate = null;
+
     private string $text;
+
     /** Can be string or json string. if json then convert it to array */
     private mixed $webAppData = null;
+
     private bool $protected = false;
+
     private ?User $from = null;
+
     private ?User $forwardedFrom = null;
+
     private ?Chat $chat = null;
+
     private Keyboard $keyboard;
+
     private ?Message $replyToMessage = null;
 
     /** @var Collection<array-key, User> */
     private Collection $newChatMembers;
+
     private ?User $leftChatMember = null;
 
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
+
     private ?RichMessage $richMessage = null;
+
     private ?Animation $animation = null;
+
     private ?Audio $audio = null;
+
     private ?Giveaway $giveaway = null;
 
     private ?Document $document = null;
+
     private ?Video $video = null;
+
     private ?VideoNote $videoNote = null;
+
     private ?Location $location = null;
+
     private ?Contact $contact = null;
+
     private ?Voice $voice = null;
+
     private ?Sticker $sticker = null;
+
     private ?Poll $poll = null;
+
     private ?Venue $venue = null;
+
     private ?Invoice $invoice = null;
+
     private ?Game $game = null;
+
     private ?TextQuote $quote = null;
+
     private ?string $mediaGroupId = null;
+
     private ?SuccessfulPayment $successfulPayment = null;
+
     private ?RefundedPayment $refundedPayment = null;
+
     private ?WriteAccessAllowed $writeAccessAllowed = null;
 
     private ?string $migrateToChatId = null;
@@ -116,7 +148,7 @@ class Message implements Arrayable
      */
     public static function fromArray(array $data): Message
     {
-        $message = new self();
+        $message = new self;
 
         $message->id = $data['message_id'];
 
@@ -243,7 +275,6 @@ class Message implements Arrayable
         /* @phpstan-ignore-next-line */
         $message->newChatMembers = collect($data['new_chat_members'] ?? [])->map(fn (array $userData) => User::fromArray($userData));
 
-
         if (isset($data['left_chat_member'])) {
             $message->leftChatMember = User::fromArray($data['left_chat_member']);
         }
@@ -251,7 +282,7 @@ class Message implements Arrayable
         if (isset($data['web_app_data']['data'])) {
             $webAppData = json_decode($data['web_app_data']['data'], true);
 
-            if (!$webAppData) {
+            if (! $webAppData) {
                 $webAppData = $data['web_app_data']['data'];
             }
 
@@ -270,7 +301,6 @@ class Message implements Arrayable
         if (isset($data['migrate_to_chat_id'])) {
             $message->migrateToChatId = (string) $data['migrate_to_chat_id'];
         }
-
 
         return $message;
     }

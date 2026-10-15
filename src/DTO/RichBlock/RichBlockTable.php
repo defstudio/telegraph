@@ -13,13 +13,17 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockTable implements RichBlockItem, Arrayable
+class RichBlockTable implements Arrayable, RichBlockItem
 {
     private const TYPE = 'table';
+
     /** @var Collection<int|string, Collection<int|string, RichBlockTableCell>> */
     private Collection $cells;
+
     private bool $isBordered = false;
+
     private bool $isStriped = false;
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $caption;
 
@@ -37,8 +41,6 @@ class RichBlockTable implements RichBlockItem, Arrayable
      *     is_striped?: bool,
      *     caption?: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichBlockTable
      */
     public static function fromArray(array $data): RichBlockTable
     {
@@ -46,14 +48,14 @@ class RichBlockTable implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockTable = new self();
+        $richBlockTable = new self;
 
         $richBlockTable->cells = collect($data['cells'])
             ->map(
                 fn (array $row, $rowIndex) => collect($row)
-                ->map(
-                    fn (array $cell) => RichBlockTableCell::fromArray($cell)
-                )
+                    ->map(
+                        fn (array $cell) => RichBlockTableCell::fromArray($cell)
+                    )
             );
 
         $richBlockTable->isBordered = $data['is_bordered'] ?? false;

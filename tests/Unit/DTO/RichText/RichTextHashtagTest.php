@@ -3,6 +3,7 @@
 /** @noinspection PhpUnhandledExceptionInspection */
 
 use DefStudio\Telegraph\Contracts\RichTextItem;
+use DefStudio\Telegraph\DTO\RichText\RichTextBold;
 use DefStudio\Telegraph\DTO\RichText\RichTextHashtag;
 use DefStudio\Telegraph\DTO\RichText\RichTextString;
 use DefStudio\Telegraph\Exceptions\RichTextException;
@@ -73,11 +74,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextHashtag::fromData([
         'type' => 'hashtag',
-        'text' =>
-            [
-                'type' => 'bold',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'bold',
+            'text' => 'Hello world',
+        ],
         'hashtag' => 'test',
 
     ]);
@@ -88,7 +88,7 @@ it('create text from Rich Text Item', function () {
 
     $text = $property->getValue($dto);
 
-    expect($text)->toBeInstanceOf(\DefStudio\Telegraph\DTO\RichText\RichTextBold::class);
+    expect($text)->toBeInstanceOf(RichTextBold::class);
 });
 
 it('throw exception with wrong data structure', function () {

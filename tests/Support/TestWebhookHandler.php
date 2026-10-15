@@ -26,6 +26,7 @@ class TestWebhookHandler extends WebhookHandler
     public static bool $handleUnknownCommands = false;
 
     public static int $calls_count = 0;
+
     public static array $extracted_data = [];
 
     public static function reset()
@@ -72,7 +73,7 @@ class TestWebhookHandler extends WebhookHandler
         if ($parameter) {
             $this->chat->html("Hello!! your parameter is [$parameter]")->send();
         }
-        $this->chat->html("Hello!!")->send();
+        $this->chat->html('Hello!!')->send();
     }
 
     public function param_injection(string $foo = 'not set'): void
@@ -85,9 +86,7 @@ class TestWebhookHandler extends WebhookHandler
         $this->reply('foo');
     }
 
-    private function private_action(): void
-    {
-    }
+    private function private_action(): void {}
 
     protected function extractCallbackQueryData(): void
     {
@@ -125,7 +124,7 @@ class TestWebhookHandler extends WebhookHandler
 
     protected function handleUnknownCommand(Stringable $text): void
     {
-        if (!self::$handleUnknownCommands) {
+        if (! self::$handleUnknownCommands) {
             parent::handleUnknownCommand($text);
         }
 
@@ -156,9 +155,9 @@ class TestWebhookHandler extends WebhookHandler
     {
         $this->chat->html(implode(':', [
             /* @phpstan-ignore-next-line */
-            'New reaction is ' . $newReactions->first()->emoji(),
+            'New reaction is '.$newReactions->first()->emoji(),
             /* @phpstan-ignore-next-line */
-            'Old reaction is ' . $oldReactions->first()->emoji(),
+            'Old reaction is '.$oldReactions->first()->emoji(),
         ]))->send();
     }
 

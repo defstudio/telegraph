@@ -9,6 +9,6 @@ class InvoiceException extends Exception
 {
     public static function validationError(MessageBag $messages): InvoiceException
     {
-        return new self('Invalid Invoice: ' . $messages->toJson());
+        return new self('Invalid Invoice: '.$messages->toJson());
     }
 }

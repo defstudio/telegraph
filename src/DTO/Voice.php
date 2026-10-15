@@ -11,14 +11,14 @@ use Illuminate\Contracts\Support\Arrayable;
 class Voice implements Arrayable, Downloadable
 {
     private string $id;
+
     private int $duration;
 
     private ?string $mimeType = null;
+
     private ?int $filesize = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -30,7 +30,7 @@ class Voice implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): Voice
     {
-        $voice = new self();
+        $voice = new self;
 
         $voice->id = $data['file_id'];
         $voice->duration = $data['duration'];

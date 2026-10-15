@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextItalic::fromData([
         'type' => 'italic',
-        'text' =>
-            [
-                'type' => 'italic',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'italic',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

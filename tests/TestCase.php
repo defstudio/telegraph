@@ -17,7 +17,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'DefStudio\\Telegraph\\Database\\Factories\\' . class_basename($modelName) . 'Factory'
+            fn (string $modelName) => 'DefStudio\\Telegraph\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -37,14 +37,14 @@ class TestCase extends Orchestra
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
     }
 
     protected function filesystemSetup($config): void
     {
-        $storagePath = __DIR__ . '/storage';
+        $storagePath = __DIR__.'/storage';
 
-        $filesystem = new Filesystem();
+        $filesystem = new Filesystem;
         $filesystem->ensureDirectoryExists($storagePath);
 
         $config->set('filesystems.default', 'local');

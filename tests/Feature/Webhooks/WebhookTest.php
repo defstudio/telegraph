@@ -9,6 +9,6 @@ test('bots can be bound by token', function () {
 });
 
 test('invalid tokens are rejected', function () {
-    post("/telegraph/123456/webhook", webhook_request('test')->all())
+    post('/telegraph/123456/webhook', webhook_request('test')->all())
         ->assertNotFound();
 });

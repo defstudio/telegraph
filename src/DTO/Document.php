@@ -13,14 +13,14 @@ class Document implements Arrayable, Downloadable
     private string $id;
 
     private ?string $filename = null;
+
     private ?string $mimeType = null;
+
     private ?int $filesize = null;
 
     private ?Photo $thumbnail = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -33,7 +33,7 @@ class Document implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): Document
     {
-        $document = new self();
+        $document = new self;
 
         $document->id = $data['file_id'];
         $document->filename = $data['file_name'] ?? null;

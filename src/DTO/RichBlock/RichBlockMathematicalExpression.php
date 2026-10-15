@@ -9,9 +9,10 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockMathematicalExpression implements RichBlockItem, Arrayable
+class RichBlockMathematicalExpression implements Arrayable, RichBlockItem
 {
     private const TYPE = 'mathematical_expression';
+
     private string $expression;
 
     /**
@@ -19,8 +20,6 @@ class RichBlockMathematicalExpression implements RichBlockItem, Arrayable
      *     type: string,
      *     expression: string,
      * }  $data
-     *
-     * @return RichBlockMathematicalExpression
      */
     public static function fromArray(array $data): RichBlockMathematicalExpression
     {
@@ -28,7 +27,7 @@ class RichBlockMathematicalExpression implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockMathematicalExpression = new self();
+        $richBlockMathematicalExpression = new self;
 
         $richBlockMathematicalExpression->expression = $data['expression'];
 
@@ -50,6 +49,6 @@ class RichBlockMathematicalExpression implements RichBlockItem, Arrayable
         return array_filter([
             'type' => self::TYPE,
             'expression' => $this->expression,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

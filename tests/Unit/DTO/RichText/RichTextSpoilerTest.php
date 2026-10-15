@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextSpoiler::fromData([
         'type' => 'spoiler',
-        'text' =>
-            [
-                'type' => 'spoiler',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'spoiler',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

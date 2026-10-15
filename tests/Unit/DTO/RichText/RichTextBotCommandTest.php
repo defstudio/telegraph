@@ -74,11 +74,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextBotCommand::fromData([
         'type' => 'bot_command',
-        'text' =>
-            [
-                'type' => 'bold',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'bold',
+            'text' => 'Hello world',
+        ],
         'bot_command' => 'test',
 
     ]);

@@ -14,20 +14,28 @@ use Illuminate\Contracts\Support\Arrayable;
 class ChatInviteLink implements Arrayable
 {
     private string $inviteLink;
+
     private User $creator;
+
     private bool $createsJoinRequest;
+
     private bool $isPrimary;
+
     private bool $isRevoked;
+
     private ?string $name = null;
+
     private ?CarbonInterface $expireDate = null;
+
     private ?int $memberLimit = null;
+
     private ?int $pendingJoinRequestsCount = null;
+
     private ?int $subscriptionPeriod = null;
+
     private ?int $subscriptionPrice = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -46,7 +54,7 @@ class ChatInviteLink implements Arrayable
      */
     public static function fromArray(array $data): ChatInviteLink
     {
-        $invite = new self();
+        $invite = new self;
 
         $invite->inviteLink = $data['invite_link'];
 

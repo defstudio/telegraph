@@ -12,14 +12,22 @@ class Giveaway implements Arrayable
 {
     /** @var Collection<array-key, Chat> */
     private Collection $chats;
+
     private int $winnersSelectionDate;
+
     private int $winnerCount;
+
     private bool $onlyNewMembers = false;
+
     private bool $hasPublicWinners = false;
+
     private ?string $prizeDescription;
+
     /** @var string[] */
     private array $countryCodes = [];
+
     private ?int $prizeStarCount;
+
     private ?int $premiumSubscriptionMonthCount;
 
     private function __construct()
@@ -42,7 +50,7 @@ class Giveaway implements Arrayable
      */
     public static function fromArray(array $data): Giveaway
     {
-        $giveaway = new self();
+        $giveaway = new self;
 
         /* @phpstan-ignore-next-line */
         $giveaway->chats = collect($data['chats'] ?? [])->map(fn (array $chat) => Chat::fromArray($chat));
@@ -55,7 +63,6 @@ class Giveaway implements Arrayable
         $giveaway->countryCodes = $data['country_codes'] ?? [];
         $giveaway->prizeStarCount = $data['prize_star_count'] ?? null;
         $giveaway->premiumSubscriptionMonthCount = $data['premium_subscription_month_count'] ?? null;
-
 
         return $giveaway;
     }

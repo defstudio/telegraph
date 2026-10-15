@@ -10,4 +10,3 @@ if ($webhookUrl = config('telegraph.webhook_url', config('telegraph.webhook.url'
         ->name('telegraph.webhook');
 
 }
-

@@ -12,19 +12,26 @@ use Illuminate\Contracts\Support\Arrayable;
 class SuccessfulPayment implements Arrayable
 {
     private string $currency;
+
     private int $totalAmount;
+
     private string $invoicePayload;
+
     private ?int $subscriptionExpirationDate = null;
+
     private bool $isRecurring = false;
+
     private bool $isFirstRecurring = false;
+
     private ?string $shippingOptionId = null;
+
     private ?OrderInfo $orderInfo = null;
+
     private string $telegramPaymentChargeId;
+
     private string $providerPaymentChargeId;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -43,7 +50,7 @@ class SuccessfulPayment implements Arrayable
     public static function fromArray(array $data): SuccessfulPayment
     {
 
-        $successfulPayment = new self();
+        $successfulPayment = new self;
 
         $successfulPayment->currency = $data['currency'];
         $successfulPayment->totalAmount = $data['total_amount'];
@@ -52,7 +59,6 @@ class SuccessfulPayment implements Arrayable
         $successfulPayment->invoicePayload = $data['invoice_payload'];
         $successfulPayment->subscriptionExpirationDate = $data['subscription_expiration_date'] ?? null;
         $successfulPayment->shippingOptionId = $data['shipping_option_id'] ?? null;
-
 
         if (isset($data['order_info'])) {
             $successfulPayment->orderInfo = OrderInfo::fromArray($data['order_info']);

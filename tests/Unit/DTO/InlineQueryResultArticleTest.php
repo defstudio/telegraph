@@ -24,7 +24,7 @@ it('can export to array', function () {
             'message_text' => 'testMessage',
             'parse_mode' => 'html',
         ],
-        'id' => "a45",
-        'type' => "article",
+        'id' => 'a45',
+        'type' => 'article',
     ]);
 });

@@ -13,7 +13,7 @@ class TelegraphBotFactory extends Factory
     protected $model = TelegraphBot::class;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function definition(): array
     {

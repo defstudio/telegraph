@@ -11,32 +11,38 @@ use Illuminate\Support\Collection;
 class Poll implements Arrayable
 {
     private string $id;
+
     private string $question;
+
     /** @var Collection<int, Entity>|null */
     private ?Collection $questionEntities = null;
+
     /** @var Collection<int, PollOption> */
     private Collection $options;
+
     private int $totalVoterCount;
+
     private bool $isClosed;
+
     private bool $isAnonymous;
+
     private string $type;
+
     private bool $allowsMultipleAnswers;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
-     * @param array{id:string, question:string,question_entities?: array<object> , options:array<object>, total_voter_count:int, is_closed:bool, is_anonymous:bool, type:string, allows_multiple_answers:bool} $data
+     * @param  array{id:string, question:string,question_entities?: array<object> , options:array<object>, total_voter_count:int, is_closed:bool, is_anonymous:bool, type:string, allows_multiple_answers:bool}  $data
      */
     public static function fromArray(array $data): Poll
     {
-        $poll = new self();
+        $poll = new self;
 
         $poll->id = $data['id'];
         $poll->question = $data['question'];
 
-        if (!empty($data['question_entities'])) {
+        if (! empty($data['question_entities'])) {
             /* @phpstan-ignore-next-line */
             $poll->questionEntities = collect($data['question_entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }

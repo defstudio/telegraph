@@ -11,19 +11,22 @@ use Illuminate\Contracts\Support\Arrayable;
 class Video implements Arrayable, Downloadable
 {
     private string $id;
+
     private int $width;
+
     private int $height;
+
     private int $duration;
 
     private ?string $filename = null;
+
     private ?string $mimeType = null;
+
     private ?int $filesize = null;
 
     private ?Photo $thumbnail = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -39,7 +42,7 @@ class Video implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): Video
     {
-        $video = new self();
+        $video = new self;
 
         $video->id = $data['file_id'];
         $video->width = $data['width'];

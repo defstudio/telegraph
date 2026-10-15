@@ -115,7 +115,7 @@ it('can register commands', function () {
     $bot->registerCommands(['foo' => 'bar'])->send();
 
     Telegraph::assertSentData(
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_REGISTER_BOT_COMMANDS,
+        DefStudio\Telegraph\Telegraph::ENDPOINT_REGISTER_BOT_COMMANDS,
         [
             'commands' => [
                 ['command' => 'foo', 'description' => 'bar'],
@@ -132,7 +132,7 @@ it('can get registered commands', function () {
     $bot->getRegisteredCommands()->send();
 
     Telegraph::assertSentData(
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_GET_REGISTERED_BOT_COMMANDS,
+        DefStudio\Telegraph\Telegraph::ENDPOINT_GET_REGISTERED_BOT_COMMANDS,
         []
     );
 });
@@ -145,7 +145,7 @@ it('can unregister commands', function () {
     $bot->unregisterCommands()->send();
 
     Telegraph::assertSentData(
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_UNREGISTER_BOT_COMMANDS,
+        DefStudio\Telegraph\Telegraph::ENDPOINT_UNREGISTER_BOT_COMMANDS,
         []
     );
 });
@@ -178,7 +178,7 @@ it('can poll for updates', function () {
 
 it('throws an exception if poll failed', function () {
     Telegraph::fake([
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_GET_BOT_UPDATES => [
+        DefStudio\Telegraph\Telegraph::ENDPOINT_GET_BOT_UPDATES => [
             'ok' => false,
             'description' => 'foo',
         ],
@@ -192,7 +192,7 @@ it('throws an exception if poll failed', function () {
 
 it('throws an exception if a webhook is set up', function () {
     Telegraph::fake([
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_GET_BOT_UPDATES => [
+        DefStudio\Telegraph\Telegraph::ENDPOINT_GET_BOT_UPDATES => [
             'ok' => false,
             'description' => "Conflict: can't use getUpdates method while webhook is active; use deleteWebhook to delete the webhook first",
             'error_code' => 409,
@@ -221,7 +221,7 @@ it('can answer to an inline query', function () {
 
     $bot = make_bot();
 
-    $bot->answerInlineQuery("a99", [
+    $bot->answerInlineQuery('a99', [
         InlineQueryResultGif::make(99, 'https://gif.dev', 'https://thumb.gif.test')
             ->caption('foo')
             ->title('bar')
@@ -239,48 +239,48 @@ it('can answer to an inline query', function () {
 
     ])->send();
 
-    Facade::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_ANSWER_INLINE_QUERY, [
-        "inline_query_id" => "a99",
-        "results" => [
+    Facade::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_ANSWER_INLINE_QUERY, [
+        'inline_query_id' => 'a99',
+        'results' => [
             [
-                "gif_url" => "https://gif.dev",
-                "thumbnail_url" => "https://thumb.gif.test",
-                "gif_width" => 300,
-                "gif_height" => 400,
-                "gif_duration" => 200,
-                "title" => "bar",
-                "caption" => "foo",
+                'gif_url' => 'https://gif.dev',
+                'thumbnail_url' => 'https://thumb.gif.test',
+                'gif_width' => 300,
+                'gif_height' => 400,
+                'gif_duration' => 200,
+                'title' => 'bar',
+                'caption' => 'foo',
                 'parse_mode' => 'html',
-                "id" => "99",
-                "type" => "gif",
-                "reply_markup" => [
-                    "inline_keyboard" => [
+                'id' => '99',
+                'type' => 'gif',
+                'reply_markup' => [
+                    'inline_keyboard' => [
                         [
                             [
-                                "text" => "buy",
-                                "callback_data" => "action:buy;id:99",
+                                'text' => 'buy',
+                                'callback_data' => 'action:buy;id:99',
                             ],
                         ],
                     ],
                 ],
             ],
             [
-                "gif_url" => "https://gif2.dev",
-                "thumbnail_url" => "https://thumb.gif2.test",
-                "gif_width" => 1300,
-                "gif_height" => 1400,
-                "gif_duration" => 1200,
-                "title" => "quz",
-                "caption" => "baz",
+                'gif_url' => 'https://gif2.dev',
+                'thumbnail_url' => 'https://thumb.gif2.test',
+                'gif_width' => 1300,
+                'gif_height' => 1400,
+                'gif_duration' => 1200,
+                'title' => 'quz',
+                'caption' => 'baz',
                 'parse_mode' => 'html',
-                "id" => "98",
-                "type" => "gif",
-                "reply_markup" => [
-                    "inline_keyboard" => [
+                'id' => '98',
+                'type' => 'gif',
+                'reply_markup' => [
+                    'inline_keyboard' => [
                         [
                             [
-                                "text" => "buy",
-                                "callback_data" => "action:buy;id:98",
+                                'text' => 'buy',
+                                'callback_data' => 'action:buy;id:98',
                             ],
                         ],
                     ],

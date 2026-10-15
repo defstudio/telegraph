@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    "new_bot" => [
+    'new_bot' => [
         'starting_message' => 'Nieuwe Telegram Bot maken',
         'enter_bot_token' => 'Voer het bot token in',
         'enter_bot_name' => 'Voer de naam van de bot in (optioneel)',
@@ -18,7 +18,7 @@ return [
     ],
 
     'new_chat' => [
-        'starting_message' => "Nieuwe Telegram Chat maken voor bot :bot_name",
+        'starting_message' => 'Nieuwe Telegram Chat maken voor bot :bot_name',
         'enter_chat_id' => 'Voer het chat ID in - druk [x] om te annuleren',
         'enter_chat_name' => 'Voer de naam van de chat in (optioneel)',
         'chat_created' => 'Nieuwe chat :chat_name is gemaakt voor :bot_name',
@@ -26,11 +26,11 @@ return [
 
     'set_webhook' => [
         'sending_setup_request' => 'Webhook setup verzoek versturen naar: :api_url',
-        'webhook_updated' => 'Webhook aangepast'
+        'webhook_updated' => 'Webhook aangepast',
     ],
 
     'unset_webhook' => [
         'sending_unset_request' => 'Webhook verwijder verzoek versturen naar: :api_url',
-        'webhook_deleted' => 'Webhook verwijderd'
+        'webhook_deleted' => 'Webhook verwijderd',
     ],
 ];

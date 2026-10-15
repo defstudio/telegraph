@@ -5,12 +5,12 @@ use DefStudio\Telegraph\DTO\InlineQueryResultPhoto;
 it('can export to array', function () {
     expect(
         InlineQueryResultPhoto::make('a45', 'https://gif.dev', 'https://thumb.gif.dev')
-        ->width(200)
-        ->height(400)
-        ->description('baz')
-        ->title('foo')
-        ->caption('bar')
-        ->toArray()
+            ->width(200)
+            ->height(400)
+            ->description('baz')
+            ->title('foo')
+            ->caption('bar')
+            ->toArray()
     )->toBe([
         'photo_url' => 'https://gif.dev',
         'thumbnail_url' => 'https://thumb.gif.dev',
@@ -20,7 +20,7 @@ it('can export to array', function () {
         'caption' => 'bar',
         'parse_mode' => 'html',
         'description' => 'baz',
-        'id' => "a45",
-        'type' => "photo",
+        'id' => 'a45',
+        'type' => 'photo',
     ]);
 });

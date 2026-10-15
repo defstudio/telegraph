@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Http;
 
 test('custom Bots urls', function () {
 
-    $bot = new class () extends TelegraphBot implements HasCustomUrl {
+    $bot = new class extends TelegraphBot implements HasCustomUrl
+    {
         public function getUrl(): string
         {
             return 'custom_url';

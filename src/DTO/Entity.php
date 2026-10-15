@@ -25,9 +25,7 @@ class Entity implements Arrayable
 
     private ?string $customEmojiId = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -39,12 +37,10 @@ class Entity implements Arrayable
      *     language?: string,
      *     custom_emoji_id?: string
      * } $data
-     *
-     * @return \DefStudio\Telegraph\DTO\Entity
      */
     public static function fromArray(array $data): Entity
     {
-        $entity = new self();
+        $entity = new self;
 
         $entity->type = $data['type'];
         $entity->offset = $data['offset'];

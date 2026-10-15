@@ -14,10 +14,15 @@ class RichBlockTableCell implements Arrayable
 {
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $text;
+
     private bool $isHeader = false;
+
     private ?int $colspan = null;
+
     private ?int $rowspan = null;
+
     private string $align;
+
     private string $valign;
 
     public function __construct()
@@ -37,7 +42,7 @@ class RichBlockTableCell implements Arrayable
      */
     public static function fromArray(array $data): RichBlockTableCell
     {
-        $richBlockTableCell = new self();
+        $richBlockTableCell = new self;
 
         if (isset($data['text'])) {
             $richBlockTableCell->text = app(RichTextFactory::class)->fromData($data['text']);

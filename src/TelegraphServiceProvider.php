@@ -29,7 +29,7 @@ class TelegraphServiceProvider extends PackageServiceProvider
             ->hasCommand(GetTelegramWebhookDebugInfoCommand::class)
             ->hasTranslations();
 
-        $this->app->bind('telegraph', fn () => new Telegraph());
+        $this->app->bind('telegraph', fn () => new Telegraph);
     }
 
     public function packageBooted(): void

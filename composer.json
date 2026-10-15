@@ -26,10 +26,10 @@
     "require-dev": {
         "ext-sqlite3": "*",
         "defstudio/pest-plugin-laravel-expectations": "^2.1.2",
-        "friendsofphp/php-cs-fixer": "^3.13.0",
         "guzzlehttp/guzzle": "^7.8.2 | ^8.0.1",
-        "nunomaduro/collision": "^7.10.0 | ^8.1.1",
         "larastan/larastan": "^1.0.4 | ^2.4.0 | ^3.1.0",
+        "laravel/pint": "^1.32",
+        "nunomaduro/collision": "^7.10.0 | ^8.1.1",
         "orchestra/testbench": "^8.0 | ^9.0 | ^10.0 | ^11.0",
         "pestphp/pest": "^2.34.2 | ^3.7.4 | ^4.1.0",
         "pestphp/pest-plugin-laravel": "^2.3.0 | ^3.1.0 | ^4.1",
@@ -54,13 +54,11 @@
     },
     "scripts": {
         "x-ray": "vendor/bin/x-ray .",
-        "lint": "set PHP_CS_FIXER_IGNORE_ENV=1 && php vendor/bin/php-cs-fixer fix -v",
-        "test:lint": "set PHP_CS_FIXER_IGNORE_ENV=1 && php vendor/bin/php-cs-fixer fix -v --dry-run",
+        "lint": "@php vendor/bin/pint --parallel --ansi",
         "test:types": "vendor/bin/phpstan analyse --ansi --memory-limit=-1",
         "test:unit": "vendor/bin/pest --colors=always --exclude-group=sandbox",
         "test:sandbox": "vendor/bin/pest --colors=always --group=sandbox",
         "test": [
-            "@test:lint",
             "@test:types",
             "@test:unit",
             "@test:sandbox",

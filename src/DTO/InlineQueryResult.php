@@ -7,14 +7,12 @@ use DefStudio\Telegraph\Keyboard\Keyboard;
 abstract class InlineQueryResult
 {
     protected string $type;
+
     protected string $id;
 
+    protected ?Keyboard $keyboard = null;
 
-    protected Keyboard|null $keyboard = null;
-
-    protected function __construct()
-    {
-    }
+    protected function __construct() {}
 
     /**
      * @return array<string, mixed>
@@ -34,8 +32,8 @@ abstract class InlineQueryResult
     public function toArray(): array
     {
         $data = array_filter($this->data(), fn ($value) => $value !== null) + [
-          'id' => $this->id,
-          'type' => $this->type,
+            'id' => $this->id,
+            'type' => $this->type,
         ];
 
         if ($this->keyboard !== null && $this->keyboard->isFilled()) {

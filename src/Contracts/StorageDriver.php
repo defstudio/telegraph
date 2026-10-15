@@ -5,7 +5,7 @@ namespace DefStudio\Telegraph\Contracts;
 interface StorageDriver
 {
     /**
-     * @param string[] $configuration
+     * @param  string[]  $configuration
      */
     public function __construct(string $itemClass, string $itemKey, array $configuration);
 

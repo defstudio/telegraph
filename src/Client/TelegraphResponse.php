@@ -18,12 +18,12 @@ class TelegraphResponse extends Response
 
     public function telegraphError(): bool
     {
-        return !$this->telegraphOk();
+        return ! $this->telegraphOk();
     }
 
-    public function telegraphMessageId(): int|null
+    public function telegraphMessageId(): ?int
     {
-        if (!$this->telegraphOk()) {
+        if (! $this->telegraphOk()) {
             return null;
         }
 

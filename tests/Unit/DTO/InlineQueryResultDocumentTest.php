@@ -21,7 +21,7 @@ it('can export to array', function () {
         'thumbnail_url' => 'testThumbUrl',
         'thumbnail_width' => 400,
         'thumbnail_height' => 200,
-        'id' => "a45",
-        'type' => "document",
+        'id' => 'a45',
+        'type' => 'document',
     ]);
 });

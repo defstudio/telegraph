@@ -13,9 +13,8 @@ class Attachment implements Arrayable
 {
     public function __construct(
         private string $path,
-        private string|null $filename = null,
-    ) {
-    }
+        private ?string $filename = null,
+    ) {}
 
     public function path(): string
     {

@@ -12,21 +12,21 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockSlideshow implements RichBlockItem, Arrayable
+class RichBlockSlideshow implements Arrayable, RichBlockItem
 {
     private const TYPE = 'slideshow';
+
     /** @var Collection<array-key,RichBlockItem> */
     private Collection $blocks;
+
     private ?RichBlockCaption $caption = null;
 
     /**
      * @param  array{
      *     type: string,
-     *     blocks: array<array-key,Object>,
+     *     blocks: array<array-key,object>,
      *     caption?: array<string,mixed>
      * }  $data
-     *
-     * @return RichBlockSlideshow
      */
     public static function fromArray(array $data): RichBlockSlideshow
     {
@@ -34,7 +34,7 @@ class RichBlockSlideshow implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockSlideshow = new self();
+        $richBlockSlideshow = new self;
 
         /* @phpstan-ignore-next-line */
         $richBlockSlideshow->blocks = collect($data['blocks'])->map(fn (array $blockData) => app(RichBlockFactory::class)->fromArray($blockData));

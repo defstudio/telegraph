@@ -13,13 +13,16 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockDetails implements RichBlockItem, Arrayable
+class RichBlockDetails implements Arrayable, RichBlockItem
 {
     private const TYPE = 'details';
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $summary;
+
     /** @var Collection<array-key,RichBlockItem> */
     private Collection $blocks;
+
     private bool $isOpen = false;
 
     public function __construct()
@@ -32,11 +35,9 @@ class RichBlockDetails implements RichBlockItem, Arrayable
      * @param  array{
      *     type: string,
      *     summary: string|array<string ,mixed>,
-     *     blocks: array<array-key,Object>,
+     *     blocks: array<array-key,object>,
      *     is_open?: bool,
      * }  $data
-     *
-     * @return RichBlockDetails
      */
     public static function fromArray(array $data): RichBlockDetails
     {
@@ -44,7 +45,7 @@ class RichBlockDetails implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockDetails = new self();
+        $richBlockDetails = new self;
 
         $richBlockDetails->summary = app(RichTextFactory::class)->fromData($data['summary']);
 

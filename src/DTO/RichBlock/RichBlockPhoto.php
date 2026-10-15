@@ -12,12 +12,15 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockPhoto implements RichBlockItem, Arrayable
+class RichBlockPhoto implements Arrayable, RichBlockItem
 {
     private const TYPE = 'photo';
+
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
+
     private bool $hasSpoiler = false;
+
     private ?RichBlockCaption $caption = null;
 
     /**
@@ -27,8 +30,6 @@ class RichBlockPhoto implements RichBlockItem, Arrayable
      *     has_spoiler?: bool,
      *     caption?: array<string, mixed>
      * }  $data
-     *
-     * @return RichBlockPhoto
      */
     public static function fromArray(array $data): RichBlockPhoto
     {
@@ -36,7 +37,7 @@ class RichBlockPhoto implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockPhoto = new self();
+        $richBlockPhoto = new self;
 
         /* @phpstan-ignore-next-line */
         $richBlockPhoto->photos = collect($data['photo'] ?? [])->map(fn (array $photoData) => Photo::fromArray($photoData));

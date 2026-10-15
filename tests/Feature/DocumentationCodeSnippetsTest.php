@@ -54,7 +54,8 @@ it('documents handling the start command with a custom webhook handler', functio
 
     Telegraph::fake();
 
-    $handler = new class () extends WebhookHandler {
+    $handler = new class extends WebhookHandler
+    {
         public function start(): void
         {
             $this->chat->html('Welcome!')->send();

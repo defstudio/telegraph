@@ -11,11 +11,14 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockVideo implements RichBlockItem, Arrayable
+class RichBlockVideo implements Arrayable, RichBlockItem
 {
     private const TYPE = 'video';
+
     private Video $video;
+
     private bool $hasSpoiler = false;
+
     private ?RichBlockCaption $caption = null;
 
     /**
@@ -25,8 +28,6 @@ class RichBlockVideo implements RichBlockItem, Arrayable
      *     has_spoiler?: bool,
      *     caption?: array<string, mixed>
      * }  $data
-     *
-     * @return RichBlockVideo
      */
     public static function fromArray(array $data): RichBlockVideo
     {
@@ -34,7 +35,7 @@ class RichBlockVideo implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockVideo = new self();
+        $richBlockVideo = new self;
 
         $richBlockVideo->video = Video::fromArray($data['video']);
 

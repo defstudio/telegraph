@@ -11,19 +11,18 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockList implements RichBlockItem, Arrayable
+class RichBlockList implements Arrayable, RichBlockItem
 {
     private const TYPE = 'list';
+
     /** @var Collection<array-key, RichBlockListItem> */
     private Collection $items;
 
     /**
      * @param  array{
      *     type: string,
-     *     items: array<array-key,Object>,
+     *     items: array<array-key,object>,
      * }  $data
-     *
-     * @return RichBlockList
      */
     public static function fromArray(array $data): RichBlockList
     {
@@ -31,7 +30,7 @@ class RichBlockList implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockList = new self();
+        $richBlockList = new self;
 
         /* @phpstan-ignore-next-line */
         $richBlockList->items = collect($data['items'])->map(fn (array $listItem) => RichBlockListItem::fromArray($listItem));
@@ -57,6 +56,6 @@ class RichBlockList implements RichBlockItem, Arrayable
         return array_filter([
             'type' => self::TYPE,
             'items' => $this->items->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

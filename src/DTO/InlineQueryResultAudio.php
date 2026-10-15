@@ -9,17 +9,24 @@ use DefStudio\Telegraph\Telegraph;
 class InlineQueryResultAudio extends InlineQueryResult
 {
     protected string $type = 'audio';
+
     protected string $id;
+
     protected string $url;
+
     protected string $title;
-    protected string|null $caption = null;
-    protected string|null $performer = null;
-    protected int|null $duration = null;
-    protected string|null $parseMode = null;
+
+    protected ?string $caption = null;
+
+    protected ?string $performer = null;
+
+    protected ?int $duration = null;
+
+    protected ?string $parseMode = null;
 
     public static function make(string $id, string $url, string $title): InlineQueryResultAudio
     {
-        $result = new InlineQueryResultAudio();
+        $result = new InlineQueryResultAudio;
         $result->id = $id;
         $result->url = $url;
         $result->title = $title;
@@ -27,21 +34,21 @@ class InlineQueryResultAudio extends InlineQueryResult
         return $result;
     }
 
-    public function caption(string|null $caption): static
+    public function caption(?string $caption): static
     {
         $this->caption = $caption;
 
         return $this;
     }
 
-    public function performer(string|null $performer): static
+    public function performer(?string $performer): static
     {
         $this->performer = $performer;
 
         return $this;
     }
 
-    public function duration(int|null $duration): static
+    public function duration(?int $duration): static
     {
         $this->duration = $duration;
 
@@ -70,7 +77,7 @@ class InlineQueryResultAudio extends InlineQueryResult
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function data(): array
     {

@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 class RichTextHashtag implements RichTextItem
 {
     private const TYPE = 'hashtag';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
+
     private string $hashtag;
 
     public function __construct()
@@ -25,14 +27,12 @@ class RichTextHashtag implements RichTextItem
      *     text: string|array<string ,mixed>,
      *     hashtag: string
      * }  $data
-     *
-     * @return RichTextHashtag
      */
     public static function fromData(string|array $data): RichTextHashtag
     {
-        $richTextHashtag = new self();
+        $richTextHashtag = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -68,6 +68,6 @@ class RichTextHashtag implements RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'hashtag' => $this->hashtag,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

@@ -22,7 +22,7 @@ it('can export to array', function () {
         'video_height' => 200,
         'video_duration' => 10,
         'description' => 'testDescription',
-        'id' => "a45",
-        'type' => "video",
+        'id' => 'a45',
+        'type' => 'video',
     ]);
 });

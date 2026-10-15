@@ -74,11 +74,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextReferenceLink::fromData([
         'type' => 'reference_link',
-        'text' =>
-            [
-                'type' => 'bold',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'bold',
+            'text' => 'Hello world',
+        ],
         'reference_name' => 'test',
 
     ]);

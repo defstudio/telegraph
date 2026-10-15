@@ -12,23 +12,32 @@ use Illuminate\Contracts\Support\Arrayable;
 class Chat implements Arrayable
 {
     public const TYPE_SENDER = 'sender';
+
     public const TYPE_PRIVATE = 'private';
+
     public const TYPE_GROUP = 'group';
+
     public const TYPE_SUPERGROUP = 'supergroup';
+
     public const TYPE_CHANNEL = 'channel';
 
     private string $id;
+
     private string $type;
+
     private ?string $title;
+
     private ?string $username;
+
     private ?string $firstName;
+
     private ?string $lastName;
+
     private bool $isForum = false;
+
     private bool $isDirectMessages = false;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -44,7 +53,7 @@ class Chat implements Arrayable
      */
     public static function fromArray(array $data): Chat
     {
-        $chat = new self();
+        $chat = new self;
 
         $chat->id = $data['id'];
         $chat->type = $data['type'];

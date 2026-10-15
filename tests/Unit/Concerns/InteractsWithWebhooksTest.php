@@ -42,7 +42,7 @@ it('can register a webhook setting its secret token', function () {
 });
 
 it('requires an https url to register a webhook', function () {
-    \DefStudio\Telegraph\Facades\Telegraph::bot(make_bot())->registerWebhook();
+    DefStudio\Telegraph\Facades\Telegraph::bot(make_bot())->registerWebhook();
 })->throws(TelegramWebhookException::class, 'You application must have a secure (https) url in order to accept webhook calls');
 
 it('can unregister a webhook', function () {

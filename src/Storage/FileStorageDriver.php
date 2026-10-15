@@ -16,13 +16,13 @@ class FileStorageDriver extends StorageDriver
     private Filesystem $disk;
 
     /**
-     * @param string[] $configuration
+     * @param  string[]  $configuration
      */
     public function __construct(string $itemClass, string $itemKey, array $configuration)
     {
         $this->file = (string) Str::of($configuration['root'])
             ->append('/', class_basename($itemClass))
-            ->append("/", $itemKey, '.json');
+            ->append('/', $itemKey, '.json');
 
         $this->disk = Storage::disk($configuration['disk'] ?? null);
     }
@@ -46,7 +46,7 @@ class FileStorageDriver extends StorageDriver
     }
 
     /**
-     * @param array<array-key, mixed> $data
+     * @param  array<array-key, mixed>  $data
      */
     private function storeDataInJson(array $data): void
     {

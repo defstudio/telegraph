@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextSubscript::fromData([
         'type' => 'subscript',
-        'text' =>
-            [
-                'type' => 'subscript',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'subscript',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

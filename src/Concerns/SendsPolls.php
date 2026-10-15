@@ -43,8 +43,7 @@ trait SendsPolls
      * to the poll/quiz. If the constraints are violated, it throws a
      * TelegraphPollException with an appropriate message.
      *
-     * @param array<string> $options
-     * @return static
+     * @param  array<string>  $options
      */
     public function options(array $options): static
     {
@@ -54,7 +53,6 @@ trait SendsPolls
         if ((count($telegraph->data['options']) + count($options)) > 12) {
             throw TelegraphPollException::tooManyOptions();
         }
-
 
         foreach ($options as $option_key => $option_val) {
             if (is_string($option_key)) {

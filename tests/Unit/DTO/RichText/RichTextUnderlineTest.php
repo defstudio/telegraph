@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextUnderline::fromData([
         'type' => 'underline',
-        'text' =>
-            [
-                'type' => 'underline',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'underline',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

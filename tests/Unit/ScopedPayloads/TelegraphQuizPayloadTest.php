@@ -8,28 +8,28 @@ use Illuminate\Support\Carbon;
 it('can create a quiz', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->quiz('foo?')
-        ->option('bar')
-        ->option('baz', true)
-        ->option('qux')
+            ->quiz('foo?')
+            ->option('bar')
+            ->option('baz', true)
+            ->option('qux')
     )->toMatchTelegramSnapshot();
 });
 
 it('can disable anonymous answers', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->quiz('foo?')
-        ->option('bar')
-        ->option('baz')
-        ->disableAnonymous()
+            ->quiz('foo?')
+            ->option('bar')
+            ->option('baz')
+            ->disableAnonymous()
     )->toMatchTelegramSnapshot();
 });
 
 it('can allow multiple options to be added in an array', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->quiz('foo?')
-        ->options(['bar' => true, 'baz'])
+            ->quiz('foo?')
+            ->options(['bar' => true, 'baz'])
     )->toMatchTelegramSnapshot();
 });
 
@@ -37,20 +37,20 @@ it('can set quiz validity', function () {
     \Spatie\PestPluginTestTime\testTime()->freeze(Carbon::make('2020-10-03'));
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->quiz('foo?')
-        ->option('bar')
-        ->option('baz')
-        ->validUntil(now()->addSeconds(30))
+            ->quiz('foo?')
+            ->option('bar')
+            ->option('baz')
+            ->validUntil(now()->addSeconds(30))
     )->toMatchTelegramSnapshot();
 });
 
 it('can set answer explanation', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->quiz('foo?')
-        ->option('bar')
-        ->option('baz', true)
-        ->option('qux')
-        ->explanation("quux")
+            ->quiz('foo?')
+            ->option('bar')
+            ->option('baz', true)
+            ->option('qux')
+            ->explanation('quux')
     )->toMatchTelegramSnapshot();
 });

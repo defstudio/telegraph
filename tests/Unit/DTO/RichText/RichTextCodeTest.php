@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextCode::fromData([
         'type' => 'code',
-        'text' =>
-            [
-                'type' => 'code',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'code',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

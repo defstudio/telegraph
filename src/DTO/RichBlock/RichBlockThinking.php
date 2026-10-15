@@ -12,9 +12,10 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockThinking implements RichBlockItem, Arrayable
+class RichBlockThinking implements Arrayable, RichBlockItem
 {
     private const TYPE = 'thinking';
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $text;
 
@@ -23,8 +24,6 @@ class RichBlockThinking implements RichBlockItem, Arrayable
      *     type: string,
      *     text: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichBlockThinking
      */
     public static function fromArray(array $data): RichBlockThinking
     {
@@ -32,7 +31,7 @@ class RichBlockThinking implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockThinking = new self();
+        $richBlockThinking = new self;
 
         $richBlockThinking->text = app(RichTextFactory::class)->fromData($data['text']);
 
@@ -59,6 +58,6 @@ class RichBlockThinking implements RichBlockItem, Arrayable
             'text' => $this->text instanceof RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

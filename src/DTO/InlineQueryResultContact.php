@@ -9,20 +9,30 @@ use DefStudio\Telegraph\Telegraph;
 class InlineQueryResultContact extends InlineQueryResult
 {
     protected string $type = 'contact';
-    protected string $id;
-    protected string $phoneNumber;
-    protected string $firstName;
-    protected string|null $message = null;
-    protected int|null $thumbWidth = null;
-    protected int|null $thumbHeight = null;
-    protected string|null $lastName = null;
-    protected string|null $vcard = null;
-    protected string|null $thumbUrl = null;
-    protected string|null $parseMode = null;
 
-    public static function make(string $id, string $phoneNumber, string $firstName, string|null $message = null): InlineQueryResultContact
+    protected string $id;
+
+    protected string $phoneNumber;
+
+    protected string $firstName;
+
+    protected ?string $message = null;
+
+    protected ?int $thumbWidth = null;
+
+    protected ?int $thumbHeight = null;
+
+    protected ?string $lastName = null;
+
+    protected ?string $vcard = null;
+
+    protected ?string $thumbUrl = null;
+
+    protected ?string $parseMode = null;
+
+    public static function make(string $id, string $phoneNumber, string $firstName, ?string $message = null): InlineQueryResultContact
     {
-        $result = new InlineQueryResultContact();
+        $result = new InlineQueryResultContact;
         $result->id = $id;
         $result->phoneNumber = $phoneNumber;
         $result->firstName = $firstName;
@@ -31,35 +41,35 @@ class InlineQueryResultContact extends InlineQueryResult
         return $result;
     }
 
-    public function thumbWidth(int|null $thumbWidth): static
+    public function thumbWidth(?int $thumbWidth): static
     {
         $this->thumbWidth = $thumbWidth;
 
         return $this;
     }
 
-    public function thumbHeight(int|null $thumbHeight): static
+    public function thumbHeight(?int $thumbHeight): static
     {
         $this->thumbHeight = $thumbHeight;
 
         return $this;
     }
 
-    public function lastName(string|null $lastName): static
+    public function lastName(?string $lastName): static
     {
         $this->lastName = $lastName;
 
         return $this;
     }
 
-    public function vcard(string|null $vcard): static
+    public function vcard(?string $vcard): static
     {
         $this->vcard = $vcard;
 
         return $this;
     }
 
-    public function thumbUrl(string|null $thumbUrl): static
+    public function thumbUrl(?string $thumbUrl): static
     {
         $this->thumbUrl = $thumbUrl;
 
@@ -88,7 +98,7 @@ class InlineQueryResultContact extends InlineQueryResult
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function data(): array
     {

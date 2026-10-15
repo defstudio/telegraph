@@ -19,9 +19,7 @@ class Invoice implements Arrayable
 
     public int $totalAmount;
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * @param array{
@@ -34,7 +32,7 @@ class Invoice implements Arrayable
      */
     public static function fromArray(array $data): Invoice
     {
-        $invoice = new self();
+        $invoice = new self;
 
         $invoice->title = $data['title'];
         $invoice->description = $data['description'];
@@ -78,6 +76,6 @@ class Invoice implements Arrayable
             'start_parameter' => $this->startParameter,
             'currency' => $this->currency,
             'total_amount' => $this->totalAmount,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

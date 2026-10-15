@@ -25,7 +25,7 @@ it('can export to array', function () {
         'thumbnail_width' => 200,
         'thumbnail_height' => 100,
         'horizontal_accuracy' => 10.5,
-        'id' => "a45",
-        'type' => "location",
+        'id' => 'a45',
+        'type' => 'location',
     ]);
 });

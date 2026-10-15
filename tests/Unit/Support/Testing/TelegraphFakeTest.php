@@ -7,8 +7,8 @@ use PHPUnit\Framework\ExpectationFailedException;
 
 it('can return a custom response', function () {
     Telegraph::fake([
-       \DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => ['result' => 'oooook'],
-   ]);
+        DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => ['result' => 'oooook'],
+    ]);
 
     $bot = make_bot();
 
@@ -48,7 +48,6 @@ it('asserts a partial message is sent', function () {
 it('fails if exact message sent check is found partially', function () {
     Telegraph::fake();
     $bot = make_bot();
-
 
     Telegraph::chat($bot->chats->first())->message('foo bar baz')->send();
 

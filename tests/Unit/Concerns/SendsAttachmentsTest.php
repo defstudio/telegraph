@@ -96,7 +96,7 @@ it('can attach a keyboard to a document', function () {
     })->toMatchTelegramSnapshot();
 });
 
-test('documents are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
+test('documents are validated', function (string $file, bool $valid, ?string $exception = null, ?string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -156,7 +156,7 @@ it('can attach a thumbnail', function () {
     })->toMatchUtf8TelegramSnapshot();
 });
 
-test('thumbnails are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
+test('thumbnails are validated', function (string $file, bool $valid, ?string $exception = null, ?string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -403,8 +403,7 @@ it('can send a Rich Message', function () {
         ->toMatchUtf8TelegramSnapshot();
 });
 
-
-test('photos are validated', function (string $file, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
+test('photos are validated', function (string $file, bool $valid, ?string $exception = null, ?string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
@@ -449,7 +448,7 @@ test('photos are validated', function (string $file, bool $valid, string $except
         'file' => 'invalid_photo_ratio_thin.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => "Ratio of height and width (22.222222) exceeds max allowed ratio of 20.000000",
+        'message' => 'Ratio of height and width (22.222222) exceeds max allowed ratio of 20.000000',
     ],
     'valid custom ratio' => [
         'file' => 'invalid_photo_ratio_thin.jpg',
@@ -464,7 +463,7 @@ test('photos are validated', function (string $file, bool $valid, string $except
         'file' => 'photo.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => "Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000",
+        'message' => 'Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000',
         'customConfigs' => [
             'telegraph.attachments.photo.max_ratio' => 0.99,
         ],
@@ -546,7 +545,7 @@ it('can attach a keyboard to a voice', function () {
     )->toMatchUtf8TelegramSnapshot();
 });
 
-test('voices are validated', function (string $file, bool $valid, string $exception = null, string $message = null) {
+test('voices are validated', function (string $file, bool $valid, ?string $exception = null, ?string $message = null) {
     if ($valid) {
         expect(make_chat()->voice(Storage::path($file)))
             ->toBeInstanceOf(Telegraph::class);

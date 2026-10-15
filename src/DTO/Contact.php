@@ -10,21 +10,23 @@ use Illuminate\Contracts\Support\Arrayable;
 class Contact implements Arrayable
 {
     private string $phone_number;
+
     private string $first_name;
+
     private ?string $last_name;
+
     private ?int $user_id = null;
+
     private ?string $vcard = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
-     * @param array{phone_number: string, first_name?: string, last_name?: string, user_id?: int, vcard?: string} $data
+     * @param  array{phone_number: string, first_name?: string, last_name?: string, user_id?: int, vcard?: string}  $data
      */
     public static function fromArray(array $data): Contact
     {
-        $contact = new self();
+        $contact = new self;
 
         $contact->phone_number = $data['phone_number'];
         $contact->first_name = $data['first_name'] ?? '';

@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    "new_bot" => [
+    'new_bot' => [
         'starting_message' => 'You are about to create a new Telegram Bot',
         'enter_bot_token' => 'Please, enter the bot token',
         'enter_bot_name' => 'Enter the bot name (optional)',
@@ -18,7 +18,7 @@ return [
     ],
 
     'new_chat' => [
-        'starting_message' => "You are about to create a new Telegram Chat for bot :bot_name",
+        'starting_message' => 'You are about to create a new Telegram Chat for bot :bot_name',
         'enter_chat_id' => 'Enter the chat ID - press [x] to abort',
         'enter_chat_name' => 'Enter the chat name (optional)',
         'chat_created' => 'New chat :chat_name has been create for bot :bot_name',
@@ -26,11 +26,11 @@ return [
 
     'set_webhook' => [
         'sending_setup_request' => 'Sending webhook setup request to: :api_url',
-        'webhook_updated' => 'Webhook updated'
+        'webhook_updated' => 'Webhook updated',
     ],
 
     'unset_webhook' => [
         'sending_unset_request' => 'Sending webhook unset request to: :api_url',
-        'webhook_deleted' => 'Webhook deleted'
+        'webhook_deleted' => 'Webhook deleted',
     ],
 ];

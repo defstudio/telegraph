@@ -74,11 +74,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextEmailAddress::fromData([
         'type' => 'email_address',
-        'text' =>
-            [
-                'type' => 'bold',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'bold',
+            'text' => 'Hello world',
+        ],
         'email_address' => 'test',
 
     ]);

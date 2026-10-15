@@ -12,11 +12,13 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockSectionHeading implements RichBlockItem, Arrayable
+class RichBlockSectionHeading implements Arrayable, RichBlockItem
 {
     private const TYPE = 'heading';
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $text;
+
     private int $size;
 
     /**
@@ -25,8 +27,6 @@ class RichBlockSectionHeading implements RichBlockItem, Arrayable
      *     text: string|array<string ,mixed>,
      *     size: int
      * }  $data
-     *
-     * @return RichBlockSectionHeading
      */
     public static function fromArray(array $data): RichBlockSectionHeading
     {
@@ -34,7 +34,7 @@ class RichBlockSectionHeading implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockSectionHeading = new self();
+        $richBlockSectionHeading = new self;
 
         $richBlockSectionHeading->text = app(RichTextFactory::class)->fromData($data['text']);
 
@@ -69,6 +69,6 @@ class RichBlockSectionHeading implements RichBlockItem, Arrayable
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'size' => $this->size,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

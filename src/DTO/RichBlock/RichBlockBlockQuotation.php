@@ -13,11 +13,13 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockBlockQuotation implements RichBlockItem, Arrayable
+class RichBlockBlockQuotation implements Arrayable, RichBlockItem
 {
     private const TYPE = 'blockquote';
+
     /** @var Collection<array-key,RichBlockItem> */
     private Collection $blocks;
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $credit;
 
@@ -30,11 +32,9 @@ class RichBlockBlockQuotation implements RichBlockItem, Arrayable
     /**
      * @param  array{
      *     type: string,
-     *     blocks: array<array-key,Object>,
+     *     blocks: array<array-key,object>,
      *     credit?: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichBlockBlockQuotation
      */
     public static function fromArray(array $data): RichBlockBlockQuotation
     {
@@ -42,7 +42,7 @@ class RichBlockBlockQuotation implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockBlockQuotation = new self();
+        $richBlockBlockQuotation = new self;
 
         /* @phpstan-ignore-next-line */
         $richBlockBlockQuotation->blocks = collect($data['blocks'])->map(fn (array $blockData) => app(RichBlockFactory::class)->fromArray($blockData));
@@ -83,6 +83,6 @@ class RichBlockBlockQuotation implements RichBlockItem, Arrayable
             'credit' => $this->credit instanceof RichTextItem
                 ? $this->credit->build()
                 : $this->credit->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

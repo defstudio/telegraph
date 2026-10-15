@@ -10,9 +10,12 @@ use Illuminate\Support\Collection;
 class RichTextDateTime implements RichTextItem
 {
     private const TYPE = 'date_time';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
+
     private int $unixTime;
+
     private string $dateTimeFormat;
 
     public function __construct()
@@ -27,14 +30,12 @@ class RichTextDateTime implements RichTextItem
      *     unix_time: int,
      *     date_time_format: string
      * }  $data
-     *
-     * @return RichTextDateTime
      */
     public static function fromData(string|array $data): RichTextDateTime
     {
-        $richTextDateTime = new self();
+        $richTextDateTime = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -79,6 +80,6 @@ class RichTextDateTime implements RichTextItem
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'unix_time' => $this->unixTime,
             'date_time_format' => $this->dateTimeFormat,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

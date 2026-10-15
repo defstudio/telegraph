@@ -4,7 +4,6 @@
 
 /** @noinspection LaravelFunctionsInspection */
 
-
 use DefStudio\Telegraph\Enums\ChatActions;
 use DefStudio\Telegraph\Enums\ChatAdminPermissions;
 use DefStudio\Telegraph\Enums\ChatPermissions;
@@ -32,19 +31,19 @@ it('can customize the destination bot through its token', function () {
     $telegraph = Telegraph::bot('TOKEN')
         ->registerWebhook();
 
-    expect($telegraph->getApiUrl())->toStartWith("https://api.telegram.org/botTOKEN/");
+    expect($telegraph->getApiUrl())->toStartWith('https://api.telegram.org/botTOKEN/');
 });
 
 it('can customize the destination chat', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->html('foobar');
     })->toMatchTelegramSnapshot();
 });
 
 it('can customize the destination chat through its ID', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        return $telegraph->chat("123456789")
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat('123456789')
             ->html('foobar');
     })->toMatchTelegramSnapshot();
 });
@@ -59,78 +58,78 @@ it('can retrieve bot info', function () {
 
 it('can retrieve bot info from its token', function () {
     Telegraph::fake();
-    $response = Telegraph::bot("3f3814e1-5836-3d77-904e-60f64b15df36")->botInfo()->send();
+    $response = Telegraph::bot('3f3814e1-5836-3d77-904e-60f64b15df36')->botInfo()->send();
     expect($response->json('result'))->toMatchSnapshot();
 });
 
 it('can leave a chat', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->leaveChat();
     })->toMatchTelegramSnapshot();
 });
 
 it('can send a chat action', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->chatAction(ChatActions::TYPING);
     })->toMatchTelegramSnapshot();
 });
 
 it('can change chat title', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        return $telegraph->chat("-123456789")->setTitle('foo');
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat('-123456789')->setTitle('foo');
     })->toMatchTelegramSnapshot();
 });
 
 test('chat title cannot be empty', function () {
-    Telegraph::chat(make_chat())->setTitle("");
+    Telegraph::chat(make_chat())->setTitle('');
 })->throws(ChatSettingsException::class, 'Telegram Chat title cannot be empty');
 
 test('chat title cannot overflow 255 chars', function () {
     Telegraph::chat(make_chat())->setTitle(str_repeat('a', 256));
-})->throws(ChatSettingsException::class, "Telegram Chat title max length (255) exceeded");
+})->throws(ChatSettingsException::class, 'Telegram Chat title max length (255) exceeded');
 
 it('can change chat description', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->setDescription('bar');
     })->toMatchTelegramSnapshot();
 });
 
 it('can change a message reaction', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->setMessageReaction(100, ['type' => 'emoji', 'emoji' => '👍']);
     })->toMatchTelegramSnapshot();
 });
 
 it('can change a message reaction with emoji', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->reactWithEmoji(100, '👍');
     })->toMatchTelegramSnapshot();
 });
 
 it('can change a message reaction with custom emoji', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->reactWithCustomEmoji(100, '12312');
     })->toMatchTelegramSnapshot();
 });
 
 test('chat description cannot overflow 255 chars', function () {
     Telegraph::chat(make_chat())->setDescription(str_repeat('a', 256));
-})->throws(ChatSettingsException::class, "Telegram Chat description max length (255) exceeded");
+})->throws(ChatSettingsException::class, 'Telegram Chat description max length (255) exceeded');
 
 it('can change chat photo', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->setChatPhoto(Storage::path('photo.jpg'));
     })->toMatchUtf8TelegramSnapshot();
 });
 
-test('photo is validated', function (string $fileName, bool $valid, string $exception = null, string $message = null, array $customConfigs = []) {
+test('photo is validated', function (string $fileName, bool $valid, ?string $exception = null, ?string $message = null, array $customConfigs = []) {
     foreach ($customConfigs as $key => $value) {
         Config::set($key, $value);
     }
 
     if ($valid) {
         expect(make_chat()->setChatPhoto(Storage::path($fileName)))
-            ->toBeInstanceOf(\DefStudio\Telegraph\Telegraph::class);
+            ->toBeInstanceOf(DefStudio\Telegraph\Telegraph::class);
     } else {
         expect(fn () => make_chat()->photo(Storage::path($fileName)))
             ->toThrow($exception, $message);
@@ -168,7 +167,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'fileName' => 'invalid_photo_ratio_thin.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => "Ratio of height and width (22.222222) exceeds max allowed ratio of 20.000000",
+        'message' => 'Ratio of height and width (22.222222) exceeds max allowed ratio of 20.000000',
     ],
     'valid custom ratio' => [
         'fileName' => 'invalid_photo_ratio_thin.jpg',
@@ -183,7 +182,7 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
         'fileName' => 'photo.jpg',
         'valid' => false,
         'exception' => FileException::class,
-        'message' => "Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000",
+        'message' => 'Ratio of height and width (1.000000) exceeds max allowed ratio of 0.990000',
         'customConfigs' => [
             'telegraph.attachments.photo.max_ratio' => 0.99,
         ],
@@ -215,43 +214,43 @@ test('photo is validated', function (string $fileName, bool $valid, string $exce
 ]);
 
 it('can delete chat photo', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->deleteChatPhoto();
     })->toMatchTelegramSnapshot();
 });
 
 it('can retrieve chat info', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->chatInfo();
     })->toMatchTelegramSnapshot();
 });
 
 it('can retrieve chat member count', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->chatMemberCount();
     })->toMatchTelegramSnapshot();
 });
 
 it('can retrieve a chat member', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->chatMember('123456');
     })->toMatchTelegramSnapshot();
 });
 
 it('can retrieve a chat administrators', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->chatAdministrators();
     })->toMatchTelegramSnapshot();
 });
 
 it('can generate a chat primary invite link', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->generateChatPrimaryInviteLink();
     })->toMatchTelegramSnapshot();
 });
 
 it('can create a chat invite link', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())->createChatInviteLink();
     })->toMatchTelegramSnapshot();
 });
@@ -259,7 +258,7 @@ it('can create a chat invite link', function () {
 it('can create a chat invite link with expiration', function () {
     testTime()->freeze('2021-01-02 12:34:56');
 
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->createChatInviteLink()
             ->expire(today()->addDay());
@@ -267,7 +266,7 @@ it('can create a chat invite link with expiration', function () {
 });
 
 it('can create a chat invite link with name', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->createChatInviteLink()
             ->name('foo');
@@ -275,7 +274,7 @@ it('can create a chat invite link with name', function () {
 });
 
 it('can create a chat invite link with member limit', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->createChatInviteLink()
             ->memberLimit(42);
@@ -283,7 +282,7 @@ it('can create a chat invite link with member limit', function () {
 });
 
 it('can create a chat invite link with a join request', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->createChatInviteLink()
             ->withJoinRequest();
@@ -291,54 +290,54 @@ it('can create a chat invite link with a join request', function () {
 });
 
 it('can edit a chat invite link', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
-        return $telegraph->chat(make_chat())->editChatInviteLink("https://t.me/123456");
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
+        return $telegraph->chat(make_chat())->editChatInviteLink('https://t.me/123456');
     })->toMatchTelegramSnapshot();
 });
 
 it('can edit a chat invite link with expiration', function () {
     testTime()->freeze('2021-01-02 12:34:56');
 
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
-            ->editChatInviteLink("https://t.me/123456")
+            ->editChatInviteLink('https://t.me/123456')
             ->expire(today()->addDay());
     })->toMatchTelegramSnapshot();
 });
 
 it('can edit a chat invite link with name', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
-            ->editChatInviteLink("https://t.me/123456")
+            ->editChatInviteLink('https://t.me/123456')
             ->name('foo');
     })->toMatchTelegramSnapshot();
 });
 
 it('can edit a chat invite link with member limit', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
-            ->editChatInviteLink("https://t.me/123456")
+            ->editChatInviteLink('https://t.me/123456')
             ->memberLimit(42);
     })->toMatchTelegramSnapshot();
 });
 
 it('can edit a chat invite link with a join request', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
-            ->editChatInviteLink("https://t.me/123456")
+            ->editChatInviteLink('https://t.me/123456')
             ->withJoinRequest();
     })->toMatchTelegramSnapshot();
 });
 
 it('can revoke a chat invite link', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
-            ->revokeChatInviteLink("https://t.me/123456");
+            ->revokeChatInviteLink('https://t.me/123456');
     })->toMatchTelegramSnapshot();
 });
 
 it('can set chat permissions', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->setChatPermissions([
                 ChatPermissions::CAN_INVITE_USERS,
@@ -350,21 +349,21 @@ it('can set chat permissions', function () {
 });
 
 it('can approve a chat join request', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->approveChatJoinRequest(123456);
     })->toMatchTelegramSnapshot();
 });
 
 it('can decline a chat join request', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->declineChatJoinRequest(123456);
     })->toMatchTelegramSnapshot();
 });
 
 it('can ban a chat member', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->banChatMember(123456);
     })->toMatchTelegramSnapshot();
@@ -373,7 +372,7 @@ it('can ban a chat member', function () {
 it('can ban a chat member until a given date', function () {
     testTime()->freeze('2021-01-02 12:34:56');
 
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->banChatMember(123456)
             ->until(now()->addDay());
@@ -381,7 +380,7 @@ it('can ban a chat member until a given date', function () {
 });
 
 it('can ban a chat member and remove all his messages', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->banChatMember(123456)
             ->andRevokeMessages();
@@ -389,14 +388,14 @@ it('can ban a chat member and remove all his messages', function () {
 });
 
 it('can unban a chat member', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->unbanChatMember(123456);
     })->toMatchTelegramSnapshot();
 });
 
 it('can restrict a chat member', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->restrictChatMember(123456, [
                 ChatPermissions::CAN_PIN_MESSAGES => false,
@@ -409,7 +408,7 @@ it('can restrict a chat member', function () {
 it('can restrict a chat member until a given date', function () {
     testTime()->freeze('2021-01-02 12:34:56');
 
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->restrictChatMember(123456, [
                 ChatPermissions::CAN_PIN_MESSAGES => false,
@@ -420,7 +419,7 @@ it('can restrict a chat member until a given date', function () {
 });
 
 it('can promote a chat member', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->promoteChatMember(123456, [
                 ChatAdminPermissions::CAN_PIN_MESSAGES => false,
@@ -431,63 +430,63 @@ it('can promote a chat member', function () {
 });
 
 it('can demote a chat member', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->demoteChatMember(123456);
     })->toMatchTelegramSnapshot();
 });
 
 it('can restore default chat menu button', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->setChatMenuButton()->default();
     })->toMatchTelegramSnapshot();
 });
 
 it('can set commands chat menu button', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->setChatMenuButton()->commands();
     })->toMatchTelegramSnapshot();
 });
 
 it('can set commands bot menu button', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph
             ->setChatMenuButton()->commands();
     })->toMatchTelegramSnapshot();
 });
 
 it('can set web app chat menu button', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
-            ->setChatMenuButton()->webApp("VISIT", "https://my-web.app");
+            ->setChatMenuButton()->webApp('VISIT', 'https://my-web.app');
     })->toMatchTelegramSnapshot();
 });
 
 it('can retrieve chat menu button', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->chatMenuButton();
     })->toMatchTelegramSnapshot();
 });
 
 it('can create forum topic', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->createForumTopic('test name', 7322096, 'emoji_id');
     })->toMatchTelegramSnapshot();
 });
 
 it('can edit forum topic', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->editForumTopic(threadId: 123456, name: 'new test name', iconCustomEmojiId: 'emoji_id');
     })->toMatchTelegramSnapshot();
 });
 
 it('can edit forum topic with in thread', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->inThread(123456)
             ->editForumTopic(name: 'new test name', iconCustomEmojiId: 'emoji_id');
@@ -495,14 +494,14 @@ it('can edit forum topic with in thread', function () {
 });
 
 it('can close forum topic', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->closeForumTopic(threadId: 123456);
     })->toMatchTelegramSnapshot();
 });
 
 it('can close forum topic with in thread', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->inThread(123456)
             ->closeForumTopic();
@@ -510,14 +509,14 @@ it('can close forum topic with in thread', function () {
 });
 
 it('can reopen forum topic', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->reopenForumTopic(threadId: 123456);
     })->toMatchTelegramSnapshot();
 });
 
 it('can reopen forum topic with in thread', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->inThread(123456)
             ->reopenForumTopic();
@@ -525,14 +524,14 @@ it('can reopen forum topic with in thread', function () {
 });
 
 it('can delete forum topic', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->deleteForumTopic(threadId: 123456);
     })->toMatchTelegramSnapshot();
 });
 
 it('can delete forum topic with in thread', function () {
-    expect(function (\DefStudio\Telegraph\Telegraph $telegraph) {
+    expect(function (DefStudio\Telegraph\Telegraph $telegraph) {
         return $telegraph->chat(make_chat())
             ->inThread(123456)
             ->deleteForumTopic();

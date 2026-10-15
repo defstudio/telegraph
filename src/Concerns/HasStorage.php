@@ -9,7 +9,7 @@ use DefStudio\Telegraph\Exceptions\StorageException;
 
 trait HasStorage
 {
-    public function storage(string|null $driver = null): StorageDriver
+    public function storage(?string $driver = null): StorageDriver
     {
         $driver ??= config('telegraph.storage.default');
 
@@ -18,9 +18,7 @@ trait HasStorage
             throw StorageException::noDefaultDriver();
         }
 
-
         $config = config("telegraph.storage.stores.$driver");
-
 
         if ($config === null) {
             throw StorageException::driverNotFound($driver);

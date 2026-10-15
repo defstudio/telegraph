@@ -11,18 +11,20 @@ use Illuminate\Contracts\Support\Arrayable;
 class Audio implements Arrayable, Downloadable
 {
     private string $id;
+
     private int $duration;
 
     private ?string $title = null;
+
     private ?string $filename = null;
+
     private ?string $mimeType = null;
+
     private ?int $filesize = null;
 
     private ?Photo $thumbnail = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -37,7 +39,7 @@ class Audio implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): Audio
     {
-        $audio = new self();
+        $audio = new self;
 
         $audio->id = $data['file_id'];
         $audio->duration = $data['duration'];

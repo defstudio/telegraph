@@ -6,8 +6,6 @@ interface RichTextItem
 {
     /**
      * @param  string|array<string,mixed>  $data
-     *
-     * @return self
      */
     public static function fromData(string|array $data): self;
 

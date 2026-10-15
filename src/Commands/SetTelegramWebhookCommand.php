@@ -37,7 +37,7 @@ class SetTelegramWebhookCommand extends Command
         $maxConnections = $this->option('max-connections');
         $secret = $this->option('secret');
 
-        /* @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line */
         $telegraph = $bot->registerWebhook($dropPendingUpdates, $maxConnections, $secret);
 
         $this->info(__('telegraph::commands.set_webhook.sending_setup_request', ['api_url' => $telegraph->getApiUrl()]));
@@ -46,7 +46,7 @@ class SetTelegramWebhookCommand extends Command
 
         $ok = (bool) $reponse->json('ok');
 
-        if (!$ok) {
+        if (! $ok) {
             $this->error(__('telegraph::errors.failed_to_register_webhook'));
             $this->error($reponse->body());
 

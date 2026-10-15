@@ -21,7 +21,8 @@ use Illuminate\Support\Str;
 
 test('custom Bots urls', function () {
 
-    $bot = new class () extends TelegraphBot implements HasCustomUrl {
+    $bot = new class extends TelegraphBot implements HasCustomUrl
+    {
         public function getUrl(): string
         {
             return 'custom_url';
@@ -90,7 +91,7 @@ it('can replace a keyboard', function () {
         Button::make('test')->url('aaa'),
     ]))->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REPLACE_KEYBOARD, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_REPLACE_KEYBOARD, [
         'reply_markup' => [
             'inline_keyboard' => [
                 [
@@ -107,7 +108,7 @@ it('can delete a keyboard', function () {
 
     $chat->deleteKeyboard(123456)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REPLACE_KEYBOARD, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_REPLACE_KEYBOARD, [
         'reply_markup' => '',
     ]);
 });
@@ -118,7 +119,7 @@ it('can set a chat action', function () {
 
     $chat->action(ChatActions::UPLOAD_DOCUMENT)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CHAT_ACTION, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CHAT_ACTION, [
         'chat_id' => $chat->chat_id,
         'action' => 'upload_document',
     ]);
@@ -130,7 +131,7 @@ it('can send a document', function () {
 
     $chat->document(Storage::path('test.txt'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+    Telegraph::assertSentFiles(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
         'document' => new Attachment(Storage::path('test.txt'), 'test.txt'),
     ]);
 });
@@ -141,7 +142,7 @@ it('can send a document from remote url', function () {
 
     $chat->document('https://test.dev/document.pdf')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
         'document' => 'https://test.dev/document.pdf',
     ]);
 });
@@ -154,7 +155,7 @@ it('can send a document from file_id', function () {
 
     $chat->document($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_DOCUMENT, [
         'document' => $uuid,
     ]);
 });
@@ -165,7 +166,7 @@ it('can send a photo', function () {
 
     $chat->photo(Storage::path('photo.jpg'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+    Telegraph::assertSentFiles(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
         'photo' => new Attachment(Storage::path('photo.jpg'), 'photo.jpg'),
     ]);
 });
@@ -176,7 +177,7 @@ it('can send a photo from remote url', function () {
 
     $chat->photo('https://test.dev/photo.jpg')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
         'photo' => 'https://test.dev/photo.jpg',
     ]);
 });
@@ -189,7 +190,7 @@ it('can send a photo from file_id', function () {
 
     $chat->photo($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_PHOTO, [
         'photo' => $uuid,
     ]);
 });
@@ -200,7 +201,7 @@ it('can send an animation', function () {
 
     $chat->animation(Storage::path('gif.gif'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+    Telegraph::assertSentFiles(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => new Attachment(Storage::path('gif.gif'), 'gif.gif'),
     ]);
 });
@@ -211,7 +212,7 @@ it('can send a contact', function () {
 
     $chat->contact('3331122333', 'testFirstName')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CONTACT, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_CONTACT, [
         'phone_number' => '3331122333',
         'first_name' => 'testFirstName',
     ], false);
@@ -223,7 +224,7 @@ it('can send a animation from remote url', function () {
 
     $chat->animation('https://test.dev/gif.gif')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => 'https://test.dev/gif.gif',
     ]);
 });
@@ -236,7 +237,7 @@ it('can send a animation from file_id', function () {
 
     $chat->animation($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_ANIMATION, [
         'animation' => $uuid,
     ]);
 });
@@ -247,11 +248,10 @@ it('can send a video', function () {
 
     $chat->video(Storage::path('video.mp4'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    Telegraph::assertSentFiles(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => new Attachment(Storage::path('video.mp4'), 'video.mp4'),
     ]);
 });
-
 
 it('can send a video from remote url', function () {
     Telegraph::fake();
@@ -259,7 +259,7 @@ it('can send a video from remote url', function () {
 
     $chat->video('https://test.dev/video.mp4')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => 'https://test.dev/video.mp4',
     ]);
 });
@@ -272,7 +272,7 @@ it('can send a video from file_id', function () {
 
     $chat->video($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => $uuid,
     ]);
 });
@@ -283,7 +283,7 @@ it('can send an audio', function () {
 
     $chat->audio(Storage::path('audio.mp3'))->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+    Telegraph::assertSentFiles(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
         'audio' => new Attachment(Storage::path('audio.mp3'), 'audio.mp3'),
     ]);
 });
@@ -294,7 +294,7 @@ it('can send an audio from remote url', function () {
 
     $chat->audio('https://test.dev/audio.mp3')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
         'audio' => 'https://test.dev/audio.mp3',
     ]);
 });
@@ -307,7 +307,7 @@ it('can send an audio from file_id', function () {
 
     $chat->audio($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_AUDIO, [
         'audio' => $uuid,
     ]);
 });
@@ -318,7 +318,7 @@ it('can send a sticker', function () {
 
     $chat->sticker(Storage::path('sticker.tgs'))->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
+    Telegraph::assertSentFiles(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
         'sticker' => new Attachment(Storage::path('sticker.tgs'), 'sticker.tgs'),
     ]);
 });
@@ -329,7 +329,7 @@ it('can send a sticker from remote url', function () {
 
     $chat->sticker('https://test.dev/sticker.tgs')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
         'sticker' => 'https://test.dev/sticker.tgs',
     ]);
 });
@@ -342,11 +342,10 @@ it('can send a sticker from file_id', function () {
 
     $chat->sticker($uuid)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_STICKER, [
         'sticker' => $uuid,
     ]);
 });
-
 
 it('can send a voice', function () {
     Telegraph::fake();
@@ -354,7 +353,7 @@ it('can send a voice', function () {
 
     $chat->voice(Storage::path('voice.ogg'), 'test')->markdown('test')->send();
 
-    Telegraph::assertSentFiles(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+    Telegraph::assertSentFiles(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
         'voice' => new Attachment(Storage::path('voice.ogg'), 'test'),
     ]);
 });
@@ -365,7 +364,7 @@ it('can send a voice from remote url', function () {
 
     $chat->voice('https://test.dev/voice.ogg')->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
         'voice' => 'https://test.dev/voice.ogg',
     ]);
 });
@@ -378,7 +377,7 @@ it('can send a voice from file_id', function () {
 
     $chat->voice($uuid)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VOICE, [
         'voice' => $uuid,
     ]);
 });
@@ -389,7 +388,7 @@ it('can edit a message caption', function () {
 
     $chat->editCaption(42)->markdown('test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_CAPTION, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_CAPTION, [
         'message_id' => 42,
         'caption' => 'test',
     ], false);
@@ -446,7 +445,7 @@ it('can delete a message', function () {
 
     $chat->deleteMessage(42)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_MESSAGE, [
         'message_id' => 42,
     ], false);
 });
@@ -457,7 +456,7 @@ it('can delete messages', function () {
 
     $chat->deleteMessages([23, 42])->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_MESSAGES, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_MESSAGES, [
         'message_ids' => [23, 42],
     ]);
 });
@@ -468,7 +467,7 @@ it('can pin a message', function () {
 
     $chat->pinMessage(42)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_PIN_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_PIN_MESSAGE, [
         'message_id' => 42,
     ], false);
 });
@@ -479,7 +478,7 @@ it('can unpin a message', function () {
 
     $chat->unpinMessage(42)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_MESSAGE, [
         'message_id' => 42,
     ], false);
 });
@@ -490,7 +489,7 @@ it('can unpin all messages', function () {
 
     $chat->unpinAllMessages()->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_ALL_MESSAGES);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_UNPIN_ALL_MESSAGES);
 });
 
 it('can create a forum topic', function () {
@@ -499,7 +498,7 @@ it('can create a forum topic', function () {
 
     $chat->createForumTopic('test name', 7322096, 'emoji_id')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_CREATE_FORUM_TOPIC);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_CREATE_FORUM_TOPIC);
 });
 
 it('can edit a forum topic', function () {
@@ -508,7 +507,7 @@ it('can edit a forum topic', function () {
 
     $chat->editForumTopic(123456, 'new test name', 'emoji_id')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_FORUM_TOPIC);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_FORUM_TOPIC);
 });
 
 it('can close a forum topic', function () {
@@ -517,7 +516,7 @@ it('can close a forum topic', function () {
 
     $chat->closeForumTopic(123456)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_CLOSE_FORUM_TOPIC);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_CLOSE_FORUM_TOPIC);
 });
 
 it('can reopen a forum topic', function () {
@@ -526,7 +525,7 @@ it('can reopen a forum topic', function () {
 
     $chat->reopenForumTopic(7322096)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REOPEN_FORUM_TOPIC);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_REOPEN_FORUM_TOPIC);
 });
 
 it('can delete a forum topic', function () {
@@ -535,7 +534,7 @@ it('can delete a forum topic', function () {
 
     $chat->deleteForumTopic(7322096)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_FORUM_TOPIC);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_FORUM_TOPIC);
 });
 
 it('can delete a chat photo', function () {
@@ -544,7 +543,7 @@ it('can delete a chat photo', function () {
 
     $chat->deleteChatPhoto()->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_CHAT_PHOTO);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_CHAT_PHOTO);
 });
 
 it('can leave a chat', function () {
@@ -553,7 +552,7 @@ it('can leave a chat', function () {
 
     $chat->leave()->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_LEAVE_CHAT);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_LEAVE_CHAT);
 });
 
 it('can set chat title', function () {
@@ -562,7 +561,7 @@ it('can set chat title', function () {
 
     $chat->setTitle('foo')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_TITLE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_TITLE, [
         'title' => 'foo',
     ], false);
 });
@@ -573,7 +572,7 @@ it('can set chat description', function () {
 
     $chat->setDescription('bar')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_DESCRIPTION, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_DESCRIPTION, [
         'description' => 'bar',
     ], false);
 });
@@ -591,7 +590,7 @@ it('can retrieve its member count', function () {
 
     $chat->memberCount();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MEMBER_COUNT);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MEMBER_COUNT);
 });
 
 it('can retrieve its member info', function () {
@@ -600,7 +599,7 @@ it('can retrieve its member info', function () {
 
     $chat->memberInfo(123456);
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MEMBER);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MEMBER);
 });
 
 it('can generate a primary invite link', function () {
@@ -609,7 +608,7 @@ it('can generate a primary invite link', function () {
 
     $chat->generatePrimaryInviteLink()->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EXPORT_CHAT_INVITE_LINK);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_EXPORT_CHAT_INVITE_LINK);
 });
 
 it('can create an invite link', function () {
@@ -618,7 +617,7 @@ it('can create an invite link', function () {
 
     $chat->createInviteLink()->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_CREATE_CHAT_INVITE_LINK);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_CREATE_CHAT_INVITE_LINK);
 });
 
 it('can edit an invite link', function () {
@@ -627,7 +626,7 @@ it('can edit an invite link', function () {
 
     $chat->editInviteLink('https://t.me/123456')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_CHAT_INVITE_LINK, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_EDIT_CHAT_INVITE_LINK, [
         'invite_link' => 'https://t.me/123456',
     ], false);
 });
@@ -638,7 +637,7 @@ it('can revoke an invite link', function () {
 
     $chat->revokeInviteLink('https://t.me/123456')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_REVOKE_CHAT_INVITE_LINK, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_REVOKE_CHAT_INVITE_LINK, [
         'invite_link' => 'https://t.me/123456',
     ], false);
 });
@@ -654,7 +653,7 @@ it('can set permissions', function () {
         ChatPermissions::CAN_SEND_MESSAGES => false,
     ])->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_PERMISSIONS, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SET_CHAT_PERMISSIONS, [
         'permissions' => [
             'can_invite_users' => true,
             'can_change_info' => true,
@@ -670,7 +669,7 @@ it('can ban a chat member', function () {
 
     $chat->banMember(123456)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_BAN_CHAT_MEMBER, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_BAN_CHAT_MEMBER, [
         'user_id' => 123456,
     ], false);
 });
@@ -681,7 +680,7 @@ it('can unban a chat member', function () {
 
     $chat->unbanMember(123456)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_UNBAN_CHAT_MEMBER, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_UNBAN_CHAT_MEMBER, [
         'user_id' => 123456,
     ], false);
 });
@@ -696,7 +695,7 @@ it('can restrict a chat member', function () {
         ChatPermissions::CAN_SEND_MESSAGES,
     ])->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_RESTRICT_CHAT_MEMBER, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_RESTRICT_CHAT_MEMBER, [
         'user_id' => 123456,
         'permissions' => [
             'can_pin_messages' => false,
@@ -710,14 +709,13 @@ it('can promote a chat member', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-
     $chat->promoteMember(123456, [
         ChatAdminPermissions::CAN_PIN_MESSAGES => false,
         ChatAdminPermissions::CAN_INVITE_USERS => true,
         ChatAdminPermissions::CAN_CHANGE_INFO,
     ])->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_PROMOTE_CHAT_MEMBER, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_PROMOTE_CHAT_MEMBER, [
         'user_id' => 123456,
         'can_pin_messages' => false,
         'can_invite_users' => true,
@@ -731,7 +729,7 @@ it('can demote a chat member', function () {
 
     $chat->demoteMember(123456)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_PROMOTE_CHAT_MEMBER, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_PROMOTE_CHAT_MEMBER, [
         'user_id' => 123456,
         'can_manage_chat' => false,
         'can_post_messages' => false,
@@ -770,7 +768,7 @@ it('can forward a message', function () {
 
     $chat->forwardMessage($chat, 123)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_FORWARD_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_FORWARD_MESSAGE, [
         'from_chat_id' => $chat->chat_id,
         'message_id' => 123,
     ]);
@@ -782,7 +780,7 @@ it('can read business message', function () {
 
     $chat->readBusinessMessage(123)->inBusiness(321)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_READ_BUSINESS_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_READ_BUSINESS_MESSAGE, [
         'business_connection_id' => 321,
         'message_id' => 123,
     ]);
@@ -794,7 +792,7 @@ it('can delete business messages', function () {
 
     $chat->deleteBusinessMessages([123])->inBusiness(321)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_BUSINESS_MESSAGES, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_DELETE_BUSINESS_MESSAGES, [
         'business_connection_id' => 321,
         'message_ids' => [123],
     ]);
@@ -806,7 +804,7 @@ it('can copy a message', function () {
 
     $chat->copyMessage($chat, 123)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_COPY_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_COPY_MESSAGE, [
         'from_chat_id' => $chat->chat_id,
         'message_id' => 123,
     ]);
@@ -818,7 +816,7 @@ it('can retrieve current chat menu button', function () {
 
     $chat->menuButton()->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MENU_BUTTON);
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_GET_CHAT_MENU_BUTTON);
 });
 
 it('can restore default menu button', function () {
@@ -843,12 +841,12 @@ it('can set web app menu button', function () {
     Telegraph::fake();
     $chat = make_chat();
 
-    $chat->setMenuButton()->webApp("VISIT", "https://my-web.app")->send();
+    $chat->setMenuButton()->webApp('VISIT', 'https://my-web.app')->send();
 
     TelegraphSetChatMenuButtonFake::assertChangedMenuButton('web_app', [
-        'text' => "VISIT",
+        'text' => 'VISIT',
         'web_app' => [
-            'url' => "https://my-web.app",
+            'url' => 'https://my-web.app',
         ],
     ]);
 });
@@ -870,7 +868,7 @@ it('can edit Telegraph data before sending a media ', function () {
 
     $chat->withData('caption', 'test')->video('test.url')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => 'test.url',
         'caption' => 'test',
     ]);
@@ -882,7 +880,7 @@ it('can edit Telegraph data after sending a media ', function () {
 
     $chat->video('test.url')->withData('caption', 'test')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_VIDEO, [
         'video' => 'test.url',
         'caption' => 'test',
     ]);
@@ -903,7 +901,7 @@ it('can send a mediaGroup from remote url', function () {
         ],
     ])->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_MEDIA_GROUP, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SEND_MEDIA_GROUP, [
         'media' => [
             [
                 'type' => 'photo',
@@ -923,7 +921,7 @@ it('can send a message to a specific Thread after', function () {
 
     $chat->message('foo')->inThread(5)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
         'text' => 'foo',
         'message_thread_id' => 5,
     ]);
@@ -935,7 +933,7 @@ it('can send a message to a specific Thread before', function () {
 
     $chat->inThread(5)->message('foo')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
         'text' => 'foo',
         'message_thread_id' => 5,
     ]);
@@ -947,7 +945,7 @@ it('can send a message to a specific business connection after', function () {
 
     $chat->message('foo')->inBusiness(5)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
         'text' => 'foo',
         'business_connection_id' => 5,
     ]);
@@ -959,7 +957,7 @@ it('can send a message to a specific business connection before', function () {
 
     $chat->inBusiness(5)->message('foo')->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE, [
         'text' => 'foo',
         'business_connection_id' => 5,
     ]);
@@ -971,7 +969,7 @@ it('can accept chat join request', function () {
 
     $chat->approveJoinRequest(123456)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_APPROVE_CHAT_JOIN_REQUEST, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_APPROVE_CHAT_JOIN_REQUEST, [
         'user_id' => 123456,
     ], false);
 });
@@ -982,7 +980,7 @@ it('can decline chat join request', function () {
 
     $chat->declineJoinRequest(123456)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_DECLINE_CHAT_JOIN_REQUEST, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_DECLINE_CHAT_JOIN_REQUEST, [
         'user_id' => 123456,
     ], false);
 });
@@ -994,7 +992,7 @@ it('can react on a message', function () {
 
     $chat->setMessageReaction(42, $reaction, false)->send();
 
-    Telegraph::assertSentData(\DefStudio\Telegraph\Telegraph::ENDPOINT_SET_MESSAGE_REACTION, [
+    Telegraph::assertSentData(DefStudio\Telegraph\Telegraph::ENDPOINT_SET_MESSAGE_REACTION, [
         'message_id' => 42,
         'reaction' => json_encode([$reaction]),
         'is_big' => false,

@@ -7,9 +7,9 @@ use Illuminate\Support\Str;
 
 it('export all properties to array', function () {
     $dto = WriteAccessAllowed::fromArray([
-        "from_request" => true,
-        "web_app_name" => "test",
-        "from_attachment_menu" => true,
+        'from_request' => true,
+        'web_app_name' => 'test',
+        'from_attachment_menu' => true,
     ]);
 
     $array = $dto->toArray();

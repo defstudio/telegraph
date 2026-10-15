@@ -9,23 +9,36 @@ use DefStudio\Telegraph\Telegraph;
 class InlineQueryResultVenue extends InlineQueryResult
 {
     protected string $type = 'venue';
-    protected string $id;
-    protected string $title;
-    protected float $latitude;
-    protected float $longitude;
-    protected string $address;
-    protected string|null $foursquareId = null;
-    protected string|null $foursquareType = null;
-    protected string|null $googlePlaceId = null;
-    protected string|null $googlePlaceType = null;
-    protected string|null $message = null;
-    protected string|null $thumbUrl = null;
-    protected int|null $thumbWidth = null;
-    protected int|null $thumbHeight = null;
 
-    public static function make(string $id, string $title, float $latitude, float $longitude, string $address, string|null $message = null): InlineQueryResultVenue
+    protected string $id;
+
+    protected string $title;
+
+    protected float $latitude;
+
+    protected float $longitude;
+
+    protected string $address;
+
+    protected ?string $foursquareId = null;
+
+    protected ?string $foursquareType = null;
+
+    protected ?string $googlePlaceId = null;
+
+    protected ?string $googlePlaceType = null;
+
+    protected ?string $message = null;
+
+    protected ?string $thumbUrl = null;
+
+    protected ?int $thumbWidth = null;
+
+    protected ?int $thumbHeight = null;
+
+    public static function make(string $id, string $title, float $latitude, float $longitude, string $address, ?string $message = null): InlineQueryResultVenue
     {
-        $result = new InlineQueryResultVenue();
+        $result = new InlineQueryResultVenue;
         $result->id = $id;
         $result->title = $title;
         $result->latitude = $latitude;
@@ -36,49 +49,49 @@ class InlineQueryResultVenue extends InlineQueryResult
         return $result;
     }
 
-    public function thumbUrl(string|null $thumbUrl): static
+    public function thumbUrl(?string $thumbUrl): static
     {
         $this->thumbUrl = $thumbUrl;
 
         return $this;
     }
 
-    public function thumbWidth(int|null $thumbWidth): static
+    public function thumbWidth(?int $thumbWidth): static
     {
         $this->thumbWidth = $thumbWidth;
 
         return $this;
     }
 
-    public function thumbHeight(int|null $thumbHeight): static
+    public function thumbHeight(?int $thumbHeight): static
     {
         $this->thumbHeight = $thumbHeight;
 
         return $this;
     }
 
-    public function foursquareId(string|null $foursquareId): static
+    public function foursquareId(?string $foursquareId): static
     {
         $this->foursquareId = $foursquareId;
 
         return $this;
     }
 
-    public function foursquareType(string|null $foursquareType): static
+    public function foursquareType(?string $foursquareType): static
     {
         $this->foursquareType = $foursquareType;
 
         return $this;
     }
 
-    public function googlePlaceId(string|null $googlePlaceId): static
+    public function googlePlaceId(?string $googlePlaceId): static
     {
         $this->googlePlaceId = $googlePlaceId;
 
         return $this;
     }
 
-    public function googlePlaceType(string|null $googlePlaceType): static
+    public function googlePlaceType(?string $googlePlaceType): static
     {
         $this->googlePlaceType = $googlePlaceType;
 
@@ -86,7 +99,7 @@ class InlineQueryResultVenue extends InlineQueryResult
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function data(): array
     {

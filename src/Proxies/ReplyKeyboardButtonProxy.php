@@ -34,11 +34,11 @@ class ReplyKeyboardButtonProxy extends ReplyKeyboard
     }
 
     /**
-     * @param array<array-key, mixed> $arguments
+     * @param  array<array-key, mixed>  $arguments
      */
     public function __call(string $name, array $arguments): ReplyKeyboardButtonProxy
     {
-        if (!method_exists($this->button, $name)) {
+        if (! method_exists($this->button, $name)) {
             throw KeyboardException::undefinedMethod($name);
         }
 

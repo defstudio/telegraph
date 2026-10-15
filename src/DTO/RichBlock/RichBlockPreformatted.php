@@ -12,11 +12,13 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockPreformatted implements RichBlockItem, Arrayable
+class RichBlockPreformatted implements Arrayable, RichBlockItem
 {
     private const TYPE = 'pre';
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $text;
+
     private ?string $language = null;
 
     /**
@@ -25,8 +27,6 @@ class RichBlockPreformatted implements RichBlockItem, Arrayable
      *     text: string|array<string ,mixed>,
      *     language:string
      * }  $data
-     *
-     * @return RichBlockPreformatted
      */
     public static function fromArray(array $data): RichBlockPreformatted
     {
@@ -34,7 +34,7 @@ class RichBlockPreformatted implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockPreformatted = new self();
+        $richBlockPreformatted = new self;
 
         $richBlockPreformatted->text = app(RichTextFactory::class)->fromData($data['text']);
 

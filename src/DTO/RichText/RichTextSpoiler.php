@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 class RichTextSpoiler implements RichTextItem
 {
     private const TYPE = 'spoiler';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
 
@@ -23,14 +24,12 @@ class RichTextSpoiler implements RichTextItem
      *     type: string,
      *     text: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichTextSpoiler
      */
     public static function fromData(string|array $data): RichTextSpoiler
     {
-        $richTextSpoiler = new self();
+        $richTextSpoiler = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -59,6 +58,6 @@ class RichTextSpoiler implements RichTextItem
             'text' => $this->text instanceof RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

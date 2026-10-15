@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    "new_bot" => [
+    'new_bot' => [
         'starting_message' => 'Creazione di un nuovo Telegram Bot',
         'enter_bot_token' => 'Inserisci il token del bot',
         'enter_bot_name' => 'Inserisci il nome del bot (opzionale)',
@@ -18,7 +18,7 @@ return [
     ],
 
     'new_chat' => [
-        'starting_message' => "Creazione di una nuova Telegram Chat per il bot :bot_name",
+        'starting_message' => 'Creazione di una nuova Telegram Chat per il bot :bot_name',
         'enter_chat_id' => "Inserisci l'ID della chat - premi [x] per annullare",
         'enter_chat_name' => 'Inserisci il nome della chat (opzionale)',
         'chat_created' => 'Nuova chat :chat_name creata per il bot :bot_name',
@@ -26,11 +26,11 @@ return [
 
     'set_webhook' => [
         'sending_setup_request' => 'Invio della richiesta di setup del webook a: :api_url',
-        'webhook_updated' => 'Webhook aggiornato'
+        'webhook_updated' => 'Webhook aggiornato',
     ],
 
     'unset_webhook' => [
         'sending_unset_request' => 'Invio della richiesta di cancellazione del webhook a: :api_url',
-        'webhook_deleted' => 'Webhook eliminato'
+        'webhook_deleted' => 'Webhook eliminato',
     ],
 ];

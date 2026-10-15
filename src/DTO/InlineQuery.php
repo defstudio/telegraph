@@ -10,15 +10,18 @@ use Illuminate\Contracts\Support\Arrayable;
 class InlineQuery implements Arrayable
 {
     private string $id;
+
     private string $query;
+
     private User $from;
+
     private string $offset;
+
     private string $chatType;
+
     private ?Location $location = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -32,7 +35,7 @@ class InlineQuery implements Arrayable
      */
     public static function fromArray(array $data): InlineQuery
     {
-        $inlineQuery = new self();
+        $inlineQuery = new self;
 
         $inlineQuery->id = $data['id'];
 

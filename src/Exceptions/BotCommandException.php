@@ -8,7 +8,7 @@ final class BotCommandException extends Exception
 {
     public static function tooManyCommands(): BotCommandException
     {
-        return new self("Too many commands for telegram bot. Max 100 commands allowed.");
+        return new self('Too many commands for telegram bot. Max 100 commands allowed.');
     }
 
     public static function invalidCommand(string $command): BotCommandException

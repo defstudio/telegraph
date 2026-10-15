@@ -458,13 +458,13 @@ it('export all properties to array', function () {
             ],
         ],
         'web_app_data' => [
-            "button" => "CustomButton",
-            "data" => "Data",
+            'button' => 'CustomButton',
+            'data' => 'Data',
         ],
         'write_access_allowed' => [
-            "from_request" => true,
-            "web_app_name" => "test",
-            "from_attachment_menu" => true,
+            'from_request' => true,
+            'web_app_name' => 'test',
+            'from_attachment_menu' => true,
         ],
         'migrate_to_chat_id' => 20,
         'entities' => [
@@ -485,28 +485,27 @@ it('export all properties to array', function () {
     }
 });
 
-it("extract web_app_data of string type", function () {
+it('extract web_app_data of string type', function () {
     $dto = Message::fromArray([
         'message_id' => 2,
         'date' => now()->timestamp,
         'web_app_data' => [
-            "button" => "SendString",
-            "data" => "Data",
+            'button' => 'SendString',
+            'data' => 'Data',
         ],
     ]);
     $webAppData = $dto->webAppData();
 
-    expect($webAppData)->toBe("Data");
+    expect($webAppData)->toBe('Data');
 });
 
-
-it("extract web_app_data of json type", function () {
+it('extract web_app_data of json type', function () {
     $dto = Message::fromArray([
         'message_id' => 2,
         'date' => now()->timestamp,
         'web_app_data' => [
-            "button" => "SendJson",
-            "data" => '[
+            'button' => 'SendJson',
+            'data' => '[
                 false,
                 1,
                 "string",
@@ -521,9 +520,9 @@ it("extract web_app_data of json type", function () {
     expect($webAppData)->toBe([
         false,
         1,
-        "string",
+        'string',
         [
-            "a" => "b",
+            'a' => 'b',
         ],
     ]);
 });

@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 class RichTextPhoneNumber implements RichTextItem
 {
     private const TYPE = 'phone_number';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
+
     private string $phoneNumber;
 
     public function __construct()
@@ -25,14 +27,12 @@ class RichTextPhoneNumber implements RichTextItem
      *     text: string|array<string ,mixed>,
      *     phone_number: string
      * }  $data
-     *
-     * @return RichTextPhoneNumber
      */
     public static function fromData(string|array $data): RichTextPhoneNumber
     {
-        $richTextPhoneNumber = new self();
+        $richTextPhoneNumber = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -68,6 +68,6 @@ class RichTextPhoneNumber implements RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'phone_number' => $this->phoneNumber,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

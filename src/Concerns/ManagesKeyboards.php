@@ -19,7 +19,7 @@ use DefStudio\Telegraph\Telegraph;
 trait ManagesKeyboards
 {
     /**
-     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?: string[], login_url?: string[]}>>|Keyboard|callable(Keyboard):Keyboard $keyboard
+     * @param  array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?: string[], login_url?: string[]}>>|Keyboard|callable(Keyboard):Keyboard  $keyboard
      */
     public function keyboard(callable|array|Keyboard $keyboard): Telegraph
     {
@@ -33,14 +33,14 @@ trait ManagesKeyboards
             $keyboard = Keyboard::fromArray($keyboard);
         }
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         data_set($telegraph->data, 'reply_markup.inline_keyboard', $keyboard->toArray());
 
         return $telegraph;
     }
 
     /**
-     * @param array<array-key, array<array-key, array{text: string, request_contact?: bool, request_location?: bool, request_poll?: string[], web_app?: string[]}>>|ReplyKeyboard|callable(ReplyKeyboard):ReplyKeyboard $keyboard
+     * @param  array<array-key, array<array-key, array{text: string, request_contact?: bool, request_location?: bool, request_poll?: string[], web_app?: string[]}>>|ReplyKeyboard|callable(ReplyKeyboard):ReplyKeyboard  $keyboard
      */
     public function replyKeyboard(callable|array|ReplyKeyboard $keyboard): Telegraph
     {
@@ -54,12 +54,12 @@ trait ManagesKeyboards
             $keyboard = ReplyKeyboard::fromArray($keyboard);
         }
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         data_set($telegraph->data, 'reply_markup.keyboard', $keyboard->toArray());
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         foreach ($keyboard->options() as $option_key => $option_value) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             data_set($telegraph->data, "reply_markup.$option_key", $option_value);
         }
 
@@ -96,7 +96,7 @@ trait ManagesKeyboards
     }
 
     /**
-     * @param Keyboard|callable(Keyboard):Keyboard $newKeyboard
+     * @param  Keyboard|callable(Keyboard):Keyboard  $newKeyboard
      */
     public function replaceKeyboard(int $messageId, Keyboard|callable $newKeyboard): Telegraph
     {

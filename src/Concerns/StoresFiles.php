@@ -53,8 +53,8 @@ trait StoresFiles
         $filename ??= $url->afterLast('/')->before('?');
 
         File::ensureDirectoryExists($path);
-        File::put($path."/".$filename, $response->body());
+        File::put($path.'/'.$filename, $response->body());
 
-        return $path."/".$filename;
+        return $path.'/'.$filename;
     }
 }

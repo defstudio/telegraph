@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 class RichTextEmailAddress implements RichTextItem
 {
     private const TYPE = 'email_address';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
+
     private string $emailAddress;
 
     public function __construct()
@@ -25,14 +27,12 @@ class RichTextEmailAddress implements RichTextItem
      *     text: string|array<string ,mixed>,
      *     email_address: string
      * }  $data
-     *
-     * @return RichTextEmailAddress
      */
     public static function fromData(string|array $data): RichTextEmailAddress
     {
-        $richTextEmailAddress = new self();
+        $richTextEmailAddress = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -68,6 +68,6 @@ class RichTextEmailAddress implements RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'email_address' => $this->emailAddress,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

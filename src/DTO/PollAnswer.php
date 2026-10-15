@@ -10,22 +10,22 @@ use Illuminate\Contracts\Support\Arrayable;
 class PollAnswer implements Arrayable
 {
     private string $pollId;
+
     private ?Chat $voterChat = null;
+
     private ?User $user = null;
 
     /** @var array<mixed, int> */
     private array $optionIds;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
-     * @param array{poll_id:string, voter_chat?:array<object>, user?:array<object>, option_ids:array<mixed, int>} $data
+     * @param  array{poll_id:string, voter_chat?:array<object>, user?:array<object>, option_ids:array<mixed, int>}  $data
      */
     public static function fromArray(array $data): PollAnswer
     {
-        $pollAnswer = new self();
+        $pollAnswer = new self;
 
         $pollAnswer->pollId = $data['poll_id'];
 
@@ -40,7 +40,6 @@ class PollAnswer implements Arrayable
         }
 
         $pollAnswer->optionIds = $data['option_ids'];
-
 
         return $pollAnswer;
     }

@@ -2,7 +2,6 @@
 
 /** @noinspection PhpUnhandledExceptionInspection */
 
-
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Telegraph;
 use DefStudio\Telegraph\Tests\Support\TestEntitiesWebhookHandler;
@@ -74,11 +73,11 @@ it('can handle a registered action with parameters', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_request('param_injection'), $bot);
 
-    Facade::assertSent("Foo is [not set]");
+    Facade::assertSent('Foo is [not set]');
 
     app(TestWebhookHandler::class)->handle(webhook_request('param_injection;foo:bar'), $bot);
 
-    Facade::assertSent("Foo is [bar]");
+    Facade::assertSent('Foo is [bar]');
 });
 
 it('rejects unregistered actions', function () {
@@ -141,7 +140,7 @@ it('can handle known chat commands', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $chat->bot);
 
-    Facade::assertSent("Hello!!");
+    Facade::assertSent('Hello!!');
 });
 
 it('can save unknown chats sending commands', function () {
@@ -170,7 +169,7 @@ it('can handle a command', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $bot);
 
-    Facade::assertSent("Hello!!");
+    Facade::assertSent('Hello!!');
 });
 
 it('can handle an unknown command', function () {
@@ -192,7 +191,7 @@ it('can handle a command with bot reference', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_command('/hello@bot'), $bot);
 
-    Facade::assertSent("Hello!!");
+    Facade::assertSent('Hello!!');
 });
 
 it('can handle a command with parameters', function () {
@@ -201,7 +200,7 @@ it('can handle a command with parameters', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_command('/hello foo'), $bot);
 
-    Facade::assertSent("Hello!! your parameter is [foo]");
+    Facade::assertSent('Hello!! your parameter is [foo]');
 });
 
 it('can handle a command with parameters and bot reference', function () {
@@ -210,7 +209,7 @@ it('can handle a command with parameters and bot reference', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_command('/hello@bot foo bot'), $bot);
 
-    Facade::assertSent("Hello!! your parameter is [foo bot]");
+    Facade::assertSent('Hello!! your parameter is [foo bot]');
 });
 
 it('can handle a command with custom start char', function () {
@@ -227,13 +226,13 @@ it('can handle a command with custom start char', function () {
     app(TestWebhookHandler::class)->handle(webhook_command('1hello@bot foo bot 1'), $bot);
     app(TestWebhookHandler::class)->handle(webhook_command('::hello@bot foo bot : :'), $bot);
 
-    Facade::assertSent("Hello!! your parameter is [foo bot /]");
-    Facade::assertSent("Hello!! your parameter is [foo bot -]");
-    Facade::assertSent("Hello!! your parameter is [foo bot =]");
-    Facade::assertSent("Hello!! your parameter is [foo bot !]");
-    Facade::assertSent("Hello!! your parameter is [foo bot %]");
-    Facade::assertSent("Hello!! your parameter is [foo bot 1]");
-    Facade::assertSent("Hello!! your parameter is [foo bot : :]");
+    Facade::assertSent('Hello!! your parameter is [foo bot /]');
+    Facade::assertSent('Hello!! your parameter is [foo bot -]');
+    Facade::assertSent('Hello!! your parameter is [foo bot =]');
+    Facade::assertSent('Hello!! your parameter is [foo bot !]');
+    Facade::assertSent('Hello!! your parameter is [foo bot %]');
+    Facade::assertSent('Hello!! your parameter is [foo bot 1]');
+    Facade::assertSent('Hello!! your parameter is [foo bot : :]');
 });
 
 it('can handle a command without parameter', function () {
@@ -242,7 +241,7 @@ it('can handle a command without parameter', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_command('/hello'), $bot);
 
-    Facade::assertSent("Hello!!");
+    Facade::assertSent('Hello!!');
 });
 
 it('does not handle a command with custom start char', function () {
@@ -256,13 +255,13 @@ it('does not handle a command with custom start char', function () {
     app(TestWebhookHandler::class)->handle(webhook_command('%hello@bot foo bot %'), $bot);
     app(TestWebhookHandler::class)->handle(webhook_command('1hello@bot foo bot 1'), $bot);
 
-    Facade::assertSent("Hello!! your parameter is [foo bot /]");
+    Facade::assertSent('Hello!! your parameter is [foo bot /]');
 
-    Facade::assertNotSent("Hello!! your parameter is [foo bot -]");
-    Facade::assertNotSent("Hello!! your parameter is [foo bot =]");
-    Facade::assertNotSent("Hello!! your parameter is [foo bot !]");
-    Facade::assertNotSent("Hello!! your parameter is [foo bot %]");
-    Facade::assertNotSent("Hello!! your parameter is [foo bot 1]");
+    Facade::assertNotSent('Hello!! your parameter is [foo bot -]');
+    Facade::assertNotSent('Hello!! your parameter is [foo bot =]');
+    Facade::assertNotSent('Hello!! your parameter is [foo bot !]');
+    Facade::assertNotSent('Hello!! your parameter is [foo bot %]');
+    Facade::assertNotSent('Hello!! your parameter is [foo bot 1]');
 });
 
 it('can handle a command with command collision', function (string $command, string $notSent, string $sent) {
@@ -317,47 +316,47 @@ it('can handle an inlineQuery', function () {
     app(TestWebhookHandler::class)->handle(webhook_inline_query(), $bot);
 
     Facade::assertSentData(Telegraph::ENDPOINT_ANSWER_INLINE_QUERY, [
-        "inline_query_id" => "a99",
-        "results" => [
+        'inline_query_id' => 'a99',
+        'results' => [
             [
-                "gif_url" => "https://gif.dev",
-                "thumbnail_url" => "https://thumb.gif.test",
-                "gif_width" => 300,
-                "gif_height" => 400,
-                "gif_duration" => 200,
-                "title" => "bar",
-                "caption" => "foo",
+                'gif_url' => 'https://gif.dev',
+                'thumbnail_url' => 'https://thumb.gif.test',
+                'gif_width' => 300,
+                'gif_height' => 400,
+                'gif_duration' => 200,
+                'title' => 'bar',
+                'caption' => 'foo',
                 'parse_mode' => 'html',
-                "id" => "99",
-                "type" => "gif",
-                "reply_markup" => [
-                    "inline_keyboard" => [
+                'id' => '99',
+                'type' => 'gif',
+                'reply_markup' => [
+                    'inline_keyboard' => [
                         [
                             [
-                                "text" => "buy",
-                                "callback_data" => "action:buy;id:99",
+                                'text' => 'buy',
+                                'callback_data' => 'action:buy;id:99',
                             ],
                         ],
                     ],
                 ],
             ],
             [
-                "gif_url" => "https://gif2.dev",
-                "thumbnail_url" => "https://thumb.gif2.test",
-                "gif_width" => 1300,
-                "gif_height" => 1400,
-                "gif_duration" => 1200,
-                "title" => "quz",
-                "caption" => "baz",
+                'gif_url' => 'https://gif2.dev',
+                'thumbnail_url' => 'https://thumb.gif2.test',
+                'gif_width' => 1300,
+                'gif_height' => 1400,
+                'gif_duration' => 1200,
+                'title' => 'quz',
+                'caption' => 'baz',
                 'parse_mode' => 'html',
-                "id" => "98",
-                "type" => "gif",
-                "reply_markup" => [
-                    "inline_keyboard" => [
+                'id' => '98',
+                'type' => 'gif',
+                'reply_markup' => [
+                    'inline_keyboard' => [
                         [
                             [
-                                "text" => "buy",
-                                "callback_data" => "action:buy;id:98",
+                                'text' => 'buy',
+                                'callback_data' => 'action:buy;id:98',
                             ],
                         ],
                     ],
@@ -374,7 +373,7 @@ it('can handle a preCheckoutQuery', function () {
     app(TestWebhookHandler::class)->handle(webhook_pre_checkout_query(), $bot);
 
     Facade::assertSentData(Telegraph::ENDPOINT_ANSWER_PRE_CHECKOUT_QUERY, [
-        "pre_checkout_query_id" => "3",
+        'pre_checkout_query_id' => '3',
         'ok' => true,
         'error_message' => null,
     ]);
@@ -386,7 +385,7 @@ it('can handle a successfulPayment', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_successful_payment(), $bot);
 
-    Facade::assertSent("payment");
+    Facade::assertSent('payment');
 });
 
 it('can handle a bot chat member update', function () {
@@ -395,7 +394,7 @@ it('can handle a bot chat member update', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_bot_chat_member_update(), $bot);
 
-    Facade::assertSent("updated");
+    Facade::assertSent('updated');
 });
 
 it('can handle a bot chat status update', function () {
@@ -404,7 +403,7 @@ it('can handle a bot chat status update', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_bot_chat_status_update(), $bot);
 
-    Facade::assertSent("banned");
+    Facade::assertSent('banned');
 });
 
 it('can handle a chat migration', function () {
@@ -413,9 +412,9 @@ it('can handle a chat migration', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_migrate_to_chat(), $bot);
 
-    Facade::assertSent("We are a Supergroup now");
+    Facade::assertSent('We are a Supergroup now');
 
-    expect($bot->chats()->first()->chat_id)->toBe("20");
+    expect($bot->chats()->first()->chat_id)->toBe('20');
 });
 
 it('can handle message', function () {
@@ -433,7 +432,7 @@ it('can handle message', function () {
         'text' => 'foo',
     ]), $bot);
 
-    Facade::assertSent("Received: foo");
+    Facade::assertSent('Received: foo');
 });
 
 it('can handle poll state update', function () {
@@ -442,7 +441,7 @@ it('can handle poll state update', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_poll_state_update(), $bot);
 
-    Facade::assertSent("Poll state updated");
+    Facade::assertSent('Poll state updated');
 });
 
 it('can handle poll answer received', function () {
@@ -451,7 +450,7 @@ it('can handle poll answer received', function () {
 
     app(TestWebhookHandler::class)->handle(webhook_poll_answer_received(), $bot);
 
-    Facade::assertSent("Poll answer received");
+    Facade::assertSent('Poll answer received');
 });
 
 it('can handle a member join', function () {
@@ -475,7 +474,7 @@ it('can handle a member join', function () {
         ],
     ]), $bot);
 
-    Facade::assertSent("Welcome Bob");
+    Facade::assertSent('Welcome Bob');
 });
 
 it('can handle a member left', function () {
@@ -497,7 +496,7 @@ it('can handle a member left', function () {
         ],
     ]), $bot);
 
-    Facade::assertSent("Bob just left");
+    Facade::assertSent('Bob just left');
 });
 
 it('can handle a chat join request', function () {

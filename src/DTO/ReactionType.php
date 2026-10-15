@@ -12,16 +12,18 @@ use Illuminate\Contracts\Support\Arrayable;
 class ReactionType implements Arrayable
 {
     public const TYPE_EMOJI = 'emoji';
+
     public const TYPE_CUSTOM_EMOJI = 'custom_emoji';
+
     public const TYPE_PAID_EMOJI = 'paid';
 
     private string $type;
+
     private ?string $emoji = null;
+
     private ?string $customEmojiId = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param  array{
@@ -32,7 +34,7 @@ class ReactionType implements Arrayable
      */
     public static function fromArray(array $data): ReactionType
     {
-        $reaction = new self();
+        $reaction = new self;
 
         $reaction->type = $data['type'];
         $reaction->emoji = $data['emoji'] ?? null;

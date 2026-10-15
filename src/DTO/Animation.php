@@ -13,18 +13,20 @@ class Animation implements Arrayable, Downloadable
     private string $id;
 
     private int $width;
+
     private int $height;
+
     private ?int $duration = null;
+
     private ?int $filesize = null;
 
     private ?string $filename = null;
+
     private ?string $mimeType = null;
 
     private ?Photo $thumbnail = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -40,7 +42,7 @@ class Animation implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): Animation
     {
-        $animation = new self();
+        $animation = new self;
 
         $animation->id = $data['file_id'];
         $animation->width = $data['width'];

@@ -11,13 +11,14 @@ use Illuminate\Contracts\Support\Arrayable;
 class Photo implements Arrayable, Downloadable
 {
     private string $id;
+
     private int $width;
+
     private int $height;
+
     private ?int $filesize = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -29,7 +30,7 @@ class Photo implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): Photo
     {
-        $photo = new self();
+        $photo = new self;
 
         $photo->id = $data['file_id'];
         $photo->width = $data['width'];

@@ -98,7 +98,7 @@ class TelegraphInvoicePayload extends Telegraph
     }
 
     /**
-     * @param int[] $amounts
+     * @param  int[]  $amounts
      */
     public function suggestedTips(array $amounts): static
     {
@@ -119,7 +119,7 @@ class TelegraphInvoicePayload extends Telegraph
     }
 
     /**
-     * @param array<string> $data
+     * @param  array<string>  $data
      */
     public function providerData(array $data): static
     {

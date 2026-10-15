@@ -26,7 +26,7 @@ it('can export to array', function () {
         'thumbnail_url' => 'testThumbUrl',
         'thumbnail_width' => 200,
         'thumbnail_height' => 100,
-        'id' => "a45",
-        'type' => "venue",
+        'id' => 'a45',
+        'type' => 'venue',
     ]);
 });

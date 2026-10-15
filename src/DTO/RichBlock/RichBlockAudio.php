@@ -11,10 +11,12 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockAudio implements RichBlockItem, Arrayable
+class RichBlockAudio implements Arrayable, RichBlockItem
 {
     private const TYPE = 'audio';
+
     private Audio $audio;
+
     private ?RichBlockCaption $caption = null;
 
     /**
@@ -23,8 +25,6 @@ class RichBlockAudio implements RichBlockItem, Arrayable
      *     audio: array<string, mixed>,
      *     caption?: array<string, mixed>
      * }  $data
-     *
-     * @return RichBlockAudio
      */
     public static function fromArray(array $data): RichBlockAudio
     {
@@ -32,7 +32,7 @@ class RichBlockAudio implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockAudio = new self();
+        $richBlockAudio = new self;
 
         $richBlockAudio->audio = Audio::fromArray($data['audio']);
 

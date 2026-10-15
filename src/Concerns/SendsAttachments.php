@@ -21,13 +21,12 @@ use Illuminate\Support\Str;
 trait SendsAttachments
 {
     /**
-     * @param array<string, mixed> $data
-     *
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
      */
     public function preprocessDataSendsAttachments(array $data): array
     {
-        if ($this->files->isNotEmpty() && !empty($data['text'])) {
+        if ($this->files->isNotEmpty() && ! empty($data['text'])) {
             $data['caption'] = $data['text'];
             unset($data['text']);
         }
@@ -119,7 +118,6 @@ trait SendsAttachments
 
         $telegraph->data['chat_id'] = null;
 
-
         $this->attachAnimation($telegraph, $path, $filename);
 
         return $telegraph;
@@ -132,7 +130,6 @@ trait SendsAttachments
         $telegraph->endpoint = self::ENDPOINT_SEND_VIDEO;
 
         $telegraph->data['chat_id'] = null;
-
 
         $this->attachVideo($telegraph, $path, $filename);
 
@@ -147,7 +144,6 @@ trait SendsAttachments
 
         $telegraph->data['chat_id'] = null;
 
-
         $this->attachVideoNote($telegraph, $path, $thumbnail);
 
         return $telegraph;
@@ -161,7 +157,6 @@ trait SendsAttachments
 
         $telegraph->data['chat_id'] = null;
 
-
         $this->attachAudio($telegraph, $path, $filename);
 
         return $telegraph;
@@ -174,7 +169,6 @@ trait SendsAttachments
         $telegraph->endpoint = self::ENDPOINT_SEND_DOCUMENT;
 
         $telegraph->data['chat_id'] = null;
-
 
         $this->attachDocument($telegraph, $path, $filename);
 
@@ -204,7 +198,7 @@ trait SendsAttachments
 
             $maxHeight = config('telegraph.attachments.thumbnail.max_height_px', 320);
 
-            assert(is_integer($maxHeight));
+            assert(is_int($maxHeight));
 
             if (($height = $telegraph->imageHeight($path)) > $maxHeight) {
                 throw FileException::thumbnailHeightExceeded($height, $maxHeight);
@@ -212,7 +206,7 @@ trait SendsAttachments
 
             $maxWidth = config('telegraph.attachments.thumbnail.max_width_px', 320);
 
-            assert(is_integer($maxWidth));
+            assert(is_int($maxWidth));
 
             if (($width = $telegraph->imageWidth($path)) > $maxWidth) {
                 throw FileException::thumbnailWidthExceeded($width, $maxWidth);
@@ -221,7 +215,7 @@ trait SendsAttachments
             /** @var string[] $allowedExt */
             $allowedExt = config('telegraph.attachments.thumbnail.allowed_ext', ['jpg']);
 
-            if (!Str::of($ext = File::extension($path))->lower()->is($allowedExt)) {
+            if (! Str::of($ext = File::extension($path))->lower()->is($allowedExt)) {
                 throw FileException::invalidThumbnailExtension($ext, $allowedExt);
             }
 
@@ -250,7 +244,7 @@ trait SendsAttachments
     }
 
     /**
-     * @param array<int|string, array<mixed>> $mediaInputs
+     * @param  array<int|string, array<mixed>>  $mediaInputs
      */
     public function mediaGroup(array $mediaInputs): self
     {
@@ -282,7 +276,7 @@ trait SendsAttachments
     {
         $sizes = getimagesize($path);
 
-        if (!$sizes) {
+        if (! $sizes) {
             return [0, 0];
         }
 
@@ -348,7 +342,7 @@ trait SendsAttachments
     protected function attachPhoto(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeInMb = floatval(config('telegraph.attachments.photo.max_size_mb', 10));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeInMb) {
@@ -360,13 +354,13 @@ trait SendsAttachments
 
             $heightWidthSumPx = config('telegraph.attachments.photo.height_width_sum_px', 10000);
 
-            assert(is_integer($heightWidthSumPx));
+            assert(is_int($heightWidthSumPx));
 
             if (($totalLength = $height + $width) > $heightWidthSumPx) {
                 throw FileException::invalidPhotoSize($totalLength, $heightWidthSumPx);
             }
 
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxRatio = floatval(config('telegraph.attachments.photo.max_ratio', 20));
 
             if (($ratio = $height / $width) > $maxRatio || $ratio < (1 / $maxRatio)) {
@@ -383,7 +377,7 @@ trait SendsAttachments
     protected function attachAnimation(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeMb = floatval(config('telegraph.attachments.animation.max_size_mb', 50));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
@@ -403,7 +397,7 @@ trait SendsAttachments
     protected function attachVideo(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeMb = floatval(config('telegraph.attachments.video.max_size_mb', 50));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
@@ -430,7 +424,7 @@ trait SendsAttachments
     protected function attachVideoNote(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeMb = floatval(config('telegraph.attachments.video.max_size_mb', 50));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {
@@ -492,7 +486,7 @@ trait SendsAttachments
     protected function attachSticker(self $telegraph, string $path, ?string $filename): void
     {
         if (File::exists($path)) {
-            /* @phpstan-ignore-next-line  */
+            /* @phpstan-ignore-next-line */
             $maxSizeMb = floatval(config('telegraph.attachments.sticker.max_size_mb', 50));
 
             if (($size = $telegraph->fileSizeInMb($path)) > $maxSizeMb) {

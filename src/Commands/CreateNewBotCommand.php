@@ -52,7 +52,6 @@ class CreateNewBotCommand extends Command
             }
         }
 
-
         if ($this->confirm(__('telegraph::commands.new_bot.ask_to_setup_webhook'))) {
             Artisan::call('telegraph:set-webhook', [
                 'bot' => $bot->id,

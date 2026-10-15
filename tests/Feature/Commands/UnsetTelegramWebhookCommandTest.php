@@ -1,12 +1,10 @@
 <?php
 
-
 use DefStudio\Telegraph\Facades\Telegraph;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Symfony\Component\Console\Command\Command;
 
 use function Pest\Laravel\artisan;
-
-use Symfony\Component\Console\Command\Command;
 
 uses(LazilyRefreshDatabase::class);
 
@@ -17,7 +15,7 @@ test('can unset a telegram webhook', function () {
 
     /** @phpstan-ignore-next-line */
     artisan('telegraph:unset-webhook')
-        ->expectsOutput("Webhook deleted")
+        ->expectsOutput('Webhook deleted')
         ->assertExitCode(Command::SUCCESS);
 });
 
@@ -28,7 +26,7 @@ test('can unset a telegram webhook and drop pending updates', function () {
 
     /** @phpstan-ignore-next-line */
     artisan('telegraph:unset-webhook --drop-pending-updates')
-        ->expectsOutput("Webhook deleted")
+        ->expectsOutput('Webhook deleted')
         ->assertExitCode(Command::SUCCESS);
 });
 
@@ -37,7 +35,7 @@ test('it requires bot id if there are more than one', function () {
 
     /** @phpstan-ignore-next-line */
     artisan('telegraph:unset-webhook')
-        ->expectsOutput("Please specify a Bot ID")
+        ->expectsOutput('Please specify a Bot ID')
         ->assertExitCode(Command::FAILURE);
 });
 
@@ -48,7 +46,7 @@ test('can set telegram webhook address for a bot if given its ID', function () {
 
     /** @phpstan-ignore-next-line */
     artisan("telegraph:unset-webhook $bot->id")
-        ->expectsOutput("Webhook deleted")
+        ->expectsOutput('Webhook deleted')
         ->assertExitCode(Command::SUCCESS);
 });
 
@@ -56,7 +54,7 @@ test('it dumps error when telegram request is unsuccessful', function () {
     $bot = bots(2)->first();
 
     Telegraph::fake([
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_UNSET_WEBHOOK => [
+        DefStudio\Telegraph\Telegraph::ENDPOINT_UNSET_WEBHOOK => [
             'ok' => false,
             'foo' => 'bar',
         ],
@@ -64,7 +62,7 @@ test('it dumps error when telegram request is unsuccessful', function () {
 
     /** @phpstan-ignore-next-line */
     artisan("telegraph:unset-webhook $bot->id")
-        ->expectsOutput("Failed to unregister webhook")
+        ->expectsOutput('Failed to unregister webhook')
         ->expectsOutput('{"ok":false,"foo":"bar"}')
         ->assertExitCode(Command::FAILURE);
 });

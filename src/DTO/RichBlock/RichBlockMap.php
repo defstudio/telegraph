@@ -11,13 +11,18 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockMap implements RichBlockItem, Arrayable
+class RichBlockMap implements Arrayable, RichBlockItem
 {
     private const TYPE = 'map';
+
     private Location $location;
+
     private int $zoom;
+
     private int $width;
+
     private int $height;
+
     private ?RichBlockCaption $caption = null;
 
     /**
@@ -29,8 +34,6 @@ class RichBlockMap implements RichBlockItem, Arrayable
      *     height: int,
      *     caption?: array<string, mixed>
      * }  $data
-     *
-     * @return RichBlockMap
      */
     public static function fromArray(array $data): RichBlockMap
     {
@@ -38,7 +41,7 @@ class RichBlockMap implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockMap = new self();
+        $richBlockMap = new self;
 
         $richBlockMap->location = Location::fromArray($data['location']);
 

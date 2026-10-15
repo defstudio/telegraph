@@ -3,15 +3,14 @@
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Telegraph;
+use Symfony\Component\Console\Command\Command;
 
 use function Pest\Laravel\artisan;
-
-use Symfony\Component\Console\Command\Command;
 
 test('bot token is required', function () {
     artisan('telegraph:new-bot')
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "")
+        ->expectsQuestion('Please, enter the bot token', '')
         ->expectsOutput('Token cannot be empty')
         ->assertExitCode(Command::FAILURE);
 });
@@ -19,12 +18,11 @@ test('bot token is required', function () {
 it('can create a new bot', function () {
     artisan('telegraph:new-bot')
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "foo")
-        ->expectsQuestion("Do you want to add a chat to this bot?", false)
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", false)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', 'foo')
+        ->expectsQuestion('Do you want to add a chat to this bot?', false)
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', false)
         ->assertExitCode(Command::SUCCESS);
-
 
     expect(TelegraphBot::first())
         ->not->toBeNull()
@@ -35,12 +33,11 @@ it('can create a new bot', function () {
 it('assigns a default name if not provided', function () {
     artisan('telegraph:new-bot')
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "")
-        ->expectsQuestion("Do you want to add a chat to this bot?", false)
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", false)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', '')
+        ->expectsQuestion('Do you want to add a chat to this bot?', false)
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', false)
         ->assertExitCode(Command::SUCCESS);
-
 
     expect(TelegraphBot::first())
         ->not->toBeNull()
@@ -51,14 +48,13 @@ it('assigns a default name if not provided', function () {
 it('can assign a chat to the new bot', function () {
     artisan('telegraph:new-bot')
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "foo")
-        ->expectsQuestion("Do you want to add a chat to this bot?", true)
-        ->expectsQuestion("Enter the chat ID - press [x] to abort", "888999444")
-        ->expectsQuestion("Enter the chat name (optional)", 'bar')
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", false)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', 'foo')
+        ->expectsQuestion('Do you want to add a chat to this bot?', true)
+        ->expectsQuestion('Enter the chat ID - press [x] to abort', '888999444')
+        ->expectsQuestion('Enter the chat name (optional)', 'bar')
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', false)
         ->assertExitCode(Command::SUCCESS);
-
 
     /** @var TelegraphBot|null $bot */
     $bot = TelegraphBot::first();
@@ -75,15 +71,14 @@ it('can assign a chat to the new bot', function () {
 it('keeps asking for the chat name until pressed x', function () {
     artisan('telegraph:new-bot')
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "foo")
-        ->expectsQuestion("Do you want to add a chat to this bot?", true)
-        ->expectsQuestion("Enter the chat ID - press [x] to abort", "")
-        ->expectsQuestion("Enter the chat ID - press [x] to abort", "")
-        ->expectsQuestion("Enter the chat ID - press [x] to abort", "x")
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", false)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', 'foo')
+        ->expectsQuestion('Do you want to add a chat to this bot?', true)
+        ->expectsQuestion('Enter the chat ID - press [x] to abort', '')
+        ->expectsQuestion('Enter the chat ID - press [x] to abort', '')
+        ->expectsQuestion('Enter the chat ID - press [x] to abort', 'x')
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', false)
         ->assertExitCode(Command::SUCCESS);
-
 
     /** @var TelegraphBot|null $bot */
     $bot = TelegraphBot::first();
@@ -107,12 +102,11 @@ it('can register the new bot webhook', function () {
 
     artisan('telegraph:new-bot')
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "")
-        ->expectsQuestion("Do you want to add a chat to this bot?", false)
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", true)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', '')
+        ->expectsQuestion('Do you want to add a chat to this bot?', false)
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', true)
         ->assertExitCode(Command::SUCCESS);
-
 
     expect(TelegraphBot::first())
         ->not->toBeNull()
@@ -133,12 +127,11 @@ it('can register the new bot webhook dropping pending updates', function () {
 
     artisan('telegraph:new-bot', ['--drop-pending-updates' => true])
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "")
-        ->expectsQuestion("Do you want to add a chat to this bot?", false)
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", true)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', '')
+        ->expectsQuestion('Do you want to add a chat to this bot?', false)
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', true)
         ->assertExitCode(Command::SUCCESS);
-
 
     expect(TelegraphBot::first())
         ->not->toBeNull()
@@ -161,12 +154,11 @@ it('can register the new bot webhook settings its max connections', function () 
 
     artisan('telegraph:new-bot', ['--max-connections' => 99])
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "")
-        ->expectsQuestion("Do you want to add a chat to this bot?", false)
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", true)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', '')
+        ->expectsQuestion('Do you want to add a chat to this bot?', false)
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', true)
         ->assertExitCode(Command::SUCCESS);
-
 
     expect(TelegraphBot::first())
         ->not->toBeNull()
@@ -189,12 +181,11 @@ it('can register the new bot webhook settings its secret token', function () {
 
     artisan('telegraph:new-bot', ['--secret' => 'foo'])
         ->expectsOutput('You are about to create a new Telegram Bot')
-        ->expectsQuestion("Please, enter the bot token", "123456789")
-        ->expectsQuestion("Enter the bot name (optional)", "")
-        ->expectsQuestion("Do you want to add a chat to this bot?", false)
-        ->expectsQuestion("Do you want to setup a webhook for this bot?", true)
+        ->expectsQuestion('Please, enter the bot token', '123456789')
+        ->expectsQuestion('Enter the bot name (optional)', '')
+        ->expectsQuestion('Do you want to add a chat to this bot?', false)
+        ->expectsQuestion('Do you want to setup a webhook for this bot?', true)
         ->assertExitCode(Command::SUCCESS);
-
 
     expect(TelegraphBot::first())
         ->not->toBeNull()

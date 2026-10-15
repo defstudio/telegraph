@@ -31,7 +31,7 @@ class GetTelegramWebhookDebugInfoCommand extends Command
 
         $response = $bot->getWebhookDebugInfo()->send();
 
-        if (!$response->json('ok')) {
+        if (! $response->json('ok')) {
             $this->error(__('telegraph::errors.failed_to_get_log_from_telegram'));
             $this->error($response->body());
 

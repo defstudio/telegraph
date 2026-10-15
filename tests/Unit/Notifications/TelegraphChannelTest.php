@@ -18,7 +18,8 @@ it('sends string notifications to an on-demand telegraph route', function () {
     NotificationFacade::route('telegraph', [
         'bot_token' => '123456:test-token',
         'chat_id' => '-100123456789',
-    ])->notify(new class () extends Notification {
+    ])->notify(new class extends Notification
+    {
         public function via(object $notifiable): array
         {
             return ['telegraph'];
@@ -40,7 +41,8 @@ it('sends string notifications to an on-demand telegraph route', function () {
 it('sends telegraph message notifications through notifiable routes', function () {
     Telegraph::fake();
 
-    $notifiable = new class () {
+    $notifiable = new class
+    {
         public function routeNotificationForTelegraph(): array
         {
             return [
@@ -50,7 +52,8 @@ it('sends telegraph message notifications through notifiable routes', function (
         }
     };
 
-    NotificationFacade::sendNow($notifiable, new class () extends Notification {
+    NotificationFacade::sendNow($notifiable, new class extends Notification
+    {
         public function via(object $notifiable): array
         {
             return ['telegraph'];
@@ -81,10 +84,9 @@ it('uses telegraph chat model routes', function () {
 
     $chat = chat();
 
-    $notifiable = new class ($chat) {
-        public function __construct(private readonly mixed $chat)
-        {
-        }
+    $notifiable = new class($chat)
+    {
+        public function __construct(private readonly mixed $chat) {}
 
         public function routeNotificationForTelegraph(): mixed
         {
@@ -92,7 +94,8 @@ it('uses telegraph chat model routes', function () {
         }
     };
 
-    NotificationFacade::sendNow($notifiable, new class () extends Notification {
+    NotificationFacade::sendNow($notifiable, new class extends Notification
+    {
         public function via(object $notifiable): array
         {
             return ['telegraph'];
@@ -113,7 +116,8 @@ it('uses telegraph chat model routes', function () {
 it('rejects unsupported telegraph notification payloads', function () {
     Telegraph::fake();
 
-    $notifiable = new class () {
+    $notifiable = new class
+    {
         public function routeNotificationForTelegraph(): array
         {
             return [
@@ -123,7 +127,8 @@ it('rejects unsupported telegraph notification payloads', function () {
         }
     };
 
-    expect(fn () => NotificationFacade::sendNow($notifiable, new class () extends Notification {
+    expect(fn () => NotificationFacade::sendNow($notifiable, new class extends Notification
+    {
         public function via(object $notifiable): array
         {
             return ['telegraph'];
@@ -133,5 +138,5 @@ it('rejects unsupported telegraph notification payloads', function () {
         {
             return [];
         }
-    }))->toThrow(\InvalidArgumentException::class, 'toTelegraph');
+    }))->toThrow(InvalidArgumentException::class, 'toTelegraph');
 });

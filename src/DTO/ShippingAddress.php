@@ -10,15 +10,18 @@ use Illuminate\Contracts\Support\Arrayable;
 class ShippingAddress implements Arrayable
 {
     private string $countryCode;
+
     private string $state;
+
     private string $city;
+
     private string $streetLine1;
+
     private string $streetLine2;
+
     private string $postCode;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -32,7 +35,7 @@ class ShippingAddress implements Arrayable
      */
     public static function fromArray(array $data): ShippingAddress
     {
-        $shippingAddress = new self();
+        $shippingAddress = new self;
 
         $shippingAddress->countryCode = $data['country_code'];
         $shippingAddress->state = $data['state'];
@@ -83,6 +86,6 @@ class ShippingAddress implements Arrayable
             'street_line1' => $this->streetLine1,
             'street_line2' => $this->streetLine2,
             'post_code' => $this->postCode,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

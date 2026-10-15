@@ -48,7 +48,6 @@ class CreateNewChatCommand extends Command
             $this->info(__('telegraph::commands.new_chat.chat_created', ['chat_name' => $chat->name, 'bot_name' => $bot->name]));
         }
 
-
         return self::SUCCESS;
     }
 }

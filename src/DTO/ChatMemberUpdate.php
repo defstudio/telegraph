@@ -16,16 +16,20 @@ class ChatMemberUpdate implements Arrayable
     private CarbonInterface $date;
 
     private Chat $chat;
+
     private User $from;
+
     private ChatMember $previous;
+
     private ChatMember $new;
+
     private ?ChatInviteLink $inviteLink = null;
+
     private ?bool $viaJoinRequest = null;
+
     private ?bool $viaChatFolderInviteLink = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -41,7 +45,7 @@ class ChatMemberUpdate implements Arrayable
      */
     public static function fromArray(array $data): ChatMemberUpdate
     {
-        $chatMemberUpdate = new self();
+        $chatMemberUpdate = new self;
 
         $chatMemberUpdate->date = Carbon::createFromTimestamp($data['date']);
         $chatMemberUpdate->chat = Chat::fromArray($data['chat']);

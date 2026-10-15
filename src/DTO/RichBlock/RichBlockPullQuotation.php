@@ -12,11 +12,13 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockPullQuotation implements RichBlockItem, Arrayable
+class RichBlockPullQuotation implements Arrayable, RichBlockItem
 {
     private const TYPE = 'pullquote';
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $text;
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $credit;
 
@@ -32,8 +34,6 @@ class RichBlockPullQuotation implements RichBlockItem, Arrayable
      *     text: string|array<string ,mixed>,
      *     credit?: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichBlockPullQuotation
      */
     public static function fromArray(array $data): RichBlockPullQuotation
     {
@@ -41,7 +41,7 @@ class RichBlockPullQuotation implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockPullQuotation = new self();
+        $richBlockPullQuotation = new self;
 
         $richBlockPullQuotation->text = app(RichTextFactory::class)->fromData($data['text']);
 
@@ -83,6 +83,6 @@ class RichBlockPullQuotation implements RichBlockItem, Arrayable
             'credit' => $this->credit instanceof RichTextItem
                 ? $this->credit->build()
                 : $this->credit->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

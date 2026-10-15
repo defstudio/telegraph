@@ -12,15 +12,18 @@ use Illuminate\Contracts\Support\Arrayable;
 class ChatJoinRequest implements Arrayable
 {
     private int $userChatId;
+
     private CarbonInterface $date;
+
     private ?string $bio = null;
+
     private ?ChatInviteLink $inviteLink = null;
+
     private Chat $chat;
+
     private User $from;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -34,7 +37,7 @@ class ChatJoinRequest implements Arrayable
      */
     public static function fromArray(array $data): ChatJoinRequest
     {
-        $request = new self();
+        $request = new self;
 
         $request->userChatId = $data['user_chat_id'];
 

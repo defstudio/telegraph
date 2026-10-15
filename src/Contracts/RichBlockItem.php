@@ -6,8 +6,6 @@ interface RichBlockItem
 {
     /**
      * @param  array<string, mixed>  $data
-     *
-     * @return self
      */
     public static function fromArray(array $data): self;
 

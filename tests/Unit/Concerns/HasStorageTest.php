@@ -6,7 +6,8 @@ use DefStudio\Telegraph\Exceptions\StorageException;
 use DefStudio\Telegraph\Storage\FileStorageDriver;
 
 it('can return default store driver', function () {
-    $class = new class () implements Storable {
+    $class = new class implements Storable
+    {
         use HasStorage;
 
         public function storageKey(): string
@@ -19,7 +20,8 @@ it('can return default store driver', function () {
 });
 
 it('can return custom store drivers', function (string $store) {
-    $class = new class () implements Storable {
+    $class = new class implements Storable
+    {
         use HasStorage;
 
         public function storageKey(): string
@@ -36,7 +38,8 @@ it('can return custom store drivers', function (string $store) {
 
 it('requires a default store', function () {
     config()->set('telegraph.storage.default');
-    $class = new class () implements Storable {
+    $class = new class implements Storable
+    {
         use HasStorage;
 
         public function storageKey(): string
@@ -48,10 +51,10 @@ it('requires a default store', function () {
     $class->storage();
 })->throws(StorageException::class, 'No default driver defined in telegraph.storage.default config');
 
-
 it('requires a driver configuration to exist', function () {
     config()->set('telegraph.storage.stores.file');
-    $class = new class () implements Storable {
+    $class = new class implements Storable
+    {
         use HasStorage;
 
         public function storageKey(): string

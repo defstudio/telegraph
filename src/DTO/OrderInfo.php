@@ -10,13 +10,14 @@ use Illuminate\Contracts\Support\Arrayable;
 class OrderInfo implements Arrayable
 {
     private ?string $name = null;
+
     private ?string $phoneNumber = null;
+
     private ?string $email = null;
+
     private ?ShippingAddress $shippingAddress = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -28,7 +29,7 @@ class OrderInfo implements Arrayable
      */
     public static function fromArray(array $data): OrderInfo
     {
-        $orderInfo = new self();
+        $orderInfo = new self;
 
         $orderInfo->name = $data['name'] ?? null;
         $orderInfo->phoneNumber = $data['phone_number'] ?? null;

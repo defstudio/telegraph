@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    "new_bot" => [
+    'new_bot' => [
         'starting_message' => 'Вы собираетесь создать нового Телеграм-бота',
         'enter_bot_token' => 'Пожалуйста, введите токен бота',
         'enter_bot_name' => 'Введите имя бота (не обязательно)',
@@ -26,11 +26,11 @@ return [
 
     'set_webhook' => [
         'sending_setup_request' => 'Отправка запроса для настройки вебхука: :api_url',
-        'webhook_updated' => 'Вебхук обновлён'
+        'webhook_updated' => 'Вебхук обновлён',
     ],
 
     'unset_webhook' => [
         'sending_unset_request' => 'Отправка запроса для отключения вебхука: :api_url',
-        'webhook_deleted' => 'Вебхук удалён'
+        'webhook_deleted' => 'Вебхук удалён',
     ],
 ];

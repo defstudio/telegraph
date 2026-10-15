@@ -16,14 +16,12 @@ class RichTextAnchor implements RichTextItem
      *     type: string,
      *     name: string,
      * }  $data
-     *
-     * @return RichTextAnchor
      */
     public static function fromData(string|array $data): RichTextAnchor
     {
-        $richTextAnchor = new self();
+        $richTextAnchor = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -47,6 +45,6 @@ class RichTextAnchor implements RichTextItem
         return array_filter([
             'type' => self::TYPE,
             'name' => $this->name,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

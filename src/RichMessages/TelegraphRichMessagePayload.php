@@ -42,8 +42,8 @@ class TelegraphRichMessagePayload extends Telegraph
         /** @var TelegraphData $data */
         $data = $telegraph->data;
 
-        if (!$asMarkdown) {
-            if (!isset($data['rich_message']['html'])) {
+        if (! $asMarkdown) {
+            if (! isset($data['rich_message']['html'])) {
                 $data['rich_message']['html'] = $data['rich_message']['markdown'] ?? null;
             }
 

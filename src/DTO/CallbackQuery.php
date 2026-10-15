@@ -17,23 +17,21 @@ class CallbackQuery implements Arrayable
 
     private User $from;
 
-    private Message|null $message = null;
+    private ?Message $message = null;
 
     /**
      * @var Collection<string, string>
      */
     private Collection $data;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
-     * @param array{id:int, from:array<string, mixed>, message?:array<string, mixed>, data?:string} $data
+     * @param  array{id:int, from:array<string, mixed>, message?:array<string, mixed>, data?:string}  $data
      */
     public static function fromArray(array $data): CallbackQuery
     {
-        $callbackQuery = new self();
+        $callbackQuery = new self;
 
         $callbackQuery->id = $data['id'];
 
@@ -67,7 +65,7 @@ class CallbackQuery implements Arrayable
         return $this->from;
     }
 
-    public function message(): Message|null
+    public function message(): ?Message
     {
         return $this->message;
     }

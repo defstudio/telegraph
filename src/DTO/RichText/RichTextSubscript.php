@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 class RichTextSubscript implements RichTextItem
 {
     private const TYPE = 'subscript';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
 
@@ -23,14 +24,12 @@ class RichTextSubscript implements RichTextItem
      *     type: string,
      *     text: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichTextSubscript
      */
     public static function fromData(string|array $data): RichTextSubscript
     {
-        $richTextSubscript = new self();
+        $richTextSubscript = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -59,6 +58,6 @@ class RichTextSubscript implements RichTextItem
             'text' => $this->text instanceof RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

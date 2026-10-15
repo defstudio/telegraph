@@ -11,9 +11,12 @@ use Illuminate\Support\Collection;
 class TextQuote implements Arrayable
 {
     private string $text;
+
     /** @var Collection<array-key, Entity> */
     private Collection $entities;
+
     private int $position;
+
     private bool $isManual = false;
 
     private function __construct()
@@ -32,7 +35,7 @@ class TextQuote implements Arrayable
      */
     public static function fromArray(array $data): TextQuote
     {
-        $textQuote = new self();
+        $textQuote = new self;
 
         $textQuote->text = $data['text'] ?? '';
         $textQuote->position = $data['position'];
@@ -76,6 +79,6 @@ class TextQuote implements Arrayable
             'entities' => $this->entities->toArray(),
             'position' => $this->position,
             'is_manual' => $this->isManual,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

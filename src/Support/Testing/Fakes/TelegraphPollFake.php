@@ -17,7 +17,7 @@ class TelegraphPollFake extends TelegraphPollPayload
     use FakesRequests;
 
     /**
-     * @param array<string, array<mixed>> $replies
+     * @param  array<string, array<mixed>>  $replies
      */
     public function __construct(array $replies = [])
     {
@@ -26,7 +26,7 @@ class TelegraphPollFake extends TelegraphPollPayload
     }
 
     /**
-     * @param array<int, string> $options
+     * @param  array<int, string>  $options
      */
     public static function assertSentPoll(string $question, array $options = []): void
     {

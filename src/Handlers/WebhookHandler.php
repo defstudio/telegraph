@@ -38,17 +38,25 @@ use Throwable;
 abstract class WebhookHandler
 {
     protected TelegraphBot $bot;
+
     protected TelegraphChat $chat;
 
     protected int $messageId;
+
     protected int $callbackQueryId;
 
     protected Request $request;
+
     protected ?Message $message = null;
+
     protected ?Reaction $reaction = null;
+
     protected ?CallbackQuery $callbackQuery = null;
+
     protected ?ChatJoinRequest $chatJoinRequest = null;
+
     protected ?ChatMemberUpdate $myChatMember = null;
+
     protected ?ChatMemberUpdate $chatMember = null;
 
     /**
@@ -164,7 +172,7 @@ abstract class WebhookHandler
         rescue(fn () => $this->reply(__('telegraph::errors.webhook_error_occurred')), report: false);
     }
 
-    //---- Chat Setup
+    // ---- Chat Setup
     protected function setupChat(): void
     {
         $telegramChat = $this->extractTelegramChat();
@@ -173,11 +181,10 @@ abstract class WebhookHandler
             'chat_id' => $telegramChat->id(),
         ]);
 
-        if (!$this->chat->exists) {
-            if (!$this->allowUnknownChat()) {
-                throw new NotFoundHttpException();
+        if (! $this->chat->exists) {
+            if (! $this->allowUnknownChat()) {
+                throw new NotFoundHttpException;
             }
-
 
             if (config('telegraph.security.store_unknown_chats_in_db', false)) {
                 $this->createChat($telegramChat, $this->chat);
@@ -221,12 +228,12 @@ abstract class WebhookHandler
 
     protected function getChatName(Chat $chat): string
     {
-        return Str::of("")
-            ->append("[", $chat->type(), ']')
-            ->append(" ", $chat->title() ?? $chat->username() ?? '');
+        return Str::of('')
+            ->append('[', $chat->type(), ']')
+            ->append(' ', $chat->title() ?? $chat->username() ?? '');
     }
 
-    //---- Message Handlers
+    // ---- Message Handlers
     protected function handleMessage(): void
     {
         $this->extractMessageData();
@@ -280,7 +287,7 @@ abstract class WebhookHandler
         $firstLetters = $commandPrefixes->map->substr(0, 1);
 
         $foundPrefix = $commandPrefixes->first(function (Stringable $prefix) use ($commandPrefixes, $firstLetters, $text) {
-            if (!$text->startsWith($prefix)) {
+            if (! $text->startsWith($prefix)) {
                 return false;
             }
 
@@ -317,7 +324,7 @@ abstract class WebhookHandler
     {
         [$command, $parameter] = $this->parseCommand($text);
 
-        if (!$this->canHandle($command)) {
+        if (! $this->canHandle($command)) {
             $this->handleUnknownCommand($text);
 
             return;
@@ -351,12 +358,12 @@ abstract class WebhookHandler
             return false;
         }
 
-        if (!method_exists($this, $action)) {
+        if (! method_exists($this, $action)) {
             return false;
         }
 
         $reflector = new ReflectionMethod($this::class, $action);
-        if (!$reflector->isPublic()) {
+        if (! $reflector->isPublic()) {
             return false;
         }
 
@@ -374,7 +381,7 @@ abstract class WebhookHandler
         }
     }
 
-    //---- CallbackQuery Handlers
+    // ---- CallbackQuery Handlers
     protected function handleCallbackQuery(): void
     {
         $this->extractCallbackQueryData();
@@ -382,7 +389,7 @@ abstract class WebhookHandler
         /** @var string $action */
         $action = $this->callbackQuery?->data()->get('action') ?? '';
 
-        if (!$this->canHandle($action)) {
+        if (! $this->canHandle($action)) {
             report(TelegramWebhookException::invalidAction($action));
             $this->reply(__('telegraph::errors.invalid_action'));
 
@@ -407,7 +414,7 @@ abstract class WebhookHandler
         $this->data = $this->callbackQuery->data();
     }
 
-    //---- Reaction Handlers
+    // ---- Reaction Handlers
     protected function handleReaction(): void
     {
         $this->extractReactionData();
@@ -425,7 +432,7 @@ abstract class WebhookHandler
         $this->data = $this->reaction->newReaction();
     }
 
-    //---- Handlers
+    // ---- Handlers
     protected function handlePreCheckoutQuery(PreCheckoutQuery $preCheckoutQuery): void
     {
         $this->bot->answerPreCheckoutQuery($preCheckoutQuery->id(), true)->send();
@@ -489,8 +496,6 @@ abstract class WebhookHandler
     /**
      * @param  Collection<array-key, Reaction>  $newReactions
      * @param  Collection<array-key, Reaction>  $oldReactions
-     *
-     * @return void
      */
     protected function handleChatReaction(Collection $newReactions, Collection $oldReactions): void
     {
@@ -504,7 +509,7 @@ abstract class WebhookHandler
         $this->chat->save();
     }
 
-    //---- Helpers
+    // ---- Helpers
     protected function replaceKeyboard(Keyboard $newKeyboard): void
     {
         $this->chat->replaceKeyboard($this->messageId, $newKeyboard)->send();

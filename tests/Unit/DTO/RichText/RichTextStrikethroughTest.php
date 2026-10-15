@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextStrikethrough::fromData([
         'type' => 'strikethrough',
-        'text' =>
-            [
-                'type' => 'strikethrough',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'strikethrough',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

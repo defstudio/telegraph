@@ -12,11 +12,13 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockCollage implements RichBlockItem, Arrayable
+class RichBlockCollage implements Arrayable, RichBlockItem
 {
     private const TYPE = 'collage';
+
     /** @var Collection<array-key,RichBlockItem> */
     private Collection $blocks;
+
     private ?RichBlockCaption $caption = null;
 
     public function __construct()
@@ -27,11 +29,9 @@ class RichBlockCollage implements RichBlockItem, Arrayable
     /**
      * @param  array{
      *     type: string,
-     *     blocks: array<array-key,Object>,
+     *     blocks: array<array-key,object>,
      *     caption?: array<string,mixed>
      * }  $data
-     *
-     * @return RichBlockCollage
      */
     public static function fromArray(array $data): RichBlockCollage
     {
@@ -39,7 +39,7 @@ class RichBlockCollage implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockCollage = new self();
+        $richBlockCollage = new self;
 
         /* @phpstan-ignore-next-line */
         $richBlockCollage->blocks = collect($data['blocks'])->map(fn (array $blockData) => app(RichBlockFactory::class)->fromArray($blockData));

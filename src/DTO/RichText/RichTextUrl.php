@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 class RichTextUrl implements RichTextItem
 {
     private const TYPE = 'url';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
+
     private string $url;
 
     public function __construct()
@@ -25,14 +27,12 @@ class RichTextUrl implements RichTextItem
      *     text: string|array<string ,mixed>,
      *     url: string
      * }  $data
-     *
-     * @return RichTextUrl
      */
     public static function fromData(string|array $data): RichTextUrl
     {
-        $richTextUrl = new self();
+        $richTextUrl = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -68,6 +68,6 @@ class RichTextUrl implements RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'url' => $this->url,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

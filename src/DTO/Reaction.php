@@ -17,6 +17,7 @@ class Reaction implements Arrayable
     private int $id;
 
     private Chat $chat;
+
     private ?Chat $actorChat = null;
 
     private ?User $from = null;
@@ -52,7 +53,7 @@ class Reaction implements Arrayable
      */
     public static function fromArray(array $data): Reaction
     {
-        $reaction = new self();
+        $reaction = new self;
 
         $reaction->id = $data['message_id'];
 

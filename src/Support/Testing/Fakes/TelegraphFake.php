@@ -23,7 +23,7 @@ class TelegraphFake extends Telegraph
     use FakesRequests;
 
     /**
-     * @param array<string, array> $replies
+     * @param  array<string, array>  $replies
      */
     public function __construct(array $replies = [])
     {
@@ -33,7 +33,7 @@ class TelegraphFake extends Telegraph
 
     public function prepareForNewRequest(): void
     {
-        $this->files = new Collection();
+        $this->files = new Collection;
     }
 
     public function editMedia(int $messageId): TelegraphEditMediaFake
@@ -76,7 +76,7 @@ class TelegraphFake extends Telegraph
     }
 
     /**
-     * @param array<string, Attachment> $expectedFiles
+     * @param  array<string, Attachment>  $expectedFiles
      */
     public function assertSentFiles(string $endpoint, array $expectedFiles = []): void
     {
@@ -89,7 +89,7 @@ class TelegraphFake extends Telegraph
                     /** @var array<string, Attachment> $sentFiles */
                     $sentFiles = $message['files'];
 
-                    if (!Arr::has($sentFiles, $key)) {
+                    if (! Arr::has($sentFiles, $key)) {
                         return false;
                     }
 
@@ -105,11 +105,10 @@ class TelegraphFake extends Telegraph
                 return true;
             });
 
-
         if ($foundMessages == null) {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+            $errorMessage = sprintf('Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)', $endpoint, count(self::$sentMessages));
         } else {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given files (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+            $errorMessage = sprintf('Failed to assert that a request was sent to [%s] endpoint with the given files (sent %d requests so far)', $endpoint, count(self::$sentMessages));
         }
 
         Assert::assertNotEmpty($foundMessages->toArray(), $errorMessage);
@@ -120,7 +119,7 @@ class TelegraphFake extends Telegraph
         $downloadedFiles = collect(self::$downloadedFiles)
             ->filter(fn ($downloadedFileId) => $fileId === $downloadedFileId);
 
-        Assert::assertNotEmpty($downloadedFiles->toArray(), sprintf("Failed to assert that a file with id [%s] was stored (%d files stored so fare)", $fileId, count(self::$downloadedFiles)));
+        Assert::assertNotEmpty($downloadedFiles->toArray(), sprintf('Failed to assert that a file with id [%s] was stored (%d files stored so fare)', $fileId, count(self::$downloadedFiles)));
     }
 
     public function assertSent(string $message, bool $exact = true): void
@@ -139,20 +138,20 @@ class TelegraphFake extends Telegraph
 
     public function assertNothingSent(): void
     {
-        Assert::assertEmpty(self::$sentMessages, sprintf("Failed to assert that no request were sent (sent %d requests so far)", count(self::$sentMessages)));
+        Assert::assertEmpty(self::$sentMessages, sprintf('Failed to assert that no request were sent (sent %d requests so far)', count(self::$sentMessages)));
     }
 
-    public function assertRegisteredWebhook(array $data = null, bool $exact = true): void
+    public function assertRegisteredWebhook(?array $data = null, bool $exact = true): void
     {
         $this->assertSentData(Telegraph::ENDPOINT_SET_WEBHOOK, $data, $exact);
     }
 
-    public function assertUnregisteredWebhook(array $data = null, bool $exact = true): void
+    public function assertUnregisteredWebhook(?array $data = null, bool $exact = true): void
     {
         $this->assertSentData(Telegraph::ENDPOINT_UNSET_WEBHOOK, $data, $exact);
     }
 
-    public function assertRequestedWebhookDebugInfo(array $data = null, bool $exact = true): void
+    public function assertRequestedWebhookDebugInfo(?array $data = null, bool $exact = true): void
     {
         $this->assertSentData(Telegraph::ENDPOINT_GET_WEBHOOK_DEBUG_INFO, $data, $exact);
     }

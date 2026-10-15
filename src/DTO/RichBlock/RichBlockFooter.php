@@ -12,9 +12,10 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockFooter implements RichBlockItem, Arrayable
+class RichBlockFooter implements Arrayable, RichBlockItem
 {
     private const TYPE = 'footer';
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $text;
 
@@ -23,8 +24,6 @@ class RichBlockFooter implements RichBlockItem, Arrayable
      *     type: string,
      *     text: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichBlockFooter
      */
     public static function fromArray(array $data): RichBlockFooter
     {
@@ -32,7 +31,7 @@ class RichBlockFooter implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockFooter = new self();
+        $richBlockFooter = new self;
 
         $richBlockFooter->text = app(RichTextFactory::class)->fromData($data['text']);
 
@@ -59,6 +58,6 @@ class RichBlockFooter implements RichBlockItem, Arrayable
             'text' => $this->text instanceof RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

@@ -14,20 +14,26 @@ use Illuminate\Contracts\Support\Arrayable;
 class TelegramUpdate implements Arrayable
 {
     private int $id;
+
     private ?Message $message = null;
+
     private ?Reaction $messageReaction = null;
+
     private ?Poll $poll = null;
+
     private ?PollAnswer $pollAnswer = null;
+
     private ?CallbackQuery $callbackQuery = null;
+
     private ?PreCheckoutQuery $preCheckoutQuery = null;
 
     private ?ChatMemberUpdate $chatMemberUpdate = null;
+
     private ?ChatMemberUpdate $botChatStatusChange = null;
+
     private ?InlineQuery $inlineQuery = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -48,7 +54,7 @@ class TelegramUpdate implements Arrayable
      */
     public static function fromArray(array $data): TelegramUpdate
     {
-        $update = new self();
+        $update = new self;
 
         $update->id = $data['update_id'];
 

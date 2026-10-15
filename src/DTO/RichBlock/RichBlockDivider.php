@@ -9,7 +9,7 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockDivider implements RichBlockItem, Arrayable
+class RichBlockDivider implements Arrayable, RichBlockItem
 {
     private const TYPE = 'divider';
 
@@ -18,7 +18,6 @@ class RichBlockDivider implements RichBlockItem, Arrayable
      *     type: string
      * }  $data
      *
-     * @return RichBlockDivider
      * @throws RichBlockException
      */
     public static function fromArray(array $data): RichBlockDivider
@@ -27,7 +26,7 @@ class RichBlockDivider implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        return new self();
+        return new self;
     }
 
     public function type(): string
@@ -39,6 +38,6 @@ class RichBlockDivider implements RichBlockItem, Arrayable
     {
         return array_filter([
             'type' => self::TYPE,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

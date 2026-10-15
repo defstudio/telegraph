@@ -3,10 +3,9 @@
 use DefStudio\Telegraph\Facades\Telegraph as Facade;
 use DefStudio\Telegraph\Models\TelegraphBot;
 use DefStudio\Telegraph\Telegraph;
+use Symfony\Component\Console\Command\Command;
 
 use function Pest\Laravel\artisan;
-
-use Symfony\Component\Console\Command\Command;
 
 test('can retrieve telegram bot webhook info', function () {
     bot();
@@ -19,18 +18,18 @@ test('can retrieve telegram bot webhook info', function () {
                 'has_custom_certificate' => false,
                 'pending_update_count' => 0,
                 'max_connections' => 40,
-                'ip_address' => "1.234.567.890",
+                'ip_address' => '1.234.567.890',
             ],
         ],
     ]);
 
     /** @phpstan-ignore-next-line */
     artisan('telegraph:debug-webhook')
-        ->expectsOutput("url: https://local.testing/telegraph/123456AAABBB/webhook")
-        ->expectsOutput("has_custom_certificate: no")
-        ->expectsOutput("pending_update_count: 0")
-        ->expectsOutput("max_connections: 40")
-        ->expectsOutput("ip_address: 1.234.567.890")
+        ->expectsOutput('url: https://local.testing/telegraph/123456AAABBB/webhook')
+        ->expectsOutput('has_custom_certificate: no')
+        ->expectsOutput('pending_update_count: 0')
+        ->expectsOutput('max_connections: 40')
+        ->expectsOutput('ip_address: 1.234.567.890')
         ->assertExitCode(Command::SUCCESS);
 });
 
@@ -39,7 +38,7 @@ test('it requires bot id if there are more than one', function () {
 
     /** @phpstan-ignore-next-line */
     artisan('telegraph:debug-webhook')
-        ->expectsOutput("Please specify a Bot ID")
+        ->expectsOutput('Please specify a Bot ID')
         ->assertExitCode(Command::FAILURE);
 });
 
@@ -55,18 +54,18 @@ test('can retrieve telegram bot webhook info if given its ID', function () {
                 'has_custom_certificate' => false,
                 'pending_update_count' => 0,
                 'max_connections' => 40,
-                'ip_address' => "1.234.567.890",
+                'ip_address' => '1.234.567.890',
             ],
         ],
     ]);
 
     /** @phpstan-ignore-next-line */
     artisan("telegraph:debug-webhook $bot->id")
-        ->expectsOutput("url: https://local.testing/telegraph/123456AAABBB/webhook")
-        ->expectsOutput("has_custom_certificate: no")
-        ->expectsOutput("pending_update_count: 0")
-        ->expectsOutput("max_connections: 40")
-        ->expectsOutput("ip_address: 1.234.567.890")
+        ->expectsOutput('url: https://local.testing/telegraph/123456AAABBB/webhook')
+        ->expectsOutput('has_custom_certificate: no')
+        ->expectsOutput('pending_update_count: 0')
+        ->expectsOutput('max_connections: 40')
+        ->expectsOutput('ip_address: 1.234.567.890')
         ->assertExitCode(Command::SUCCESS);
 });
 
@@ -85,7 +84,7 @@ test('it dumps error when telegram request is unsuccessful', function () {
 
     /** @phpstan-ignore-next-line */
     artisan("telegraph:debug-webhook $bot->id")
-        ->expectsOutput("Failed to get log from Telegram server")
+        ->expectsOutput('Failed to get log from Telegram server')
         ->expectsOutput('{"ok":false,"result":{"error":"foo"}}')
         ->assertExitCode(Command::FAILURE);
 });

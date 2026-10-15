@@ -9,7 +9,7 @@ trait BuildsFromTelegraphClass
 {
     public static function makeFrom(Telegraph $telegraph): self
     {
-        $newInstance = new self();
+        $newInstance = new self;
 
         $reflection = new ReflectionClass($telegraph);
         $properties = $reflection->getProperties();

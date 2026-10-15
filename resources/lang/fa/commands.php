@@ -8,7 +8,7 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    "new_bot" => [
+    'new_bot' => [
         'starting_message' => 'شما در حال ایجاد یک ربات تلگرام جدید هستید',
         'enter_bot_token' => 'لطفاً توکن ربات را وارد کنید',
         'enter_bot_name' => 'نام ربات را وارد کنید (اختیاری)',
@@ -18,7 +18,7 @@ return [
     ],
 
     'new_chat' => [
-        'starting_message' => "شما در حال ایجاد یک چت تلگرام جدید برای ربات :bot_name هستید",
+        'starting_message' => 'شما در حال ایجاد یک چت تلگرام جدید برای ربات :bot_name هستید',
         'enter_chat_id' => 'شناسه چت را وارد کنید - برای لغو [x] را فشار دهید',
         'enter_chat_name' => 'نام چت را وارد کنید (اختیاری)',
         'chat_created' => 'چت جدید :chat_name برای ربات :bot_name ایجاد شد',
@@ -26,11 +26,11 @@ return [
 
     'set_webhook' => [
         'sending_setup_request' => 'در حال ارسال درخواست تنظیم وب‌هوک به: :api_url',
-        'webhook_updated' => 'وب‌هوک به‌روزرسانی شد'
+        'webhook_updated' => 'وب‌هوک به‌روزرسانی شد',
     ],
 
     'unset_webhook' => [
         'sending_unset_request' => 'در حال ارسال درخواست حذف وب‌هوک به: :api_url',
-        'webhook_deleted' => 'وب‌هوک حذف شد'
+        'webhook_deleted' => 'وب‌هوک حذف شد',
     ],
 ];

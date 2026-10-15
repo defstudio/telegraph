@@ -14,7 +14,7 @@ use DefStudio\Telegraph\Telegraph;
 trait AnswersInlineQueries
 {
     /**
-     * @param InlineQueryResult[] $results
+     * @param  InlineQueryResult[]  $results
      */
     public function answerInlineQuery(string $inlineQueryID, array $results): Telegraph
     {
@@ -55,7 +55,7 @@ trait AnswersInlineQueries
 
     public function offertToSwitchToPrivateMessage(string $text, string $parameter): Telegraph
     {
-        if (!preg_match("#^[a-zA-Z\d_-]+$#", $parameter)) {
+        if (! preg_match("#^[a-zA-Z\d_-]+$#", $parameter)) {
             throw InlineQueryException::invalidSwitchToPmParameter($parameter);
         }
 

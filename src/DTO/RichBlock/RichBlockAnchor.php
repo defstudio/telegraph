@@ -9,9 +9,10 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockAnchor implements RichBlockItem, Arrayable
+class RichBlockAnchor implements Arrayable, RichBlockItem
 {
     private const TYPE = 'anchor';
+
     private string $name;
 
     /**
@@ -19,8 +20,6 @@ class RichBlockAnchor implements RichBlockItem, Arrayable
      *     type: string,
      *     name: string,
      * }  $data
-     *
-     * @return RichBlockAnchor
      */
     public static function fromArray(array $data): RichBlockAnchor
     {
@@ -28,7 +27,7 @@ class RichBlockAnchor implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockAnchor = new self();
+        $richBlockAnchor = new self;
 
         $richBlockAnchor->name = $data['name'];
 
@@ -50,6 +49,6 @@ class RichBlockAnchor implements RichBlockItem, Arrayable
         return array_filter([
             'type' => self::TYPE,
             'name' => $this->name,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

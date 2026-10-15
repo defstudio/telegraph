@@ -4,7 +4,7 @@ use DefStudio\Telegraph\DTO\InlineQuery;
 
 test('null value for query', function () {
     $dto = InlineQuery::fromArray([
-        'id' => "a99",
+        'id' => 'a99',
         'chat_type' => 'private',
         'query' => null,
         'from' => [
@@ -22,12 +22,12 @@ test('null value for query', function () {
         ],
     ]);
 
-    expect($dto->query())->toBe("");
+    expect($dto->query())->toBe('');
 });
 
 test('null value for offset', function () {
     $dto = InlineQuery::fromArray([
-        'id' => "a99",
+        'id' => 'a99',
         'chat_type' => 'private',
         'query' => 'test',
         'from' => [
@@ -45,5 +45,5 @@ test('null value for offset', function () {
         ],
     ]);
 
-    expect($dto->offset())->toBe("");
+    expect($dto->offset())->toBe('');
 });

@@ -12,16 +12,20 @@ use Illuminate\Contracts\Support\Arrayable;
 class PreCheckoutQuery implements Arrayable
 {
     private int $id;
+
     private User $from;
+
     private string $currency;
+
     private int $totalAmount;
+
     private string $invoicePayload;
+
     private ?string $shippingOptionId = null;
+
     private ?OrderInfo $orderInfo = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -36,7 +40,7 @@ class PreCheckoutQuery implements Arrayable
      */
     public static function fromArray(array $data): PreCheckoutQuery
     {
-        $preCheckoutQuery = new self();
+        $preCheckoutQuery = new self;
 
         $preCheckoutQuery->id = $data['id'];
 
@@ -46,7 +50,6 @@ class PreCheckoutQuery implements Arrayable
         $preCheckoutQuery->totalAmount = $data['total_amount'];
         $preCheckoutQuery->invoicePayload = $data['invoice_payload'];
         $preCheckoutQuery->shippingOptionId = $data['shipping_option_id'] ?? null;
-
 
         if (isset($data['order_info'])) {
             $preCheckoutQuery->orderInfo = OrderInfo::fromArray($data['order_info']);

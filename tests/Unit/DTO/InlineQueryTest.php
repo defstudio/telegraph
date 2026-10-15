@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 
 it('export all properties to array', function () {
     $dto = InlineQuery::fromArray([
-        'id' => "a99",
+        'id' => 'a99',
         'chat_type' => 'private',
         'query' => 'foo',
         'from' => [

@@ -11,7 +11,7 @@ class TelegraphChannel
 {
     public function send(object $notifiable, Notification $notification): ?TelegraphResponse
     {
-        if (!method_exists($notification, 'toTelegraph')) {
+        if (! method_exists($notification, 'toTelegraph')) {
             return null;
         }
 
@@ -22,7 +22,7 @@ class TelegraphChannel
         if (is_string($message)) {
             $message = TelegraphMessage::make($message);
         }
-        if (!$message instanceof TelegraphMessage) {
+        if (! $message instanceof TelegraphMessage) {
             throw new \InvalidArgumentException('Telegraph notifications must return a string, TelegraphMessage, or null from toTelegraph().');
         }
 

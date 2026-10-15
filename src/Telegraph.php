@@ -29,30 +29,31 @@ use Illuminate\Support\Traits\Conditionable;
 
 class Telegraph
 {
-    use CallTraitsMethods;
-    use InteractsWithTelegram;
-    use HasBotsAndChats;
-    use ComposesMessages;
-    use ManagesKeyboards;
-    use InteractsWithWebhooks;
-    use SendsAttachments;
-    use StoresFiles;
     use AnswersInlineQueries;
+    use CallTraitsMethods;
+    use ComposesMessages;
+    use Conditionable;
     use CreatesScopedPayloads;
-    use InteractWithUsers;
+    use HasBotsAndChats;
+    use HasEndpoints;
     use InteractsWithCommands;
     use InteractsWithPayments;
-    use Conditionable;
-    use HasEndpoints;
-
+    use InteractsWithTelegram;
+    use InteractsWithWebhooks;
+    use InteractWithUsers;
+    use ManagesKeyboards;
+    use SendsAttachments;
+    use StoresFiles;
 
     public const PARSE_HTML = 'html';
+
     public const PARSE_MARKDOWN = 'markdown';
+
     public const PARSE_MARKDOWNV2 = 'MarkdownV2';
 
     protected const TELEGRAM_API_BASE_URL = 'https://api.telegram.org/bot';
-    protected const TELEGRAM_API_FILE_BASE_URL = 'https://api.telegram.org/file/bot';
 
+    protected const TELEGRAM_API_FILE_BASE_URL = 'https://api.telegram.org/file/bot';
 
     /** @var array<string, mixed> */
     protected array $data = [];
@@ -105,7 +106,7 @@ class Telegraph
     {
         $telegraph = clone $this;
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         data_set($telegraph->data, $key, $value);
 
         return $telegraph;
@@ -115,7 +116,7 @@ class Telegraph
     {
         $telegraph = clone $this;
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         data_set($telegraph->data, 'message_thread_id', $thread_id);
 
         return $telegraph;
@@ -125,7 +126,7 @@ class Telegraph
     {
         $telegraph = clone $this;
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         data_set($telegraph->data, 'business_connection_id', $business_connection_id);
 
         return $telegraph;

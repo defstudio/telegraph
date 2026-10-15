@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 
-uses(TestCase::class)->in("Feature");
-uses(TestCase::class)->in("Unit");
-uses(TestCase::class)->in("Regression");
-uses(TestCase::class)->group('sandbox')->in("Sandbox");
+uses(TestCase::class)->in('Feature');
+uses(TestCase::class)->in('Unit');
+uses(TestCase::class)->in('Regression');
+uses(TestCase::class)->group('sandbox')->in('Sandbox');
 
 function withfakeUrl(): string
 {
@@ -89,50 +89,48 @@ function register_webhook_handler(string $handler = TestWebhookHandler::class): 
     config()->set('telegraph.webhook.handler', $handler);
 }
 
-
-function webhook_message($handler = TestWebhookHandler::class, array $message = null): Request
+function webhook_message($handler = TestWebhookHandler::class, ?array $message = null): Request
 {
     register_webhook_handler($handler);
 
     return Request::create('', 'POST', [
         'message' => $message ?? [
-                'message_id' => 123456,
-                'chat' => [
-                    'id' => 123456,
-                    'type' => 'group',
-                    'title' => 'Test chat',
-                ],
-                "text" => 'foo',
+            'message_id' => 123456,
+            'chat' => [
+                'id' => 123456,
+                'type' => 'group',
+                'title' => 'Test chat',
             ],
+            'text' => 'foo',
+        ],
     ]);
 }
 
-
-function webhook_message_reaction($handler = TestWebhookHandler::class, array $message = null): Request
+function webhook_message_reaction($handler = TestWebhookHandler::class, ?array $message = null): Request
 {
     register_webhook_handler($handler);
 
     return Request::create('', 'POST', [
         'message_reaction' => $message ?? [
-                'chat' => [
-                    'id' => 3,
-                    'type' => 'a',
-                    'title' => 'b',
-                ],
-                'date' => 1727211008,
-                'user' => [
-                    'id' => 1,
-                    'first_name' => 'a',
-                ],
-                'message_id' => 2,
-                'new_reaction' => [
-                    [
-                        'type' => 'emoji',
-                        'emoji' => '👍',
-                    ],
-                ],
-                'old_reaction' => [],
+            'chat' => [
+                'id' => 3,
+                'type' => 'a',
+                'title' => 'b',
             ],
+            'date' => 1727211008,
+            'user' => [
+                'id' => 1,
+                'first_name' => 'a',
+            ],
+            'message_id' => 2,
+            'new_reaction' => [
+                [
+                    'type' => 'emoji',
+                    'emoji' => '👍',
+                ],
+            ],
+            'old_reaction' => [],
+        ],
     ]);
 }
 
@@ -162,11 +160,11 @@ function webhook_request($action = 'invalid', $handler = TestWebhookHandler::cla
                 'reply_markup' => [
                     'inline_keyboard' => [
                         [
-                            ["text" => "test", "callback_data" => "action:test;id:1"],
-                            ["text" => "delete", "callback_data" => "action:delete;id:2"],
+                            ['text' => 'test', 'callback_data' => 'action:test;id:1'],
+                            ['text' => 'delete', 'callback_data' => 'action:delete;id:2'],
                         ],
                         [
-                            ["text" => "👀 Apri", "url" => 'https://test.it'],
+                            ['text' => '👀 Apri', 'url' => 'https://test.it'],
                         ],
                     ],
                 ],
@@ -201,7 +199,7 @@ function webhook_inline_query($handler = TestWebhookHandler::class): Request
 
     return Request::create('', 'POST', [
         'inline_query' => [
-            'id' => "a99",
+            'id' => 'a99',
             'query' => 'foo',
             'from' => [
                 'id' => 1,
@@ -257,23 +255,23 @@ function webhook_successful_payment($handler = TestWebhookHandler::class, int $c
 
     return Request::create('', 'POST', [
         'message' => [
-            "message_id" => 1,
-            "from" => [
-                "id" => 100,
-                "is_bot" => false,
-                "username" => "Test User",
-                "last_name" => "Test User",
-                "first_name" => "Test User",
-                "is_premium" => true,
-                "language_code" => "it",
+            'message_id' => 1,
+            'from' => [
+                'id' => 100,
+                'is_bot' => false,
+                'username' => 'Test User',
+                'last_name' => 'Test User',
+                'first_name' => 'Test User',
+                'is_premium' => true,
+                'language_code' => 'it',
             ],
-            "chat" => [
-                "id" => $chat_id,
-                "type" => "a",
-                "title" => "b",
-                "all_members_are_administrators" => false,
+            'chat' => [
+                'id' => $chat_id,
+                'type' => 'a',
+                'title' => 'b',
+                'all_members_are_administrators' => false,
             ],
-            "date" => 100000,
+            'date' => 100000,
             'successful_payment' => [
                 'currency' => 'EUR',
                 'total_amount' => 100,
@@ -308,24 +306,24 @@ function webhook_poll_state_update($handler = TestWebhookHandler::class, int $ch
 
     return Request::create('', 'POST', [
         'update_id' => 123456789,
-        "poll" => [
-            "id" => $chat_id,
-            "question" => "Select Professions",
-            "options" => [
+        'poll' => [
+            'id' => $chat_id,
+            'question' => 'Select Professions',
+            'options' => [
                 [
-                    "text" => "Profession 1",
-                    "voter_count" => 1,
+                    'text' => 'Profession 1',
+                    'voter_count' => 1,
                 ],
                 [
-                    "text" => "Profession 2",
-                    "voter_count" => 0,
+                    'text' => 'Profession 2',
+                    'voter_count' => 0,
                 ],
             ],
-            "total_voter_count" => 1,
-            "is_closed" => false,
-            "is_anonymous" => false,
-            "type" => "regular",
-            "allows_multiple_answers" => false,
+            'total_voter_count' => 1,
+            'is_closed' => false,
+            'is_anonymous' => false,
+            'type' => 'regular',
+            'allows_multiple_answers' => false,
         ],
     ]);
 }
@@ -336,15 +334,15 @@ function webhook_poll_answer_received($handler = TestWebhookHandler::class, int 
 
     return Request::create('', 'POST', [
         'update_id' => 123456789,
-        "poll_answer" => [
-            "poll_id" => "5998796039392330592",
-            "user" => [
-                "id" => 1771049713,
-                "is_bot" => false,
-                "first_name" => "Mario Gattolla",
-                "language_code" => "it",
+        'poll_answer' => [
+            'poll_id' => '5998796039392330592',
+            'user' => [
+                'id' => 1771049713,
+                'is_bot' => false,
+                'first_name' => 'Mario Gattolla',
+                'language_code' => 'it',
             ],
-            "option_ids" => [
+            'option_ids' => [
                 0,
             ],
         ],
@@ -458,24 +456,24 @@ function webhook_migrate_to_chat($handler = TestWebhookHandler::class, int $chat
 
     return Request::create('', 'POST', [
         'message' => [
-            "chat" => [
-                "id" => $chat_id,
-                "type" => "a",
-                "title" => "b",
-                "all_members_are_administrators" => false,
+            'chat' => [
+                'id' => $chat_id,
+                'type' => 'a',
+                'title' => 'b',
+                'all_members_are_administrators' => false,
             ],
-            "date" => 100000,
-            "from" => [
-                "id" => 100,
-                "is_bot" => false,
-                "username" => "Test User",
-                "last_name" => "Test User",
-                "first_name" => "Test User",
-                "is_premium" => true,
-                "language_code" => "it",
+            'date' => 100000,
+            'from' => [
+                'id' => 100,
+                'is_bot' => false,
+                'username' => 'Test User',
+                'last_name' => 'Test User',
+                'first_name' => 'Test User',
+                'is_premium' => true,
+                'language_code' => 'it',
             ],
-            "message_id" => 1,
-            "migrate_to_chat_id" => $new_chat_id,
+            'message_id' => 1,
+            'migrate_to_chat_id' => $new_chat_id,
         ],
     ]);
 }
@@ -521,7 +519,6 @@ function webhook_chat_join_request($handler = TestWebhookHandler::class, int $ch
         ],
     ]);
 }
-
 
 expect()->extend('toMatchTelegramSnapshot', function () {
     /** @var Closure(Telegraph): Telegraph $configurationClosure */

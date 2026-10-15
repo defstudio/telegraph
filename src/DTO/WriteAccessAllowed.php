@@ -10,12 +10,12 @@ use Illuminate\Contracts\Support\Arrayable;
 class WriteAccessAllowed implements Arrayable
 {
     private bool $fromRequest = false;
+
     private ?string $webAppName = null;
+
     private bool $fromAttachmentMenu = false;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -26,11 +26,11 @@ class WriteAccessAllowed implements Arrayable
      */
     public static function fromArray(array $data): WriteAccessAllowed
     {
-        $writeAccessAllowed = new self();
+        $writeAccessAllowed = new self;
 
         $writeAccessAllowed->fromRequest = $data['from_request'] ?? false;
         $writeAccessAllowed->webAppName = $data['web_app_name'] ?? null;
-        $writeAccessAllowed->fromAttachmentMenu = $data ['from_attachment_menu'] ?? false;
+        $writeAccessAllowed->fromAttachmentMenu = $data['from_attachment_menu'] ?? false;
 
         return $writeAccessAllowed;
     }

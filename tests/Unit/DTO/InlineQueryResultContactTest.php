@@ -5,12 +5,12 @@ use DefStudio\Telegraph\DTO\InlineQueryResultContact;
 it('can export to array', function () {
     expect(
         InlineQueryResultContact::make('a45', '3999999999', 'testFirstName')
-        ->thumbWidth(400)
-        ->thumbHeight(200)
-        ->lastName('testLastName')
-        ->vcard('testVcard')
-        ->thumbUrl('testThumbUrl')
-        ->toArray()
+            ->thumbWidth(400)
+            ->thumbHeight(200)
+            ->lastName('testLastName')
+            ->vcard('testVcard')
+            ->thumbUrl('testThumbUrl')
+            ->toArray()
     )->toBe([
         'phone_number' => '3999999999',
         'first_name' => 'testFirstName',
@@ -19,7 +19,7 @@ it('can export to array', function () {
         'thumbnail_url' => 'testThumbUrl',
         'thumbnail_width' => 400,
         'thumbnail_height' => 200,
-        'id' => "a45",
-        'type' => "contact",
+        'id' => 'a45',
+        'type' => 'contact',
     ]);
 });

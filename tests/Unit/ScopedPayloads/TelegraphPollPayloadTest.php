@@ -8,47 +8,47 @@ use Illuminate\Support\Carbon;
 it('can create a poll', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->poll('foo?')
-        ->option('bar')
-        ->option('baz')
+            ->poll('foo?')
+            ->option('bar')
+            ->option('baz')
     )->toMatchTelegramSnapshot();
 });
 
 it('can allow multiple answers', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->poll('foo?')
-        ->option('bar')
-        ->option('baz')
-        ->allowMultipleAnswers()
+            ->poll('foo?')
+            ->option('bar')
+            ->option('baz')
+            ->allowMultipleAnswers()
     )->toMatchTelegramSnapshot();
 });
 
 it('can allow multiple options to be added in an array', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->poll('foo?')
-        ->options(['bar', 'baz'])
-        ->allowMultipleAnswers()
+            ->poll('foo?')
+            ->options(['bar', 'baz'])
+            ->allowMultipleAnswers()
     )->toMatchTelegramSnapshot();
 });
 
 it('can disable anonymous answers', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->poll('foo?')
-        ->option('bar')
-        ->option('baz')
-        ->allowMultipleAnswers()
+            ->poll('foo?')
+            ->option('bar')
+            ->option('baz')
+            ->allowMultipleAnswers()
     )->toMatchTelegramSnapshot();
 });
 
 it('can disable anonymous answers using options method', function () {
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->poll('foo?')
-        ->options(['bar','baz'])
-        ->disableAnonymous()
+            ->poll('foo?')
+            ->options(['bar', 'baz'])
+            ->disableAnonymous()
     )->toMatchTelegramSnapshot();
 });
 
@@ -56,9 +56,9 @@ it('can set poll validity', function () {
     \Spatie\PestPluginTestTime\testTime()->freeze(Carbon::make('2020-10-03'));
     expect(
         fn (Telegraph $telegraph) => $telegraph
-        ->poll('foo?')
-        ->option('bar')
-        ->option('baz')
-        ->validUntil(now()->addSeconds(30))
+            ->poll('foo?')
+            ->option('bar')
+            ->option('baz')
+            ->validUntil(now()->addSeconds(30))
     )->toMatchTelegramSnapshot();
 });

@@ -8,7 +8,7 @@ class TelegraphPollException extends \Exception
 {
     public static function tooManyOptions(): self
     {
-        return new self("Maximum options count of 12 exceeded for a Telegram poll");
+        return new self('Maximum options count of 12 exceeded for a Telegram poll');
     }
 
     public static function optionMaxLengthExceeded(string $option): self
@@ -18,7 +18,7 @@ class TelegraphPollException extends \Exception
 
     public static function explanationMaxLengthExceeded(): self
     {
-        return new self("Max explanation length (200 chars) exceeded");
+        return new self('Max explanation length (200 chars) exceeded');
     }
 
     public static function onlyOneCorrectAnswerAllowed(string $chosenOption): self

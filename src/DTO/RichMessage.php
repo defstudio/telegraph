@@ -26,15 +26,13 @@ class RichMessage implements Arrayable
 
     /**
      * @param  array{
-     *     blocks: array<Object>,
+     *     blocks: array<object>,
      *     is_rtl?: bool
      * }  $data
-     *
-     * @return RichMessage
      */
     public static function fromArray(array $data): RichMessage
     {
-        $richMessage = new self();
+        $richMessage = new self;
 
         /* @phpstan-ignore-next-line */
         $richMessage->blocks = collect($data['blocks'])->map(fn (array $blockData) => app(RichBlockFactory::class)->fromArray($blockData));
@@ -62,6 +60,6 @@ class RichMessage implements Arrayable
         return array_filter([
             'blocks' => $this->blocks->toArray(),
             'is_rtl' => $this->isRtl,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

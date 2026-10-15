@@ -22,13 +22,13 @@ class Keyboard implements Arrayable
 
     public function __construct()
     {
-        /* @phpstan-ignore-next-line  */
+        /* @phpstan-ignore-next-line */
         $this->buttons = collect();
     }
 
     public static function make(): Keyboard
     {
-        return new self();
+        return new self;
     }
 
     public function rightToLeft(bool $condition = true): Keyboard
@@ -47,9 +47,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[], switch_inline_query?: string|null, switch_inline_query_current_chat?: string|null, copy_text?: string[]}>> $arrayKeyboard
-     *
-     * @return Keyboard
+     * @param  array<array-key, array<array-key, array{text: string, url?: string, callback_data?: string, web_app?:  string[], login_url?:  string[], switch_inline_query?: string|null, switch_inline_query_current_chat?: string|null, copy_text?: string[]}>>  $arrayKeyboard
      */
     public static function fromArray(array $arrayKeyboard): Keyboard
     {
@@ -61,8 +59,8 @@ class Keyboard implements Arrayable
             foreach ($buttons as $button) {
                 $rowButton = Button::make($button['text']);
 
-                if (array_key_exists("callback_data", $button)) {
-                    $params = explode(";", $button['callback_data']);
+                if (array_key_exists('callback_data', $button)) {
+                    $params = explode(';', $button['callback_data']);
 
                     foreach ($params as $param) {
                         $key = Str::of($param)->before(':');
@@ -72,15 +70,15 @@ class Keyboard implements Arrayable
                     }
                 }
 
-                if (array_key_exists("url", $button)) {
+                if (array_key_exists('url', $button)) {
                     $rowButton = $rowButton->url($button['url']);
                 }
 
-                if (array_key_exists("web_app", $button)) {
+                if (array_key_exists('web_app', $button)) {
                     $rowButton = $rowButton->webApp($button['web_app']['url']);
                 }
 
-                if (array_key_exists("login_url", $button)) {
+                if (array_key_exists('login_url', $button)) {
                     $rowButton = $rowButton->loginUrl($button['login_url']['url']);
                 }
 
@@ -106,9 +104,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, Button>|Collection<array-key, Button> $buttons
-     *
-     * @return Keyboard
+     * @param  array<array-key, Button>|Collection<array-key, Button>  $buttons
      */
     public function row(array|Collection $buttons): Keyboard
     {
@@ -139,9 +135,7 @@ class Keyboard implements Arrayable
     }
 
     /**
-     * @param array<array-key, Button>|Collection<array-key, Button> $buttons $buttons
-     *
-     * @return Keyboard
+     * @param  array<array-key, Button>|Collection<array-key, Button>  $buttons  $buttons
      */
     public function buttons(array|Collection $buttons): Keyboard
     {
@@ -162,7 +156,7 @@ class Keyboard implements Arrayable
 
         $clone->buttons = $clone->buttons->map(function (Button $button) use ($newButton, $label) {
             if ($button->label() == $label) {
-                if (!$newButton->has_width()) {
+                if (! $newButton->has_width()) {
                     $newButton = $newButton->width($button->get_width());
                 }
 
@@ -210,7 +204,7 @@ class Keyboard implements Arrayable
 
     public function isFilled(): bool
     {
-        return !$this->isEmpty();
+        return ! $this->isEmpty();
     }
 
     /**

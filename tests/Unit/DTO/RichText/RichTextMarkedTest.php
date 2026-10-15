@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextMarked::fromData([
         'type' => 'marked',
-        'text' =>
-            [
-                'type' => 'marked',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'marked',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

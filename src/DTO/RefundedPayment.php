@@ -12,14 +12,16 @@ use Illuminate\Contracts\Support\Arrayable;
 class RefundedPayment implements Arrayable
 {
     private string $currency;
+
     private int $totalAmount;
+
     private string $invoicePayload;
+
     private string $telegramPaymentChargeId;
+
     private ?string $providerPaymentChargeId;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -33,7 +35,7 @@ class RefundedPayment implements Arrayable
     public static function fromArray(array $data): RefundedPayment
     {
 
-        $refundedPayment = new self();
+        $refundedPayment = new self;
 
         $refundedPayment->currency = $data['currency'];
         $refundedPayment->totalAmount = $data['total_amount'];

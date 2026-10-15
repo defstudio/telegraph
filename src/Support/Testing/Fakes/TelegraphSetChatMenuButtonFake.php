@@ -17,7 +17,7 @@ class TelegraphSetChatMenuButtonFake extends SetChatMenuButtonPayload
     use FakesRequests;
 
     /**
-     * @param array<string, array<mixed>> $replies
+     * @param  array<string, array<mixed>>  $replies
      */
     public function __construct(array $replies = [])
     {
@@ -26,7 +26,7 @@ class TelegraphSetChatMenuButtonFake extends SetChatMenuButtonPayload
     }
 
     /**
-     * @param array<string, mixed> $options
+     * @param  array<string, mixed>  $options
      */
     public static function assertChangedMenuButton(string $type, array $options = []): void
     {

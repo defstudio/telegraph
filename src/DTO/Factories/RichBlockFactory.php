@@ -33,12 +33,11 @@ class RichBlockFactory
      *     type?:string
      * }  $blockData
      *
-     * @return RichBlockItem
      * @throws RichBlockFactoryException
      */
     public function fromArray(array $blockData): RichBlockItem
     {
-        if (!isset($blockData['type'])) {
+        if (! isset($blockData['type'])) {
             throw RichBlockFactoryException::missingType();
         }
 

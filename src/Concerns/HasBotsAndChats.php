@@ -103,15 +103,14 @@ trait HasBotsAndChats
     }
 
     /**
-     * @param array<string, mixed> $data
-     *
+     * @param  array<string, mixed>  $data
      * @return array<string, mixed>
      */
     protected function prepareChatData(array $data): array
     {
         $shouldSetChatId = array_key_exists('chat_id', $data);
 
-        if (!$shouldSetChatId) {
+        if (! $shouldSetChatId) {
             return $data;
         }
 
@@ -176,7 +175,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+        if (! isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
 
@@ -202,7 +201,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+        if (! isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
         $telegraph->endpoint = self::ENDPOINT_CLOSE_FORUM_TOPIC;
@@ -219,7 +218,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+        if (! isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
         $telegraph->endpoint = self::ENDPOINT_REOPEN_FORUM_TOPIC;
@@ -236,7 +235,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        if (!isset($telegraph->data['message_thread_id']) && $threadId === null) {
+        if (! isset($telegraph->data['message_thread_id']) && $threadId === null) {
             throw ChatThreadException::emptyThreadId();
         }
         $telegraph->endpoint = self::ENDPOINT_DELETE_FORUM_TOPIC;
@@ -303,7 +302,7 @@ trait HasBotsAndChats
     {
         $telegraph = clone $this;
 
-        !empty($title) || throw ChatSettingsException::emptyTitle();
+        ! empty($title) || throw ChatSettingsException::emptyTitle();
         strlen($title) < 256 || throw ChatSettingsException::titleMaxLengthExceeded();
 
         $telegraph->endpoint = self::ENDPOINT_SET_CHAT_TITLE;
@@ -424,7 +423,6 @@ trait HasBotsAndChats
         if ($this->getChatIfAvailable() !== null) {
             $telegraph->data['chat_id'] = null;
         }
-
 
         return SetChatMenuButtonPayload::makeFrom($telegraph);
     }
@@ -629,7 +627,6 @@ trait HasBotsAndChats
                     : [$value => true]
             );
 
-
         $telegraph->data['permissions'] = $permissions;
 
         return $telegraph;
@@ -675,7 +672,7 @@ trait HasBotsAndChats
             ->toArray();
 
         foreach ($permissions as $permission => $enabled) {
-            //@phpstan-ignore-next-line
+            // @phpstan-ignore-next-line
             $telegraph->data[$permission] = $enabled;
         }
 

@@ -26,11 +26,11 @@ return [
 
     'set_webhook' => [
         'sending_setup_request' => 'Відправка запиту для налаштування вебхука: :api_url',
-        'webhook_updated' => 'Вебхук оновлений'
+        'webhook_updated' => 'Вебхук оновлений',
     ],
 
     'unset_webhook' => [
         'sending_unset_request' => 'Відправка запиту для відключення вебхука: :api_url',
-        'webhook_deleted' => 'Вебхук видалений'
+        'webhook_deleted' => 'Вебхук видалений',
     ],
 ];

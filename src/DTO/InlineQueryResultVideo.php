@@ -9,21 +9,32 @@ use DefStudio\Telegraph\Telegraph;
 class InlineQueryResultVideo extends InlineQueryResult
 {
     protected string $type = 'video';
+
     protected string $id;
+
     protected string $url;
+
     protected string $mimeType;
+
     protected string $thumbUrl;
+
     protected string $title;
-    protected string|null $caption = null;
-    protected string|null $description = null;
-    protected int|null $width = null;
-    protected int|null $height = null;
-    protected int|null $duration = null;
-    protected string|null $parseMode = null;
+
+    protected ?string $caption = null;
+
+    protected ?string $description = null;
+
+    protected ?int $width = null;
+
+    protected ?int $height = null;
+
+    protected ?int $duration = null;
+
+    protected ?string $parseMode = null;
 
     public static function make(string $id, string $url, string $mimeType, string $thumbUrl, string $title): InlineQueryResultVideo
     {
-        $result = new InlineQueryResultVideo();
+        $result = new InlineQueryResultVideo;
         $result->id = $id;
         $result->url = $url;
         $result->mimeType = $mimeType;
@@ -33,35 +44,35 @@ class InlineQueryResultVideo extends InlineQueryResult
         return $result;
     }
 
-    public function caption(string|null $caption): static
+    public function caption(?string $caption): static
     {
         $this->caption = $caption;
 
         return $this;
     }
 
-    public function description(string|null $description): static
+    public function description(?string $description): static
     {
         $this->description = $description;
 
         return $this;
     }
 
-    public function width(int|null $width): static
+    public function width(?int $width): static
     {
         $this->width = $width;
 
         return $this;
     }
 
-    public function height(int|null $height): static
+    public function height(?int $height): static
     {
         $this->height = $height;
 
         return $this;
     }
 
-    public function duration(int|null $duration): static
+    public function duration(?int $duration): static
     {
         $this->duration = $duration;
 
@@ -90,7 +101,7 @@ class InlineQueryResultVideo extends InlineQueryResult
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function data(): array
     {

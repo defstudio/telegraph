@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockParagraph implements RichBlockItem, Arrayable
+class RichBlockParagraph implements Arrayable, RichBlockItem
 {
     private const TYPE = 'paragraph';
 
@@ -24,8 +24,6 @@ class RichBlockParagraph implements RichBlockItem, Arrayable
      *     type: string,
      *     text: string|array<string ,mixed>,
      * }  $data
-     *
-     * @return RichBlockParagraph
      */
     public static function fromArray(array $data): RichBlockParagraph
     {
@@ -33,7 +31,7 @@ class RichBlockParagraph implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockParagraph = new self();
+        $richBlockParagraph = new self;
 
         $richBlockParagraph->text = app(RichTextFactory::class)->fromData($data['text']);
 
@@ -60,6 +58,6 @@ class RichBlockParagraph implements RichBlockItem, Arrayable
             'text' => $this->text instanceof RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

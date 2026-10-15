@@ -16,23 +16,27 @@ class User implements Arrayable, Storable
     use HasStorage;
 
     private int $id;
+
     private bool $isBot;
+
     private string $firstName;
+
     private string $lastName;
+
     private string $username;
+
     private string $languageCode;
+
     private bool $isPremium;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
-     * @param array{id:int, is_bot?:bool, first_name?:string, last_name?:string, username?:string, language_code?:string, is_premium?:bool} $data
+     * @param  array{id:int, is_bot?:bool, first_name?:string, last_name?:string, username?:string, language_code?:string, is_premium?:bool}  $data
      */
     public static function fromArray(array $data): User
     {
-        $user = new self();
+        $user = new self;
 
         $user->id = $data['id'];
         $user->isBot = $data['is_bot'] ?? false;
@@ -96,6 +100,6 @@ class User implements Arrayable, Storable
             'username' => $this->username,
             'language_code' => $this->languageCode,
             'is_premium' => $this->isPremium,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

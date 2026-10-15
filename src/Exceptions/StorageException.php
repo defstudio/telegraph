@@ -8,7 +8,7 @@ class StorageException extends Exception
 {
     public static function noDefaultDriver(): StorageException
     {
-        return new self("No default driver defined in telegraph.storage.default config");
+        return new self('No default driver defined in telegraph.storage.default config');
     }
 
     public static function driverNotFound(string $driver): StorageException

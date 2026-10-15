@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 abstract class StorageDriver implements \DefStudio\Telegraph\Contracts\StorageDriver
 {
     private const MODEL_CLASS_KEY = ':tgph_model_class:';
+
     private const MODEL_ID_KEY = ':tgph_model_id:';
 
     final public function set(string $key, mixed $value): static

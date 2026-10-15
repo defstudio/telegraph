@@ -10,6 +10,7 @@ class RichTextCustomEmoji implements RichTextItem
     private const TYPE = 'custom_emoji';
 
     private string $customEmojiId;
+
     private string $alternativeText;
 
     /**
@@ -18,14 +19,12 @@ class RichTextCustomEmoji implements RichTextItem
      *     custom_emoji_id: string,
      *     alternative_text: string
      * }  $data
-     *
-     * @return RichTextCustomEmoji
      */
     public static function fromData(string|array $data): RichTextCustomEmoji
     {
-        $richTextCustomEmoji = new self();
+        $richTextCustomEmoji = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -56,6 +55,6 @@ class RichTextCustomEmoji implements RichTextItem
             'type' => self::TYPE,
             'custom_emoji_id' => $this->customEmojiId,
             'alternative_text' => $this->alternativeText,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

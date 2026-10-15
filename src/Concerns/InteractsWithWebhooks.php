@@ -20,7 +20,7 @@ trait InteractsWithWebhooks
         if ($customWebhookUrl === null) {
             $url = route('telegraph.webhook', $this->getBot());
 
-            if (!str_starts_with($url, 'https://')) {
+            if (! str_starts_with($url, 'https://')) {
                 throw TelegramWebhookException::invalidScheme();
             }
 
@@ -31,13 +31,9 @@ trait InteractsWithWebhooks
     }
 
     /**
-     * @param  bool|null  $dropPendingUpdates
-     * @param  int|null  $maxConnections
-     * @param  string|null  $secretToken
      * @param  string[]|null  $allowedUpdates
      *
-     * @throws \DefStudio\Telegraph\Exceptions\TelegramWebhookException
-     * @return \DefStudio\Telegraph\Telegraph
+     * @throws TelegramWebhookException
      */
     public function registerWebhook(?bool $dropPendingUpdates = null, ?int $maxConnections = null, ?string $secretToken = null, ?array $allowedUpdates = null): Telegraph
     {
@@ -45,7 +41,7 @@ trait InteractsWithWebhooks
 
         $telegraph->endpoint = self::ENDPOINT_SET_WEBHOOK;
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         $telegraph->data = collect([
             'url' => $this->getWebhookUrl(),
             'drop_pending_updates' => $dropPendingUpdates,

@@ -51,7 +51,7 @@ class TelegraphRoute
         $chat = Arr::get($route, 'chat', Arr::get($route, 'chat_id'));
 
         if ($bot !== null) {
-            if (!$bot instanceof TelegraphBot && !is_string($bot)) {
+            if (! $bot instanceof TelegraphBot && ! is_string($bot)) {
                 throw new \InvalidArgumentException('Telegraph notification route [bot] value must be a bot token or TelegraphBot instance.');
             }
 
@@ -59,7 +59,7 @@ class TelegraphRoute
         }
 
         if ($chat !== null) {
-            if (!$chat instanceof TelegraphChat && !is_string($chat)) {
+            if (! $chat instanceof TelegraphChat && ! is_string($chat)) {
                 throw new \InvalidArgumentException('Telegraph notification route [chat] value must be a chat id or TelegraphChat instance.');
             }
 

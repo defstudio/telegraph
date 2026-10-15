@@ -77,11 +77,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextDateTime::fromData([
         'type' => 'date_time',
-        'text' =>
-            [
-                'type' => 'spoiler',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'spoiler',
+            'text' => 'Hello world',
+        ],
         'unix_time' => 10,
         'date_time_format' => 'test',
     ]);

@@ -22,11 +22,11 @@ trait InteractsWithTelegram
 {
     protected string $endpoint;
 
-    protected string|null $url = null;
+    protected ?string $url = null;
 
-    protected string|null $baseUrl = null;
+    protected ?string $baseUrl = null;
 
-    protected string|null $httpProxy = null;
+    protected ?string $httpProxy = null;
 
     protected function sendRequestToTelegram(): Response
     {
@@ -71,7 +71,7 @@ trait InteractsWithTelegram
         if ($asMultipart) {
             $data = collect($data)
                 ->mapWithKeys(function ($value, $key) {
-                    if (!is_array($value)) {
+                    if (! is_array($value)) {
                         return [$key => $value];
                     }
 
@@ -80,7 +80,7 @@ trait InteractsWithTelegram
                 ->toArray();
         }
 
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         return $data;
     }
 
@@ -89,7 +89,7 @@ trait InteractsWithTelegram
         return SendRequestToTelegramJob::dispatch($this->getApiUrl(), $this->prepareData(), $this->files, $this->getHttpProxy())->onQueue($queue);
     }
 
-    public function setUrl(string|null $url): Telegraph
+    public function setUrl(?string $url): Telegraph
     {
         $telegraph = clone $this;
 
@@ -98,7 +98,7 @@ trait InteractsWithTelegram
         return $telegraph;
     }
 
-    public function setBaseUrl(string|null $url): Telegraph
+    public function setBaseUrl(?string $url): Telegraph
     {
         $telegraph = clone $this;
 
@@ -115,7 +115,7 @@ trait InteractsWithTelegram
             ->append('/bot');
     }
 
-    public function setHttpProxy(string|null $proxy): Telegraph
+    public function setHttpProxy(?string $proxy): Telegraph
     {
         $telegraph = clone $this;
 
@@ -124,7 +124,7 @@ trait InteractsWithTelegram
         return $telegraph;
     }
 
-    protected function getHttpProxy(): string|null
+    protected function getHttpProxy(): ?string
     {
         /* @phpstan-ignore-next-line */
         return $this->httpProxy ?? config('telegraph.http_proxy');
@@ -145,7 +145,7 @@ trait InteractsWithTelegram
         $data = $this->prepareData();
 
         $url = match (true) {
-            !is_null($this->url) => $this->url,
+            ! is_null($this->url) => $this->url,
             $bot instanceof HasCustomUrl => $bot->getUrl(),
             default => Str::of($this->getBaseUrl())->append($this->getBotToken())->toString(),
         };
@@ -153,7 +153,7 @@ trait InteractsWithTelegram
         /** @phpstan-ignore-next-line */
         return Str::of($url)
             ->append('/', $this->endpoint)
-            ->when(!empty($data), fn (Stringable $str) => $str->append('?', http_build_query($data)))
+            ->when(! empty($data), fn (Stringable $str) => $str->append('?', http_build_query($data)))
             ->toString();
     }
 
@@ -162,7 +162,7 @@ trait InteractsWithTelegram
         $bot = $this->getBot();
 
         return match (true) {
-            !is_null($this->url) => $this->url,
+            ! is_null($this->url) => $this->url,
             $bot instanceof HasCustomUrl => $bot->getFilesUrl(),
             default => Str::of($this->getFilesBaseUrl())->append($this->getBotToken())->toString(),
         };
@@ -173,7 +173,7 @@ trait InteractsWithTelegram
         $bot = $this->getBot();
 
         $url = match (true) {
-            !is_null($this->url) => $this->url,
+            ! is_null($this->url) => $this->url,
             $bot instanceof HasCustomUrl => $bot->getUrl(),
             default => Str::of($this->getBaseUrl())->append($this->getBotToken())->toString(),
         };

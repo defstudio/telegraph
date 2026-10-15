@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextSuperscript::fromData([
         'type' => 'superscript',
-        'text' =>
-            [
-                'type' => 'superscript',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'superscript',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

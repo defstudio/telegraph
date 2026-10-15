@@ -11,15 +11,16 @@ use Illuminate\Contracts\Support\Arrayable;
 class VideoNote implements Arrayable, Downloadable
 {
     private string $id;
+
     private int $duration;
+
     private int $length;
+
     private ?int $filesize = null;
 
     private ?Photo $thumbnail = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param  array{
@@ -32,7 +33,7 @@ class VideoNote implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): VideoNote
     {
-        $video = new self();
+        $video = new self;
 
         $video->id = $data['file_id'];
         $video->length = $data['length'];

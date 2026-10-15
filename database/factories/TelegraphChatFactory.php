@@ -14,7 +14,7 @@ class TelegraphChatFactory extends Factory
     protected $model = TelegraphChat::class;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function definition(): array
     {

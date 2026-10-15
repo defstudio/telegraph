@@ -9,16 +9,22 @@ use DefStudio\Telegraph\Telegraph;
 class InlineQueryResultVoice extends InlineQueryResult
 {
     protected string $type = 'voice';
+
     protected string $id;
+
     protected string $url;
+
     protected string $title;
-    protected string|null $caption = null;
-    protected int|null $duration = null;
-    protected string|null $parseMode = null;
+
+    protected ?string $caption = null;
+
+    protected ?int $duration = null;
+
+    protected ?string $parseMode = null;
 
     public static function make(string $id, string $url, string $title): InlineQueryResultVoice
     {
-        $result = new InlineQueryResultVoice();
+        $result = new InlineQueryResultVoice;
         $result->id = $id;
         $result->url = $url;
         $result->title = $title;
@@ -26,14 +32,14 @@ class InlineQueryResultVoice extends InlineQueryResult
         return $result;
     }
 
-    public function caption(string|null $caption): static
+    public function caption(?string $caption): static
     {
         $this->caption = $caption;
 
         return $this;
     }
 
-    public function duration(int|null $duration): static
+    public function duration(?int $duration): static
     {
         $this->duration = $duration;
 
@@ -62,7 +68,7 @@ class InlineQueryResultVoice extends InlineQueryResult
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function data(): array
     {

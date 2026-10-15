@@ -10,16 +10,20 @@ use Illuminate\Contracts\Support\Arrayable;
 class Venue implements Arrayable
 {
     private Location $location;
+
     private string $title;
+
     private string $address;
+
     private ?string $foursquareId = null;
+
     private ?string $foursquareType = null;
+
     private ?string $googlePlaceId = null;
+
     private ?string $googlePlaceType = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -34,7 +38,7 @@ class Venue implements Arrayable
      */
     public static function fromArray(array $data): Venue
     {
-        $venue = new self();
+        $venue = new self;
 
         $venue->location = Location::fromArray($data['location']);
         $venue->title = $data['title'];

@@ -14,6 +14,7 @@ class RichBlockCaption implements Arrayable
 {
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $text;
+
     /** @var RichTextItem|Collection<array-key, RichTextItem> */
     private RichTextItem|Collection $credit;
 
@@ -31,7 +32,7 @@ class RichBlockCaption implements Arrayable
      */
     public static function fromArray(array $data): RichBlockCaption
     {
-        $richBlockCaption = new self();
+        $richBlockCaption = new self;
 
         $richBlockCaption->text = app(RichTextFactory::class)->fromData($data['text']);
 
@@ -67,6 +68,6 @@ class RichBlockCaption implements Arrayable
             'credit' => $this->credit instanceof RichTextItem
                 ? $this->credit->build()
                 : $this->credit->map(fn (RichTextItem $item) => $item->build())->toArray(),
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

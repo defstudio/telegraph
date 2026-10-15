@@ -10,8 +10,10 @@ use Illuminate\Support\Collection;
 class RichTextBotCommand implements RichTextItem
 {
     private const TYPE = 'bot_command';
+
     /** @var RichTextItem|Collection<int|string,RichTextItem> */
     private RichTextItem|Collection $text;
+
     private string $botCommand;
 
     public function __construct()
@@ -25,14 +27,12 @@ class RichTextBotCommand implements RichTextItem
      *     text: string|array<string ,mixed>,
      *     bot_command: string
      * }  $data
-     *
-     * @return RichTextBotCommand
      */
     public static function fromData(string|array $data): RichTextBotCommand
     {
-        $richTextBotCommand = new self();
+        $richTextBotCommand = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -68,6 +68,6 @@ class RichTextBotCommand implements RichTextItem
                 ? $this->text->build()
                 : $this->text->map(fn (RichTextItem $item) => $item->build())->toArray(),
             'bot_command' => $this->botCommand,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

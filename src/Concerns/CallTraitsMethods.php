@@ -8,10 +8,8 @@ trait CallTraitsMethods
 {
     /**
      * @template TValue
-     * @param string $methodName
-     * @param TValue $pipeable
-     * @param mixed ...$params
      *
+     * @param  TValue  $pipeable
      * @return TValue
      */
     protected function pipeTraits(string $methodName, mixed $pipeable, mixed ...$params): mixed

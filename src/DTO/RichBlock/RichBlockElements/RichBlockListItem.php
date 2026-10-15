@@ -13,11 +13,16 @@ use Illuminate\Support\Collection;
 class RichBlockListItem implements Arrayable
 {
     private string $label;
+
     /** @var Collection<array-key,RichBlockItem> */
     private Collection $blocks;
+
     private bool $hasCheckbox = false;
+
     private bool $isChecked = false;
+
     private ?int $value = null;
+
     private ?string $type = null;
 
     public function __construct()
@@ -28,7 +33,7 @@ class RichBlockListItem implements Arrayable
     /**
      * @param  array{
      *     label: string,
-     *     blocks: array<array-key, Object>,
+     *     blocks: array<array-key, object>,
      *     has_checkbox?: bool,
      *     is_checked?: bool,
      *     value?: int,
@@ -37,7 +42,7 @@ class RichBlockListItem implements Arrayable
      */
     public static function fromArray(array $data): RichBlockListItem
     {
-        $richBlockListItem = new self();
+        $richBlockListItem = new self;
 
         /* @phpstan-ignore-next-line */
         $richBlockListItem->blocks = collect($data['blocks'])->map(fn (array $blockData) => app(RichBlockFactory::class)->fromArray($blockData));

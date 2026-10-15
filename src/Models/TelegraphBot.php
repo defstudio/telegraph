@@ -38,6 +38,7 @@ class TelegraphBot extends Model implements Storable
 {
     /** @use HasFactory<TelegraphBotFactory> */
     use HasFactory;
+
     use HasStorage;
 
     protected $fillable = [
@@ -73,7 +74,7 @@ class TelegraphBot extends Model implements Storable
         return 'token';
     }
 
-    public static function fromId(int|null $id = null): TelegraphBot
+    public static function fromId(?int $id = null): TelegraphBot
     {
         if (empty($id)) {
             return self::query()->sole();
@@ -92,7 +93,7 @@ class TelegraphBot extends Model implements Storable
      */
     public function chats(): HasMany
     {
-        //@phpstan-ignore-next-line
+        // @phpstan-ignore-next-line
         return $this->hasMany(config('telegraph.models.chat'), 'telegraph_bot_id');
     }
 
@@ -106,7 +107,7 @@ class TelegraphBot extends Model implements Storable
         return TelegraphFacade::bot($this)->withData($key, $value);
     }
 
-    public function registerWebhook(bool|null $dropPendingUpdates = null, int|null $maxConnections = null, string|null $secretToken = null): Telegraph
+    public function registerWebhook(?bool $dropPendingUpdates = null, ?int $maxConnections = null, ?string $secretToken = null): Telegraph
     {
         return TelegraphFacade::bot($this)->registerWebhook($dropPendingUpdates, $maxConnections, $secretToken);
     }
@@ -137,7 +138,7 @@ class TelegraphBot extends Model implements Storable
     }
 
     /**
-     * @param InlineQueryResult[] $results
+     * @param  InlineQueryResult[]  $results
      */
     public function answerInlineQuery(string $inlineQueryID, array $results): Telegraph
     {
@@ -145,7 +146,7 @@ class TelegraphBot extends Model implements Storable
     }
 
     /**
-     * @param array<string, string> $commands
+     * @param  array<string, string>  $commands
      */
     public function registerCommands(array $commands): Telegraph
     {
@@ -182,27 +183,26 @@ class TelegraphBot extends Model implements Storable
         return TelegraphFacade::bot($this)->getFileInfo($fileId);
     }
 
-    public function store(Downloadable|string $attachment, string $path, string|null $filename = null): string
+    public function store(Downloadable|string $attachment, string $path, ?string $filename = null): string
     {
         return TelegraphFacade::bot($this)->store($attachment, $path, $filename);
     }
 
     public function url(): string
     {
-        return "https://t.me/" . $this->info()['username'];
+        return 'https://t.me/'.$this->info()['username'];
     }
 
     /**
-     * @param string[]|null $allowedUpdates
-     *
+     * @param  string[]|null  $allowedUpdates
      * @return \Illuminate\Support\Collection<int, TelegramUpdate>
      */
-    public function updates(int|null $timeout = null, int|null $offset = null, int|null $limit = null, array|null $allowedUpdates = null): \Illuminate\Support\Collection
+    public function updates(?int $timeout = null, ?int $offset = null, ?int $limit = null, ?array $allowedUpdates = null): \Illuminate\Support\Collection
     {
         $reply = TelegraphFacade::bot($this)->botUpdates($timeout, $offset, $limit, $allowedUpdates)->send();
 
         if ($reply->telegraphError()) {
-            if (!$reply->successful()) {
+            if (! $reply->successful()) {
                 throw TelegramUpdatesException::pollingError($this, $reply->reason());
             }
 
@@ -214,22 +214,21 @@ class TelegraphBot extends Model implements Storable
             throw TelegramUpdatesException::pollingError($this, $reply->json('description'));
         }
 
-
         /* @phpstan-ignore-next-line */
         return collect($reply->json('result'))->map(fn (array $update) => TelegramUpdate::fromArray($update));
     }
 
-    public function setUrl(string|null $url): Telegraph
+    public function setUrl(?string $url): Telegraph
     {
         return TelegraphFacade::bot($this)->setUrl($url);
     }
 
-    public function setBaseUrl(string|null $url): Telegraph
+    public function setBaseUrl(?string $url): Telegraph
     {
         return TelegraphFacade::bot($this)->setBaseUrl($url);
     }
 
-    public function setHttpProxy(string|null $proxy): Telegraph
+    public function setHttpProxy(?string $proxy): Telegraph
     {
         return TelegraphFacade::bot($this)->setHttpProxy($proxy);
     }

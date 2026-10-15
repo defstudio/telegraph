@@ -18,7 +18,7 @@ use PHPUnit\Framework\Assert;
 use Psr\Http\Message\MessageInterface;
 use Psr\Http\Message\StreamInterface;
 
-//@phpstan-ignore-next-line
+// @phpstan-ignore-next-line
 trait FakesRequests
 {
     /** @var array<int, mixed[]> */
@@ -35,11 +35,11 @@ trait FakesRequests
         self::$sentMessages = [];
     }
 
-    protected function dispatchRequestToTelegram(string $queue = null): PendingDispatch
+    protected function dispatchRequestToTelegram(?string $queue = null): PendingDispatch
     {
         self::$sentMessages[] = $this->messageToArray();
 
-        if (!Queue::getFacadeRoot() instanceof QueueFake) {
+        if (! Queue::getFacadeRoot() instanceof QueueFake) {
             Queue::fake();
         }
 
@@ -67,10 +67,9 @@ trait FakesRequests
     {
         self::$sentMessages[] = $this->messageToArray();
 
-        $messageClass = new class () implements MessageInterface {
-            public function __construct(private array|string $reply = [])
-            {
-            }
+        $messageClass = new class implements MessageInterface
+        {
+            public function __construct(private array|string $reply = []) {}
 
             public function getStatusCode(): int
             {
@@ -79,7 +78,7 @@ trait FakesRequests
 
             public function getProtocolVersion(): string
             {
-                return "";
+                return '';
             }
 
             public function withProtocolVersion($version): static
@@ -104,7 +103,7 @@ trait FakesRequests
 
             public function getHeaderLine($name): string
             {
-                return "";
+                return '';
             }
 
             public function withHeader($name, $value): static
@@ -124,7 +123,7 @@ trait FakesRequests
 
             public function getBody(): StreamInterface
             {
-                $buffer = new BufferStream();
+                $buffer = new BufferStream;
 
                 /** @phpstan-ignore-next-line */
                 $buffer->write(json_encode($this->reply));
@@ -247,13 +246,13 @@ trait FakesRequests
         return new Response(new $messageClass($response));
     }
 
-    public function store(Downloadable|string $downloadable, string $path, string $filename = null): string
+    public function store(Downloadable|string $downloadable, string $path, ?string $filename = null): string
     {
         $fileId = is_string($downloadable) ? $downloadable : $downloadable->id();
 
         self::$downloadedFiles[] = $fileId;
 
-        return $path . "/" . ($filename ?? 'missing_name.jpg');
+        return $path.'/'.($filename ?? 'missing_name.jpg');
     }
 
     public function dumpSentData(): void
@@ -262,31 +261,31 @@ trait FakesRequests
     }
 
     /** @phpstan-ignore-next-line  */
-    public static function assertSentData(string $endpoint, array $data = null, bool $exact = true): void
+    public static function assertSentData(string $endpoint, ?array $data = null, bool $exact = true): void
     {
         if ($data == null) {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+            $errorMessage = sprintf('Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)', $endpoint, count(self::$sentMessages));
         } else {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+            $errorMessage = sprintf('Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)', $endpoint, count(self::$sentMessages));
         }
 
         Assert::assertNotEmpty(static::searchMessages($endpoint, $data, $exact)->toArray(), $errorMessage);
     }
 
     /** @phpstan-ignore-next-line  */
-    public static function assertNotSentData(string $endpoint, array $data = null, bool $exact = true): void
+    public static function assertNotSentData(string $endpoint, ?array $data = null, bool $exact = true): void
     {
         if ($data == null) {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+            $errorMessage = sprintf('Failed to assert that a request was sent to [%s] endpoint (sent %d requests so far)', $endpoint, count(self::$sentMessages));
         } else {
-            $errorMessage = sprintf("Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)", $endpoint, count(self::$sentMessages));
+            $errorMessage = sprintf('Failed to assert that a request was sent to [%s] endpoint with the given data (sent %d requests so far)', $endpoint, count(self::$sentMessages));
         }
 
         Assert::assertEmpty(static::searchMessages($endpoint, $data, $exact)->toArray(), $errorMessage);
     }
 
     /** @phpstan-ignore-next-line  */
-    protected static function searchMessages(string $endpoint, array $data = null, bool $exact = true): Collection
+    protected static function searchMessages(string $endpoint, ?array $data = null, bool $exact = true): Collection
     {
         return collect(self::$sentMessages)
             ->filter(fn (array $message): bool => $message['endpoint'] == $endpoint)
@@ -294,7 +293,7 @@ trait FakesRequests
                 foreach ($data ?? [] as $key => $value) {
                     /** @var array<string, string> $data */
                     $messageData = $message['data'];
-                    if (!Arr::has($messageData, $key)) {
+                    if (! Arr::has($messageData, $key)) {
                         return false;
                     }
 
@@ -303,7 +302,7 @@ trait FakesRequests
                             return false;
                         }
                     } else {
-                        if (!Str::of($messageData[$key])->contains($value)) {
+                        if (! Str::of($messageData[$key])->contains($value)) {
                             return false;
                         }
                     }

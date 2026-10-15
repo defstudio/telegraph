@@ -11,18 +11,24 @@ use Illuminate\Contracts\Support\Arrayable;
 class Sticker implements Arrayable, Downloadable
 {
     private string $id;
+
     private string $type;
+
     private int $width;
+
     private int $height;
+
     private bool $isAnimated = false;
+
     private bool $isVideo = false;
-    private ?string $emoji = null ;
+
+    private ?string $emoji = null;
+
     private ?int $filesize = null;
+
     private ?Photo $thumbnail = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -39,7 +45,7 @@ class Sticker implements Arrayable, Downloadable
      */
     public static function fromArray(array $data): Sticker
     {
-        $sticker = new self();
+        $sticker = new self;
 
         $sticker->id = $data['file_id'];
         $sticker->width = $data['width'];

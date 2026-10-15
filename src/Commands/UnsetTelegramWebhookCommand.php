@@ -36,9 +36,9 @@ class UnsetTelegramWebhookCommand extends Command
 
         $reponse = $telegraph->send();
 
-        $ok = (bool)$reponse->json('ok');
+        $ok = (bool) $reponse->json('ok');
 
-        if (!$ok) {
+        if (! $ok) {
             $this->error(__('telegraph::errors.failed_to_unregister_webhook'));
             $this->error($reponse->body());
 

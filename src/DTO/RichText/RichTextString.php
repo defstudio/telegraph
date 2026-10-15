@@ -8,19 +8,19 @@ use DefStudio\Telegraph\Exceptions\RichTextException;
 class RichTextString implements RichTextItem
 {
     private const TYPE = null;
+
     private string $text;
 
     /**
      * @param  string|array<string, mixed>  $data
      *
-     * @return RichTextString
      * @throws RichTextException
      */
     public static function fromData(string|array $data): RichTextString
     {
-        $richBlockAnchor = new self();
+        $richBlockAnchor = new self;
 
-        if (!is_string($data)) {
+        if (! is_string($data)) {
             throw RichTextException::structureMismatch();
         }
 

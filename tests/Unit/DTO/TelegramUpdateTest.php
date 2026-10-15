@@ -148,7 +148,7 @@ it('export all properties to array', function () {
             ],
         ],
         'inline_query' => [
-            'id' => "a99",
+            'id' => 'a99',
             'query' => 'foo',
             'from' => [
                 'id' => 1,

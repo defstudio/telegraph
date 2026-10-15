@@ -48,7 +48,7 @@ it('create text from array', function () {
             'test',
             [
                 'type' => 'bold',
-                        'text' => 'Hello world',
+                'text' => 'Hello world',
             ],
         ],
     ]);
@@ -70,11 +70,10 @@ it('create text from array', function () {
 it('create text from Rich Text Item', function () {
     $dto = RichTextBold::fromData([
         'type' => 'bold',
-        'text' =>
-            [
-                'type' => 'bold',
-                'text' => 'Hello world',
-            ],
+        'text' => [
+            'type' => 'bold',
+            'text' => 'Hello world',
+        ],
 
     ]);
 

@@ -23,8 +23,7 @@ class ReplyButton
 
     private function __construct(
         private string $label,
-    ) {
-    }
+    ) {}
 
     public static function make(string $label): ReplyButton
     {
@@ -114,7 +113,7 @@ class ReplyButton
             $data['request_poll'] = $this->pollType;
         }
 
-        if (!empty($this->style)) {
+        if (! empty($this->style)) {
             $data['style'] = $this->style;
         }
 

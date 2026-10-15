@@ -10,12 +10,12 @@ use Illuminate\Contracts\Support\Arrayable;
 class Location implements Arrayable
 {
     private float $latitude;
+
     private float $longitude;
+
     private ?float $accuracy = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -26,7 +26,7 @@ class Location implements Arrayable
      */
     public static function fromArray(array $data): Location
     {
-        $location = new self();
+        $location = new self;
 
         $location->latitude = $data['latitude'];
         $location->longitude = $data['longitude'];

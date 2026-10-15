@@ -13,11 +13,11 @@ function testStorableStorageFile(TestStorable $class): string
 {
     return (string) Str::of('telegraph')
         ->append('/', class_basename($class::class))
-        ->append("/", 'foo', '.json');
+        ->append('/', 'foo', '.json');
 }
 
 it('can store and retrieve data', function (string $key, mixed $value) {
-    $class = new TestStorable();
+    $class = new TestStorable;
 
     $class->storage('file')->set($key, $value);
 
@@ -41,7 +41,7 @@ it('can store and retrieve data', function (string $key, mixed $value) {
 ]);
 
 it('can store and retrieve a model', function () {
-    $class = new TestStorable();
+    $class = new TestStorable;
 
     $model = TelegraphChat::factory()->create();
 
@@ -64,7 +64,7 @@ it('can store and retrieve a model', function () {
 });
 
 it('can store and retrieve a nested model', function () {
-    $class = new TestStorable();
+    $class = new TestStorable;
 
     $models = TelegraphChat::factory()->count(4)->create();
 
@@ -102,7 +102,7 @@ it('can store and retrieve a nested model', function () {
 });
 
 it('falls back to the default value when the file storage data is missing or empty', function (?string $contents) {
-    $class = new TestStorable();
+    $class = new TestStorable;
     $file = testStorableStorageFile($class);
 
     if ($contents !== null) {
@@ -118,7 +118,7 @@ it('falls back to the default value when the file storage data is missing or emp
 ]);
 
 it('falls back safely when the file storage data is invalid json', function () {
-    $class = new TestStorable();
+    $class = new TestStorable;
     $file = testStorableStorageFile($class);
 
     Storage::put($file, '{invalid json');
@@ -127,7 +127,7 @@ it('falls back safely when the file storage data is invalid json', function () {
 });
 
 it('overwrites empty or invalid file storage data with valid json', function (string $contents) {
-    $class = new TestStorable();
+    $class = new TestStorable;
     $file = testStorableStorageFile($class);
 
     Storage::put($file, $contents);

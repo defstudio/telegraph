@@ -1,6 +1,5 @@
 <?php
 
-
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Concerns;
@@ -11,7 +10,6 @@ use DefStudio\Telegraph\Telegraph;
 /**
  * @mixin Telegraph
  */
-
 trait InteractsWithCommands
 {
     public function getRegisteredCommands(): Telegraph
@@ -24,7 +22,7 @@ trait InteractsWithCommands
     }
 
     /**
-     * @param array<string, string> $commands
+     * @param  array<string, string>  $commands
      */
     public function registerBotCommands(array $commands): Telegraph
     {
@@ -41,7 +39,7 @@ trait InteractsWithCommands
                 throw BotCommandException::longCommand($command);
             }
 
-            if (!preg_match('/[a-z0-9_]+/', $command)) {
+            if (! preg_match('/[a-z0-9_]+/', $command)) {
                 throw BotCommandException::invalidCommand($command);
             }
 

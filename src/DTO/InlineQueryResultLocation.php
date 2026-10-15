@@ -9,23 +9,36 @@ use DefStudio\Telegraph\Telegraph;
 class InlineQueryResultLocation extends InlineQueryResult
 {
     protected string $type = 'location';
-    protected string $id;
-    protected string $title;
-    protected float $latitude;
-    protected float $longitude;
-    protected string|null $message = null;
-    protected string|null $thumbUrl = null;
-    protected int|null $livePeriod = null;
-    protected int|null $heading = null;
-    protected int|null $proximityAlertRadius = null;
-    protected int|null $thumbWidth = null;
-    protected int|null $thumbHeight = null;
-    protected float|null $horizontalAccuracy = null;
-    protected string|null $parseMode = null;
 
-    public static function make(string $id, string $title, float $latitude, float $longitude, string|null $message = null): InlineQueryResultLocation
+    protected string $id;
+
+    protected string $title;
+
+    protected float $latitude;
+
+    protected float $longitude;
+
+    protected ?string $message = null;
+
+    protected ?string $thumbUrl = null;
+
+    protected ?int $livePeriod = null;
+
+    protected ?int $heading = null;
+
+    protected ?int $proximityAlertRadius = null;
+
+    protected ?int $thumbWidth = null;
+
+    protected ?int $thumbHeight = null;
+
+    protected ?float $horizontalAccuracy = null;
+
+    protected ?string $parseMode = null;
+
+    public static function make(string $id, string $title, float $latitude, float $longitude, ?string $message = null): InlineQueryResultLocation
     {
-        $result = new InlineQueryResultLocation();
+        $result = new InlineQueryResultLocation;
         $result->id = $id;
         $result->title = $title;
         $result->latitude = $latitude;
@@ -35,49 +48,49 @@ class InlineQueryResultLocation extends InlineQueryResult
         return $result;
     }
 
-    public function thumbUrl(string|null $thumbUrl): static
+    public function thumbUrl(?string $thumbUrl): static
     {
         $this->thumbUrl = $thumbUrl;
 
         return $this;
     }
 
-    public function livePeriod(int|null $livePeriod): static
+    public function livePeriod(?int $livePeriod): static
     {
         $this->livePeriod = $livePeriod;
 
         return $this;
     }
 
-    public function heading(int|null $heading): static
+    public function heading(?int $heading): static
     {
         $this->heading = $heading;
 
         return $this;
     }
 
-    public function proximityAlertRadius(int|null $proximityAlertRadius): static
+    public function proximityAlertRadius(?int $proximityAlertRadius): static
     {
         $this->proximityAlertRadius = $proximityAlertRadius;
 
         return $this;
     }
 
-    public function thumbWidth(int|null $thumbWidth): static
+    public function thumbWidth(?int $thumbWidth): static
     {
         $this->thumbWidth = $thumbWidth;
 
         return $this;
     }
 
-    public function thumbHeight(int|null $thumbHeight): static
+    public function thumbHeight(?int $thumbHeight): static
     {
         $this->thumbHeight = $thumbHeight;
 
         return $this;
     }
 
-    public function horizontalAccuracy(float|null $horizontalAccuracy): static
+    public function horizontalAccuracy(?float $horizontalAccuracy): static
     {
         $this->horizontalAccuracy = $horizontalAccuracy;
 
@@ -106,7 +119,7 @@ class InlineQueryResultLocation extends InlineQueryResult
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function data(): array
     {

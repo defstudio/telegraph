@@ -5,11 +5,13 @@ namespace DefStudio\Telegraph\Keyboard;
 class Button
 {
     private string $url;
+
     private string $webAppUrl;
 
     private string $loginUrl;
 
     private string $switchInlineQuery;
+
     private string $switchInlineQueryCurrentChat;
 
     private string $copyText;
@@ -23,8 +25,7 @@ class Button
 
     private function __construct(
         private string $label,
-    ) {
-    }
+    ) {}
 
     public static function make(string $label): Button
     {
@@ -135,7 +136,7 @@ class Button
     {
         $data = $this->getFilteredData();
 
-        if (!empty($this->style)) {
+        if (! empty($this->style)) {
             $data['style'] = $this->style;
         }
 

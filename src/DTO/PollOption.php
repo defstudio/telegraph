@@ -11,25 +11,24 @@ use Illuminate\Support\Collection;
 class PollOption implements Arrayable
 {
     private string $text;
+
     /** @var Collection<int, Entity>|null */
     private ?Collection $textEntities = null;
 
     private int $voterCount;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
-     * @param array{text:string, text_entities:array<object>, voter_count:int} $data
+     * @param  array{text:string, text_entities:array<object>, voter_count:int}  $data
      */
     public static function fromArray(array $data): PollOption
     {
-        $pollOption = new self();
+        $pollOption = new self;
 
         $pollOption->text = $data['text'];
 
-        if (!empty($data['text_entities'])) {
+        if (! empty($data['text_entities'])) {
             /* @phpstan-ignore-next-line */
             $pollOption->textEntities = collect($data['text_entities'])->map(fn (array $entity) => Entity::fromArray($entity));
         }

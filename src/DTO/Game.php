@@ -11,12 +11,17 @@ use Illuminate\Support\Collection;
 class Game implements Arrayable
 {
     private string $title;
+
     private string $description;
+
     /** @var Collection<array-key, Photo> */
     private Collection $photos;
+
     /** @var Collection<array-key, Entity> */
     private Collection $entities;
+
     private ?Animation $animation = null;
+
     private ?string $text = null;
 
     private function __construct()
@@ -38,7 +43,7 @@ class Game implements Arrayable
      */
     public static function fromArray(array $data): Game
     {
-        $game = new self();
+        $game = new self;
 
         $game->title = $data['title'] ?? '';
         $game->description = $data['description'] ?? '';

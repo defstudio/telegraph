@@ -15,22 +15,30 @@ class ChatMember implements Arrayable
     use InteractWithPrivileges;
 
     public const STATUS_CREATOR = 'creator';
+
     public const STATUS_ADMINISTRATOR = 'administrator';
+
     public const STATUS_MEMBER = 'member';
+
     public const STATUS_RESTRICTED = 'restricted';
+
     public const STATUS_LEFT = 'left';
+
     public const STATUS_KICKED = 'kicked';
 
     private string $status;
+
     private User $user;
+
     private bool $isAnonymous = false;
+
     private bool $isMember = false;
+
     private ?string $customTitle = null;
+
     private ?int $untilDate = null;
 
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * @param array{
@@ -72,7 +80,7 @@ class ChatMember implements Arrayable
      */
     public static function fromArray(array $data): ChatMember
     {
-        $member = new self();
+        $member = new self;
 
         $member->status = $data['status'];
         $member->user = User::fromArray($data['user']);
@@ -117,19 +125,19 @@ class ChatMember implements Arrayable
         return $this->untilDate;
     }
 
-    //old method
+    // old method
     public function is_member(): bool
     {
         return $this->isMember();
     }
 
-    //old method
+    // old method
     public function custom_title(): string
     {
         return $this->customTitle() ?? '';
     }
 
-    //old method
+    // old method
     public function until_date(): ?int
     {
         return $this->untilDate();

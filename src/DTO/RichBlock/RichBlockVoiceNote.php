@@ -11,10 +11,12 @@ use Illuminate\Contracts\Support\Arrayable;
 /**
  * @implements Arrayable<string, string|int>
  */
-class RichBlockVoiceNote implements RichBlockItem, Arrayable
+class RichBlockVoiceNote implements Arrayable, RichBlockItem
 {
     private const TYPE = 'voice_note';
+
     private Voice $voiceNote;
+
     private ?RichBlockCaption $caption = null;
 
     /**
@@ -23,7 +25,6 @@ class RichBlockVoiceNote implements RichBlockItem, Arrayable
      *     voice_note:array<string, mixed>,
      *     caption?: array<string, mixed>
      * }  $data
-     *
      * @return RichBlockVoiceNote
      */
     public static function fromArray(array $data): RichBlockItem
@@ -32,7 +33,7 @@ class RichBlockVoiceNote implements RichBlockItem, Arrayable
             throw RichBlockException::structureMismatch();
         }
 
-        $richBlockVoiceNote = new self();
+        $richBlockVoiceNote = new self;
 
         $richBlockVoiceNote->voiceNote = Voice::fromArray($data['voice_note']);
 

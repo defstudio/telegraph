@@ -1,25 +1,24 @@
 <?php
 
-
 use DefStudio\Telegraph\Facades\Telegraph;
 
 $fake_response_data = [
-    "ok" => true,
-    "result" => [
-        "message_id" => 41302,
-        "sender_chat" => [
-            "id" => "-123456789",
-            "title" => "Test Chat",
-            "type" => "channel",
+    'ok' => true,
+    'result' => [
+        'message_id' => 41302,
+        'sender_chat' => [
+            'id' => '-123456789',
+            'title' => 'Test Chat',
+            'type' => 'channel',
         ],
-        "date" => 1645952240,
-        "text" => "foo",
+        'date' => 1645952240,
+        'text' => 'foo',
     ],
 ];
 
 it('wraps original response', function () use ($fake_response_data) {
     Telegraph::fake([
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => $fake_response_data,
+        DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => $fake_response_data,
     ]);
     $bot = make_bot();
 
@@ -42,7 +41,7 @@ it('returns telegram request success', function () {
 
 it('returns telegram request failure', function () {
     Telegraph::fake([
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => ['ok' => false],
+        DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => ['ok' => false],
     ]);
     $bot = make_bot();
 
@@ -54,7 +53,7 @@ it('returns telegram request failure', function () {
 
 it('returns telegram posted message id', function () use ($fake_response_data) {
     Telegraph::fake([
-        \DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => $fake_response_data,
+        DefStudio\Telegraph\Telegraph::ENDPOINT_MESSAGE => $fake_response_data,
     ]);
     $bot = make_bot();
 

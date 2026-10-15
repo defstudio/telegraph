@@ -1,6 +1,5 @@
 <?php
 
-
 /** @noinspection PhpUnhandledExceptionInspection */
 
 namespace DefStudio\Telegraph\Concerns;
@@ -10,7 +9,6 @@ use DefStudio\Telegraph\Telegraph;
 /**
  * @mixin Telegraph
  */
-
 trait InteractWithUsers
 {
     public function userProfilePhotos(string $userId): Telegraph

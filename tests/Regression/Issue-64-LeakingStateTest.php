@@ -11,7 +11,7 @@ test("telegraph state doesn't leak between calls", function () {
     $chat->markdown('*action*')
         ->keyboard(
             Keyboard::make()
-            ->button('do it')->action('do')
+                ->button('do it')->action('do')
         )->send();
 
     $array = $chat->message('test')->toArray();

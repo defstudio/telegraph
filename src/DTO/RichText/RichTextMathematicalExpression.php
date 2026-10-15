@@ -16,14 +16,12 @@ class RichTextMathematicalExpression implements RichTextItem
      *     type: string,
      *     expression: string,
      * }  $data
-     *
-     * @return RichTextMathematicalExpression
      */
     public static function fromData(string|array $data): RichTextMathematicalExpression
     {
-        $richTextMathematicalExpression = new self();
+        $richTextMathematicalExpression = new self;
 
-        if (!is_array($data) || $data['type'] !== self::TYPE) {
+        if (! is_array($data) || $data['type'] !== self::TYPE) {
             throw RichTextException::structureMismatch();
         }
 
@@ -47,6 +45,6 @@ class RichTextMathematicalExpression implements RichTextItem
         return array_filter([
             'type' => self::TYPE,
             'expression' => $this->expression,
-        ], fn ($value) => $value !== null); //@phpstan-ignore-line
+        ], fn ($value) => $value !== null); // @phpstan-ignore-line
     }
 }

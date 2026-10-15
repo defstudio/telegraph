@@ -17,7 +17,7 @@ class TelegraphQuizFake extends TelegraphQuizPayload
     use FakesRequests;
 
     /**
-     * @param array<string, array<mixed>> $replies
+     * @param  array<string, array<mixed>>  $replies
      */
     public function __construct(array $replies = [])
     {
@@ -26,13 +26,13 @@ class TelegraphQuizFake extends TelegraphQuizPayload
     }
 
     /**
-     * @param array<int, string> $options
+     * @param  array<int, string>  $options
      */
-    public static function assertSentQuiz(string $question, array $options = [], int $correct_index = null): void
+    public static function assertSentQuiz(string $question, array $options = [], ?int $correct_index = null): void
     {
         $data = ['question' => $question, 'type' => 'quiz'];
 
-        if (!empty($options)) {
+        if (! empty($options)) {
             $data['options'] = $options;
         }
 
