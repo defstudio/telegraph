@@ -244,6 +244,21 @@ it('can set style for buttons', function () {
     ]);
 });
 
+it('can set custom icon for buttons', function () {
+    $keyboard = Keyboard::make()
+        ->row([
+            Button::make('Cool button')->icon('cool_id'),
+            Button::make('Crazy button')->icon('crazy_id'),
+        ]);
+
+    expect($keyboard->toArray())->toMatchArray([
+        [
+            ['text' => 'Cool button', 'icon_custom_emoji_id' => 'cool_id'],
+            ['text' => 'Crazy button', 'icon_custom_emoji_id' => 'crazy_id'],
+        ],
+    ]);
+});
+
 it('can create keyboard with copy text buttons', function () {
     $keyboard = Keyboard::make()
         ->row([
